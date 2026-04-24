@@ -1,6 +1,94 @@
----
-title: "Index"
-editor: source
----
+## Prerequisites {.unnumbered}
 
-This is the content of the index file.
+Here are the lecture notes for the module **Inverse Problems in Geophysics.**, tailored for Master's students of Geophysics or Geoinformatics at the [Institute of Geophysics and Geoinformatics, TU Bergakademie Freiberg](https://tu-freiberg.de/geophysik).
+You can access all the materials on the GitHub repository <https://github.com/halbmy/InversionGeophysics>.
+
+Enjoy studying!
+
+## Background
+
+While this course was around already since 2000 in Freiberg (when I did my PhD), it did never meet the general title before my comeback. Striving to do so, I found no text book about learning the background of the simulation methods being increasingly used in geophysics, particularly solving partial differential equations by own codes and understanding the physics by doing so. We aim at learning to solve all common PDE types from elliptic, parabolic to hyperbolic, going from 1D to 2D and 3D, from Finite Differences to Finite Elements and Finite Volumes.
+
+## Code
+
+The website's course material includes sections with embedded Python code.
+You can easily copy the code and execute it in a compatible Python runtime environment.
+For an optimal experience, we recommend installing Python via [*miniforge*](https://github.com/conda-forge/miniforge).
+You mainly need the numerical base library [NumPy](https://numpy.org) for doing the computations, and [Matplotlib](https://matplotlib.org) for visualization purposes.
+For higher-dimensional problems, we use the [pyGIMLi](https://pygimli.org) package to generate meshes and matrices, but stay with its core and equation levels for didactic reasons.
+
+Moreover, you have the freedom to explore your own concepts and delve deeper into the course content by creating your personalized Jupyter notebooks. You can utilize use either [Visual Studio Code](https://code.visualstudio.com/) or [Jupyterlab](https://jupyter.org)
+Working with Jupyter Notebooks in Visual Studio Code is [exceptionally straightforward](https://code.visualstudio.com/docs/datascience/jupyter-notebooks).
+
+The material was created by [Quarto](https://quarto.org).
+
+## Self study
+
+There are individual small tasks for self-study that are scattered throughout the lecture.
+
+::: {.callout title="Self study"}
+You can easily identify these callouts.
+:::
+
+# Introduction
+
+- Content and dates
+- Literature and Links
+- definition of data and model
+- error and noise
+- linear vs. non-linear
+- linear inversion: simple matrix problem
+
+## Subject and Objectives
+
+::: {.callout-important title="Inversion (main task in applied geophysics)"}
+Determine a **model** describing the subsurface that can **explain our data**!
+:::
+
+::: {.callout-note title="Aim of the lecture" .fragment}
+* understand the process of imaging/inversion
+* solve inverse problems by simple scripts
+* actively control the inversion process
+* use tools to get a feeling for the value of models
+:::
+
+
+## Content
+
+0. Introduction, data, models
+1. Simple matrix problems, linear regression
+2. Method of least squares
+3. Resolution and Singular Value Decomposition
+4. Regularization methods
+5. Ray tomography
+6. Non-linear minimization
+7. Time-lapse inversion
+8. Global optimization methods
+
+## What should you know already?
+
+* Higher mathematics: differential equations, algebra (1.-2. BGIP)
+* Experimental and theoretical physics: governing equations
+* Numerics for engineers (2. BGIP)
+* Programming (1. BGIP), Software development (3. BGIP)
+* Geophysics: feeling for physical fields & methods (2.-4. BGIP)
+* MSc level: Scientific programming, HPC, seismic imaging
+
+## Literature
+
+* Menke (2018):  [Geophysical Data Analysis: Discrete Inverse Theory](https://www.sciencedirect.com/book/9780128135556/geophysical-data-analysis), Academic
+* Richter (2020): [Inverse Problems: Basics, Theory and Applications in Geophysics](https://link.springer.com/book/10.1007/978-3-030-59317-9)
+* Günther (2004): [Inversion Methods and Resolution Analysis for the 2D/3D Reconstruction of Resistivity Structures from DC Measurements](http://nbn-resolving.de/urn:nbn:de:swb:105-4152277),
+PhD thesis
+* Gubbins, Tarantola, Zhdanov
+
+## Further links
+
+* pyGIMLi: Python Geophysical Inversion and Modelling Library <https://pygimli.org>
+* Geoscience.XYZ: <https://geosci.xyz>
+* <https://github.com/halbmy/IJulia> - Julia Notebooks for Inverse Problems
+* [Electromagnetics](https://tubaf-em.github.io/Geoelektrik_Elektromagnetik/) (5. BGIP), [Theory EM](https://ruboerner.github.io/ThEM/),
+
+## License
+
+This material is licensed under the Creative Commons License CC-by 2.0.

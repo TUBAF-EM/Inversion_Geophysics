@@ -8,19 +8,19 @@ profile:
     - [book, slides]
 
 book:
-  title: "My Book"
-  author: "Ralph-Uwe Börner"
+  title: "Inverse Problems in Geophysics"
+  author: "Thomas Günther (TU Bergakademie Freiberg)"
   chapters:
     - index.qmd
-    - history.qmd
-    - methods.qmd
-    - slidedecks.qmd
-
-format: 
+    - 01_introduction.qmd
+    - 02_linear_problems.qmd
+format:
   html:
     theme: cosmo
     number-sections: true
     lib-dir: site_libs
+    code-fold: true
+    code-summary: "Show the code"
     include-in-header:
       - text: |
           <script>
