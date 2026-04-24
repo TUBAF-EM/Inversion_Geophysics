@@ -1,0 +1,272 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Inverse Problems in Geophysics",
+    "section": "",
+    "text": "Prerequisites\nHere are the lecture notes for the module Inverse Problems in Geophysics., tailored for Master’s students of Geophysics or Geoinformatics at the Institute of Geophysics and Geoinformatics, TU Bergakademie Freiberg. You can access all the materials on the GitHub repository https://github.com/halbmy/InversionGeophysics.\nEnjoy studying!",
+    "crumbs": [
+      "Prerequisites"
+    ]
+  },
+  {
+    "objectID": "index.html#background",
+    "href": "index.html#background",
+    "title": "Inverse Problems in Geophysics",
+    "section": "Background",
+    "text": "Background\nWhile this course was around already since 2000 in Freiberg (when I did my PhD), it did never meet the general title before my comeback. Striving to do so, I found no text book about learning the background of the simulation methods being increasingly used in geophysics, particularly solving partial differential equations by own codes and understanding the physics by doing so. We aim at learning to solve all common PDE types from elliptic, parabolic to hyperbolic, going from 1D to 2D and 3D, from Finite Differences to Finite Elements and Finite Volumes.",
+    "crumbs": [
+      "Prerequisites"
+    ]
+  },
+  {
+    "objectID": "index.html#code",
+    "href": "index.html#code",
+    "title": "Inverse Problems in Geophysics",
+    "section": "Code",
+    "text": "Code\nThe website’s course material includes sections with embedded Python code. You can easily copy the code and execute it in a compatible Python runtime environment. For an optimal experience, we recommend installing Python via miniforge. You mainly need the numerical base library NumPy for doing the computations, and Matplotlib for visualization purposes. For higher-dimensional problems, we use the pyGIMLi package to generate meshes and matrices, but stay with its core and equation levels for didactic reasons.\nMoreover, you have the freedom to explore your own concepts and delve deeper into the course content by creating your personalized Jupyter notebooks. You can utilize use either Visual Studio Code or Jupyterlab Working with Jupyter Notebooks in Visual Studio Code is exceptionally straightforward.\nThe material was created by Quarto.",
+    "crumbs": [
+      "Prerequisites"
+    ]
+  },
+  {
+    "objectID": "index.html#self-study",
+    "href": "index.html#self-study",
+    "title": "Inverse Problems in Geophysics",
+    "section": "Self study",
+    "text": "Self study\nThere are individual small tasks for self-study that are scattered throughout the lecture.\n\n\n\n\n\n\nNoneSelf study\n\n\n\nYou can easily identify these callouts.",
+    "crumbs": [
+      "Prerequisites"
+    ]
+  },
+  {
+    "objectID": "index.html#subject-and-objectives",
+    "href": "index.html#subject-and-objectives",
+    "title": "Inverse Problems in Geophysics",
+    "section": "Subject and Objectives",
+    "text": "Subject and Objectives\n\n\n\n\n\n\nImportantInversion (main task in applied geophysics)\n\n\n\nDetermine a model describing the subsurface that can explain our data!\n\n\n\n\n\n\n\n\nNoteAim of the lecture\n\n\n\n\nunderstand the process of imaging/inversion\nsolve inverse problems by simple scripts\nactively control the inversion process\nuse tools to get a feeling for the value of models",
+    "crumbs": [
+      "Prerequisites"
+    ]
+  },
+  {
+    "objectID": "index.html#content",
+    "href": "index.html#content",
+    "title": "Inverse Problems in Geophysics",
+    "section": "Content",
+    "text": "Content\n\nIntroduction, data, models\nSimple matrix problems, linear regression\nMethod of least squares\nResolution and Singular Value Decomposition\nRegularization methods\nRay tomography\nNon-linear minimization\nTime-lapse inversion\nGlobal optimization methods",
+    "crumbs": [
+      "Prerequisites"
+    ]
+  },
+  {
+    "objectID": "index.html#what-should-you-know-already",
+    "href": "index.html#what-should-you-know-already",
+    "title": "Inverse Problems in Geophysics",
+    "section": "What should you know already?",
+    "text": "What should you know already?\n\nHigher mathematics: differential equations, algebra (1.-2. BGIP)\nExperimental and theoretical physics: governing equations\nNumerics for engineers (2. BGIP)\nProgramming (1. BGIP), Software development (3. BGIP)\nGeophysics: feeling for physical fields & methods (2.-4. BGIP)\nMSc level: Scientific programming, HPC, seismic imaging",
+    "crumbs": [
+      "Prerequisites"
+    ]
+  },
+  {
+    "objectID": "index.html#literature",
+    "href": "index.html#literature",
+    "title": "Inverse Problems in Geophysics",
+    "section": "Literature",
+    "text": "Literature\n\nMenke (2018): Geophysical Data Analysis: Discrete Inverse Theory, Academic\nRichter (2020): Inverse Problems: Basics, Theory and Applications in Geophysics\nGünther (2004): Inversion Methods and Resolution Analysis for the 2D/3D Reconstruction of Resistivity Structures from DC Measurements, PhD thesis\nGubbins, Tarantola, Zhdanov",
+    "crumbs": [
+      "Prerequisites"
+    ]
+  },
+  {
+    "objectID": "index.html#further-links",
+    "href": "index.html#further-links",
+    "title": "Inverse Problems in Geophysics",
+    "section": "Further links",
+    "text": "Further links\n\npyGIMLi: Python Geophysical Inversion and Modelling Library https://pygimli.org\nGeoscience.XYZ: https://geosci.xyz\nhttps://github.com/halbmy/IJulia - Julia Notebooks for Inverse Problems\nElectromagnetics (5. BGIP), Theory EM,",
+    "crumbs": [
+      "Prerequisites"
+    ]
+  },
+  {
+    "objectID": "index.html#license",
+    "href": "index.html#license",
+    "title": "Inverse Problems in Geophysics",
+    "section": "License",
+    "text": "License\nThis material is licensed under the Creative Commons License CC-by 2.0.",
+    "crumbs": [
+      "Prerequisites"
+    ]
+  },
+  {
+    "objectID": "01_introduction.html",
+    "href": "01_introduction.html",
+    "title": "1  Introduction",
+    "section": "",
+    "text": "1.1 Data\nIn geophysics, we measure many different types of data depending on the physical method being used.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
+    ]
+  },
+  {
+    "objectID": "01_introduction.html#data",
+    "href": "01_introduction.html#data",
+    "title": "1  Introduction",
+    "section": "",
+    "text": "left: ERT/IP pseudosections for different frequencies\nsingle values\noften arranged logicallyview on data important\nsometimes associated to space\n\n\n\n\n1.1.1 Data in seismology\ntime series of acceleration, velocity or position\n\n\n\n1.1.2 Data in travel-time tomography\ntraveltimes between shot and geophones\n\n\n\n1.1.3 Data in gravimetry\n\n\n\nBouguer anomaly of gravity profile in Zellwald\n\n\n\n\n1.1.4 Data in electrical resistivity tomography (ERT)\ncurrent and voltage combinations\n\n\n\n1.1.5 Data organization\n\ncan be a discretized function of space, time or frequency, and plotted as such (curves)\ncan depend on several sensor (shot/geophone, ABMN) and visualized as several curves or a coloured matrix (crossplot, pseudosection)\n\nData are subsumed in the data vector \\[\\textbf{d}=[d_1, d_2, \\ldots, d_N]^T\\] consist of true model response \\(\\bf f(m)\\) plus noise \\(\\bf n\\): \\(\\bf d=f(m)+n\\)",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
+    ]
+  },
+  {
+    "objectID": "01_introduction.html#geophysical-workflow",
+    "href": "01_introduction.html#geophysical-workflow",
+    "title": "1  Introduction",
+    "section": "1.2 Geophysical Workflow",
+    "text": "1.2 Geophysical Workflow\n\n\n\nData acquisition\nPreprocessing (QC, filtering)\nParameterization (mesh)\nInversion\nFit of data & model response\nPostprocessing & visualization\nInterpretation",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
+    ]
+  },
+  {
+    "objectID": "01_introduction.html#model",
+    "href": "01_introduction.html#model",
+    "title": "1  Introduction",
+    "section": "1.3 Model",
+    "text": "1.3 Model\n\nnumerical parameterization of subsurface (our assumption)\n\n\n\n\nModel types (Everett, 2015)\n\n\n\n1.3.1 Model types\nsubsurface described by model vector \\(\\textbf{m}=[m_1, m_2, \\ldots, m_M]^T\\)\nIndependent parameters:\n\nseismology: earthquake location, stress, principal axis\ngravity: position and depth of anomaly, size, density contrast\nspectroscopy (e.g. SIP): function parameters (e.g. Cole-Cole)\nlayered model thicknesses and values (\\(\\rho\\), \\(v\\))\n\nsubsurface described by model vector \\(\\textbf{m}=[m_1, m_2, \\ldots, m_M]^T\\)\nDiscrete functions of space, time, frequency\n(same property aligned along axes)\n\nrefraction: depth (and velocity) of refractor\ndistribution of a parameter in space (and time)\nspectroscopy: Fourier or Debye distribution\ne.g. 2D/3D resistivity/velocity/density distribution",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
+    ]
+  },
+  {
+    "objectID": "01_introduction.html#inversion",
+    "href": "01_introduction.html#inversion",
+    "title": "1  Introduction",
+    "section": "1.4 Inversion",
+    "text": "1.4 Inversion\n\n\n\n\n\n\nNoteInverse problem: determine \\(\\vb m\\) so that data are explained\n\n\n\n\\[ \\vb d \\approx \\vb f(\\vb m) \\]\n\n\n\n\n\n\n\n\nNoteWhy not\n\n\n\n\\[ \\vb d = \\vb f(\\vb m) \\]\nBecause \\(\\vb d\\) contains random noise not to be explained.\n\n\n\n1.4.1 Minimization problem\n\n\n\n\n\n\nNoteThe (data) objective function\n\n\n\n\\[ \\Phi_d=\\|{\\vb d - f(m)}\\|^2_2 = \\sum_i^N (d_i-f_i(\\vb m))^2 \\rightarrow \\min \\]\nTake into account errors: Explain model within error (\\(\\boldsymbol{\\epsilon}\\)) bounds \\[ \\Phi_d = \\| \\frac{\\vb d-f(m)}{\\boldsymbol{\\epsilon}}\\|^2_2 = \\sum_i^N \\left(\\frac{d_i-f_i(\\vb m)}{\\epsilon_i}\\right)^2 \\| \\rightarrow \\min \\]\nerror model \\(\\boldsymbol{\\epsilon}=[\\epsilon_1, \\epsilon_2, \\ldots, \\epsilon_N]^T\\) (assumption of noise standard deviation)\n\n\n\n\n1.4.2 Correctness\n\n\n\n\n\n\n\n\nNoteWell-posed problems (Hadamard)\n\n\n\n\nThere is a solution,\nit is uniquely defined &\ndepends steadily from input data (small variations lead to small model deviations)\n\n\n\n\n\n\n\n\n\n\nImportantIll-posed problem\n\n\n\n\nThere is no model to fit the data perfectly\nMany models can fit the data within errors\nSmall data variations can lead to large model deviations\n\n\n\n\n\n\n\n1.4.3 Occam’s razor - a fundamental rule\n\n\n\n\n\n\nImportantnovacula Occami\n\n\n\nPluralitas non est ponenda sine neccesitate!\n(William of Ockham, Scottish philosopher and theologian, 14th century)\n\n\n\n\n\n\n\n\nNotePrinciple of Parsimony\n\n\n\nEntities must not be multiplied beyond necessity.\nOf two competing theories, the simpler explanation is to be preferred.\nFrom all models fitting the data, choose the simplest!",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
+    ]
+  },
+  {
+    "objectID": "02_linear_problems.html",
+    "href": "02_linear_problems.html",
+    "title": "2  Linear problems",
+    "section": "",
+    "text": "2.1 Types of inverse problems",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Linear problems</span>"
+    ]
+  },
+  {
+    "objectID": "02_linear_problems.html#types-of-inverse-problems",
+    "href": "02_linear_problems.html#types-of-inverse-problems",
+    "title": "2  Linear problems",
+    "section": "",
+    "text": "ImportantProblem size\n\n\n\n\nevery row stands for a measurement (data point)\nevery column represents a model parameter\n\n\\[\\vb d = Gm + n \\Rightarrow \\vb G\\in \\mathfrak{R}^{N\\times M}\\]\n\n\n\n\\(N\\) = \\(M\\): even-determined\n\\(N\\) &gt; \\(M\\): over-determined problem (no existing solution)\n\\(N\\) &lt; \\(M\\): under-determined problem (no unique solution)\nmostly: (both over- and) under-determined model parts\n\n\n2.1.1 Types of inverse problems (Menke, 2012)",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Linear problems</span>"
+    ]
+  },
+  {
+    "objectID": "02_linear_problems.html#a-simple-matrix-problem",
+    "href": "02_linear_problems.html#a-simple-matrix-problem",
+    "title": "2  Linear problems",
+    "section": "2.2 A simple matrix problem",
+    "text": "2.2 A simple matrix problem\nLet us assume a simple linear problem with two model parameters and three equations (representing data)\n\\[\n\\begin{align}\n~ m_1 - m_2 = -1 \\\\\n2 m_1 - m_2 = 0  \\\\\n~ m_1 + m_2 = 2.5\n\\end{align}\n\\]\nwhose forward operator can be expressed by a matrix \\[ \\textbf{G}=\\mqty(1&-1\\\\2&-1\\\\1&1) \\]\nWe can transform every equation to one parameter being a function of the other\n\\[m_2 = (d_i - G_{i1} \\cdot m_1)/G_{i2}\\]\nAll three equations can be plotted\n\n\nShow the code\nG = np.array([[1, -1], [2, -1], [1, 1]])\nd = np.array([-1, 0, 2.5]);\nfig, ax = plt.subplots()\nm1 = np.linspace(0.65, 1.1, 10)\nfor i in range(3):\n    m2 = (d[i] - G[i, 0]*m1) / G[i, 1]\n    ax.plot(m1, m2)\n\nax.set_aspect(1.0)\nax.set_ylim(1.5, 2.1)\nax.grid()\nax.set_xlabel(\"$m_1$\")\nax.set_ylabel(\"$m_2$\");\n\n\n\n\n\n\n\n\n\n\n\n2.2.1 Error bars\nIf the data \\(d_i\\) have some data error \\(\\delta d_i\\), the equation for \\(m_2\\) \\[m_2 = (d_i - G_{i1} \\cdot m_1)/G_{i2}\\]\ndoes inherit an error\n\\[\\delta m_2 = \\delta d_i / G_{i2}\\]\n\n\n\n\nShow the code\nfig, ax = plt.subplots()\ndd = 0.05\nfor i in range(len(G)):\n    y = (d[i] - G[i, 0] * m1) / G[i, 1]\n    dy = dd/G[i, 1]\n    ax.fill_between(m1, y-dy, y+dy, color=f\"C{i}\", alpha=0.5)\n    ax.plot(m1, y, \"-\", label=f\"{i}\", color=f\"C{i}\")\n\nax.set_aspect(1.0)\nax.set_ylim(1.6, 2.0)\nax.legend()\nax.grid()\n\n\n\n\n\n\n\n\n\n\n\n\nShow the code\nfig, ax = plt.subplots()\ndd = 0.1\nfor i in range(len(G)):\n    y = (d[i] - G[i, 0] * m1) / G[i, 1]\n    dy = dd/G[i, 1]\n    ax.fill_between(m1, y-dy, y+dy, color=f\"C{i}\", alpha=0.5)\n    ax.plot(m1, y, \"-\", label=f\"{i}\", color=f\"C{i}\")\n\nax.set_aspect(1.0)\nax.set_ylim(1.6, 2.0)\nax.legend()\nax.grid()",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Linear problems</span>"
+    ]
+  },
+  {
+    "objectID": "02_linear_problems.html#the-objective-function",
+    "href": "02_linear_problems.html#the-objective-function",
+    "title": "2  Linear problems",
+    "section": "2.3 The objective function",
+    "text": "2.3 The objective function\nWe minimize the L2-norm (summed squared distances) of the residual between data and model response:\n\\[ \\Phi = \\| \\vb d - G m \\|^2_2 = \\sum\\limits_1^N (d_i-g_i({\\vb m}))^2 \\rightarrow\\min \\]\nLet’s compute the objective function for a range of values for \\(m_1\\) and \\(m_2\\) (grid search).\n\n2.3.1 Distance function for the first two data\n\n\nShow the code\nm1 = np.arange(0.65, 1.1, 0.01)\nm2 = np.arange(1.6, 2.001, 0.01)\nM1, M2 = np.meshgrid(m1, m2)\nfig, ax = plt.subplots(ncols=3, sharex=True, sharey=True)\nY = [0, 0, 0]\next = [m1[0], m1[-1], m2[-1], m2[0]]\nfor i in range(3):\n    Y[i] = np.abs(G[i, 0] * M1 + G[i, 1] * M2 - d[i])\n    ax[i].matshow(Y[i], extent=ext, cmap=\"Spectral_r\")\n\nax[0].invert_yaxis()\n\n\n\n\n\n\n\n\n\nIf we combine the distances of the first two (the square root of their squares), we observe an elongated minimum similar to that of the two lines alone.\n\n\nShow the code\nplt.matshow(np.sqrt(Y[0]**2+Y[1]**2), extent=ext, cmap=\"Spectral_r\")\nplt.gca().invert_yaxis()\n\n\n\n\n\n\n\n\n\nThus, the ambiguity is not much reduced be combining these two similar equations. If we use all three equations, there is a clear minimum of ellipsoidal shape.\n\n\nShow the code\nplt.matshow(np.sqrt(Y[0]**2+Y[1]**2+Y[2]**2), extent=ext, cmap=\"Spectral_r\")\nplt.gca().invert_yaxis()\n\n\n\n\n\n\n\n\n\nThe minimum pixel (grid spacing of 0.01) lies at (0.82, 1.71). How can we determine the absolute minimum value?",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Linear problems</span>"
+    ]
+  },
+  {
+    "objectID": "02_linear_problems.html#the-method-of-least-squares",
+    "href": "02_linear_problems.html#the-method-of-least-squares",
+    "title": "2  Linear problems",
+    "section": "2.4 The method of least squares",
+    "text": "2.4 The method of least squares\n\n2.4.1 Derivation\n\\[\\Phi = \\| {\\vb d}-{\\vb G}{\\vb m}\\|^2_2 = ({\\vb d}-{\\vb G}{\\vb m})^T ({\\vb d}-{\\vb G}{\\vb m}) \\]\n\n\\[\\nabla_m = \\qty(\\pdv{m_1}, \\pdv{m_2}, \\ldots, \\pdv{m_M})^T\\]\n\\[\\nabla_m \\Phi = \\nabla_m ({\\vb G}{\\vb m}-{\\vb d})^T ({\\vb G}{\\vb m}-{\\vb d})=0\\]\n\\[\\nabla_m \\Phi = \\nabla_m ({\\vb m}^T{\\vb G}^T-{\\vb d}^T) ({\\vb G}{\\vb m}-{\\vb d})=0\\]\n\\[\\nabla_m \\Phi = \\nabla_m {\\vb m}^T{\\vb G}^T ({\\vb G}{\\vb m}-{\\vb d})=0\\]\n\\[\\nabla_m \\Phi = {\\vb G}^T ({\\vb G}{\\vb m}-{\\vb d})={\\vb G}^T {\\vb G}{\\vb m}-{\\vb G}^T{\\vb d}=0\\]\n\\[\\Rightarrow \\quad\\quad {\\vb m}=({\\vb G}^T{\\vb G})^{-1} {\\vb G}^T{\\vb d} ={\\vb G}^\\dagger{\\vb d}\\] \\[\\mbox{mit}\\quad {\\vb G}^\\dagger = ({\\vb G}^T{\\vb G})^{-1} {\\vb G}^T\\]\n(generalized inverse or Pseudo-inverse pinv, in Matlab/Julia G\\d)\nThe solution \\({\\vb m}_{LS}={\\vb G}^\\dagger {\\vb d}\\) is the least-squares solution",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Linear problems</span>"
+    ]
+  },
+  {
+    "objectID": "02_linear_problems.html#simple-matrix-problem---solution",
+    "href": "02_linear_problems.html#simple-matrix-problem---solution",
+    "title": "2  Linear problems",
+    "section": "2.5 Simple matrix problem - Solution",
+    "text": "2.5 Simple matrix problem - Solution\n\n\nShow the code\nmLS, *_ = np.linalg.lstsq(G, d, rcond=None)\nfig, ax = plt.subplots()\nx = np.array([0.65, 1.1])\ndd = 0.081\nfor i in range(len(G)):\n    y = (d[i] - G[i, 0] * x) / G[i, 1]\n    dy = dd/G[i, 1]\n    co = f\"C{i}\"\n    ax.fill_between(x, y-dy, y+dy,\n        color=co, alpha=.5)\n    ax.plot(x, y, \"-\", label=f\"{i}\", color=co)\n\nax.plot(mLS[0], mLS[1], \"r*\", label=\"m-LS\")\nax.set_aspect(1.0)\nax.set_ylim(1.6, 2.0)\nax.legend()\nax.grid()",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Linear problems</span>"
+    ]
+  },
+  {
+    "objectID": "02_linear_problems.html#resolution-analysis",
+    "href": "02_linear_problems.html#resolution-analysis",
+    "title": "2  Linear problems",
+    "section": "2.6 Resolution analysis",
+    "text": "2.6 Resolution analysis\n\nHow does reality propagate into our image?\nWhat is the quality of the inversion result?\nWhat is the contribution of the individual data?\n\n\n2.6.1 Model resolution\n\\[{\\vb d}= {\\vb G}{\\vb m}^\\text{true} + {\\vb n}\\] Matrix inversion with inverse operator \\({\\vb G}^\\dagger\\): \\[{\\vb m}^\\text{est} = {\\vb G}^\\dagger {\\vb d}= {\\vb G}^\\dagger{\\vb G}{\\vb m}^\\text{true} +\n{\\vb G}^\\dagger{\\vb n} = {\\vb R}^M {\\vb m}^\\text{true} + {\\vb G}^\\dagger{\\vb n}\\] with the model resolution matrix \\({\\vb R}^M={\\vb G}^\\dagger{\\vb G}\\)\n\\(\\Rightarrow\\) How is the true model (\\({\\vb m}^\\text{true}\\)) reflected in the estimated (\\({\\vb m}^\\text{est}\\))?\nDiagonal of \\(\\vb R^M\\): resolution of individual parameters (0-1)\n\n\n2.6.2 Data resolution\n\\[{\\vb m}^\\text{est} = {\\vb G}^\\dagger {\\vb d}^\\text{obs}\\]\nHow are the data explained by the model? \\[{\\vb d}^\\text{est} = {\\vb G}{\\vb m}^\\text{est} =\n{\\vb G}{\\vb G}^\\dagger{\\vb d}^\\text{obs} = {\\vb R}^D {\\vb d}^\\text{obs}\\]\nwith the data resolution (information density) matrix: \\[{\\vb R}^D={\\vb G}{\\vb G}^\\dagger\\]\nDiagonal of \\(R^D\\): information content of individual data\n\n\n2.6.3 Model resolution for overdetermined problems\n\\[{\\vb G}^\\dagger=({\\vb G}^T{\\vb G})^{-1} {\\vb G}^T\\]\n\\[\\Rightarrow {\\vb R}^M = ({\\vb G}^T{\\vb G})^{-1} {\\vb G}^T {\\vb G}= {\\vb I}\\]\nperfect model resolution\n\\[{\\vb G}^\\dagger=({\\vb G}^T{\\vb G})^{-1} {\\vb G}^T \\quad \\Rightarrow \\quad\n{\\vb R}^D = {\\vb G}({\\vb G}^T{\\vb G})^{-1} {\\vb G}^T\\]\n\n\n2.6.4 Resolution of matrix problem\n\n\nShow the code\nGinv = np.linalg.inv(G.T @ G) @ G.T\nRM = Ginv@G\nRD = G@Ginv\nim = plt.imshow(RD, vmin=-1, vmax=1, cmap=\"bwr\")\nplt.colorbar(im)\n\n\n\n\n\n\n\n\n\n\n3rd row (measurement) is most important\n1st and 2nd are highly correlated, sum(diag(RD)) \\(\\Rightarrow\\) 2",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Linear problems</span>"
+    ]
+  },
+  {
+    "objectID": "02_linear_problems.html#linear-regression",
+    "href": "02_linear_problems.html#linear-regression",
+    "title": "2  Linear problems",
+    "section": "2.7 Linear regression",
+    "text": "2.7 Linear regression\n\n\nShow the code\nx = np.arange(0, 3, 0.1)\nx[-1] = 3.5\nerr = 0.1\nd = 0.5-0.5*x + np.random.randn(len(x)) * err\nA = np.ones((len(x), 2))\nA[:, 1] = x[:]\nAinv = np.linalg.inv(A.T @ A) @ A.T\nm = Ainv @ d\nprint(\"m = \", m)\nfig, ax = plt.subplots()\nax.plot(x, d, \"b+\")\nax.plot(x, A@m, \"r-\")\nax.grid()\nresidual = A @ m - d\nprint(\"mean=\", np.mean(residual))\nprint(\"std=\", np.std(residual))\nprint(\"X²=\", np.sqrt(np.mean((residual/err)**2)))\n\n\nm =  [ 0.50278554 -0.50331071]\nmean= 1.0547118733938987e-16\nstd= 0.11897642166185389\nX²= 1.189764216618539",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Linear problems</span>"
+    ]
+  },
+  {
+    "objectID": "02_linear_problems.html#linear-regression---data-importance-matrix",
+    "href": "02_linear_problems.html#linear-regression---data-importance-matrix",
+    "title": "2  Linear problems",
+    "section": "2.8 Linear regression - data importance matrix",
+    "text": "2.8 Linear regression - data importance matrix\n\n\nShow the code\nRD = A @ Ainv\nfig, ax = plt.subplots(figsize=(7,6))\nim = ax.matshow(RD, cmap=\"bwr\",\n    vmin=-0.3, vmax=0.3)\nplt.colorbar(im);\n\n\n\n\n\n\n\n\n\n\nneighboring data points are correlated, opposite anti-correlated\n\n\n\n\nShow the code\nrd = np.diag(RD)\ndisplay(np.sum(rd))\nplt.plot(x, rd, \"+-\", ms=5);\n\n\n1.9999999999999993\n\n\n\n\n\n\n\n\n\n\nmain diagonal of \\(\\vb R^D\\) \\(\\Rightarrow\\) data importance (outside biggest)\nsum of importances equals \\(M\\) (later: rank of matrix)",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Linear problems</span>"
+    ]
+  },
+  {
+    "objectID": "02_linear_problems.html#errors-robust-inversion",
+    "href": "02_linear_problems.html#errors-robust-inversion",
+    "title": "2  Linear problems",
+    "section": "2.9 Errors & robust inversion",
+    "text": "2.9 Errors & robust inversion\n\nerror goes into the scaling of \\(\\vb G\\) and \\(\\vb d\\)\nsometimes data have different errors\nthere might be outliers spoiling the result\n\n\n2.9.1 Error weighting\nUnweighted residual norm (root-mean square RMS)\n\\[\\|{\\bf d}-{\\bf f}({\\bf m})\\| = \\sqrt{1/N\\sum (d_i-f_i({\\bf m}))^2}\\]\nWeighting by individual error \\(\\epsilon_i\\) (chi-square value):\n\\[\\chi^2=\\frac1N \\sum \\left( \\frac{d_i-f_i({\\bf m})}{\\epsilon_i} \\right)^2 \\rightarrow \\min\\]\nIn case of exact error estimates: \\(\\chi^2=1\\)\n\n\n2.9.2 Error weighting\nreplace \\(d_i\\) by \\(\\hat{d}_i=d_i/\\epsilon_i\\) leads to \\[{\\bf m}= (\\hat{\\bf G}^T\\hat{\\bf G})^{-1} \\hat{\\bf G}^T \\hat{\\bf d}\\] with \\(\\hat{{\\bf G}}=\\mbox{diag}(1/\\epsilon_i)\\cdot {\\bf G}\\)\n\n\n2.9.3 General \\(L_p\\) norm\nThe \\(L_2\\) norm is the rooted sum of squared elements of a vector \\(\\bf v\\):\n\\[\\Phi^P=\\|{\\bf v}\\|_2=\\sqrt{\\sum_i v_i^2}\\]\nMore generally, the \\(L_P\\) norm is computed by \\[\\Phi^P=\\|{\\bf v}\\|_P=\\left( \\sum_i |v_i|^P \\right)^{1/P}\\]\n\n\n2.9.4 \\(L_1\\) norm minimization (IRLS)\n\\[\\Phi^1=\\|{\\bf v}\\|_1=\\sum_i |v_i|\\]\n\n\n\n\n\n\nThe \\(L_1\\) norm is much less prone to outliers as the misfit is not squared\n\n\n\nBy the ratio of its contribution to L1 and L2 norm we can reweight \\(\\epsilon_i\\) \\[ w_i = \\frac{|v_i|/\\|\\vb v\\|^1_1}{v_i^2/\\|\\vb v\\|^2_2}\n= \\frac{\\|\\vb v\\|^2_2}{|v_i| \\cdot \\|\\vb v\\|^1_1} \\]\nThis is known as Iteratively Reweighted Least-Squares (IRLS)\n\n\n2.9.5 Linear regression with outliers\n\n\nShow the code\nd[-1] += 1\nm = Ainv @ d\nprint(\"m = \", m)\nfig, ax = plt.subplots()\nax.plot(x, d, \"b+\")\nax.plot(x, A@m, \"r-\")\nax.plot(x, 0.5-0.5*x, \"m--\")\nax.grid()\n\n\nm =  [ 0.41463127 -0.42066608]\n\n\n\n\n\n\n\n\n\n\n\n2.9.6 The misfit distribution\n\n\n\n\n\n\nImportant\n\n\n\nAlways have a look at the misfit distribution (not only \\(\\chi^2\\))\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n2.9.7 Wrap-up overdetermined problems (\\(N&gt;M\\))\n\nobjective function \\(\\Phi\\) as squared data misfit\nweighting of individual data (unitless, more flexible & objective)\nbroad minimum of the objective function\ngrid search to plot \\(\\phi\\) \\(\\Rightarrow\\) only nice for \\(M\\)=2\nleast squares method yields\nresolution matrices for model (perfect) and data (distributed)",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Linear problems</span>"
+    ]
+  },
+  {
+    "objectID": "02_linear_problems.html#under-determined-problems",
+    "href": "02_linear_problems.html#under-determined-problems",
+    "title": "2  Linear problems",
+    "section": "2.10 Under-determined problems",
+    "text": "2.10 Under-determined problems\n\nspecifically \\(N&lt;M\\) (too less data for the model pameters), but, more general, if the rank \\(r&lt;M\\)\n\n\n\n\n\n\n\nNoteRank of a matrix\n\n\n\nnumber of independent columns and rows, i.e. the degree of non-degenerateness.\n\n\n\n2.10.1 Example of a mixed-determined problem\n\\[ \\textbf{G}=\\mqty(1 & 1 & 0 \\\\\n                    0 & 0 & 1) \\]\n\n\\(N\\)&lt;\\(M\\): clearly under-determined,\nparameter \\(m_3\\) is perfectly determined (=\\(d_2\\))\nany combination of \\(m_1\\) and \\(m_2=d_1-m_1\\) fulfils the first equation there is no unique solution (model ambiguity)\n\n\n\n2.10.2 Changing the system\n\\[ \\textbf{G}=\\mqty(1 & 1 & 0 \\\\\n                    0 & 0 & 1) \\]\nadding data 1+2\n\\[ \\textbf{G}=\\mqty(1 & 1 & 0 \\\\\n                    0 & 0 & 1 \\\\\n                    1 & 1 & 1) \\]\ndoes not help, because they are linear dependent (\\(rk({\\bf G})=2\\)).\n\n\n2.10.3 Minimum-norm solution\nAnalog to the least-squares inverse \\(({\\bf G}^T {\\bf G})^{-1} {\\bf G}^T\\) there is an inverse for under-determined problems:\n\\[ \\bf m = G^T (G G^T)^{-1} d = G^\\dagger d \\]\nthat is called minimum-norm solution.\n\n\n\n\n\n\nNoteObservation from Notebook\n\n\n\nThe backslash operator (G\\d) yields the minimum-norm solution.\n\n\n\n\n2.10.4 Derivation\nFrom the models fulfilling \\(\\bf G m=d\\) we are looking for the “smallest”\n\\[ \\text{min} \\Phi=\\bf m^T m \\quad\\mbox{with}\\quad G m=d \\]\nWe use the method of Lagrangian parameters (\\(\\lambda_i\\)) \\[ \\Phi = \\bf m^T m + \\lambda^T (G m - d) \\rightarrow \\mbox{min} \\]\nThe derivatives vanish\n\\[ \\frac{\\partial\\Phi}{\\partial \\lambda} = \\bf G m - d=0 \\]\n\\[ \\frac{\\partial\\Phi}{\\partial m} =  2\\bf m^T + {\\bf \\lambda}^T G = 0 \\]\n\\[ \\Rightarrow {\\bf m} = -\\frac{1}{2} ({\\lambda}^T {\\bf G})^T = -\\frac{1}{2}{\\bf G}^T \\lambda \\]\nfrom which we can determine the Langrangian parameters\n\\[ \\lambda = -2 ({\\bf G G^T})^{-1} \\bf d \\]\nReplacing them we obtain the minimum-norm solution \\[ {\\bf m}_{MN} = \\bf G^T (G G^T)^{-1} d \\]\n\n\n2.10.5 Resolution of the minimum norm inverse\n\\[ \\bf G^\\dagger = G^T (G G^T)^{-1} \\]\n\\[ {\\bf R}^M = \\bf G^\\dagger G = G^T (G G^T)^{-1} G \\]\n\\[ {\\bf R}^D = \\bf G G^\\dagger = G G^T (G G^T)^{-1} = I \\]\n\n\n\n\n\n\nNote\n\n\n\nFor underdetermined problems, all data are independent and equally important. Model parameters are insufficiently resolved.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Linear problems</span>"
+    ]
+  },
+  {
+    "objectID": "02_linear_problems.html#appendix",
+    "href": "02_linear_problems.html#appendix",
+    "title": "2  Linear problems",
+    "section": "2.11 Appendix",
+    "text": "2.11 Appendix\n\n2.11.1 Derivation (1)\n\\[\\Phi = \\| {\\vb d}-{\\vb G}{\\vb m}\\|^2_2 = ({\\vb d}-{\\vb G}{\\vb m})^T ({\\vb d}-{\\vb G}{\\vb m}) \\] \\[\\Phi = ({\\vb G}{\\vb m}-{\\vb d})^T ({\\vb G}{\\vb m}-{\\vb d})\\]\n\\[\\frac{\\partial\\Phi}{\\partial m} = \\frac{\\partial}{\\partial m} ({\\vb G}{\\vb m}-{\\vb d})^T ({\\vb G}{\\vb m}-{\\vb d}) +\n     ({\\vb G}{\\vb m}-{\\vb d})^T \\frac{\\partial}{\\partial m}({\\vb G}{\\vb m}-{\\vb d}) = 0\\]\n\\[{\\vb G}^T{\\vb G}{\\vb m}- {\\vb G}^T{\\vb d}+ {\\vb G}^T{\\vb G}{\\vb m}- {\\vb G}^T{\\vb d}= 0\\]\n\\[{\\vb G}^T{\\vb G}{\\vb m}= {\\vb G}^T{\\vb d}\\quad \\Rightarrow \\quad {\\vb m}={\\vb G}^\\dagger{\\vb d}\n    \\quad\\mbox{with}\\quad {\\vb G}^\\dagger = ({\\vb G}^T{\\vb G})^{-1} {\\vb G}^T\\]\n\n\n2.11.2 Derivation (2)\n\\[\\Phi = ({\\vb d}-{\\vb G}{\\vb m})^T ({\\vb d}-{\\vb G}{\\vb m}) = \\sum_i \\left[ (d_i-\\sum_j G_{ij}m_j )(d_i-\\sum_k G_{ij}m_j ) \\right]\\] \\[\\Phi = \\sum_i \\left[ d_i d_i - d_i\\sum_k G_{ik}m_k - d_i\\sum_j G_{ij}m_j + \\sum_j G_{ij}m_j\\sum_k G_{ik}m_k \\right]\\] \\[\\Phi = \\sum_i d_i d_i - 2 \\sum_j m_j \\sum d_i G{ij} + \\sum_i \\sum_j\\sum_k m_j G_{ij}G_{ik}m_j m_k\\] \\[\\Phi = \\sum_i d_i d_i - 2 \\sum_j m_j \\sum_i d_i G{ij} +\\sum_j\\sum_k m_j m_k \\sum_i G_{ij}G_{ik}\\]\n\\[\\partial\\Phi=\\partial m_q = \\sum_i\\sum_k(\\delta_{iq}m_k+m_j\\delta_{ik})\\sum G_{ij}G_{ik} - 2\\sum_j \\delta_{iq}\\sum G_{ij} d_i = 0\\]\n\\[0 = 2\\sum_k\\sum_i G_{iq}G_{ik} - 2\\sum_i G_{iq}d_i = 2{\\vb G}^T{\\vb G}-2{\\vb G}^T {\\vb d}\\]\n\n\n2.11.3 Derivation by change \\(t\\delta{\\vb m}\\)\n\\[\\Phi(t) = ({\\vb d}-{\\vb G}({\\vb m}+t\\delta{\\vb m}))^T ({\\vb d}-{\\vb G}({\\vb m}+t\\delta{\\vb m}))\\] \\[\\Phi(t) = ({\\vb m}+t\\delta{\\vb m})^T{\\vb G}^T{\\vb G}({\\vb m}+t\\delta{\\vb m})-2({\\vb m}+t\\delta{\\vb m}){\\vb G}^T{\\vb d}+{\\vb d}^T{\\vb d}\\] \\[\\Phi(t) = t^2(\\delta{\\vb m}{\\vb G}^T{\\vb G}\\delta{\\vb m}) + 2t(\\delta{\\vb m}{\\vb G}^T{\\vb G}{\\vb m}-\\delta{\\vb m}^T{\\vb G}^T{\\vb d})\n    + ({\\vb m}^T{\\vb G}^T{\\vb G}{\\vb m}+{\\vb d}^T{\\vb d}-2{\\vb m}^T{\\vb G}^T{\\vb d})\\] \\(\\Phi(t)\\) has a minimum at \\(t=0\\), therefore \\(\\partial\\Phi/\\partial t\\) must be 0 \\[\\partial\\Phi(t=0)/\\partial t = 2(\\delta{\\vb m}^T{\\vb G}^T{\\vb G}{\\vb m}- \\delta{\\vb m}^T{\\vb G}{\\vb d}) = 2\\delta{\\vb m}^T ({\\vb G}^T{\\vb G}{\\vb m}-{\\vb G}^T{\\vb d}) = 0\\] As this holds for every \\(\\delta{\\vb m}\\), we obtain \\({\\vb G}^T{\\vb G}{\\vb m}={\\vb G}^T{\\vb d}\\)",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Linear problems</span>"
+    ]
+  }
+]
