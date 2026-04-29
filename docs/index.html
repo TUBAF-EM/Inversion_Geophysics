@@ -24,7 +24,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -136,6 +155,12 @@ window.MathJax = {
   <div class="sidebar-item-container"> 
   <a href="./02_linear_problems.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Linear problems</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./literature.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Literaturverzeichnis</span></a>
   </div>
 </li>
     </ul>
@@ -296,7 +321,7 @@ window.MathJax = {
 <section id="literature" class="level2">
 <h2 class="anchored" data-anchor-id="literature">Literature</h2>
 <ul>
-<li>Menke (2018): <a href="https://www.sciencedirect.com/book/9780128135556/geophysical-data-analysis">Geophysical Data Analysis: Discrete Inverse Theory</a>, Academic</li>
+<li>Menke (2012) <span class="citation" data-cites="Menke2012">(<a href="literature.html#ref-Menke2012" role="doc-biblioref">Menke 2012</a>)</span>: <a href="https://www.sciencedirect.com/book/9780128135556/geophysical-data-analysis">Geophysical Data Analysis: Discrete Inverse Theory</a>, Academic</li>
 <li>Richter (2020): <a href="https://link.springer.com/book/10.1007/978-3-030-59317-9">Inverse Problems: Basics, Theory and Applications in Geophysics</a></li>
 <li>Günther (2004): <a href="http://nbn-resolving.de/urn:nbn:de:swb:105-4152277">Inversion Methods and Resolution Analysis for the 2D/3D Reconstruction of Resistivity Structures from DC Measurements</a>, PhD thesis</li>
 <li>Gubbins, Tarantola, Zhdanov</li>
@@ -316,6 +341,11 @@ window.MathJax = {
 <p>This material is licensed under the Creative Commons License CC-by 2.0.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-Menke2012" class="csl-entry" role="listitem">
+Menke W. 2012. <em><a href="https://doi.org/10.1016/B978-0-12-397160-9.00001-1">Geophysical data analysis: Discrete inverse theory</a></em> (Elsevier)
+</div>
+</div>
 </section>
 </section>
 

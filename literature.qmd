@@ -1,0 +1,11 @@
+---
+nocite: |
+  @*
+---
+
+# Literaturverzeichnis {.unnumbered}
+
+::: {#refs}
+:::
+
+

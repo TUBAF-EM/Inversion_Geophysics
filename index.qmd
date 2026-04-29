@@ -76,7 +76,7 @@ Determine a **model** describing the subsurface that can **explain our data**!
 
 ## Literature
 
-* Menke (2018):  [Geophysical Data Analysis: Discrete Inverse Theory](https://www.sciencedirect.com/book/9780128135556/geophysical-data-analysis), Academic
+* Menke (2012) [@Menke2012]:  [Geophysical Data Analysis: Discrete Inverse Theory](https://www.sciencedirect.com/book/9780128135556/geophysical-data-analysis), Academic
 * Richter (2020): [Inverse Problems: Basics, Theory and Applications in Geophysics](https://link.springer.com/book/10.1007/978-3-030-59317-9)
 * Günther (2004): [Inversion Methods and Resolution Analysis for the 2D/3D Reconstruction of Resistivity Structures from DC Measurements](http://nbn-resolving.de/urn:nbn:de:swb:105-4152277),
 PhD thesis
