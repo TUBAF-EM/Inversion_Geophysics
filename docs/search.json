@@ -4,9 +4,9 @@
     "href": "index.html",
     "title": "Inverse Problems in Geophysics",
     "section": "",
-    "text": "Prerequisites\nHere are the lecture notes for the module Inverse Problems in Geophysics., tailored for Master’s students of Geophysics or Geoinformatics at the Institute of Geophysics and Geoinformatics, TU Bergakademie Freiberg. You can access all the materials on the GitHub repository https://github.com/halbmy/InversionGeophysics.\nEnjoy studying!",
+    "text": "The course\nThese are the lecture notes for the module Inverse Problems in Geophysics., tailored for Master’s students of Geophysics, Geoinformatics, Applied Geoscience or Mathematics for Data and Resource Sciences at the Institute of Geophysics and Geoinformatics, TU Bergakademie Freiberg. You can access all the sources on the GitHub repository or the slides.\nEnjoy studying!",
     "crumbs": [
-      "Prerequisites"
+      "The course"
     ]
   },
   {
@@ -14,9 +14,9 @@
     "href": "index.html#background",
     "title": "Inverse Problems in Geophysics",
     "section": "Background",
-    "text": "Background\nWhile this course was around already since 2000 in Freiberg (when I did my PhD), it did never meet the general title before my comeback. Striving to do so, I found no text book about learning the background of the simulation methods being increasingly used in geophysics, particularly solving partial differential equations by own codes and understanding the physics by doing so. We aim at learning to solve all common PDE types from elliptic, parabolic to hyperbolic, going from 1D to 2D and 3D, from Finite Differences to Finite Elements and Finite Volumes.",
+    "text": "Background\nThis course was already existing in the early 2000s when I did my PhD that was a lot about inversion and regularization, back then with exercises in Matlab. In 2020, I held this course using Julia as programming language. After starting as professor, I mainly transferred the slides from LaTeX to Quarto and switched back from Julia to Python in 2026. As the course is again slightly adapted, the content of the slides is step by step moving into the script and enriched by the Notebooks shown in the lectures. Any feedback (mistakes, ideas, missing content) is highly welcome!",
     "crumbs": [
-      "Prerequisites"
+      "The course"
     ]
   },
   {
@@ -26,7 +26,7 @@
     "section": "Code",
     "text": "Code\nThe website’s course material includes sections with embedded Python code. You can easily copy the code and execute it in a compatible Python runtime environment. For an optimal experience, we recommend installing Python via miniforge. You mainly need the numerical base library NumPy for doing the computations, and Matplotlib for visualization purposes. For higher-dimensional problems, we use the pyGIMLi package to generate meshes and matrices, but stay with its core and equation levels for didactic reasons.\nMoreover, you have the freedom to explore your own concepts and delve deeper into the course content by creating your personalized Jupyter notebooks. You can utilize use either Visual Studio Code or Jupyterlab Working with Jupyter Notebooks in Visual Studio Code is exceptionally straightforward.\nThe material was created by Quarto.",
     "crumbs": [
-      "Prerequisites"
+      "The course"
     ]
   },
   {
@@ -36,7 +36,7 @@
     "section": "Self study",
     "text": "Self study\nThere are individual small tasks for self-study that are scattered throughout the lecture.\n\n\n\n\n\n\nNoneSelf study\n\n\n\nYou can easily identify these callouts.",
     "crumbs": [
-      "Prerequisites"
+      "The course"
     ]
   },
   {
@@ -46,7 +46,7 @@
     "section": "Subject and Objectives",
     "text": "Subject and Objectives\n\n\n\n\n\n\nImportantInversion (main task in applied geophysics)\n\n\n\nDetermine a model describing the subsurface that can explain our data!\n\n\n\n\n\n\n\n\nNoteAim of the lecture\n\n\n\n\nunderstand the process of imaging/inversion\nsolve inverse problems by simple scripts\nactively control the inversion process\nuse tools to get a feeling for the value of models",
     "crumbs": [
-      "Prerequisites"
+      "The course"
     ]
   },
   {
@@ -56,7 +56,7 @@
     "section": "Content",
     "text": "Content\n\nIntroduction, data, models\nSimple matrix problems, linear regression\nMethod of least squares\nResolution and Singular Value Decomposition\nRegularization methods\nRay tomography\nNon-linear minimization\nTime-lapse inversion\nGlobal optimization methods",
     "crumbs": [
-      "Prerequisites"
+      "The course"
     ]
   },
   {
@@ -66,7 +66,7 @@
     "section": "What should you know already?",
     "text": "What should you know already?\n\nHigher mathematics: differential equations, algebra (1.-2. BGIP)\nExperimental and theoretical physics: governing equations\nNumerics for engineers (2. BGIP)\nProgramming (1. BGIP), Software development (3. BGIP)\nGeophysics: feeling for physical fields & methods (2.-4. BGIP)\nMSc level: Scientific programming, HPC, seismic imaging",
     "crumbs": [
-      "Prerequisites"
+      "The course"
     ]
   },
   {
@@ -76,7 +76,7 @@
     "section": "Text books",
     "text": "Text books\n\nMenke (2012): Geophysical Data Analysis: Discrete Inverse Theory, Academic\nRichter (2016): Inverse Problems: Basics, Theory and Applications in Geophysics\nGünther (2004): Inversion Methods and Resolution Analysis for the 2D/3D Reconstruction of Resistivity Structures from DC Measurements, PhD thesis\nGubbins (2004): Time series analysis and inverse theory for geophysicists (Cambridge Univ. Press)\nTarantola (1978): Inverse problem theory (Amsterdam: Elsevier)\nZhdanov (2002): Geophysical inverse theory and regularization problems (Amsterdam - New York - Tokyo: Elsevier)\nsee also Reference list (refs?)",
     "crumbs": [
-      "Prerequisites"
+      "The course"
     ]
   },
   {
@@ -84,9 +84,9 @@
     "href": "index.html#further-links",
     "title": "Inverse Problems in Geophysics",
     "section": "Further links",
-    "text": "Further links\n\npyGIMLi: Python Geophysical Inversion and Modelling Library https://pygimli.org\nGeoscience.XYZ: https://geosci.xyz\nhttps://github.com/halbmy/IJulia - Julia Notebooks for Inverse Problems\nElectromagnetics (5. BGIP), Theory EM,",
+    "text": "Further links\n\npyGIMLi: Python Geophysical Inversion and Modelling Library https://pygimli.org\nGeoscience.XYZ: https://geosci.xyz\nhttps://github.com/halbmy/IJulia - Julia Notebooks for Inverse Problems\nElectromagnetics & Geoelectrics (5. BGIP, in German)\nTheory of Electromagnetic Methods,",
     "crumbs": [
-      "Prerequisites"
+      "The course"
     ]
   },
   {
@@ -96,7 +96,7 @@
     "section": "License",
     "text": "License\nThis material is licensed under the Creative Commons License CC-by 2.0.\n\n\n\n\nGubbins D. 2004. Time series analysis and inverse theory for geophysicists (Cambridge Univ. Press)\n\n\nGünther T. 2004. Inversion Methods and Resolution Analysis for the 2D/3D Reconstruction of Resistivity Structures from DC Measurements PhD thesis (University of Mining; Technology Freiberg)\n\n\nMenke W. 2012. Geophysical data analysis: Discrete inverse theory (Elsevier)\n\n\nRichter M. 2016. Inverse problems: Basics, theory and applications in geophysics (Springer International Publishing)\n\n\nTarantola A. 1978. Inverse problem theory (Amsterdam: Elsevier)\n\n\nZhdanov M S. 2002. Geophysical inverse theory and regularization problems (Amsterdam - New York - Tokyo: Elsevier)",
     "crumbs": [
-      "Prerequisites"
+      "The course"
     ]
   },
   {

@@ -1,5 +1,5 @@
 
-## Overview {.unnumbered}
+## The course {.unnumbered}
 
 These are the lecture notes for the module **Inverse Problems in Geophysics.**, tailored for Master's students of Geophysics, Geoinformatics, Applied Geoscience or Mathematics for Data and Resource Sciences at the [Institute of Geophysics and Geoinformatics](https://tu-freiberg.de/geophysik), [TU Bergakademie Freiberg](https://tu-freiberg.de).
 You can access all the sources on the [GitHub repository](https://github.com/TUBAF-EM/Inversion_Geophysics) or [the slides](https://github.com/halbmy/InversionGeophysics).
@@ -8,9 +8,11 @@ Enjoy studying!
 
 ## Background
 
-This course was already created in the early 2000s when I did my PhD that was a lot about inversion and regularization.
-
-
+This course was already existing in the early 2000s when I did my PhD that was a lot about inversion and regularization, back then with exercises in Matlab.
+In 2020, I held this course using [Julia](https://julialang.org) as programming language.
+After starting as professor, I mainly transferred the slides from LaTeX to Quarto and switched back from Julia to Python in 2026.
+As the course is again slightly adapted, the content of the slides is step by step moving into the script and enriched by the Notebooks shown in the lectures.
+Any feedback (mistakes, ideas, missing content) is highly welcome!
 
 ## Code
 
