@@ -1,13 +1,16 @@
-## Prerequisites {.unnumbered}
 
-Here are the lecture notes for the module **Inverse Problems in Geophysics.**, tailored for Master's students of Geophysics or Geoinformatics at the [Institute of Geophysics and Geoinformatics, TU Bergakademie Freiberg](https://tu-freiberg.de/geophysik).
-You can access all the materials on the GitHub repository <https://github.com/halbmy/InversionGeophysics>.
+## Overview {.unnumbered}
+
+These are the lecture notes for the module **Inverse Problems in Geophysics.**, tailored for Master's students of Geophysics, Geoinformatics, Applied Geoscience or Mathematics for Data and Resource Sciences at the [Institute of Geophysics and Geoinformatics](https://tu-freiberg.de/geophysik), [TU Bergakademie Freiberg](https://tu-freiberg.de).
+You can access all the sources on the [GitHub repository](https://github.com/TUBAF-EM/Inversion_Geophysics) or [the slides](https://github.com/halbmy/InversionGeophysics).
 
 Enjoy studying!
 
 ## Background
 
-While this course was around already since 2000 in Freiberg (when I did my PhD), it did never meet the general title before my comeback. Striving to do so, I found no text book about learning the background of the simulation methods being increasingly used in geophysics, particularly solving partial differential equations by own codes and understanding the physics by doing so. We aim at learning to solve all common PDE types from elliptic, parabolic to hyperbolic, going from 1D to 2D and 3D, from Finite Differences to Finite Elements and Finite Volumes.
+This course was already created in the early 2000s when I did my PhD that was a lot about inversion and regularization.
+
+
 
 ## Code
 
@@ -74,20 +77,24 @@ Determine a **model** describing the subsurface that can **explain our data**!
 * Geophysics: feeling for physical fields & methods (2.-4. BGIP)
 * MSc level: Scientific programming, HPC, seismic imaging
 
-## Literature
+## Text books
 
-* Menke (2012) [@Menke2012]:  [Geophysical Data Analysis: Discrete Inverse Theory](https://www.sciencedirect.com/book/9780128135556/geophysical-data-analysis), Academic
-* Richter (2020): [Inverse Problems: Basics, Theory and Applications in Geophysics](https://link.springer.com/book/10.1007/978-3-030-59317-9)
-* Günther (2004): [Inversion Methods and Resolution Analysis for the 2D/3D Reconstruction of Resistivity Structures from DC Measurements](http://nbn-resolving.de/urn:nbn:de:swb:105-4152277),
+* @Menke2012:  [Geophysical Data Analysis: Discrete Inverse Theory](https://www.sciencedirect.com/book/9780128135556/geophysical-data-analysis), Academic
+* @Richter2016: [Inverse Problems: Basics, Theory and Applications in Geophysics](https://link.springer.com/book/10.1007/978-3-030-59317-9)
+* @Guenther2004: [Inversion Methods and Resolution Analysis for the 2D/3D Reconstruction of Resistivity Structures from DC Measurements](http://nbn-resolving.de/urn:nbn:de:swb:105-4152277),
 PhD thesis
-* Gubbins, Tarantola, Zhdanov
+* @Gubbins2004: Time series analysis and inverse theory for geophysicists (Cambridge Univ. Press)
+- @Tarantola1978: Inverse problem theory (Amsterdam: Elsevier)
+- @Zhdanov2002: Geophysical inverse theory and regularization problems (Amsterdam - New York - Tokyo: Elsevier)
+- see also Reference list @refs
 
 ## Further links
 
 * pyGIMLi: Python Geophysical Inversion and Modelling Library <https://pygimli.org>
 * Geoscience.XYZ: <https://geosci.xyz>
 * <https://github.com/halbmy/IJulia> - Julia Notebooks for Inverse Problems
-* [Electromagnetics](https://tubaf-em.github.io/Geoelektrik_Elektromagnetik/) (5. BGIP), [Theory EM](https://ruboerner.github.io/ThEM/),
+* [Electromagnetics & Geoelectrics](https://tubaf-em.github.io/Geoelektrik_Elektromagnetik/) (5. BGIP, in German)
+* [Theory of Electromagnetic Methods](https://ruboerner.github.io/ThEM/),
 
 ## License
 

@@ -70,11 +70,11 @@
     ]
   },
   {
-    "objectID": "index.html#literature",
-    "href": "index.html#literature",
+    "objectID": "index.html#text-books",
+    "href": "index.html#text-books",
     "title": "Inverse Problems in Geophysics",
-    "section": "Literature",
-    "text": "Literature\n\nMenke (2012) (Menke 2012): Geophysical Data Analysis: Discrete Inverse Theory, Academic\nRichter (2020): Inverse Problems: Basics, Theory and Applications in Geophysics\nGünther (2004): Inversion Methods and Resolution Analysis for the 2D/3D Reconstruction of Resistivity Structures from DC Measurements, PhD thesis\nGubbins, Tarantola, Zhdanov",
+    "section": "Text books",
+    "text": "Text books\n\nMenke (2012): Geophysical Data Analysis: Discrete Inverse Theory, Academic\nRichter (2016): Inverse Problems: Basics, Theory and Applications in Geophysics\nGünther (2004): Inversion Methods and Resolution Analysis for the 2D/3D Reconstruction of Resistivity Structures from DC Measurements, PhD thesis\nGubbins (2004): Time series analysis and inverse theory for geophysicists (Cambridge Univ. Press)\nTarantola (1978): Inverse problem theory (Amsterdam: Elsevier)\nZhdanov (2002): Geophysical inverse theory and regularization problems (Amsterdam - New York - Tokyo: Elsevier)\nsee also Reference list (refs?)",
     "crumbs": [
       "Prerequisites"
     ]
@@ -94,7 +94,7 @@
     "href": "index.html#license",
     "title": "Inverse Problems in Geophysics",
     "section": "License",
-    "text": "License\nThis material is licensed under the Creative Commons License CC-by 2.0.\n\n\n\n\nMenke W. 2012. Geophysical data analysis: Discrete inverse theory (Elsevier)",
+    "text": "License\nThis material is licensed under the Creative Commons License CC-by 2.0.\n\n\n\n\nGubbins D. 2004. Time series analysis and inverse theory for geophysicists (Cambridge Univ. Press)\n\n\nGünther T. 2004. Inversion Methods and Resolution Analysis for the 2D/3D Reconstruction of Resistivity Structures from DC Measurements PhD thesis (University of Mining; Technology Freiberg)\n\n\nMenke W. 2012. Geophysical data analysis: Discrete inverse theory (Elsevier)\n\n\nRichter M. 2016. Inverse problems: Basics, theory and applications in geophysics (Springer International Publishing)\n\n\nTarantola A. 1978. Inverse problem theory (Amsterdam: Elsevier)\n\n\nZhdanov M S. 2002. Geophysical inverse theory and regularization problems (Amsterdam - New York - Tokyo: Elsevier)",
     "crumbs": [
       "Prerequisites"
     ]
@@ -224,7 +224,7 @@
     "href": "02_linear_problems.html#linear-regression",
     "title": "2  Linear problems",
     "section": "2.7 Linear regression",
-    "text": "2.7 Linear regression\n\n\nShow the code\nx = np.arange(0, 3, 0.1)\nx[-1] = 3.5\nerr = 0.1\nd = 0.5-0.5*x + np.random.randn(len(x)) * err\nA = np.ones((len(x), 2))\nA[:, 1] = x[:]\nAinv = np.linalg.inv(A.T @ A) @ A.T\nm = Ainv @ d\nprint(\"m = \", m)\nfig, ax = plt.subplots()\nax.plot(x, d, \"b+\")\nax.plot(x, A@m, \"r-\")\nax.grid()\nresidual = A @ m - d\nprint(\"mean=\", np.mean(residual))\nprint(\"std=\", np.std(residual))\nprint(\"X²=\", np.sqrt(np.mean((residual/err)**2)))\n\n\nm =  [ 0.53110093 -0.52854039]\nmean= 3.700743415417188e-17\nstd= 0.12323880275085498\nX²= 1.2323880275085497",
+    "text": "2.7 Linear regression\n\n\nShow the code\nx = np.arange(0, 3, 0.1)\nx[-1] = 3.5\nerr = 0.1\nd = 0.5-0.5*x + np.random.randn(len(x)) * err\nA = np.ones((len(x), 2))\nA[:, 1] = x[:]\nAinv = np.linalg.inv(A.T @ A) @ A.T\nm = Ainv @ d\nprint(\"m = \", m)\nfig, ax = plt.subplots()\nax.plot(x, d, \"b+\")\nax.plot(x, A@m, \"r-\")\nax.grid()\nresidual = A @ m - d\nprint(\"mean=\", np.mean(residual))\nprint(\"std=\", np.std(residual))\nprint(\"X²=\", np.sqrt(np.mean((residual/err)**2)))\n\n\nm =  [ 0.51803119 -0.50901033]\nmean= -4.4408920985006264e-17\nstd= 0.08366116071051583\nX²= 0.8366116071051584",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Linear problems</span>"
     ]
@@ -244,7 +244,7 @@
     "href": "02_linear_problems.html#errors-robust-inversion",
     "title": "2  Linear problems",
     "section": "2.9 Errors & robust inversion",
-    "text": "2.9 Errors & robust inversion\n\nerror goes into the scaling of \\(\\vb G\\) and \\(\\vb d\\)\nsometimes data have different errors\nthere might be outliers spoiling the result\n\n\n2.9.1 Error weighting\nUnweighted residual norm (root-mean square RMS)\n\\[\\|{\\bf d}-{\\bf f}({\\bf m})\\| = \\sqrt{1/N\\sum (d_i-f_i({\\bf m}))^2}\\]\nWeighting by individual error \\(\\epsilon_i\\) (chi-square value):\n\\[\\chi^2=\\frac1N \\sum \\left( \\frac{d_i-f_i({\\bf m})}{\\epsilon_i} \\right)^2 \\rightarrow \\min\\]\nIn case of exact error estimates: \\(\\chi^2=1\\)\n\n\n2.9.2 Error weighting\nreplace \\(d_i\\) by \\(\\hat{d}_i=d_i/\\epsilon_i\\) leads to \\[{\\bf m}= (\\hat{\\bf G}^T\\hat{\\bf G})^{-1} \\hat{\\bf G}^T \\hat{\\bf d}\\] with \\(\\hat{{\\bf G}}=\\mbox{diag}(1/\\epsilon_i)\\cdot {\\bf G}\\)\n\n\n2.9.3 General \\(L_p\\) norm\nThe \\(L_2\\) norm is the rooted sum of squared elements of a vector \\(\\bf v\\):\n\\[\\Phi^P=\\|{\\bf v}\\|_2=\\sqrt{\\sum_i v_i^2}\\]\nMore generally, the \\(L_P\\) norm is computed by \\[\\Phi^P=\\|{\\bf v}\\|_P=\\left( \\sum_i |v_i|^P \\right)^{1/P}\\]\n\n\n2.9.4 \\(L_1\\) norm minimization (IRLS)\n\\[\\Phi^1=\\|{\\bf v}\\|_1=\\sum_i |v_i|\\]\n\n\n\n\n\n\nThe \\(L_1\\) norm is much less prone to outliers as the misfit is not squared\n\n\n\nBy the ratio of its contribution to L1 and L2 norm we can reweight \\(\\epsilon_i\\) \\[ w_i = \\frac{|v_i|/\\|\\vb v\\|^1_1}{v_i^2/\\|\\vb v\\|^2_2}\n= \\frac{\\|\\vb v\\|^2_2}{|v_i| \\cdot \\|\\vb v\\|^1_1} \\]\nThis is known as Iteratively Reweighted Least-Squares (IRLS)\n\n\n2.9.5 Linear regression with outliers\n\n\nShow the code\nd[-1] += 1\nm = Ainv @ d\nprint(\"m = \", m)\nfig, ax = plt.subplots()\nax.plot(x, d, \"b+\")\nax.plot(x, A@m, \"r-\")\nax.plot(x, 0.5-0.5*x, \"m--\")\nax.grid()\n\n\nm =  [ 0.44294666 -0.44589576]\n\n\n\n\n\n\n\n\n\n\n\n2.9.6 The misfit distribution\n\n\n\n\n\n\nImportant\n\n\n\nAlways have a look at the misfit distribution (not only \\(\\chi^2\\))\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n2.9.7 Wrap-up overdetermined problems (\\(N&gt;M\\))\n\nobjective function \\(\\Phi\\) as squared data misfit\nweighting of individual data (unitless, more flexible & objective)\nbroad minimum of the objective function\ngrid search to plot \\(\\phi\\) \\(\\Rightarrow\\) only nice for \\(M\\)=2\nleast squares method yields\nresolution matrices for model (perfect) and data (distributed)",
+    "text": "2.9 Errors & robust inversion\n\nerror goes into the scaling of \\(\\vb G\\) and \\(\\vb d\\)\nsometimes data have different errors\nthere might be outliers spoiling the result\n\n\n2.9.1 Error weighting\nUnweighted residual norm (root-mean square RMS)\n\\[\\|{\\bf d}-{\\bf f}({\\bf m})\\| = \\sqrt{1/N\\sum (d_i-f_i({\\bf m}))^2}\\]\nWeighting by individual error \\(\\epsilon_i\\) (chi-square value):\n\\[\\chi^2=\\frac1N \\sum \\left( \\frac{d_i-f_i({\\bf m})}{\\epsilon_i} \\right)^2 \\rightarrow \\min\\]\nIn case of exact error estimates: \\(\\chi^2=1\\)\n\n\n2.9.2 Error weighting\nreplace \\(d_i\\) by \\(\\hat{d}_i=d_i/\\epsilon_i\\) leads to \\[{\\bf m}= (\\hat{\\bf G}^T\\hat{\\bf G})^{-1} \\hat{\\bf G}^T \\hat{\\bf d}\\] with \\(\\hat{{\\bf G}}=\\mbox{diag}(1/\\epsilon_i)\\cdot {\\bf G}\\)\n\n\n2.9.3 General \\(L_p\\) norm\nThe \\(L_2\\) norm is the rooted sum of squared elements of a vector \\(\\bf v\\):\n\\[\\Phi^P=\\|{\\bf v}\\|_2=\\sqrt{\\sum_i v_i^2}\\]\nMore generally, the \\(L_P\\) norm is computed by \\[\\Phi^P=\\|{\\bf v}\\|_P=\\left( \\sum_i |v_i|^P \\right)^{1/P}\\]\n\n\n2.9.4 \\(L_1\\) norm minimization (IRLS)\n\\[\\Phi^1=\\|{\\bf v}\\|_1=\\sum_i |v_i|\\]\n\n\n\n\n\n\nThe \\(L_1\\) norm is much less prone to outliers as the misfit is not squared\n\n\n\nBy the ratio of its contribution to L1 and L2 norm we can reweight \\(\\epsilon_i\\) \\[ w_i = \\frac{|v_i|/\\|\\vb v\\|^1_1}{v_i^2/\\|\\vb v\\|^2_2}\n= \\frac{\\|\\vb v\\|^2_2}{|v_i| \\cdot \\|\\vb v\\|^1_1} \\]\nThis is known as Iteratively Reweighted Least-Squares (IRLS)\n\n\n2.9.5 Linear regression with outliers\n\n\nShow the code\nd[-1] += 1\nm = Ainv @ d\nprint(\"m = \", m)\nfig, ax = plt.subplots()\nax.plot(x, d, \"b+\")\nax.plot(x, A@m, \"r-\")\nax.plot(x, 0.5-0.5*x, \"m--\")\nax.grid()\n\n\nm =  [ 0.42987692 -0.4263657 ]\n\n\n\n\n\n\n\n\n\n\n\n2.9.6 The misfit distribution\n\n\n\n\n\n\nImportant\n\n\n\nAlways have a look at the misfit distribution (not only \\(\\chi^2\\))\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n2.9.7 Wrap-up overdetermined problems (\\(N&gt;M\\))\n\nobjective function \\(\\Phi\\) as squared data misfit\nweighting of individual data (unitless, more flexible & objective)\nbroad minimum of the objective function\ngrid search to plot \\(\\phi\\) \\(\\Rightarrow\\) only nice for \\(M\\)=2\nleast squares method yields\nresolution matrices for model (perfect) and data (distributed)",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Linear problems</span>"
     ]
@@ -272,11 +272,11 @@
   {
     "objectID": "literature.html",
     "href": "literature.html",
-    "title": "Literaturverzeichnis",
+    "title": "References",
     "section": "",
-    "text": "Menke W. 2012. Geophysical\ndata analysis: Discrete inverse theory (Elsevier)",
+    "text": "Gubbins D. 2004. Time series analysis and inverse theory for\ngeophysicists (Cambridge Univ. Press)\n\n\nGünther T. 2004. Inversion Methods and\nResolution Analysis for the\n2D/3D Reconstruction of\nResistivity Structures from DC\nMeasurements PhD thesis (University of Mining;\nTechnology Freiberg)\n\n\nMenke W. 2012. Geophysical\ndata analysis: Discrete inverse theory (Elsevier)\n\n\nRichter M. 2016. Inverse problems:\nBasics, theory and applications in geophysics (Springer\nInternational Publishing)\n\n\nTarantola A. 1978. Inverse problem theory (Amsterdam: Elsevier)\n\n\nZhdanov M S. 2002. Geophysical inverse theory and regularization\nproblems (Amsterdam - New York - Tokyo: Elsevier)",
     "crumbs": [
-      "Literaturverzeichnis"
+      "References"
     ]
   }
 ]

@@ -205,7 +205,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./literature.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Literaturverzeichnis</span></a>
+ <span class="menu-text">References</span></a>
   </div>
 </li>
     </ul>
@@ -377,7 +377,7 @@ window.Quarto = {
 <p>We can transform every equation to one parameter being a function of the other</p>
 <p><span class="math display">\[m_2 = (d_i - G_{i1} \cdot m_1)/G_{i2}\]</span></p>
 <p>All three equations can be plotted</p>
-<div id="4fadcda4" class="cell" data-execution_count="2">
+<div id="4a7d0857" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>], [<span class="dv">2</span>, <span class="op">-</span><span class="dv">1</span>], [<span class="dv">1</span>, <span class="dv">1</span>]])</span>
@@ -413,7 +413,7 @@ ax.plot(m[0], m[1], "*", markersize=5)
 <p><span class="math display">\[\delta m_2 = \delta d_i / G_{i2}\]</span></p>
 <div class="columns">
 <div class="column">
-<div id="835fbd5d" class="cell" data-execution_count="3">
+<div id="adb4417e" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
@@ -438,7 +438,7 @@ ax.plot(m[0], m[1], "*", markersize=5)
 </div>
 </div>
 </div><div class="column">
-<div id="faf0fb90" class="cell" data-execution_count="4">
+<div id="2e0c40c0" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
@@ -477,7 +477,7 @@ ax.plot(m[0], m[1], "*", markersize=5)
 <p>Let’s compute the objective function for a range of values for <span class="math inline">\(m_1\)</span> and <span class="math inline">\(m_2\)</span> (grid search).</p>
 <section id="distance-function-for-the-first-two-data" class="level3" data-number="2.3.1">
 <h3 data-number="2.3.1" class="anchored" data-anchor-id="distance-function-for-the-first-two-data"><span class="header-section-number">2.3.1</span> Distance function for the first two data</h3>
-<div id="e1ae3070" class="cell" data-execution_count="5">
+<div id="2cb62ab2" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="op">=</span> np.arange(<span class="fl">0.65</span>, <span class="fl">1.1</span>, <span class="fl">0.01</span>)</span>
@@ -501,7 +501,7 @@ ax.plot(m[0], m[1], "*", markersize=5)
 </div>
 </div>
 <p>If we combine the distances of the first two (the square root of their squares), we observe an elongated minimum similar to that of the two lines alone.</p>
-<div id="0c55dadb" class="cell" data-execution_count="6">
+<div id="6a5ce6a5" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>plt.matshow(np.sqrt(Y[<span class="dv">0</span>]<span class="op">**</span><span class="dv">2</span><span class="op">+</span>Y[<span class="dv">1</span>]<span class="op">**</span><span class="dv">2</span>), extent<span class="op">=</span>ext, cmap<span class="op">=</span><span class="st">"Spectral_r"</span>)</span>
@@ -516,7 +516,7 @@ ax.plot(m[0], m[1], "*", markersize=5)
 </div>
 </div>
 <p>Thus, the ambiguity is not much reduced be combining these two similar equations. If we use all three equations, there is a clear minimum of ellipsoidal shape.</p>
-<div id="ba6e8b4e" class="cell" data-execution_count="7">
+<div id="974ed00e" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>plt.matshow(np.sqrt(Y[<span class="dv">0</span>]<span class="op">**</span><span class="dv">2</span><span class="op">+</span>Y[<span class="dv">1</span>]<span class="op">**</span><span class="dv">2</span><span class="op">+</span>Y[<span class="dv">2</span>]<span class="op">**</span><span class="dv">2</span>), extent<span class="op">=</span>ext, cmap<span class="op">=</span><span class="st">"Spectral_r"</span>)</span>
@@ -551,7 +551,7 @@ ax.plot(m[0], m[1], "*", markersize=5)
 </section>
 <section id="simple-matrix-problem---solution" class="level2" data-number="2.5">
 <h2 data-number="2.5" class="anchored" data-anchor-id="simple-matrix-problem---solution"><span class="header-section-number">2.5</span> Simple matrix problem - Solution</h2>
-<div id="db182c71" class="cell" data-output-location="column" data-execution_count="8">
+<div id="17e63528" class="cell" data-output-location="column" data-execution_count="8">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>mLS, <span class="op">*</span>_ <span class="op">=</span> np.linalg.lstsq(G, d, rcond<span class="op">=</span><span class="va">None</span>)</span>
@@ -585,7 +585,7 @@ ax.plot(m[0], m[1], "*", markersize=5)
 
 
 
-::: {#674a5366 .cell output-location='column' execution_count=10}
+::: {#5b1735a0 .cell output-location='column' execution_count=10}
 ``` {.python .cell-code code-line-numbers="false"}
 G = np.array([[1, -1], [2, -1], [1, 1]])
 d = np.array([-1, 0, 2.5]);
@@ -631,7 +631,7 @@ ax.set_ylabel("$m_2$");
 
 ## Solving linear regression
 
-::: {#452aad2a .cell output-location='column' execution_count=11}
+::: {#95c49b35 .cell output-location='column' execution_count=11}
 ``` {.python .cell-code code-line-numbers="false"}
 m = np.linalg.inv(G.T@G)@(G.T@d)
 ```
@@ -672,7 +672,7 @@ m = np.linalg.inv(G.T@G)@(G.T@d)
 </section>
 <section id="resolution-of-matrix-problem" class="level3" data-number="2.6.4">
 <h3 data-number="2.6.4" class="anchored" data-anchor-id="resolution-of-matrix-problem"><span class="header-section-number">2.6.4</span> Resolution of matrix problem</h3>
-<div id="5e1461ad" class="cell" data-output-location="column" data-execution_count="12">
+<div id="0419e47f" class="cell" data-output-location="column" data-execution_count="12">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>Ginv <span class="op">=</span> np.linalg.inv(G.T <span class="op">@</span> G) <span class="op">@</span> G.T</span>
@@ -697,7 +697,7 @@ m = np.linalg.inv(G.T@G)@(G.T@d)
 </section>
 <section id="linear-regression" class="level2" data-number="2.7">
 <h2 data-number="2.7" class="anchored" data-anchor-id="linear-regression"><span class="header-section-number">2.7</span> Linear regression</h2>
-<div id="54e46c1a" class="cell" data-output-location="column" data-execution_count="13">
+<div id="c33be27b" class="cell" data-output-location="column" data-execution_count="13">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">3</span>, <span class="fl">0.1</span>)</span>
@@ -719,15 +719,15 @@ m = np.linalg.inv(G.T@G)@(G.T@d)
 <span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"X²="</span>, np.sqrt(np.mean((residual<span class="op">/</span>err)<span class="op">**</span><span class="dv">2</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>m =  [ 0.53110093 -0.52854039]
-mean= 3.700743415417188e-17
-std= 0.12323880275085498
-X²= 1.2323880275085497</code></pre>
+<pre><code>m =  [ 0.51803119 -0.50901033]
+mean= -4.4408920985006264e-17
+std= 0.08366116071051583
+X²= 0.8366116071051584</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02_linear_problems_files/figure-html/cell-14-output-2.png" width="590" height="412" class="figure-img"></p>
+<p><img src="02_linear_problems_files/figure-html/cell-14-output-2.png" width="590" height="411" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -735,7 +735,7 @@ X²= 1.2323880275085497</code></pre>
 </section>
 <section id="linear-regression---data-importance-matrix" class="level2" data-number="2.8">
 <h2 data-number="2.8" class="anchored" data-anchor-id="linear-regression---data-importance-matrix"><span class="header-section-number">2.8</span> Linear regression - data importance matrix</h2>
-<div id="397ae6f4" class="cell" data-output-location="column" data-execution_count="14">
+<div id="757d788e" class="cell" data-output-location="column" data-execution_count="14">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>RD <span class="op">=</span> A <span class="op">@</span> Ainv</span>
@@ -756,7 +756,7 @@ X²= 1.2323880275085497</code></pre>
 <li>neighboring data points are correlated, opposite anti-correlated</li>
 </ul>
 <hr>
-<div id="69074d1b" class="cell" data-output-location="column" data-execution_count="15">
+<div id="f6effc83" class="cell" data-output-location="column" data-execution_count="15">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>rd <span class="op">=</span> np.diag(RD)</span>
@@ -823,7 +823,7 @@ X²= 1.2323880275085497</code></pre>
 </section>
 <section id="linear-regression-with-outliers" class="level3" data-number="2.9.5">
 <h3 data-number="2.9.5" class="anchored" data-anchor-id="linear-regression-with-outliers"><span class="header-section-number">2.9.5</span> Linear regression with outliers</h3>
-<div id="28669a6d" class="cell" data-output-location="column" data-execution_count="16">
+<div id="40eea07c" class="cell" data-output-location="column" data-execution_count="16">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>d[<span class="op">-</span><span class="dv">1</span>] <span class="op">+=</span> <span class="dv">1</span></span>
@@ -836,12 +836,12 @@ X²= 1.2323880275085497</code></pre>
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>ax.grid()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>m =  [ 0.44294666 -0.44589576]</code></pre>
+<pre><code>m =  [ 0.42987692 -0.4263657 ]</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02_linear_problems_files/figure-html/cell-17-output-2.png" width="590" height="413" class="figure-img"></p>
+<p><img src="02_linear_problems_files/figure-html/cell-17-output-2.png" width="590" height="411" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -862,7 +862,7 @@ Important
 <p>Always have a look at the misfit distribution (not only <span class="math inline">\(\chi^2\)</span>)</p>
 </div>
 </div>
-<div id="cf3b398d" class="cell" data-output-location="column" data-execution_count="17">
+<div id="916acd8d" class="cell" data-output-location="column" data-execution_count="17">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1424,8 +1424,8 @@ Note
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./literature.html" class="pagination-link" aria-label="Literaturverzeichnis">
-        <span class="nav-page-text">Literaturverzeichnis</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./literature.html" class="pagination-link" aria-label="References">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

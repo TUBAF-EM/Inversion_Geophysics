@@ -7,6 +7,10 @@ profile:
   group:
     - [book, slides]
 
+execute:
+  freeze: auto
+  cache: true
+
 book:
   title: "Inverse Problems in Geophysics"
   author: "Thomas Günther (TU Bergakademie Freiberg)"
