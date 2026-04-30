@@ -58,7 +58,26 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -68,7 +87,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./literature.html" rel="next">
+<link href="./03_resolution.html" rel="next">
 <link href="./01_introduction.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -204,6 +223,12 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./03_resolution.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Resolution analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./literature.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
@@ -218,10 +243,7 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#types-of-inverse-problems" id="toc-types-of-inverse-problems" class="nav-link active" data-scroll-target="#types-of-inverse-problems"><span class="header-section-number">2.1</span> Types of inverse problems</a>
-  <ul class="collapse">
-  <li><a href="#types-of-inverse-problems-menke-2012" id="toc-types-of-inverse-problems-menke-2012" class="nav-link" data-scroll-target="#types-of-inverse-problems-menke-2012"><span class="header-section-number">2.1.1</span> Types of inverse problems (Menke, 2012)</a></li>
-  </ul></li>
+  <li><a href="#types-of-inverse-problems-naive" id="toc-types-of-inverse-problems-naive" class="nav-link active" data-scroll-target="#types-of-inverse-problems-naive"><span class="header-section-number">2.1</span> Types of inverse problems (naive)</a></li>
   <li><a href="#a-simple-matrix-problem" id="toc-a-simple-matrix-problem" class="nav-link" data-scroll-target="#a-simple-matrix-problem"><span class="header-section-number">2.2</span> A simple matrix problem</a>
   <ul class="collapse">
   <li><a href="#error-bars" id="toc-error-bars" class="nav-link" data-scroll-target="#error-bars"><span class="header-section-number">2.2.1</span> Error bars</a></li>
@@ -317,24 +339,24 @@ window.Quarto = {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Gravity, Magnetics, Magnetic Resonance, VSP, straight-ray tomography</p>
+<p>Gravity, Magnetics, Magnetic Resonance, VSP, straight-ray tomography, amplitude tomography</p>
 </div>
 </div>
-<div class="callout callout-style-default callout-warning callout-titled" title="Problem">
+<div class="callout callout-style-default callout-warning callout-titled" title="Can't we just do $\vb m = \vb G^{-1} \vb d$ ?">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Problem
+<span class="screen-reader-only">Warning</span>Can’t we just do <span class="math inline">\(\vb m = \vb G^{-1} \vb d\)</span> ?
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><span class="math inline">\(\vb m = G^{-1}d\)</span> ? No, because is usually not invertible, not even quadratic.</p>
+<p>No, because is usually not invertible, not even quadratic.</p>
 </div>
 </div>
-<section id="types-of-inverse-problems" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="types-of-inverse-problems"><span class="header-section-number">2.1</span> Types of inverse problems</h2>
+<section id="types-of-inverse-problems-naive" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="types-of-inverse-problems-naive"><span class="header-section-number">2.1</span> Types of inverse problems (naive)</h2>
 <div class="callout callout-style-simple callout-important callout-titled" title="Problem size">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -358,10 +380,12 @@ window.Quarto = {
 <li><span class="math inline">\(N\)</span> &lt; <span class="math inline">\(M\)</span>: under-determined problem (no unique solution)</li>
 <li>mostly: (both over- and) under-determined model parts</li>
 </ul>
-<section id="types-of-inverse-problems-menke-2012" class="level3" data-number="2.1.1">
-<h3 data-number="2.1.1" class="anchored" data-anchor-id="types-of-inverse-problems-menke-2012"><span class="header-section-number">2.1.1</span> Types of inverse problems (Menke, 2012)</h3>
-<p><img src="pics/bestimmtheit.png" class="img-fluid"></p>
-</section>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pics/bestimmtheit.png" class="img-fluid figure-img"></p>
+<figcaption>Types of inverse problems <span class="citation" data-cites="Menke2012">(<a href="literature.html#ref-Menke2012" role="doc-biblioref">Menke 2012</a>)</span></figcaption>
+</figure>
+</div>
 </section>
 <section id="a-simple-matrix-problem" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="a-simple-matrix-problem"><span class="header-section-number">2.2</span> A simple matrix problem</h2>
@@ -377,7 +401,7 @@ window.Quarto = {
 <p>We can transform every equation to one parameter being a function of the other</p>
 <p><span class="math display">\[m_2 = (d_i - G_{i1} \cdot m_1)/G_{i2}\]</span></p>
 <p>All three equations can be plotted</p>
-<div id="4a7d0857" class="cell" data-execution_count="2">
+<div id="740b06f7" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>], [<span class="dv">2</span>, <span class="op">-</span><span class="dv">1</span>], [<span class="dv">1</span>, <span class="dv">1</span>]])</span>
@@ -413,7 +437,7 @@ ax.plot(m[0], m[1], "*", markersize=5)
 <p><span class="math display">\[\delta m_2 = \delta d_i / G_{i2}\]</span></p>
 <div class="columns">
 <div class="column">
-<div id="adb4417e" class="cell" data-execution_count="3">
+<div id="815ef9b2" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
@@ -438,7 +462,7 @@ ax.plot(m[0], m[1], "*", markersize=5)
 </div>
 </div>
 </div><div class="column">
-<div id="2e0c40c0" class="cell" data-execution_count="4">
+<div id="7679d7e4" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
@@ -473,11 +497,11 @@ ax.plot(m[0], m[1], "*", markersize=5)
 <section id="the-objective-function" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="the-objective-function"><span class="header-section-number">2.3</span> The objective function</h2>
 <p>We minimize the L2-norm (summed squared distances) of the residual between data and model response:</p>
-<p><span class="math display">\[ \Phi = \| \vb d - G m \|^2_2 = \sum\limits_1^N (d_i-g_i({\vb m}))^2 \rightarrow\min \]</span></p>
+<p><span class="math display">\[ \Phi = \| \vb d - \vb G \vb m \|^2_2 = \sum\limits_1^N (d_i-g_i({\vb m}))^2 \rightarrow\min \]</span></p>
 <p>Let’s compute the objective function for a range of values for <span class="math inline">\(m_1\)</span> and <span class="math inline">\(m_2\)</span> (grid search).</p>
 <section id="distance-function-for-the-first-two-data" class="level3" data-number="2.3.1">
 <h3 data-number="2.3.1" class="anchored" data-anchor-id="distance-function-for-the-first-two-data"><span class="header-section-number">2.3.1</span> Distance function for the first two data</h3>
-<div id="2cb62ab2" class="cell" data-execution_count="5">
+<div id="d8875bc7" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="op">=</span> np.arange(<span class="fl">0.65</span>, <span class="fl">1.1</span>, <span class="fl">0.01</span>)</span>
@@ -501,7 +525,7 @@ ax.plot(m[0], m[1], "*", markersize=5)
 </div>
 </div>
 <p>If we combine the distances of the first two (the square root of their squares), we observe an elongated minimum similar to that of the two lines alone.</p>
-<div id="6a5ce6a5" class="cell" data-execution_count="6">
+<div id="6a5470b5" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>plt.matshow(np.sqrt(Y[<span class="dv">0</span>]<span class="op">**</span><span class="dv">2</span><span class="op">+</span>Y[<span class="dv">1</span>]<span class="op">**</span><span class="dv">2</span>), extent<span class="op">=</span>ext, cmap<span class="op">=</span><span class="st">"Spectral_r"</span>)</span>
@@ -516,7 +540,7 @@ ax.plot(m[0], m[1], "*", markersize=5)
 </div>
 </div>
 <p>Thus, the ambiguity is not much reduced be combining these two similar equations. If we use all three equations, there is a clear minimum of ellipsoidal shape.</p>
-<div id="974ed00e" class="cell" data-execution_count="7">
+<div id="5e91b60d" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>plt.matshow(np.sqrt(Y[<span class="dv">0</span>]<span class="op">**</span><span class="dv">2</span><span class="op">+</span>Y[<span class="dv">1</span>]<span class="op">**</span><span class="dv">2</span><span class="op">+</span>Y[<span class="dv">2</span>]<span class="op">**</span><span class="dv">2</span>), extent<span class="op">=</span>ext, cmap<span class="op">=</span><span class="st">"Spectral_r"</span>)</span>
@@ -544,14 +568,14 @@ ax.plot(m[0], m[1], "*", markersize=5)
 <p><span class="math display">\[\nabla_m \Phi = \nabla_m ({\vb m}^T{\vb G}^T-{\vb d}^T) ({\vb G}{\vb m}-{\vb d})=0\]</span></p>
 <p><span class="math display">\[\nabla_m \Phi = \nabla_m {\vb m}^T{\vb G}^T ({\vb G}{\vb m}-{\vb d})=0\]</span></p>
 <p><span class="math display">\[\nabla_m \Phi = {\vb G}^T ({\vb G}{\vb m}-{\vb d})={\vb G}^T {\vb G}{\vb m}-{\vb G}^T{\vb d}=0\]</span></p>
-<p><span class="math display">\[\Rightarrow \quad\quad {\vb m}=({\vb G}^T{\vb G})^{-1} {\vb G}^T{\vb d} ={\vb G}^\dagger{\vb d}\]</span> <span class="math display">\[\mbox{mit}\quad {\vb G}^\dagger = ({\vb G}^T{\vb G})^{-1} {\vb G}^T\]</span></p>
-<p>(generalized inverse or Pseudo-inverse <code>pinv</code>, in Matlab/Julia <code>G\d</code>)</p>
-<p>The solution <span class="math inline">\({\vb m}_{LS}={\vb G}^\dagger {\vb d}\)</span> is the <strong>least-squares solution</strong></p>
+<p><span class="math display">\[\Rightarrow \quad\quad {\vb m}=({\vb G}^T{\vb G})^{-1} {\vb G}^T{\vb d} ={\vb G}^\dagger{\vb d}\]</span> <span class="math display">\[\mbox{with}\quad {\vb G}^\dagger = ({\vb G}^T{\vb G})^{-1} {\vb G}^T\]</span></p>
+<p>This operator is called <em>generalized inverse</em> or <em>pseudo-inverse</em> (<code>np.linalg.pinv</code>).</p>
+<p>The solution <span class="math inline">\({\vb m}_{LS}={\vb G}^\dagger {\vb d}\)</span> is the <strong>least-squares solution</strong>, which can also be computed by <code>m=np.linalg.lstsq(G, d)</code> (in Matlab/Julia simply <code>G\d</code>). Further derivations are at the bottom of the page.</p>
 </section>
 </section>
 <section id="simple-matrix-problem---solution" class="level2" data-number="2.5">
 <h2 data-number="2.5" class="anchored" data-anchor-id="simple-matrix-problem---solution"><span class="header-section-number">2.5</span> Simple matrix problem - Solution</h2>
-<div id="17e63528" class="cell" data-output-location="column" data-execution_count="8">
+<div id="da560584" class="cell" data-output-location="column" data-execution_count="9">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>mLS, <span class="op">*</span>_ <span class="op">=</span> np.linalg.lstsq(G, d, rcond<span class="op">=</span><span class="va">None</span>)</span>
@@ -585,7 +609,7 @@ ax.plot(m[0], m[1], "*", markersize=5)
 
 
 
-::: {#5b1735a0 .cell output-location='column' execution_count=10}
+::: {#c9de962c .cell output-location='column' execution_count=11}
 ``` {.python .cell-code code-line-numbers="false"}
 G = np.array([[1, -1], [2, -1], [1, 1]])
 d = np.array([-1, 0, 2.5]);
@@ -631,7 +655,7 @@ ax.set_ylabel("$m_2$");
 
 ## Solving linear regression
 
-::: {#95c49b35 .cell output-location='column' execution_count=11}
+::: {#b2e6e3c2 .cell output-location='column' execution_count=12}
 ``` {.python .cell-code code-line-numbers="false"}
 m = np.linalg.inv(G.T@G)@(G.T@d)
 ```
@@ -672,7 +696,7 @@ m = np.linalg.inv(G.T@G)@(G.T@d)
 </section>
 <section id="resolution-of-matrix-problem" class="level3" data-number="2.6.4">
 <h3 data-number="2.6.4" class="anchored" data-anchor-id="resolution-of-matrix-problem"><span class="header-section-number">2.6.4</span> Resolution of matrix problem</h3>
-<div id="0419e47f" class="cell" data-output-location="column" data-execution_count="12">
+<div id="8afd30fc" class="cell" data-output-location="column" data-execution_count="13">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>Ginv <span class="op">=</span> np.linalg.inv(G.T <span class="op">@</span> G) <span class="op">@</span> G.T</span>
@@ -697,7 +721,7 @@ m = np.linalg.inv(G.T@G)@(G.T@d)
 </section>
 <section id="linear-regression" class="level2" data-number="2.7">
 <h2 data-number="2.7" class="anchored" data-anchor-id="linear-regression"><span class="header-section-number">2.7</span> Linear regression</h2>
-<div id="c33be27b" class="cell" data-output-location="column" data-execution_count="13">
+<div id="c01f4d1d" class="cell" data-output-location="column" data-execution_count="14">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">3</span>, <span class="fl">0.1</span>)</span>
@@ -719,15 +743,15 @@ m = np.linalg.inv(G.T@G)@(G.T@d)
 <span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"X²="</span>, np.sqrt(np.mean((residual<span class="op">/</span>err)<span class="op">**</span><span class="dv">2</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>m =  [ 0.51803119 -0.50901033]
-mean= -4.4408920985006264e-17
-std= 0.08366116071051583
-X²= 0.8366116071051584</code></pre>
+<pre><code>m =  [ 0.51836636 -0.50509473]
+mean= 5.828670879282072e-17
+std= 0.12347393482751115
+X²= 1.2347393482751117</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02_linear_problems_files/figure-html/cell-14-output-2.png" width="590" height="411" class="figure-img"></p>
+<p><img src="02_linear_problems_files/figure-html/cell-14-output-2.png" width="590" height="412" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -735,7 +759,7 @@ X²= 0.8366116071051584</code></pre>
 </section>
 <section id="linear-regression---data-importance-matrix" class="level2" data-number="2.8">
 <h2 data-number="2.8" class="anchored" data-anchor-id="linear-regression---data-importance-matrix"><span class="header-section-number">2.8</span> Linear regression - data importance matrix</h2>
-<div id="757d788e" class="cell" data-output-location="column" data-execution_count="14">
+<div id="5d4c5d17" class="cell" data-output-location="column" data-execution_count="15">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>RD <span class="op">=</span> A <span class="op">@</span> Ainv</span>
@@ -756,7 +780,7 @@ X²= 0.8366116071051584</code></pre>
 <li>neighboring data points are correlated, opposite anti-correlated</li>
 </ul>
 <hr>
-<div id="f6effc83" class="cell" data-output-location="column" data-execution_count="15">
+<div id="52367e4f" class="cell" data-output-location="column" data-execution_count="16">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>rd <span class="op">=</span> np.diag(RD)</span>
@@ -823,7 +847,7 @@ X²= 0.8366116071051584</code></pre>
 </section>
 <section id="linear-regression-with-outliers" class="level3" data-number="2.9.5">
 <h3 data-number="2.9.5" class="anchored" data-anchor-id="linear-regression-with-outliers"><span class="header-section-number">2.9.5</span> Linear regression with outliers</h3>
-<div id="40eea07c" class="cell" data-output-location="column" data-execution_count="16">
+<div id="1c72b704" class="cell" data-output-location="column" data-execution_count="17">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>d[<span class="op">-</span><span class="dv">1</span>] <span class="op">+=</span> <span class="dv">1</span></span>
@@ -836,12 +860,12 @@ X²= 0.8366116071051584</code></pre>
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>ax.grid()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>m =  [ 0.42987692 -0.4263657 ]</code></pre>
+<pre><code>m =  [ 0.43021209 -0.4224501 ]</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02_linear_problems_files/figure-html/cell-17-output-2.png" width="590" height="411" class="figure-img"></p>
+<p><img src="02_linear_problems_files/figure-html/cell-17-output-2.png" width="590" height="412" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -862,7 +886,7 @@ Important
 <p>Always have a look at the misfit distribution (not only <span class="math inline">\(\chi^2\)</span>)</p>
 </div>
 </div>
-<div id="916acd8d" class="cell" data-output-location="column" data-execution_count="17">
+<div id="229ef406" class="cell" data-output-location="column" data-execution_count="18">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1013,6 +1037,11 @@ Note
     + ({\vb m}^T{\vb G}^T{\vb G}{\vb m}+{\vb d}^T{\vb d}-2{\vb m}^T{\vb G}^T{\vb d})\]</span> <span class="math inline">\(\Phi(t)\)</span> has a minimum at <span class="math inline">\(t=0\)</span>, therefore <span class="math inline">\(\partial\Phi/\partial t\)</span> must be 0 <span class="math display">\[\partial\Phi(t=0)/\partial t = 2(\delta{\vb m}^T{\vb G}^T{\vb G}{\vb m}- \delta{\vb m}^T{\vb G}{\vb d}) = 2\delta{\vb m}^T ({\vb G}^T{\vb G}{\vb m}-{\vb G}^T{\vb d}) = 0\]</span> As this holds for every <span class="math inline">\(\delta{\vb m}\)</span>, we obtain <span class="math inline">\({\vb G}^T{\vb G}{\vb m}={\vb G}^T{\vb d}\)</span></p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-Menke2012" class="csl-entry" role="listitem">
+Menke W. 2012. <em><a href="https://doi.org/10.1016/B978-0-12-397160-9.00001-1">Geophysical data analysis: Discrete inverse theory</a></em> (Elsevier)
+</div>
+</div>
 </section>
 </section>
 
@@ -1424,8 +1453,8 @@ Note
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./literature.html" class="pagination-link" aria-label="References">
-        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./03_resolution.html" class="pagination-link" aria-label="Resolution analysis">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Resolution analysis</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

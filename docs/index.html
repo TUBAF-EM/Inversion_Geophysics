@@ -159,6 +159,12 @@ window.MathJax = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./03_resolution.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Resolution analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./literature.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
@@ -228,7 +234,10 @@ window.MathJax = {
 </section>
 <section id="code" class="level2">
 <h2 class="anchored" data-anchor-id="code">Code</h2>
-<p>The website’s course material includes sections with embedded Python code. You can easily copy the code and execute it in a compatible Python runtime environment. For an optimal experience, we recommend installing Python via <a href="https://github.com/conda-forge/miniforge"><em>miniforge</em></a>. You mainly need the numerical base library <a href="https://numpy.org">NumPy</a> for doing the computations, and <a href="https://matplotlib.org">Matplotlib</a> for visualization purposes. For higher-dimensional problems, we use the <a href="https://pygimli.org">pyGIMLi</a> package to generate meshes and matrices, but stay with its core and equation levels for didactic reasons.</p>
+<p>The website’s course material includes sections with embedded Python code. You can easily copy the code and execute it in a compatible Python runtime environment. For an optimal experience, we recommend installing Python via <a href="https://github.com/conda-forge/miniforge"><em>miniforge</em></a>. You mainly need the numerical base library <a href="https://numpy.org">NumPy</a> for doing the computations, and <a href="https://matplotlib.org">Matplotlib</a> for visualization purposes. For higher-dimensional problems, we use the <a href="https://pygimli.org">pyGIMLi</a> package to generate meshes and matrices, but stay with its core and equation levels for didactic reasons. In the following code snippets, we assume the following imports</p>
+<pre><code>import numpy as np
+import matplotlib.pyplot as plt
+import pygimli as pg</code></pre>
 <p>Moreover, you have the freedom to explore your own concepts and delve deeper into the course content by creating your personalized Jupyter notebooks. You can utilize use either <a href="https://code.visualstudio.com/">Visual Studio Code</a> or <a href="https://jupyter.org">Jupyterlab</a> Working with Jupyter Notebooks in Visual Studio Code is <a href="https://code.visualstudio.com/docs/datascience/jupyter-notebooks">exceptionally straightforward</a>.</p>
 <p>The material was created by <a href="https://quarto.org">Quarto</a>.</p>
 </section>

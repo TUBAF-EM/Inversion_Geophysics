@@ -1,339 +1,49 @@
 ---
-title: "Linear problems"
+title: "Resolution analysis"
 ---
 
-::: {.callout title="Linear problems"}
-$\vb f(m)$ is linear with respect to $\vb m$
-$\Rightarrow$ write as matrix-vector product
-
-$$\vb d = \vb G \vb m + \vb n $$
-:::
-
-::: {.callout-note title="Examples"}
-Gravity, Magnetics, Magnetic Resonance, VSP, straight-ray tomography, amplitude tomography
-:::
-
-
-::: {.callout-warning title="Can't we just do $\vb m = \vb G^{-1} \vb d$ ?"}
-No, because  is usually not invertible, not even quadratic.
-:::
-
-
-## Types of inverse problems (naive)
-
-::: {.callout-important title="Problem size" appearance="simple"}
-* every row stands for a measurement (data point)
-* every column represents a model parameter
-
-$$\vb d = Gm + n \Rightarrow \vb G\in \mathfrak{R}^{N\times M}$$
-:::
-
-* $N$ = $M$: even-determined
-* $N$ > $M$: over-determined problem (no existing solution)
-* $N$ < $M$: under-determined problem (no unique solution)
-* mostly: (both over- and) under-determined model parts
-
-![Types of inverse problems [@Menke2012]](pics/bestimmtheit)
-
-## A simple matrix problem
-
-Let us assume a simple linear problem with two model parameters and three equations (representing data)
-
-$$
-\begin{align}
-~ m_1 - m_2 = -1 \\
-2 m_1 - m_2 = 0  \\
-~ m_1 + m_2 = 2.5
-\end{align}
-$$
-
-whose forward operator can be expressed by a matrix
-$$ \textbf{G}=\mqty(1&-1\\2&-1\\1&1) $$
-
-We can transform every equation to one parameter being a function of the other
-
-$$m_2 = (d_i - G_{i1} \cdot m_1)/G_{i2}$$
-
-All three equations can be plotted
-
-```{python}
-#| eval: true
-#| echo: false
-
-import numpy as np
-import matplotlib.pyplot as plt
-```
-```{python}
-#| echo: true
-#| code-line-numbers: false
-
-G = np.array([[1, -1], [2, -1], [1, 1]])
-d = np.array([-1, 0, 2.5]);
-fig, ax = plt.subplots()
-m1 = np.linspace(0.65, 1.1, 10)
-for i in range(3):
-    m2 = (d[i] - G[i, 0]*m1) / G[i, 1]
-    ax.plot(m1, m2)
-
-ax.set_aspect(1.0)
-ax.set_ylim(1.5, 2.1)
-ax.grid()
-ax.set_xlabel("$m_1$")
-ax.set_ylabel("$m_2$");
-```
-
-
-<!--
-m = np.linalg.inv(G.T@G)@(G.T@d)
-ax.plot(m[0], m[1], "*", markersize=5)
- -->
-
-
-### Error bars
-
-If the data $d_i$ have some data error $\delta d_i$, the equation for $m_2$
-$$m_2 = (d_i - G_{i1} \cdot m_1)/G_{i2}$$
-
-does inherit an error
-
-$$\delta m_2 = \delta d_i / G_{i2}$$
-
-:::: {.columns}
-::: {.column}
-```{python}
-#| echo: true
-#| code-line-numbers: false
-
-fig, ax = plt.subplots()
-dd = 0.05
-for i in range(len(G)):
-    y = (d[i] - G[i, 0] * m1) / G[i, 1]
-    dy = dd/G[i, 1]
-    ax.fill_between(m1, y-dy, y+dy, color=f"C{i}", alpha=0.5)
-    ax.plot(m1, y, "-", label=f"{i}", color=f"C{i}")
-
-ax.set_aspect(1.0)
-ax.set_ylim(1.6, 2.0)
-ax.legend()
-ax.grid()
-```
-:::
-::: {.column}
-```{python}
-#| echo: true
-#| code-line-numbers: false
-
-fig, ax = plt.subplots()
-dd = 0.1
-for i in range(len(G)):
-    y = (d[i] - G[i, 0] * m1) / G[i, 1]
-    dy = dd/G[i, 1]
-    ax.fill_between(m1, y-dy, y+dy, color=f"C{i}", alpha=0.5)
-    ax.plot(m1, y, "-", label=f"{i}", color=f"C{i}")
-
-ax.set_aspect(1.0)
-ax.set_ylim(1.6, 2.0)
-ax.legend()
-ax.grid()
-```
-:::
-::::
-
-<!--
-![Error 0.05](pics/matrixprobE0.05.svg)
-![Error 0.1](pics/matrixprobE0.10.svg)
--->
-
-## The objective function
-
-We minimize the L2-norm (summed squared distances) of the residual between data and model response:
-
-$$ \Phi = \| \vb d - \vb G \vb m \|^2_2 = \sum\limits_1^N (d_i-g_i({\vb m}))^2 \rightarrow\min $$
-
-Let's compute the objective function for a range of values for $m_1$ and $m_2$ (grid search).
-
-### Distance function for the first two data
-
-```{python}
-#| echo: true
-#| code-line-numbers: false
-
-m1 = np.arange(0.65, 1.1, 0.01)
-m2 = np.arange(1.6, 2.001, 0.01)
-M1, M2 = np.meshgrid(m1, m2)
-fig, ax = plt.subplots(ncols=3, sharex=True, sharey=True)
-Y = [0, 0, 0]
-ext = [m1[0], m1[-1], m2[-1], m2[0]]
-for i in range(3):
-    Y[i] = np.abs(G[i, 0] * M1 + G[i, 1] * M2 - d[i])
-    ax[i].matshow(Y[i], extent=ext, cmap="Spectral_r")
-
-ax[0].invert_yaxis()
-```
-
-
-If we combine the distances of the first two (the square root of their squares), we observe an elongated minimum similar to that of the two lines alone.
-
-```{python}
-#| echo: true
-#| code-line-numbers: false
-
-plt.matshow(np.sqrt(Y[0]**2+Y[1]**2), extent=ext, cmap="Spectral_r")
-plt.gca().invert_yaxis()
-```
-
-Thus, the ambiguity is not much reduced be combining these two similar equations.
-If we use all three equations, there is a clear minimum of ellipsoidal shape.
-
-```{python}
-plt.matshow(np.sqrt(Y[0]**2+Y[1]**2+Y[2]**2), extent=ext, cmap="Spectral_r")
-plt.gca().invert_yaxis()
-```
-
-The minimum pixel (grid spacing of 0.01) lies at (0.82, 1.71).
-How can we determine the absolute minimum value?
-
-##  The method of least squares
-
-### Derivation
-$$\Phi = \| {\vb d}-{\vb G}{\vb m}\|^2_2 = ({\vb d}-{\vb G}{\vb m})^T ({\vb d}-{\vb G}{\vb m}) $$
-
-<!-- $$\Phi = ({\vb G}{\vb m}-{\vb d})^T ({\vb G}{\vb m}-{\vb d})$$ -->
-
-$$\nabla_m = \qty(\pdv{m_1}, \pdv{m_2}, \ldots, \pdv{m_M})^T$$
-
-$$\nabla_m \Phi = \nabla_m ({\vb G}{\vb m}-{\vb d})^T ({\vb G}{\vb m}-{\vb d})=0$$
-
-$$\nabla_m \Phi = \nabla_m ({\vb m}^T{\vb G}^T-{\vb d}^T) ({\vb G}{\vb m}-{\vb d})=0$$
-
-$$\nabla_m \Phi = \nabla_m {\vb m}^T{\vb G}^T ({\vb G}{\vb m}-{\vb d})=0$$
-
-$$\nabla_m \Phi = {\vb G}^T ({\vb G}{\vb m}-{\vb d})={\vb G}^T {\vb G}{\vb m}-{\vb G}^T{\vb d}=0$$
-
-$$\Rightarrow \quad\quad {\vb m}=({\vb G}^T{\vb G})^{-1} {\vb G}^T{\vb d} ={\vb G}^\dagger{\vb d}$$
-$$\mbox{with}\quad {\vb G}^\dagger = ({\vb G}^T{\vb G})^{-1} {\vb G}^T$$
-
-This operator is called *generalized inverse* or *pseudo-inverse* (`np.linalg.pinv`).
-
-The solution ${\vb m}_{LS}={\vb G}^\dagger {\vb d}$ is the **least-squares solution**, which can also be computed by `m=np.linalg.lstsq(G, d)` (in Matlab/Julia simply `G\d`).
-Further derivations are at the bottom of the page.
-
-## Simple matrix problem - Solution
-```{python}
-#| output-location: column
-#| echo: true
-#| code-line-numbers: false
-
-mLS, *_ = np.linalg.lstsq(G, d, rcond=None)
-fig, ax = plt.subplots()
-x = np.array([0.65, 1.1])
-dd = 0.081
-for i in range(len(G)):
-    y = (d[i] - G[i, 0] * x) / G[i, 1]
-    dy = dd/G[i, 1]
-    co = f"C{i}"
-    ax.fill_between(x, y-dy, y+dy,
-        color=co, alpha=.5)
-    ax.plot(x, y, "-", label=f"{i}", color=co)
-
-ax.plot(mLS[0], mLS[1], "r*", label="m-LS")
-ax.set_aspect(1.0)
-ax.set_ylim(1.6, 2.0)
-ax.legend()
-ax.grid()
-```
-<!--
-## Application to the matrix problem
-
-```{python}
-#| output-location: column-fragment
-#| eval: true
-#| echo: false
-
-import numpy as np
-import matplotlib.pyplot as plt
-```
-```{python}
-#| output-location: column
-#| echo: true
-#| code-line-numbers: false
-
-G = np.array([[1, -1], [2, -1], [1, 1]])
-d = np.array([-1, 0, 2.5]);
-m = np.linalg.inv(G.T@G)@(G.T@d)
-fig, ax = plt.subplots(figsize=(7,8))
-m1 = np.linspace(0.65, 1.1, 10)
-for i in range(3):
-    m2 = (d[i] - G[i, 0]*m1) / G[i, 1]
-    ax.plot(m1, m2)
-
-ax.plot(m[0], m[1], "*", markersize=5)
-ax.set_aspect(1.0)
-ax.set_ylim(1.5, 2.1)
-ax.grid()
-ax.set_xlabel("$m_1$")
-ax.set_ylabel("$m_2$");
-```
--->
-
-<!--
-# Linear regression
-
-:::: {.columns}
-::: {.column width="50%"}
-![](notebooks/regression.svg)
-:::
-::: {.column width="50%"}
-* $x$ - measuring positions
-* $y$ - measurements (data)
-* ${\vb y}=a\cdot {\vb x} + b + {\vb n}$
-* model: slope & intersection<br>
-  ${\vb m} = (a, b)^T$
-* How is $\vb G$ looking like?<br>
-  ${\vb G}{\vb m}=a\cdot{\vb x} + b$
-:::
-::::
-
-## Solving linear regression
-
-```{python}
-#| output-location: column
-#| echo: true
-#| code-line-numbers: false
-
-m = np.linalg.inv(G.T@G)@(G.T@d)
-```
- -->
-
-## Resolution analysis
+After having a solution (e.g. the least-squares solution, but generally), there are a couple of questions that can be summarized with the term resolution:
 
 * How does reality propagate into our image?
 * What is the quality of the inversion result?
 * What is the contribution of the individual data?
 
-### Model resolution
+## Model resolution matrix
 
-$${\vb d}= {\vb G}{\vb m}^\text{true} + {\vb n}$$
-Matrix inversion with inverse operator ${\vb G}^\dagger$:
+We start with the data consisting of a true model $\vb m^\text{true}$
+$$\vb d= \vb G \vb m^\text{true} + \vb n$$
+
+If we do a matrix inversion with any inverse operator ${\vb G}^\dagger$, we obtain our model estimate ${\vb m}^\text{est}$ by application to $\vb d$
 $${\vb m}^\text{est} = {\vb G}^\dagger {\vb d}= {\vb G}^\dagger{\vb G}{\vb m}^\text{true} +
-{\vb G}^\dagger{\vb n} = {\vb R}^M {\vb m}^\text{true} + {\vb G}^\dagger{\vb n}$$
-with the **model resolution matrix** ${\vb R}^M={\vb G}^\dagger{\vb G}$\
-$\Rightarrow$ How is the true model (${\vb m}^\text{true}$) reflected in the estimated (${\vb m}^\text{est}$)?
+{\vb G}^\dagger{\vb n} = $$
 
-Diagonal of $\vb R^M$: resolution of individual parameters (0-1)
+The first term on the right-hand side is the combination of forward and inverse operator, projecting from model to data and back to model, and is therefore called **model resolution matrix** ${\vb R}^M={\vb G}^\dagger{\vb G}$:
 
-### Data resolution
+$$\vb m^\text{est} = {\vb R}^M {\vb m}^\text{true} + {\vb G}^\dagger{\vb n}$$
+
+$\vb R^M$ obviously tells us how is the true model (${\vb m}^\text{true}$) is reflected in our estimate (${\vb m}^\text{est}$).
+Every column of the matrix can be interpreted as a so-called *point-spread function*, i.e. how a single anomaly is distributed in the model space.
+
+The diagonal elements of $\vb R^M$ states how well the individual points are reflected correctly and can therefore be treated as resolution of individual parameters and plotted like a model, mostly between 0 and 1.
+Ideally, $\vb R^M$ is an identity matrix, but mostly it deviates from it.
+
+## Data resolution
+
+Let's put it the other way round: How well are observed data $d^\text{obs}$ explained by our model? We again use the model
 
 $${\vb m}^\text{est} = {\vb G}^\dagger {\vb d}^\text{obs}$$
 
-How are the data explained by the model?
+and project into the data space
+
 $${\vb d}^\text{est} = {\vb G}{\vb m}^\text{est} =
-{\vb G}{\vb G}^\dagger{\vb d}^\text{obs} = {\vb R}^D {\vb d}^\text{obs}$$
+{\vb G}{\vb G}^\dagger{\vb d}^\text{obs}
 
-with the data resolution (information density) matrix:
-$${\vb R}^D={\vb G}{\vb G}^\dagger$$
+The first term on the right-hand side projects from data to model and back to data and is therefore called data resolution or data importance (or information density) matrix ${\vb R}^D={\vb G}{\vb G}^\dagger$, so that
 
-Diagonal of $R^D$: information content of individual data
+$${\vb d}^\text{est} = {\vb R}^D {\vb d}^\text{obs}$$
+
+It tells us how the individual data are correlated with each other.
+The diagonal of $R^D$ bears the information content of the individual data contributing to the model and can be plotted like any data vector .
 
 ### Model resolution for overdetermined problems
 
@@ -348,6 +58,15 @@ $${\vb G}^\dagger=({\vb G}^T{\vb G})^{-1} {\vb G}^T \quad \Rightarrow \quad
 
 
 ### Resolution of matrix problem
+
+```{python}
+#| output-location: column
+#| echo: false
+import numpy as np
+import matplotlib.pyplot as plt
+G = np.array([[1, -1], [2, -1], [1, 1]])
+```
+
 
 ```{python}
 #| output-location: column

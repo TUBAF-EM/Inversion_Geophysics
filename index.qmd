@@ -21,6 +21,13 @@ You can easily copy the code and execute it in a compatible Python runtime envir
 For an optimal experience, we recommend installing Python via [*miniforge*](https://github.com/conda-forge/miniforge).
 You mainly need the numerical base library [NumPy](https://numpy.org) for doing the computations, and [Matplotlib](https://matplotlib.org) for visualization purposes.
 For higher-dimensional problems, we use the [pyGIMLi](https://pygimli.org) package to generate meshes and matrices, but stay with its core and equation levels for didactic reasons.
+In the following code snippets, we assume the following imports
+```
+import numpy as np
+import matplotlib.pyplot as plt
+import pygimli as pg
+```
+
 
 Moreover, you have the freedom to explore your own concepts and delve deeper into the course content by creating your personalized Jupyter notebooks. You can utilize use either [Visual Studio Code](https://code.visualstudio.com/) or [Jupyterlab](https://jupyter.org)
 Working with Jupyter Notebooks in Visual Studio Code is [exceptionally straightforward](https://code.visualstudio.com/docs/datascience/jupyter-notebooks).
