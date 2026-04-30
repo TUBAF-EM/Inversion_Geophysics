@@ -23,7 +23,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -185,11 +204,8 @@ window.Quarto = {
   <ul>
   <li><a href="#data" id="toc-data" class="nav-link active" data-scroll-target="#data"><span class="header-section-number">1.1</span> Data</a>
   <ul class="collapse">
-  <li><a href="#data-in-seismology" id="toc-data-in-seismology" class="nav-link" data-scroll-target="#data-in-seismology"><span class="header-section-number">1.1.1</span> Data in seismology</a></li>
-  <li><a href="#data-in-travel-time-tomography" id="toc-data-in-travel-time-tomography" class="nav-link" data-scroll-target="#data-in-travel-time-tomography"><span class="header-section-number">1.1.2</span> Data in travel-time tomography</a></li>
-  <li><a href="#data-in-gravimetry" id="toc-data-in-gravimetry" class="nav-link" data-scroll-target="#data-in-gravimetry"><span class="header-section-number">1.1.3</span> Data in gravimetry</a></li>
-  <li><a href="#data-in-electrical-resistivity-tomography-ert" id="toc-data-in-electrical-resistivity-tomography-ert" class="nav-link" data-scroll-target="#data-in-electrical-resistivity-tomography-ert"><span class="header-section-number">1.1.4</span> Data in electrical resistivity tomography (ERT)</a></li>
-  <li><a href="#data-organization" id="toc-data-organization" class="nav-link" data-scroll-target="#data-organization"><span class="header-section-number">1.1.5</span> Data organization</a></li>
+  <li><a href="#example-data" id="toc-example-data" class="nav-link" data-scroll-target="#example-data"><span class="header-section-number">1.1.1</span> Example Data</a></li>
+  <li><a href="#data-organization" id="toc-data-organization" class="nav-link" data-scroll-target="#data-organization"><span class="header-section-number">1.1.2</span> Data organization</a></li>
   </ul></li>
   <li><a href="#geophysical-workflow" id="toc-geophysical-workflow" class="nav-link" data-scroll-target="#geophysical-workflow"><span class="header-section-number">1.2</span> Geophysical Workflow</a></li>
   <li><a href="#model" id="toc-model" class="nav-link" data-scroll-target="#model"><span class="header-section-number">1.3</span> Model</a>
@@ -200,7 +216,6 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#minimization-problem" id="toc-minimization-problem" class="nav-link" data-scroll-target="#minimization-problem"><span class="header-section-number">1.4.1</span> Minimization problem</a></li>
   <li><a href="#correctness" id="toc-correctness" class="nav-link" data-scroll-target="#correctness"><span class="header-section-number">1.4.2</span> Correctness</a></li>
-  <li><a href="#occams-razor---a-fundamental-rule" id="toc-occams-razor---a-fundamental-rule" class="nav-link" data-scroll-target="#occams-razor---a-fundamental-rule"><span class="header-section-number">1.4.3</span> Occam’s razor - a fundamental rule</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -230,44 +245,43 @@ window.Quarto = {
 <section id="data" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="data"><span class="header-section-number">1.1</span> Data</h2>
 <p>In geophysics, we measure many different types of data depending on the physical method being used.</p>
-<div class="columns">
-<div class="column">
-<p><img src="pics/schleiz-phasen.png" class="img-fluid"></p>
-</div><div class="column">
-<ul>
-<li>left: ERT/IP pseudosections for different frequencies</li>
-<li>single values</li>
-<li>often arranged logically<br>view on data important</li>
-<li>sometimes associated to space</li>
-</ul>
-</div>
-</div>
-<section id="data-in-seismology" class="level3" data-number="1.1.1">
-<h3 data-number="1.1.1" class="anchored" data-anchor-id="data-in-seismology"><span class="header-section-number">1.1.1</span> Data in seismology</h3>
-<p>time series of acceleration, velocity or position</p>
-<p><img src="pics/wellenzug.png" class="img-fluid"></p>
-</section>
-<section id="data-in-travel-time-tomography" class="level3" data-number="1.1.2">
-<h3 data-number="1.1.2" class="anchored" data-anchor-id="data-in-travel-time-tomography"><span class="header-section-number">1.1.2</span> Data in travel-time tomography</h3>
-<p>traveltimes between shot and geophones</p>
-<p><img src="pics/ra-data.png" class="img-fluid"></p>
-</section>
-<section id="data-in-gravimetry" class="level3" data-number="1.1.3">
-<h3 data-number="1.1.3" class="anchored" data-anchor-id="data-in-gravimetry"><span class="header-section-number">1.1.3</span> Data in gravimetry</h3>
+<section id="example-data" class="level3" data-number="1.1.1">
+<h3 data-number="1.1.1" class="anchored" data-anchor-id="example-data"><span class="header-section-number">1.1.1</span> Example Data</h3>
+<p>Data can be simple point-like measurements associated to measuring positions, like the Bouguer anomaly in gravity (measurement, reduced by temporal, global field and topographic effects).</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="pics/grav-data.png" class="img-fluid figure-img"></p>
 <figcaption>Bouguer anomaly of gravity profile in Zellwald</figcaption>
 </figure>
 </div>
-</section>
-<section id="data-in-electrical-resistivity-tomography-ert" class="level3" data-number="1.1.4">
-<h3 data-number="1.1.4" class="anchored" data-anchor-id="data-in-electrical-resistivity-tomography-ert"><span class="header-section-number">1.1.4</span> Data in electrical resistivity tomography (ERT)</h3>
-<p>current and voltage combinations</p>
+<p>In seismology and seismics, wave trains (time series of acceleration, velocity or position) are acquired, of which either the whole series (full waveform), the first arrival, or an amplitude is used.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pics/wellenzug.png" class="img-fluid figure-img"></p>
+<figcaption>Seismic data: first arrival, amplitude or full waveform</figcaption>
+</figure>
+</div>
+<p>In travel-time tomography, an example that we extensively use here, the first arrivals, i.e. traveltimes between shots and geophones, are used.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pics/ra-data.png" class="img-fluid figure-img"></p>
+<figcaption>Measured traveltimes as functions of receiver position for different shot points (*).</figcaption>
+</figure>
+</div>
+<p>So they are associated to measuring points, but also depending on the experiment.</p>
+<p>In electrical resistivity tomography (ERT), even more electrodes come into play, using different current and voltage combinations.</p>
 <p><img src="pics/ERT1-model.png" class="img-fluid"></p>
+<p>As a result, we obtain a pseudosection of apparent resistivity, which is however, even though organized in a logical/geometrical way, just a colored representation. These experiments can be repeated in time, opening the temporal dimension. In spectral IP (induced polarization), we even measure pseudosections for different frequencies, and introduce further dimensions.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pics/schleiz-phasen.png" class="img-fluid figure-img"></p>
+<figcaption>Phase pseudosections for different frequencies <span class="citation" data-cites="Martin2020">(<a href="literature.html#ref-Martin2020" role="doc-biblioref">Martin <em>et al.</em> 2020</a>)</span></figcaption>
+</figure>
+</div>
 </section>
-<section id="data-organization" class="level3" data-number="1.1.5">
-<h3 data-number="1.1.5" class="anchored" data-anchor-id="data-organization"><span class="header-section-number">1.1.5</span> Data organization</h3>
+<section id="data-organization" class="level3" data-number="1.1.2">
+<h3 data-number="1.1.2" class="anchored" data-anchor-id="data-organization"><span class="header-section-number">1.1.2</span> Data organization</h3>
+<p>In geophysics, there are rules to <em>look at</em> data across several dimensions in space, time, or frequeny, but eventually, the data are single values that are even independent or correlating across these dimensions.</p>
 <ul>
 <li>can be a discretized function of space, time or frequency, and plotted as such (curves)</li>
 <li>can depend on several sensor (shot/geophone, ABMN) and visualized as several curves or a coloured matrix (crossplot, pseudosection)</li>
@@ -277,36 +291,51 @@ window.Quarto = {
 </section>
 <section id="geophysical-workflow" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="geophysical-workflow"><span class="header-section-number">1.2</span> Geophysical Workflow</h2>
+<p>A workflow for geophysical data consist</p>
 <div class="columns">
 <div class="column">
 <ol type="1">
+<li>Experimental design &amp; synthetic models</li>
 <li>Data acquisition</li>
 <li>Preprocessing (QC, filtering)</li>
-<li>Parameterization (mesh)</li>
+<li>Error estimation</li>
+<li>Subsurface parameterization (model)</li>
 <li><strong>Inversion</strong></li>
-<li>Fit of data &amp; model response</li>
+<li>Fit of data with model response</li>
+<li>Evaluation &amp; resolution analysis</li>
 <li>Postprocessing &amp; visualization</li>
 <li>Interpretation</li>
 </ol>
 </div><div class="column">
-<p><img src="pics/intro-3.png" class="fragment img-fluid"></p>
+<p><img src="pics/intro-3.png" class="img-fluid"></p>
 </div>
 </div>
+<p>Here, we deal with the inversion, i.e.&nbsp;obtaining a subsurface model that fits the data. However, to this end, the previous steps (e.g., errors and model building) are important for carrying out inversion. Understanding the inversion process is crucial for the steps following inversion.</p>
 </section>
 <section id="model" class="level2" data-number="1.3">
 <h2 data-number="1.3" class="anchored" data-anchor-id="model"><span class="header-section-number">1.3</span> Model</h2>
-<ul>
-<li>numerical parameterization of subsurface (our assumption)</li>
-</ul>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="pics/modeltypes.png" class="img-fluid figure-img"></p>
-<figcaption>Model types (Everett, 2015)</figcaption>
-</figure>
+<div class="callout callout-style-default callout-important callout-titled" title="A geophysical model">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>A geophysical model
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>is a numerical parameterization of subsurface and reflects our assumption of the truth by a simplification (reduction of complexity).</p>
+</div>
 </div>
 <section id="model-types" class="level3" data-number="1.3.1">
 <h3 data-number="1.3.1" class="anchored" data-anchor-id="model-types"><span class="header-section-number">1.3.1</span> Model types</h3>
-<p>subsurface described by <em>model vector</em> <span class="math inline">\(\textbf{m}=[m_1, m_2, \ldots, m_M]^T\)</span></p>
+<p>Models describe the distribution of one or more physical parameter in the subsurface, mostly by means of discrete values and possibly geometrical descriptions (layer thickness, anomaly size). There are some typical model types</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pics/modeltypes.png" class="img-fluid figure-img"></p>
+<figcaption>Model types <span class="citation" data-cites="Everett2013">(<a href="literature.html#ref-Everett2013" role="doc-biblioref">Everett 2013</a>)</span></figcaption>
+</figure>
+</div>
 <p><strong>Independent parameters:</strong></p>
 <ul>
 <li>seismology: earthquake location, stress, principal axis</li>
@@ -314,7 +343,6 @@ window.Quarto = {
 <li>spectroscopy (e.g.&nbsp;SIP): function parameters (e.g.&nbsp;Cole-Cole)</li>
 <li>layered model thicknesses and values (<span class="math inline">\(\rho\)</span>, <span class="math inline">\(v\)</span>)</li>
 </ul>
-<p>subsurface described by <em>model vector</em> <span class="math inline">\(\textbf{m}=[m_1, m_2, \ldots, m_M]^T\)</span></p>
 <p><strong><em>Discrete functions of space, time, frequency</em></strong></p>
 <p>(same property aligned along axes)</p>
 <ul>
@@ -323,6 +351,7 @@ window.Quarto = {
 <li>spectroscopy: Fourier or Debye distribution</li>
 <li>e.g.&nbsp;2D/3D resistivity/velocity/density distribution</li>
 </ul>
+<p>In all cases, the subsurface is described by <em>model vector</em> <span class="math inline">\(\textbf{m}=[m_1, m_2, \ldots, m_M]^T\)</span>, which can consist of physical or geometrical values.</p>
 </section>
 </section>
 <section id="inversion" class="level2" data-number="1.4">
@@ -351,7 +380,7 @@ window.Quarto = {
 </div>
 <div class="callout-body-container callout-body">
 <p><span class="math display">\[ \vb d = \vb f(\vb m) \]</span></p>
-<p>Because <span class="math inline">\(\vb d\)</span> contains random noise not to be explained.</p>
+<p>Because <span class="math inline">\(\vb d=\vb f(\vb m)+\vb n\)</span> contains random noise <span class="math inline">\(\vb n\)</span> that is not to be explained.</p>
 </div>
 </div>
 <section id="minimization-problem" class="level3" data-number="1.4.1">
@@ -374,6 +403,7 @@ window.Quarto = {
 </section>
 <section id="correctness" class="level3" data-number="1.4.2">
 <h3 data-number="1.4.2" class="anchored" data-anchor-id="correctness"><span class="header-section-number">1.4.2</span> Correctness</h3>
+<p>In mathematics, we distinguish well and ill posed problems.</p>
 <div class="columns">
 <div class="column">
 <div class="callout callout-style-default callout-note callout-titled" title="Well-posed problems (Hadamard)">
@@ -413,16 +443,14 @@ window.Quarto = {
 </div>
 </div>
 </div>
-</section>
-<section id="occams-razor---a-fundamental-rule" class="level3" data-number="1.4.3">
-<h3 data-number="1.4.3" class="anchored" data-anchor-id="occams-razor---a-fundamental-rule"><span class="header-section-number">1.4.3</span> Occam’s razor - a fundamental rule</h3>
-<div class="callout callout-style-default callout-important callout-titled" title="novacula Occami">
+<p>It turns out that in geophysics most problems are of the second type. To cope with the non-uniqueness of possible solutions, there is Occam’s razor, a fundamental rule:</p>
+<div class="callout callout-style-default callout-important callout-titled" title="Occams razor (novacula Occami)">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>novacula Occami
+<span class="screen-reader-only">Important</span>Occams razor (novacula Occami)
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -445,8 +473,18 @@ window.Quarto = {
 <p>From all models fitting the data, choose the simplest!</p>
 </div>
 </div>
+<p>Inversion is to a large degree about the methodology of defining this through wise parameterization and regularization of the model.</p>
+<p>We will first consider linear problems and study the methodology, before we treat non-linear problems by using what we learned from linear ones.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-Everett2013" class="csl-entry" role="listitem">
+Everett M E. 2013. <em><a href="https://doi.org/10.1017/cbo9781139088435">Near-surface applied geophysics</a></em> (Cambridge University Press)
+</div>
+<div id="ref-Martin2020" class="csl-entry" role="listitem">
+Martin T, Günther T, Orozco A F and Dahlin T. 2020. <a href="https://doi.org/10.1016/j.jappgeo.2020.104141">Evaluation of spectral induced polarization field measurements in time and frequency domain</a>. <em>Journal of Applied Geophysics</em>. <strong>180</strong>. 104141
+</div>
+</div>
 </section>
 </section>
 

@@ -6,38 +6,36 @@ title: "Introduction"
 
 In geophysics, we measure many different types of data depending on the physical method being used.
 
-:::: {.columns}
-::: {.column}
-![](pics/schleiz-phasen.png)
-:::
-::: {.column}
-* left: ERT/IP pseudosections for different frequencies
-* single values
-* often arranged logically<br>view on data important
-* sometimes associated to space
-:::
-::::
+### Example Data
 
-### Data in seismology
-time series of acceleration, velocity or position
-
-![](pics/wellenzug.png)
-
-### Data in travel-time tomography
-traveltimes between shot and geophones
-
-![](pics/ra-data.png)
-
-### Data in gravimetry
+Data can be simple point-like measurements associated to measuring positions, like the Bouguer anomaly in gravity (measurement, reduced by temporal, global field and topographic effects).
 
 ![Bouguer anomaly of gravity profile in Zellwald](pics/grav-data.png)
 
-### Data in electrical resistivity tomography (ERT)
-current and voltage combinations
+In seismology and seismics, wave trains (time series of acceleration, velocity or position) are acquired, of which either the whole series (full waveform), the first arrival, or an amplitude is used.
+
+![Seismic data: first arrival, amplitude or full waveform](pics/wellenzug.png)
+
+In travel-time tomography, an example that we extensively use here, the first arrivals, i.e.
+traveltimes between shots and geophones, are used.
+
+![Measured traveltimes as functions of receiver position for different shot points (*).](pics/ra-data.png)
+
+So they are associated to measuring points, but also depending on the experiment.
+
+In electrical resistivity tomography (ERT), even more electrodes come into play, using different current and voltage combinations.
 
 ![](pics/ERT1-model.png)
 
+As a result, we obtain a pseudosection of apparent resistivity, which is however, even though organized in a logical/geometrical way, just a colored representation.
+These experiments can be repeated in time, opening the temporal dimension.
+In spectral IP (induced polarization), we even measure pseudosections for different frequencies, and introduce further dimensions.
+
+![Phase pseudosections for different frequencies [@Martin2020]](pics/schleiz-phasen.png)
+
 ### Data organization
+In geophysics, there are rules to *look at* data across several dimensions in space, time, or frequeny, but eventually, the data are single values that are even independent or correlating across these dimensions.
+
 - can be a discretized function of space, time or frequency, and plotted as such (curves)
 - can depend on several sensor (shot/geophone, ABMN) and visualized as several curves or a coloured matrix (crossplot, pseudosection)
 
@@ -47,30 +45,43 @@ consist of true *model response* $\bf f(m)$ plus *noise* $\bf n$: $\bf d=f(m)+n$
 
 ## Geophysical Workflow
 
+A workflow for geophysical data consist
+
 :::: {.columns}
 ::: {.column}
+1. Experimental design & synthetic models
 1. Data acquisition
-2. Preprocessing (QC, filtering)
-3. Parameterization (mesh)
-4. **Inversion**
-5. Fit of data & model response
-6. Postprocessing & visualization
-7. Interpretation
+1. Preprocessing (QC, filtering)
+1. Error estimation
+1. Subsurface parameterization (model)
+1. **Inversion**
+1. Fit of data with model response
+1. Evaluation & resolution analysis
+1. Postprocessing & visualization
+1. Interpretation
 :::
 ::: {.column}
-![](pics/intro-3){.fragment}
+![](pics/intro-3)
 :::
 ::::
 
+Here, we deal with the inversion, i.e. obtaining a subsurface model that fits the data.
+However, to this end, the previous steps (e.g., errors and model building) are important for carrying out inversion.
+Understanding the inversion process is crucial for the steps following inversion.
+
 ## Model
 
-- numerical parameterization of subsurface (our assumption)
 
-![Model types (Everett, 2015)](pics/modeltypes.png)
+::: {.callout-important title="A geophysical model"}
+is a numerical parameterization of subsurface and reflects our assumption of the truth by a simplification (reduction of complexity).
+:::
 
 ### Model types
 
-subsurface described by *model vector* $\textbf{m}=[m_1, m_2, \ldots, m_M]^T$
+Models describe the distribution of one or more physical parameter in the subsurface, mostly by means of discrete values and possibly geometrical descriptions (layer thickness, anomaly size).
+There are some typical model types
+
+![Model types [@Everett2013]](pics/modeltypes.png)
 
 **Independent parameters:**
 
@@ -78,8 +89,6 @@ subsurface described by *model vector* $\textbf{m}=[m_1, m_2, \ldots, m_M]^T$
 - gravity: position and depth of anomaly, size, density contrast
 - spectroscopy (e.g. SIP): function parameters (e.g. Cole-Cole)
 - layered model thicknesses and values ($\rho$, $v$)
-
-subsurface described by *model vector* $\textbf{m}=[m_1, m_2, \ldots, m_M]^T$
 
 ***Discrete functions of space, time, frequency***
 
@@ -90,6 +99,8 @@ subsurface described by *model vector* $\textbf{m}=[m_1, m_2, \ldots, m_M]^T$
 - spectroscopy: Fourier or Debye distribution
 - e.g. 2D/3D resistivity/velocity/density distribution
 
+In all cases, the subsurface is described by *model vector* $\textbf{m}=[m_1, m_2, \ldots, m_M]^T$, which can consist of physical or geometrical values.
+
 ## Inversion
 
 ::: {.callout-note title="Inverse problem: determine $\vb m$ so that data are explained"}
@@ -99,7 +110,7 @@ $$ \vb d \approx \vb f(\vb m) $$
 ::: {.callout-note title="Why not"}
 $$ \vb d = \vb f(\vb m) $$
 
-Because $\vb d$ contains random noise not to be explained.
+Because $\vb d=\vb f(\vb m)+\vb n$ contains random noise $\vb n$ that is not to be explained.
 :::
 
 ### Minimization problem
@@ -114,6 +125,8 @@ error model $\boldsymbol{\epsilon}=[\epsilon_1, \epsilon_2, \ldots, \epsilon_N]^
 :::
 
 ### Correctness
+In mathematics, we distinguish well and ill posed problems.
+
 :::: {.columns}
 ::: {.column}
 
@@ -125,17 +138,20 @@ error model $\boldsymbol{\epsilon}=[\epsilon_1, \epsilon_2, \ldots, \epsilon_N]^
 
 :::
 ::: {.column}
+
 ::: {.callout-important title="Ill-posed problem"}
 * There is no model to fit the data perfectly
 * Many models can fit the data within errors
 * Small data variations can lead to large model deviations
 :::
+
 :::
 ::::
 
-### Occam's razor - a fundamental rule
+It turns out that in geophysics most problems are of the second type.
+To cope with the non-uniqueness of possible solutions, there is  Occam's razor, a fundamental rule:
 
-::: {.callout-important title="novacula Occami"}
+::: {.callout-important title="Occams razor (novacula Occami)"}
 Pluralitas non est ponenda sine neccesitate!
 
 (William of Ockham, Scottish philosopher and theologian, 14th century)
@@ -148,3 +164,7 @@ Of two competing theories, the simpler explanation is to be preferred.
 
 From all models fitting the data, choose the simplest!
 :::
+
+Inversion is to a large degree about the methodology of defining this through wise parameterization and regularization of the model.
+
+We will first consider linear problems and study the methodology, before we treat non-linear problems by using what we learned from linear ones.
