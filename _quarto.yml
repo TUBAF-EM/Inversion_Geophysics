@@ -19,6 +19,7 @@ book:
     - 01_introduction.qmd
     - 02_linear_problems.qmd
     - 03_resolution.qmd
+    - 04_svd.qmd
     - literature.qmd
 bibliography: inv.bib
 csl: harvard.csl

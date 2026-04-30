@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Thomas Günther (TU Bergakademie Freiberg)">
 
-<title>Inverse Problems in Geophysics</title>
+<title>4&nbsp; Singular Value Decomposition – Inverse Problems in Geophysics</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -24,26 +23,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -53,7 +33,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./01_introduction.html" rel="next">
+<link href="./literature.html" rel="next">
+<link href="./03_resolution.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -102,6 +83,35 @@ window.MathJax = {
 };
 </script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -114,7 +124,7 @@ window.MathJax = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">The course</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04_svd.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Singular Value Decomposition</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -141,7 +151,7 @@ window.MathJax = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">The course</span></a>
   </div>
 </li>
@@ -165,7 +175,7 @@ window.MathJax = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04_svd.html" class="sidebar-item-text sidebar-link">
+  <a href="./04_svd.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Singular Value Decomposition</span></span></a>
   </div>
 </li>
@@ -185,19 +195,28 @@ window.MathJax = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#the-course" id="toc-the-course" class="nav-link active" data-scroll-target="#the-course">The course</a></li>
-  <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background">Background</a></li>
-  <li><a href="#code" id="toc-code" class="nav-link" data-scroll-target="#code">Code</a></li>
-  <li><a href="#self-study" id="toc-self-study" class="nav-link" data-scroll-target="#self-study">Self study</a></li>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a>
+  <li><a href="#the-singular-value-decomposition" id="toc-the-singular-value-decomposition" class="nav-link active" data-scroll-target="#the-singular-value-decomposition"><span class="header-section-number">4.1</span> The Singular Value Decomposition</a>
   <ul class="collapse">
-  <li><a href="#subject-and-objectives" id="toc-subject-and-objectives" class="nav-link" data-scroll-target="#subject-and-objectives">Subject and Objectives</a></li>
-  <li><a href="#content" id="toc-content" class="nav-link" data-scroll-target="#content">Content</a></li>
-  <li><a href="#what-should-you-know-already" id="toc-what-should-you-know-already" class="nav-link" data-scroll-target="#what-should-you-know-already">What should you know already?</a></li>
-  <li><a href="#text-books" id="toc-text-books" class="nav-link" data-scroll-target="#text-books">Text books</a></li>
-  <li><a href="#further-links" id="toc-further-links" class="nav-link" data-scroll-target="#further-links">Further links</a></li>
-  <li><a href="#license" id="toc-license" class="nav-link" data-scroll-target="#license">License</a></li>
+  <li><a href="#derivation---eigenvalue-decomposition" id="toc-derivation---eigenvalue-decomposition" class="nav-link" data-scroll-target="#derivation---eigenvalue-decomposition"><span class="header-section-number">4.1.1</span> Derivation - eigenvalue decomposition</a></li>
   </ul></li>
+  <li><a href="#model-and-data-space" id="toc-model-and-data-space" class="nav-link" data-scroll-target="#model-and-data-space"><span class="header-section-number">4.2</span> Model and Data space</a>
+  <ul class="collapse">
+  <li><a href="#eigenvectors-and-singular-values" id="toc-eigenvectors-and-singular-values" class="nav-link" data-scroll-target="#eigenvectors-and-singular-values"><span class="header-section-number">4.2.1</span> Eigenvectors and singular values</a></li>
+  <li><a href="#operators-in-terms-of-svd" id="toc-operators-in-terms-of-svd" class="nav-link" data-scroll-target="#operators-in-terms-of-svd"><span class="header-section-number">4.2.2</span> Operators in terms of SVD</a></li>
+  </ul></li>
+  <li><a href="#the-generalized-inverse" id="toc-the-generalized-inverse" class="nav-link" data-scroll-target="#the-generalized-inverse"><span class="header-section-number">4.3</span> The generalized inverse</a></li>
+  <li><a href="#resolution" id="toc-resolution" class="nav-link" data-scroll-target="#resolution"><span class="header-section-number">4.4</span> Resolution</a></li>
+  <li><a href="#inverse-problem-types---classification-scheme" id="toc-inverse-problem-types---classification-scheme" class="nav-link" data-scroll-target="#inverse-problem-types---classification-scheme"><span class="header-section-number">4.5</span> Inverse problem types - classification scheme</a>
+  <ul class="collapse">
+  <li><a href="#inverse-problem-types---even-determined" id="toc-inverse-problem-types---even-determined" class="nav-link" data-scroll-target="#inverse-problem-types---even-determined"><span class="header-section-number">4.5.1</span> Inverse problem types - Even-determined</a></li>
+  <li><a href="#inverse-problem-types---over-determined" id="toc-inverse-problem-types---over-determined" class="nav-link" data-scroll-target="#inverse-problem-types---over-determined"><span class="header-section-number">4.5.2</span> Inverse problem types - Over-determined</a></li>
+  <li><a href="#inverse-problem-types---under-determined" id="toc-inverse-problem-types---under-determined" class="nav-link" data-scroll-target="#inverse-problem-types---under-determined"><span class="header-section-number">4.5.3</span> Inverse problem types - Under-determined</a></li>
+  <li><a href="#inverse-problem-types---mixed-determined" id="toc-inverse-problem-types---mixed-determined" class="nav-link" data-scroll-target="#inverse-problem-types---mixed-determined"><span class="header-section-number">4.5.4</span> Inverse problem types - Mixed-determined</a></li>
+  <li><a href="#the-problem-of-small-eigenvalues" id="toc-the-problem-of-small-eigenvalues" class="nav-link" data-scroll-target="#the-problem-of-small-eigenvalues"><span class="header-section-number">4.5.5</span> The problem of small eigenvalues</a></li>
+  <li><a href="#moderate-example" id="toc-moderate-example" class="nav-link" data-scroll-target="#moderate-example"><span class="header-section-number">4.5.6</span> Moderate Example</a></li>
+  <li><a href="#solution-drop-small-singular-values" id="toc-solution-drop-small-singular-values" class="nav-link" data-scroll-target="#solution-drop-small-singular-values"><span class="header-section-number">4.5.7</span> Solution: drop small singular values</a></li>
+  </ul></li>
+  <li><a href="#truncated-svd-tsvd" id="toc-truncated-svd-tsvd" class="nav-link" data-scroll-target="#truncated-svd-tsvd"><span class="header-section-number">4.6</span> Truncated SVD (TSVD)</a></li>
   </ul>
 </nav>
     </div>
@@ -206,19 +225,13 @@ window.MathJax = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Inverse Problems in Geophysics</h1>
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Singular Value Decomposition</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Thomas Günther (TU Bergakademie Freiberg) </p>
-          </div>
-  </div>
     
   
     
@@ -229,158 +242,239 @@ window.MathJax = {
 </header>
 
 
-<section id="the-course" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="the-course">The course</h2>
-<p>These are the lecture notes for the module <strong>Inverse Problems in Geophysics.</strong>, tailored for Master’s students of Geophysics, Geoinformatics, Applied Geoscience or Mathematics for Data and Resource Sciences at the <a href="https://tu-freiberg.de/geophysik">Institute of Geophysics and Geoinformatics</a>, <a href="https://tu-freiberg.de">TU Bergakademie Freiberg</a>. You can access all the sources on the <a href="https://github.com/TUBAF-EM/Inversion_Geophysics">GitHub repository</a> or <a href="https://github.com/halbmy/InversionGeophysics">the slides</a>.</p>
-<p>Enjoy studying!</p>
+<p>Splitting an inverse problem into the fundamental ingredients</p>
+<section id="the-singular-value-decomposition" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="the-singular-value-decomposition"><span class="header-section-number">4.1</span> The Singular Value Decomposition</h2>
+<p>Any matrix <span class="math inline">\(\bf A\)</span> can be decomposed into model and data eigenvectors, weighted by singular values:</p>
+<p><span class="math display">\[\vb A = \sum_{i=1}^{r} \sigma_i \vb u_i\cdot \vb v_i^T = \vb U \vb\Sigma\vb V^T\]</span></p>
+<p>with the eigenvalues in <span class="math inline">\(\vb\Sigma=\text{diag}(\sigma_i)\)</span>, a set of orthogonal data eigenvectors <span class="math inline">\(\vb U \in \mathbb{R}^{N\times N}\)</span> with <span class="math inline">\(\vb U^{-1}=\vb U^T\)</span>, and model eigenvectors <span class="math inline">\(\vb V \in\mathbb{R}^{M\times M}\)</span> with <span class="math inline">\(\vb V^{-1}=\vb V^T\)</span>.</p>
+<section id="derivation---eigenvalue-decomposition" class="level3" data-number="4.1.1">
+<h3 data-number="4.1.1" class="anchored" data-anchor-id="derivation---eigenvalue-decomposition"><span class="header-section-number">4.1.1</span> Derivation - eigenvalue decomposition</h3>
+<p>The quadratic matrix <span class="math inline">\(\bf A\)</span> projects a vector in another direction. Special vectors are eigenvectors who keep their direction <span class="math display">\[ \vb A \vb x = \lambda \vb x \]</span></p>
+<p>The solution of the equation <span class="math inline">\(\vb A - \lambda\vb I=0\)</span> leads to eigenvalues <span class="math inline">\(\lambda\)</span> over the characteristic polynome <span class="math inline">\(\text{det}(\vb A - \lambda \vb I)\)</span> that correspond to eigenvectors in the matrix <span class="math inline">\(\vb Q\)</span> by</p>
+<p><span class="math display">\[ \vb A = \vb Q \text{diag}(\lambda_i) \vb Q^T = \vb Q \vb\Lambda \vb Q^T \]</span></p>
+<p>We create a symmetric matrix from <span class="math inline">\(\vb G\)</span> and its transpose <span class="math display">\[ \vb A = \mqty(0 &amp; \vb G\\ \vb G^T &amp; 0) \]</span></p>
+<p>It has the eigenvalue decomposition (two coupled eigenvalue problems)</p>
+<p><span class="math display">\[ \vb A \vb x_i = \lambda_i \vb x_i \quad\mbox{with}\quad \vb x_i = \mqty(\vb u_i\\ \vb v_i) \]</span></p>
+<p><span class="math display">\[ \Rightarrow \vb G \vb v = \lambda \vb u \quad\mbox{and}\quad \vb G^T \vb u = \lambda \vb v \]</span></p>
+<p><span class="math display">\[ \Rightarrow \vb G \vb v = \lambda \vb u \quad\mbox{and}\quad \vb G^T \vb u = \lambda \vb v \]</span></p>
+<p>Through multiplication with <span class="math inline">\(\vb G^T\)</span> or <span class="math inline">\(\vb G\)</span> we obtain</p>
+<p><span class="math display">\[ \vb G^T \vb G \vb v = \lambda^2 \vb v \quad\mbox{and}\quad \vb G \vb G^T \vb u = \lambda^2 \vb u \]</span></p>
+<p>i.e.&nbsp;two eigenvalue problems for model space (<span class="math inline">\(\vb v\)</span>) and data space (<span class="math inline">\(\vb u\)</span>)</p>
+<p><span class="math display">\[ \vb G = \vb U \vb \Sigma \vb V^T \quad\mbox{and}\quad \vb G^T = \vb V \vb \Sigma \vb U^T \quad\mbox{with}\quad \vb\Sigma = \mbox{diag}(\lambda_i) \]</span></p>
 </section>
-<section id="background" class="level2">
-<h2 class="anchored" data-anchor-id="background">Background</h2>
-<p>This course was already existing in the early 2000s when I did my PhD that was a lot about inversion and regularization, back then with exercises in Matlab. In 2020, I held this course using <a href="https://julialang.org">Julia</a> as programming language. After starting as professor, I mainly transferred the slides from LaTeX to Quarto and switched back from Julia to Python in 2026. As the course is again slightly adapted, the content of the slides is step by step moving into the script and enriched by the Notebooks shown in the lectures. Any feedback (mistakes, ideas, missing content) is highly welcome!</p>
 </section>
-<section id="code" class="level2">
-<h2 class="anchored" data-anchor-id="code">Code</h2>
-<p>The website’s course material includes sections with embedded Python code. You can easily copy the code and execute it in a compatible Python runtime environment. For an optimal experience, we recommend installing Python via <a href="https://github.com/conda-forge/miniforge"><em>miniforge</em></a>. You mainly need the numerical base library <a href="https://numpy.org">NumPy</a> for doing the computations, and <a href="https://matplotlib.org">Matplotlib</a> for visualization purposes. For higher-dimensional problems, we use the <a href="https://pygimli.org">pyGIMLi</a> package to generate meshes and matrices, but stay with its core and equation levels for didactic reasons. In the following code snippets, we assume the following imports</p>
-<pre><code>import numpy as np
-import matplotlib.pyplot as plt
-import pygimli as pg</code></pre>
-<p>Moreover, you have the freedom to explore your own concepts and delve deeper into the course content by creating your personalized Jupyter notebooks. You can utilize use either <a href="https://code.visualstudio.com/">Visual Studio Code</a> or <a href="https://jupyter.org">Jupyterlab</a> Working with Jupyter Notebooks in Visual Studio Code is <a href="https://code.visualstudio.com/docs/datascience/jupyter-notebooks">exceptionally straightforward</a>.</p>
-<p>The material was created by <a href="https://quarto.org">Quarto</a>.</p>
+<section id="model-and-data-space" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="model-and-data-space"><span class="header-section-number">4.2</span> Model and Data space</h2>
+<p><span class="math inline">\(\vb U \in\mathbb{R}^{N\times N}\)</span> spans the data space, <span class="math inline">\(\vb V \in\mathbb{R}^{M\times M}\)</span> spans the model space</p>
+<p>the belong together with a number <span class="math inline">\(r\)</span> (rank) of non-zero singular values</p>
+<p><span class="math inline">\(\vb U\)</span> and <span class="math inline">\(\vb V\)</span> can be split into a data/model space and a null space</p>
+<p><span class="math display">\[\vb U = [\vb U_r, \vb U_0]\]</span></p>
+<p><span class="math display">\[\vb V = [\vb V_r, \vb V_0]\]</span></p>
+<section id="eigenvectors-and-singular-values" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="eigenvectors-and-singular-values"><span class="header-section-number">4.2.1</span> Eigenvectors and singular values</h3>
+<p>The eigenvectors associated with zero singular values (<span class="math inline">\(\sigma_i=0\)</span>) span the null spaces of data and model. The number of non-zero eigenvalues <span class="math inline">\(r\)</span> defines the rank of the matrix which can be abbreviated by</p>
+<p><span class="math display">\[\vb A_r = \sum_{i=1}^{r} \sigma_i \vb u_i \cdot \vb v_i^T = \vb U_r \vb \Sigma_r\vb V_r^T\]</span></p>
+<p>where <span class="math inline">\({\bf B}_r\)</span> holds the first <span class="math inline">\(r\)</span> columns of the matrix <span class="math inline">\(\bf B\)</span>.</p>
+<p>A matrix can be approximated by choosing the (pseudo)rank by hand.</p>
 </section>
-<section id="self-study" class="level2">
-<h2 class="anchored" data-anchor-id="self-study">Self study</h2>
-<p>There are individual small tasks for self-study that are scattered throughout the lecture.</p>
-<div class="callout callout-style-simple callout-none no-icon callout-titled" title="Self study">
-<div class="callout-header d-flex align-content-center">
+<section id="operators-in-terms-of-svd" class="level3" data-number="4.2.2">
+<h3 data-number="4.2.2" class="anchored" data-anchor-id="operators-in-terms-of-svd"><span class="header-section-number">4.2.2</span> Operators in terms of SVD</h3>
+<p>The forward operator <span class="math inline">\(\vb G \vb m\)</span> and its adjoint <span class="math inline">\(\vb G^T\)</span> are written:</p>
+<p><span class="math display">\[\vb G = \vb U_r \vb \Sigma_r \vb V_r^T\]</span></p>
+<p><span class="math display">\[ \vb G^T = \vb V_r \vb \Sigma_r \vb U_r^T \]</span></p>
+<p><span class="math display">\[ \vb G^T \vb G = \vb V_r^T \vb \Sigma_r \vb U_r^T \vb U_r \vb \Sigma_r \vb V_r = \vb V_r^T \vb \Sigma_r^2 \vb V_r \]</span></p>
+<p><span class="math display">\[ \vb G \vb G^T = \vb U_r \vb \Sigma_r \vb V_r \vb V_r^T \vb \Sigma_r \vb U_r^T  = \vb U_r \vb \Sigma_r^2 \vb U_r^T \]</span></p>
+</section>
+</section>
+<section id="the-generalized-inverse" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="the-generalized-inverse"><span class="header-section-number">4.3</span> The generalized inverse</h2>
+<p><span class="math display">\[\vb G_r \vb m = \vb U_r \vb \Sigma_r \vb V_r^T \vb m = \vb d\]</span></p>
+<p><span class="math display">\[ \vb U_r^T \vb U_r \vb \Sigma_r \vb V_r^T \vb m = \vb \Sigma_r \vb V_r^T \vb m = \vb U_r^T \vb d\]</span></p>
+<p><span class="math display">\[ \vb \Sigma_r^{-1} \vb \Sigma_r \vb V_r^T \vb m = \vb V_r^T \vb m = \vb \Sigma_r^{-1} \vb U_r^T \vb d\]</span></p>
+<p><span class="math display">\[ \vb V_r \vb V_r^T \vb m = \vb m = \vb V_r \vb \Sigma_r^{-1} \vb U_r^T \vb d\]</span></p>
+<p><span class="math display">\[ \Rightarrow \vb m = \vb G^\dagger \vb d \quad\mbox{with}\quad \vb G^\dagger = \vb V_r \vb \Sigma_r^{-1} \vb U_r^T \]</span></p>
+<p>The SVD provides a generalized (Moore-Penrose) inverse</p>
+<!-- ## Inverse operator in terms of SVD
+
+The generalized inverse $\vb V_r \vb \Sigma^{-1}_r\vb U^T_r$ equals
+$$(\vb G^T \vb G)^{-1}\vb G^T = \vb U_r \vb \Sigma_r^{-2} \vb U_r^T \vb U_r^T \vb \Sigma_r \vb V_r^T = \vb U_r \vb \Sigma_r^{-1} $$
+i.e., the least-squares inverse for overdetermined problems. -->
+</section>
+<section id="resolution" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="resolution"><span class="header-section-number">4.4</span> Resolution</h2>
+<p>The model resolution <span class="math display">\[ \vb R^M = \vb G^\dagger \vb G = \vb V_p \vb \Sigma^{-1}_p \vb U^T_p \vb U_p \vb \Sigma_p \vb V_p^T = \vb V_p \vb V_p^T \]</span> depends only on the model eigenvectors!</p>
+<p>And the data resolution <span class="math display">\[ \vb R^D = {\bf G} {\bf G}^\dagger = {\bf U}_p{\bf \Sigma}_p{\bf V}_p^T {\bf V}_p {\bf \Sigma}^{-1}_p{\bf U}^T_p = {\bf U}_p {\bf U}_p^T \]</span> depends only on the data eigenvectors!</p>
+</section>
+<section id="inverse-problem-types---classification-scheme" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="inverse-problem-types---classification-scheme"><span class="header-section-number">4.5</span> Inverse problem types - classification scheme</h2>
+<div class="callout callout-style-simple callout-none no-icon" title="">
+<div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">None</span>Self study
+<div class="callout-body-container">
+<p>The rank <span class="math inline">\(r\)</span> determines the type of the inverse problem</p>
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<p>You can easily identify these callouts.</p>
 </div>
-</div>
-</section>
-<section id="introduction" class="level1">
-<h1>Introduction</h1>
-<ul>
-<li>Content and dates</li>
-<li>Literature and Links</li>
-<li>definition of data and model</li>
-<li>error and noise</li>
-<li>linear vs.&nbsp;non-linear</li>
-<li>linear inversion: simple matrix problem</li>
-</ul>
-<section id="subject-and-objectives" class="level2">
-<h2 class="anchored" data-anchor-id="subject-and-objectives">Subject and Objectives</h2>
-<div class="callout callout-style-default callout-important callout-titled" title="Inversion (main task in applied geophysics)">
+<div class="columns">
+<div class="column">
+<div class="callout callout-style-default callout-tip callout-titled" title="Even-determined">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Inversion (main task in applied geophysics)
+<span class="screen-reader-only">Tip</span>Even-determined
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Determine a <strong>model</strong> describing the subsurface that can <strong>explain our data</strong>!</p>
+<p><span class="math inline">\(M=N=r\)</span></p>
 </div>
 </div>
-<div class="fragment callout callout-style-default callout-note callout-titled" title="Aim of the lecture">
+<div class="callout callout-style-default callout-warning callout-titled" title="Under-determined">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Aim of the lecture
+<span class="screen-reader-only">Warning</span>Under-determined
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<ul>
-<li>understand the process of imaging/inversion</li>
-<li>solve inverse problems by simple scripts</li>
-<li>actively control the inversion process</li>
-<li>use tools to get a feeling for the value of models</li>
-</ul>
+<p><span class="math inline">\(N \le r&lt;M\)</span></p>
+</div>
+</div>
+</div><div class="column">
+<div class="callout callout-style-default callout-note callout-titled" title="Over-determined">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Over-determined
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math inline">\(N &gt; r \ge M\)</span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled" title="Mixed-determined">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Mixed-determined
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math inline">\(r&lt;N \quad\mbox{and}\quad r&lt;M\)</span></p>
+</div>
+</div>
+</div>
+</div>
+<section id="inverse-problem-types---even-determined" class="level3" data-number="4.5.1">
+<h3 data-number="4.5.1" class="anchored" data-anchor-id="inverse-problem-types---even-determined"><span class="header-section-number">4.5.1</span> Inverse problem types - Even-determined</h3>
+<p><span class="math display">\[M=N=r\]</span></p>
+<p>Generalized inverse = normal inverse</p>
+<p><span class="math display">\[ \vb R^M = \vb R^D = \vb I \]</span></p>
+</section>
+<section id="inverse-problem-types---over-determined" class="level3" data-number="4.5.2">
+<h3 data-number="4.5.2" class="anchored" data-anchor-id="inverse-problem-types---over-determined"><span class="header-section-number">4.5.2</span> Inverse problem types - Over-determined</h3>
+<p><span class="math display">\[N&gt;r=M\]</span></p>
+<p>Generalized inverse = least-squares inverse</p>
+<p><span class="math display">\[\vb G^\dagger = (\vb G^T \vb G)^{-1}\vb G^T = \vb V_r \vb \Sigma_r^{-2} \vb V_r^T \vb V_r \vb \Sigma_r \vb U_r^T = \vb V_r \vb \Sigma_r^{-1} \vb U_r^T \]</span></p>
+<p><span class="math display">\[ \vb R^M = \vb I \quad , \quad \vb R^D \ne \vb I \]</span></p>
+</section>
+<section id="inverse-problem-types---under-determined" class="level3" data-number="4.5.3">
+<h3 data-number="4.5.3" class="anchored" data-anchor-id="inverse-problem-types---under-determined"><span class="header-section-number">4.5.3</span> Inverse problem types - Under-determined</h3>
+<p><span class="math display">\[N=r&lt;M\]</span></p>
+<p>Generalized inverse = minimum-norm inverse</p>
+<p><span class="math display">\[\vb G^\dagger = \vb G^T(\vb G \vb G^T)^{-1} = \vb V_r \vb \Sigma_r \vb U_r^T \vb U_r \vb \Sigma_r^{-2} \vb U_r^T  = \vb V_r \vb \Sigma_r^{-1} \vb U_r^T \]</span></p>
+<p><span class="math display">\[ \vb R^M \ne \vb I \quad , \quad \vb R^D = \vb I \]</span></p>
+</section>
+<section id="inverse-problem-types---mixed-determined" class="level3" data-number="4.5.4">
+<h3 data-number="4.5.4" class="anchored" data-anchor-id="inverse-problem-types---mixed-determined"><span class="header-section-number">4.5.4</span> Inverse problem types - Mixed-determined</h3>
+<p><span class="math display">\[r&lt;M \quad\mbox{and}\quad r&lt;M\]</span></p>
+<p>The generalized inverse</p>
+<p><span class="math display">\[\vb G^\dagger = \vb V_r \vb \Sigma_r^{-1} \vb U_r^T \]</span></p>
+<p>handles both over-determined and underdetermined model parts.</p>
+<p><span class="math display">\[ \vb R^M \ne \vb I \quad , \quad \vb R^D \ne \vb I \]</span></p>
+</section>
+<section id="the-problem-of-small-eigenvalues" class="level3" data-number="4.5.5">
+<h3 data-number="4.5.5" class="anchored" data-anchor-id="the-problem-of-small-eigenvalues"><span class="header-section-number">4.5.5</span> The problem of small eigenvalues</h3>
+<p>Generalized inverse <span class="math inline">\(\vb G^\dagger = \vb V_r \vb \Sigma_r^{-1} \vb U_r^T\)</span> to invert noisy data <span class="math inline">\(\vb G \vb m + \vb n\)</span></p>
+<p><span class="math display">\[ \vb G^\dagger (\vb G \vb m + \vb n) = \vb G^\dagger\vb G\vb m + \vb G^\dagger \vb n
+= \vb R^M + \sum\limits_{i=1}^r \frac{\vb u_i^T \vb n}{\sigma_i} \vb v_i \]</span></p>
+<div class="callout callout-style-default callout-important callout-titled" title="Problem">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Problem
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Small eigenvalues amplify noise in the data!</p>
 </div>
 </div>
 </section>
-<section id="content" class="level2">
-<h2 class="anchored" data-anchor-id="content">Content</h2>
-<ol start="0" type="1">
-<li>Introduction, data, models</li>
-<li>Simple matrix problems, linear regression</li>
-<li>Method of least squares</li>
-<li>Resolution and Singular Value Decomposition</li>
-<li>Regularization methods</li>
-<li>Ray tomography</li>
-<li>Non-linear minimization</li>
-<li>Time-lapse inversion</li>
-<li>Global optimization methods</li>
-</ol>
+<section id="moderate-example" class="level3" data-number="4.5.6">
+<h3 data-number="4.5.6" class="anchored" data-anchor-id="moderate-example"><span class="header-section-number">4.5.6</span> Moderate Example</h3>
+<div class="columns">
+<div class="column">
+<p><span class="math display">\[ \vb G = \mqty(1&amp;1&amp;0&amp;0\\1&amp;1.1&amp;0&amp;0\\0&amp;0&amp;1&amp;0.5\\0&amp;0&amp;0.5&amp;1) \]</span></p>
+<p><span class="math inline">\(\Rightarrow \sigma_i=[2.05, 1.5, 0.5, 0.05]\)</span></p>
+<p><code>m = pinv(G) * (d + n)</code></p>
+</div><div class="column">
+<p><span class="math inline">\(\vb m=[10, 11, 12, 13]\)</span>, <span class="math inline">\(\epsilon=0.2\)</span></p>
+<p><span class="math inline">\(\Rightarrow \vb d=[21.0, 22.1, 18.5, 19.0]\)</span></p>
+<p><span class="math inline">\(\vb m^1=[4.45, 16.24, 11.62, 13.37]\)</span> <span class="math inline">\(\vb m^2=[9.92, 10.92, 12.36, 12.59]\)</span> <span class="math inline">\(\vb m^3=[15.11, 6.2, 11.66, 13.41]\)</span> <span class="math inline">\(\vb m^4=[4.11, 16.76, 11.74, 13.05]\)</span> <span class="math inline">\(\vb m^5=[4.4, 16.48, 11.55, 13.19]\)</span></p>
+</div>
+</div>
+<p>Even a small noise level let the solution explode.</p>
 </section>
-<section id="what-should-you-know-already" class="level2">
-<h2 class="anchored" data-anchor-id="what-should-you-know-already">What should you know already?</h2>
+<section id="solution-drop-small-singular-values" class="level3" data-number="4.5.7">
+<h3 data-number="4.5.7" class="anchored" data-anchor-id="solution-drop-small-singular-values"><span class="header-section-number">4.5.7</span> Solution: drop small singular values</h3>
+<div class="columns">
+<div class="column">
+<p><span class="math display">\[ \vb G = \mqty(1&amp;1&amp;0&amp;0\\1&amp;1.1&amp;0&amp;0\\0&amp;0&amp;1&amp;0.5\\0&amp;0&amp;0.5&amp;1) \]</span></p>
+<p><span class="math inline">\(\Rightarrow \sigma_i=[2.05, 1.5, 0.5, 0.05]\)</span></p>
+<p><span class="math inline">\(\Rightarrow\)</span> <code>m=pinv(G, rtol=0.1)*(d+n)</code></p>
+</div><div class="column">
+<p><span class="math inline">\(\vb m=[10, 11, 12, 13]\)</span>, <span class="math inline">\(\epsilon=0.2\)</span></p>
+<p><span class="math inline">\(\Rightarrow \vb d=[21.0, 22.1, 18.5, 19.0]\)</span></p>
+<p><span class="math inline">\(\vb m^1=[10.36, 10.89, 12.07, 13.2]\)</span> <span class="math inline">\(\vb m^2=[10.29, 10.82, 11.67, 13.08]\)</span> <span class="math inline">\(\vb m^3=[10.32, 10.84, 11.97, 13.16]\)</span> <span class="math inline">\(\vb m^4=[10.25, 10.78, 11.81, 13.04]\)</span> <span class="math inline">\(\vb m^3=[10.29, 10.82, 11.71, 13.13]\)</span></p>
+</div>
+</div>
+<p>The solution is much less noise-depending!</p>
+</section>
+</section>
+<section id="truncated-svd-tsvd" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="truncated-svd-tsvd"><span class="header-section-number">4.6</span> Truncated SVD (TSVD)</h2>
 <ul>
-<li>Higher mathematics: differential equations, algebra (1.-2. BGIP)</li>
-<li>Experimental and theoretical physics: governing equations</li>
-<li>Numerics for engineers (2. BGIP)</li>
-<li>Programming (1. BGIP), Software development (3. BGIP)</li>
-<li>Geophysics: feeling for physical fields &amp; methods (2.-4. BGIP)</li>
-<li>MSc level: Scientific programming, HPC, seismic imaging</li>
+<li>Look at the singular value spectrum</li>
+<li>Choose a maximum number <span class="math inline">\(p\)</span> or <code>rtol</code> and compute (e.g.&nbsp;by <code>pinv</code>) <span class="math display">\[\vb G^\dagger_p = \vb V_p \vb\Sigma_p^{-1}\vb U_p^T\]</span></li>
+<li>How to choose <span class="math inline">\(p\)</span>? Trade-off between resolution and artifacts.</li>
 </ul>
-</section>
-<section id="text-books" class="level2">
-<h2 class="anchored" data-anchor-id="text-books">Text books</h2>
-<ul>
-<li><span class="citation" data-cites="Menke2012">Menke (<a href="literature.html#ref-Menke2012" role="doc-biblioref">2012</a>)</span>: <a href="https://www.sciencedirect.com/book/9780128135556/geophysical-data-analysis">Geophysical Data Analysis: Discrete Inverse Theory</a>, Academic</li>
-<li><span class="citation" data-cites="Richter2016">Richter (<a href="literature.html#ref-Richter2016" role="doc-biblioref">2016</a>)</span>: <a href="https://link.springer.com/book/10.1007/978-3-030-59317-9">Inverse Problems: Basics, Theory and Applications in Geophysics</a></li>
-<li><span class="citation" data-cites="Guenther2004">Günther (<a href="literature.html#ref-Guenther2004" role="doc-biblioref">2004</a>)</span>: <a href="http://nbn-resolving.de/urn:nbn:de:swb:105-4152277">Inversion Methods and Resolution Analysis for the 2D/3D Reconstruction of Resistivity Structures from DC Measurements</a>, PhD thesis</li>
-<li><span class="citation" data-cites="Gubbins2004">Gubbins (<a href="literature.html#ref-Gubbins2004" role="doc-biblioref">2004</a>)</span>: Time series analysis and inverse theory for geophysicists (Cambridge Univ. Press)</li>
-<li><span class="citation" data-cites="Tarantola1978">Tarantola (<a href="literature.html#ref-Tarantola1978" role="doc-biblioref">1978</a>)</span>: Inverse problem theory (Amsterdam: Elsevier)</li>
-<li><span class="citation" data-cites="Zhdanov2002">Zhdanov (<a href="literature.html#ref-Zhdanov2002" role="doc-biblioref">2002</a>)</span>: Geophysical inverse theory and regularization problems (Amsterdam - New York - Tokyo: Elsevier)</li>
-<li>see also Reference list <span class="citation" data-cites="refs">(<a href="literature.html#ref-refs" role="doc-biblioref"><strong>refs?</strong></a>)</span></li>
-</ul>
-</section>
-<section id="further-links" class="level2">
-<h2 class="anchored" data-anchor-id="further-links">Further links</h2>
-<ul>
-<li>pyGIMLi: Python Geophysical Inversion and Modelling Library <a href="https://pygimli.org" class="uri">https://pygimli.org</a></li>
-<li>Geoscience.XYZ: <a href="https://geosci.xyz" class="uri">https://geosci.xyz</a></li>
-<li><a href="https://github.com/halbmy/IJulia" class="uri">https://github.com/halbmy/IJulia</a> - Julia Notebooks for Inverse Problems</li>
-<li><a href="https://tubaf-em.github.io/Geoelektrik_Elektromagnetik/">Electromagnetics &amp; Geoelectrics</a> (5. BGIP, in German)</li>
-<li><a href="https://ruboerner.github.io/ThEM/">Theory of Electromagnetic Methods</a>,</li>
-</ul>
-</section>
-<section id="license" class="level2">
-<h2 class="anchored" data-anchor-id="license">License</h2>
-<p>This material is licensed under the Creative Commons License CC-by 2.0.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Discrepancy principle (free after Occam)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Discrepancy principle (free after Occam)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Look at data fit and choose <span class="math inline">\(p\)</span> such that the data can be fitted within the error.</p>
+</div>
+</div>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
-<div id="ref-Gubbins2004" class="csl-entry" role="listitem">
-Gubbins D. 2004. <em>Time series analysis and inverse theory for geophysicists</em> (Cambridge Univ. Press)
-</div>
-<div id="ref-Guenther2004" class="csl-entry" role="listitem">
-Günther T. 2004. <em><span>I</span>nversion <span>M</span>ethods and <span>R</span>esolution <span>A</span>nalysis for the 2<span>D</span>/3<span>D</span> <span>R</span>econstruction of <span>R</span>esistivity <span>S</span>tructures from <span>DC</span> <span>M</span>easurements</em> PhD thesis (University of Mining; Technology Freiberg)
-</div>
-<div id="ref-Menke2012" class="csl-entry" role="listitem">
-Menke W. 2012. <em><a href="https://doi.org/10.1016/B978-0-12-397160-9.00001-1">Geophysical data analysis: Discrete inverse theory</a></em> (Elsevier)
-</div>
-<div id="ref-Richter2016" class="csl-entry" role="listitem">
-Richter M. 2016. <em><a href="https://doi.org/10.1007/978-3-319-48384-9">Inverse problems: Basics, theory and applications in geophysics</a></em> (Springer International Publishing)
-</div>
-<div id="ref-Tarantola1978" class="csl-entry" role="listitem">
-Tarantola A. 1978. <em>Inverse problem theory</em> (Amsterdam: Elsevier)
-</div>
-<div id="ref-Zhdanov2002" class="csl-entry" role="listitem">
-Zhdanov M S. 2002. <em>Geophysical inverse theory and regularization problems</em> (Amsterdam - New York - Tokyo: Elsevier)
-</div>
-</div>
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -786,10 +880,13 @@ Zhdanov M S. 2002. <em>Geophysical inverse theory and regularization problems</e
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./03_resolution.html" class="pagination-link" aria-label="Resolution analysis">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Resolution analysis</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./01_introduction.html" class="pagination-link" aria-label="Introduction">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./literature.html" class="pagination-link" aria-label="References">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

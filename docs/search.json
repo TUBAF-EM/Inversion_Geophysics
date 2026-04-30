@@ -348,5 +348,205 @@
     "crumbs": [
       "References"
     ]
+  },
+  {
+    "objectID": "04_svd.html",
+    "href": "04_svd.html",
+    "title": "4  Singular Value Decomposition",
+    "section": "",
+    "text": "4.1 The Singular Value Decomposition\nSplitting an inverse problem into the fundamental ingredients\nAny matrix \\(\\bf A\\) can be decomposed into model and data eigenvectors, weighted by singular values:\n\\[\\vb A = \\sum_{i=1}^{r} \\sigma_i \\vb u_i\\cdot \\vb v_i^T = \\vb U \\vb\\Sigma\\vb V^T\\]\nwith the eigenvalues in \\(\\vb\\Sigma=\\text{diag}(\\sigma_i)\\), a set of orthogonal data eigenvectors \\(\\vb U \\in \\mathbb{R}^{N\\times N}\\) with \\(\\vb U^{-1}=\\vb U^T\\), and model eigenvectors \\(\\vb V \\in\\mathbb{R}^{M\\times M}\\) with \\(\\vb V^{-1}=\\vb V^T\\).",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
+    ]
+  },
+  {
+    "objectID": "04_svd.html#derivation---eigenvalue-decomposition",
+    "href": "04_svd.html#derivation---eigenvalue-decomposition",
+    "title": "4  Singular Value Decomposition",
+    "section": "4.2 Derivation - eigenvalue decomposition",
+    "text": "4.2 Derivation - eigenvalue decomposition\nThe quadratic matrix \\(\\bf A\\) projects a vector in another direction. Special vectors are eigenvectors who keep their direction \\[ \\vb A \\vb x = \\lambda \\vb x \\]\nThe solution of the equation \\(\\vb A - \\lambda\\vb I=0\\) leads to eigenvalues \\(\\lambda\\) over the characteristic polynome \\(\\text{det}(\\vb A - \\lambda \\vb I)\\) that correspond to eigenvectors in the matrix \\(\\vb Q\\) by\n\\[ \\vb A = \\vb Q \\text{diag}(\\lambda_i) \\vb Q^T = \\vb Q \\vb\\Lambda \\vb Q^T \\]",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
+    ]
+  },
+  {
+    "objectID": "04_svd.html#derivation-2",
+    "href": "04_svd.html#derivation-2",
+    "title": "4  Singular Value Decomposition",
+    "section": "4.3 Derivation (2)",
+    "text": "4.3 Derivation (2)\nWe create a symmetric matrix from \\(\\vb G\\) and its transpose \\[ \\vb A = \\mqty(0 & \\vb G\\\\ \\vb G^T & 0) \\]\n\nIt has the eigenvalue decomposition (two coupled eigenvalue problems)\n\\[ \\vb A \\vb x_i = \\lambda_i \\vb x_i \\quad\\mbox{with}\\quad \\vb x_i = \\mqty(\\vb u_i\\\\ \\vb v_i) \\]\n\\[ \\Rightarrow \\vb G \\vb v = \\lambda \\vb u \\quad\\mbox{and}\\quad \\vb G^T \\vb u = \\lambda \\vb v \\]",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
+    ]
+  },
+  {
+    "objectID": "04_svd.html#derivation-3",
+    "href": "04_svd.html#derivation-3",
+    "title": "4  Singular Value Decomposition",
+    "section": "4.4 Derivation (3)",
+    "text": "4.4 Derivation (3)\n\\[ \\Rightarrow \\vb G \\vb v = \\lambda \\vb u \\quad\\mbox{and}\\quad \\vb G^T \\vb u = \\lambda \\vb v \\]\n\nThrough multiplication with \\(\\vb G^T\\) or \\(\\vb G\\) we obtain\n\\[ \\vb G^T \\vb G \\vb v = \\lambda^2 \\vb v \\quad\\mbox{and}\\quad \\vb G \\vb G^T \\vb u = \\lambda^2 \\vb u \\]\n\n\ni.e. two eigenvalue problems for model space (\\(\\vb v\\)) and data space (\\(\\vb u\\))\n\\[ \\vb G = \\vb U \\vb \\Sigma \\vb V^T \\quad\\mbox{and}\\quad \\vb G^T = \\vb V \\vb \\Sigma \\vb U^T \\quad\\mbox{with}\\quad \\vb\\Sigma = \\mbox{diag}(\\lambda_i) \\]",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
+    ]
+  },
+  {
+    "objectID": "04_svd.html#model-and-data-space",
+    "href": "04_svd.html#model-and-data-space",
+    "title": "4  Singular Value Decomposition",
+    "section": "4.2 Model and Data space",
+    "text": "4.2 Model and Data space\n\\(\\vb U \\in\\mathbb{R}^{N\\times N}\\) spans the data space, \\(\\vb V \\in\\mathbb{R}^{M\\times M}\\) spans the model space\nthe belong together with a number \\(r\\) (rank) of non-zero singular values\n\\(\\vb U\\) and \\(\\vb V\\) can be split into a data/model space and a null space\n\\[\\vb U = [\\vb U_r, \\vb U_0]\\]\n\\[\\vb V = [\\vb V_r, \\vb V_0]\\]\n\n4.2.1 Eigenvectors and singular values\nThe eigenvectors associated with zero singular values (\\(\\sigma_i=0\\)) span the null spaces of data and model. The number of non-zero eigenvalues \\(r\\) defines the rank of the matrix which can be abbreviated by\n\\[\\vb A_r = \\sum_{i=1}^{r} \\sigma_i \\vb u_i \\cdot \\vb v_i^T = \\vb U_r \\vb \\Sigma_r\\vb V_r^T\\]\nwhere \\({\\bf B}_r\\) holds the first \\(r\\) columns of the matrix \\(\\bf B\\).\nA matrix can be approximated by choosing the (pseudo)rank by hand.\n\n\n4.2.2 Operators in terms of SVD\nThe forward operator \\(\\vb G \\vb m\\) and its adjoint \\(\\vb G^T\\) are written:\n\\[\\vb G = \\vb U_r \\vb \\Sigma_r \\vb V_r^T\\]\n\\[ \\vb G^T = \\vb V_r \\vb \\Sigma_r \\vb U_r^T \\]\n\\[ \\vb G^T \\vb G = \\vb V_r^T \\vb \\Sigma_r \\vb U_r^T \\vb U_r \\vb \\Sigma_r \\vb V_r = \\vb V_r^T \\vb \\Sigma_r^2 \\vb V_r \\]\n\\[ \\vb G \\vb G^T = \\vb U_r \\vb \\Sigma_r \\vb V_r \\vb V_r^T \\vb \\Sigma_r \\vb U_r^T  = \\vb U_r \\vb \\Sigma_r^2 \\vb U_r^T \\]",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
+    ]
+  },
+  {
+    "objectID": "04_svd.html#eigenvectors-and-singular-values",
+    "href": "04_svd.html#eigenvectors-and-singular-values",
+    "title": "4  Singular Value Decomposition",
+    "section": "4.6 Eigenvectors and singular values",
+    "text": "4.6 Eigenvectors and singular values\nThe eigenvectors associated with zero singular values (\\(\\sigma_i=0\\)) span the null spaces of data and model. The number of non-zero eigenvalues \\(r\\) defines the rank of the matrix which can be abbreviated by\n\\[\\vb A_r = \\sum_{i=1}^{r} \\sigma_i \\vb u_i \\cdot \\vb v_i^T = \\vb U_r \\vb \\Sigma_r\\vb V_r^T\\]\nwhere \\({\\bf B}_r\\) holds the first \\(r\\) columns of the matrix \\(\\bf B\\).\nA matrix can be approximated by choosing the (pseudo)rank by hand.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
+    ]
+  },
+  {
+    "objectID": "04_svd.html#operators-in-terms-of-svd",
+    "href": "04_svd.html#operators-in-terms-of-svd",
+    "title": "4  Singular Value Decomposition",
+    "section": "4.7 Operators in terms of SVD",
+    "text": "4.7 Operators in terms of SVD\nThe forward operator \\(\\vb G \\vb m\\) and its adjoint \\(\\vb G^T\\) are written:\n\\[\\vb G = \\vb U_r \\vb \\Sigma_r \\vb V_r^T\\]\n\\[ \\vb G^T = \\vb V_r \\vb \\Sigma_r \\vb U_r^T \\]\n\n\\[ \\vb G^T \\vb G = \\vb V_r^T \\vb \\Sigma_r \\vb U_r^T \\vb U_r \\vb \\Sigma_r \\vb V_r = \\vb V_r^T \\vb \\Sigma_r^2 \\vb V_r \\]\n\n\n\\[ \\vb G \\vb G^T = \\vb U_r \\vb \\Sigma_r \\vb V_r \\vb V_r^T \\vb \\Sigma_r \\vb U_r^T  = \\vb U_r \\vb \\Sigma_r^2 \\vb U_r^T \\]",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
+    ]
+  },
+  {
+    "objectID": "04_svd.html#the-generalized-inverse",
+    "href": "04_svd.html#the-generalized-inverse",
+    "title": "4  Singular Value Decomposition",
+    "section": "4.3 The generalized inverse",
+    "text": "4.3 The generalized inverse\n\\[\\vb G_r \\vb m = \\vb U_r \\vb \\Sigma_r \\vb V_r^T \\vb m = \\vb d\\]\n\\[ \\vb U_r^T \\vb U_r \\vb \\Sigma_r \\vb V_r^T \\vb m = \\vb \\Sigma_r \\vb V_r^T \\vb m = \\vb U_r^T \\vb d\\]\n\\[ \\vb \\Sigma_r^{-1} \\vb \\Sigma_r \\vb V_r^T \\vb m = \\vb V_r^T \\vb m = \\vb \\Sigma_r^{-1} \\vb U_r^T \\vb d\\]\n\\[ \\vb V_r \\vb V_r^T \\vb m = \\vb m = \\vb V_r \\vb \\Sigma_r^{-1} \\vb U_r^T \\vb d\\]\n\\[ \\Rightarrow \\vb m = \\vb G^\\dagger \\vb d \\quad\\mbox{with}\\quad \\vb G^\\dagger = \\vb V_r \\vb \\Sigma_r^{-1} \\vb U_r^T \\]\nThe SVD provides a generalized (Moore-Penrose) inverse",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
+    ]
+  },
+  {
+    "objectID": "04_svd.html#resolution",
+    "href": "04_svd.html#resolution",
+    "title": "4  Singular Value Decomposition",
+    "section": "4.4 Resolution",
+    "text": "4.4 Resolution\nThe model resolution \\[ \\vb R^M = \\vb G^\\dagger \\vb G = \\vb V_p \\vb \\Sigma^{-1}_p \\vb U^T_p \\vb U_p \\vb \\Sigma_p \\vb V_p^T = \\vb V_p \\vb V_p^T \\] depends only on the model eigenvectors!\nAnd the data resolution \\[ \\vb R^D = {\\bf G} {\\bf G}^\\dagger = {\\bf U}_p{\\bf \\Sigma}_p{\\bf V}_p^T {\\bf V}_p {\\bf \\Sigma}^{-1}_p{\\bf U}^T_p = {\\bf U}_p {\\bf U}_p^T \\] depends only on the data eigenvectors!",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
+    ]
+  },
+  {
+    "objectID": "04_svd.html#inverse-problem-types---classification-scheme",
+    "href": "04_svd.html#inverse-problem-types---classification-scheme",
+    "title": "4  Singular Value Decomposition",
+    "section": "4.5 Inverse problem types - classification scheme",
+    "text": "4.5 Inverse problem types - classification scheme\n\n\n\n\n\n\nThe rank \\(r\\) determines the type of the inverse problem\n\n\n\n\n\n\n\n\n\n\n\nTipEven-determined\n\n\n\n\\(M=N=r\\)\n\n\n\n\n\n\n\n\nWarningUnder-determined\n\n\n\n\\(N \\le r&lt;M\\)\n\n\n\n\n\n\n\n\n\nNoteOver-determined\n\n\n\n\\(N &gt; r \\ge M\\)\n\n\n\n\n\n\n\n\nImportantMixed-determined\n\n\n\n\\(r&lt;N \\quad\\mbox{and}\\quad r&lt;M\\)\n\n\n\n\n\n4.5.1 Inverse problem types - Even-determined\n\\[M=N=r\\]\nGeneralized inverse = normal inverse\n\\[ \\vb R^M = \\vb R^D = \\vb I \\]\n\n\n4.5.2 Inverse problem types - Over-determined\n\\[N&gt;r=M\\]\nGeneralized inverse = least-squares inverse\n\\[\\vb G^\\dagger = (\\vb G^T \\vb G)^{-1}\\vb G^T = \\vb V_r \\vb \\Sigma_r^{-2} \\vb V_r^T \\vb V_r \\vb \\Sigma_r \\vb U_r^T = \\vb V_r \\vb \\Sigma_r^{-1} \\vb U_r^T \\]\n\\[ \\vb R^M = \\vb I \\quad , \\quad \\vb R^D \\ne \\vb I \\]\n\n\n4.5.3 Inverse problem types - Under-determined\n\\[N=r&lt;M\\]\nGeneralized inverse = minimum-norm inverse\n\\[\\vb G^\\dagger = \\vb G^T(\\vb G \\vb G^T)^{-1} = \\vb V_r \\vb \\Sigma_r \\vb U_r^T \\vb U_r \\vb \\Sigma_r^{-2} \\vb U_r^T  = \\vb V_r \\vb \\Sigma_r^{-1} \\vb U_r^T \\]\n\\[ \\vb R^M \\ne \\vb I \\quad , \\quad \\vb R^D = \\vb I \\]\n\n\n4.5.4 Inverse problem types - Mixed-determined\n\\[r&lt;M \\quad\\mbox{and}\\quad r&lt;M\\]\nThe generalized inverse\n\\[\\vb G^\\dagger = \\vb V_r \\vb \\Sigma_r^{-1} \\vb U_r^T \\]\nhandles both over-determined and underdetermined model parts.\n\\[ \\vb R^M \\ne \\vb I \\quad , \\quad \\vb R^D \\ne \\vb I \\]\n\n\n4.5.5 The problem of small eigenvalues\nGeneralized inverse \\(\\vb G^\\dagger = \\vb V_r \\vb \\Sigma_r^{-1} \\vb U_r^T\\) to invert noisy data \\(\\vb G \\vb m + \\vb n\\)\n\\[ \\vb G^\\dagger (\\vb G \\vb m + \\vb n) = \\vb G^\\dagger\\vb G\\vb m + \\vb G^\\dagger \\vb n\n= \\vb R^M + \\sum\\limits_{i=1}^r \\frac{\\vb u_i^T \\vb n}{\\sigma_i} \\vb v_i \\]\n\n\n\n\n\n\nImportantProblem\n\n\n\nSmall eigenvalues amplify noise in the data!\n\n\n\n\n4.5.6 Moderate Example\n\n\n\\[ \\vb G = \\mqty(1&1&0&0\\\\1&1.1&0&0\\\\0&0&1&0.5\\\\0&0&0.5&1) \\]\n\\(\\Rightarrow \\sigma_i=[2.05, 1.5, 0.5, 0.05]\\)\nm = pinv(G) * (d + n)\n\n\\(\\vb m=[10, 11, 12, 13]\\), \\(\\epsilon=0.2\\)\n\\(\\Rightarrow \\vb d=[21.0, 22.1, 18.5, 19.0]\\)\n\\(\\vb m^1=[4.45, 16.24, 11.62, 13.37]\\) \\(\\vb m^2=[9.92, 10.92, 12.36, 12.59]\\) \\(\\vb m^3=[15.11, 6.2, 11.66, 13.41]\\) \\(\\vb m^4=[4.11, 16.76, 11.74, 13.05]\\) \\(\\vb m^5=[4.4, 16.48, 11.55, 13.19]\\)\n\n\nEven a small noise level let the solution explode.\n\n\n4.5.7 Solution: drop small singular values\n\n\n\\[ \\vb G = \\mqty(1&1&0&0\\\\1&1.1&0&0\\\\0&0&1&0.5\\\\0&0&0.5&1) \\]\n\\(\\Rightarrow \\sigma_i=[2.05, 1.5, 0.5, 0.05]\\)\n\\(\\Rightarrow\\) m=pinv(G, rtol=0.1)*(d+n)\n\n\\(\\vb m=[10, 11, 12, 13]\\), \\(\\epsilon=0.2\\)\n\\(\\Rightarrow \\vb d=[21.0, 22.1, 18.5, 19.0]\\)\n\\(\\vb m^1=[10.36, 10.89, 12.07, 13.2]\\) \\(\\vb m^2=[10.29, 10.82, 11.67, 13.08]\\) \\(\\vb m^3=[10.32, 10.84, 11.97, 13.16]\\) \\(\\vb m^4=[10.25, 10.78, 11.81, 13.04]\\) \\(\\vb m^3=[10.29, 10.82, 11.71, 13.13]\\)\n\n\nThe solution is much less noise-depending!",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
+    ]
+  },
+  {
+    "objectID": "04_svd.html#inverse-problem-types---even-determined",
+    "href": "04_svd.html#inverse-problem-types---even-determined",
+    "title": "4  Singular Value Decomposition",
+    "section": "4.11 Inverse problem types - Even-determined",
+    "text": "4.11 Inverse problem types - Even-determined\n\\[M=N=r\\]\nGeneralized inverse = normal inverse\n\\[ \\vb R^M = \\vb R^D = \\vb I \\]",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
+    ]
+  },
+  {
+    "objectID": "04_svd.html#inverse-problem-types---over-determined",
+    "href": "04_svd.html#inverse-problem-types---over-determined",
+    "title": "4  Singular Value Decomposition",
+    "section": "4.12 Inverse problem types - Over-determined",
+    "text": "4.12 Inverse problem types - Over-determined\n\\[N&gt;r=M\\]\nGeneralized inverse = least-squares inverse\n\\[\\vb G^\\dagger = (\\vb G^T \\vb G)^{-1}\\vb G^T = \\vb V_r \\vb \\Sigma_r^{-2} \\vb V_r^T \\vb V_r \\vb \\Sigma_r \\vb U_r^T = \\vb V_r \\vb \\Sigma_r^{-1} \\vb U_r^T \\]\n\\[ \\vb R^M = \\vb I \\quad , \\quad \\vb R^D \\ne \\vb I \\]",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
+    ]
+  },
+  {
+    "objectID": "04_svd.html#inverse-problem-types---under-determined",
+    "href": "04_svd.html#inverse-problem-types---under-determined",
+    "title": "4  Singular Value Decomposition",
+    "section": "4.13 Inverse problem types - Under-determined",
+    "text": "4.13 Inverse problem types - Under-determined\n\\[N=r&lt;M\\]\nGeneralized inverse = minimum-norm inverse\n\\[\\vb G^\\dagger = \\vb G^T(\\vb G \\vb G^T)^{-1} = \\vb V_r \\vb \\Sigma_r \\vb U_r^T \\vb U_r \\vb \\Sigma_r^{-2} \\vb U_r^T  = \\vb V_r \\vb \\Sigma_r^{-1} \\vb U_r^T \\]\n\\[ \\vb R^M \\ne \\vb I \\quad , \\quad \\vb R^D = \\vb I \\]",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
+    ]
+  },
+  {
+    "objectID": "04_svd.html#inverse-problem-types---mixed-determined",
+    "href": "04_svd.html#inverse-problem-types---mixed-determined",
+    "title": "4  Singular Value Decomposition",
+    "section": "4.14 Inverse problem types - Mixed-determined",
+    "text": "4.14 Inverse problem types - Mixed-determined\n\\[r&lt;M \\quad\\mbox{and}\\quad r&lt;M\\]\nThe generalized inverse\n\\[\\vb G^\\dagger = \\vb V_r \\vb \\Sigma_r^{-1} \\vb U_r^T \\]\nhandles both over-determined and underdetermined model parts.\n\\[ \\vb R^M \\ne \\vb I \\quad , \\quad \\vb R^D \\ne \\vb I \\]",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
+    ]
+  },
+  {
+    "objectID": "04_svd.html#the-problem-of-small-eigenvalues",
+    "href": "04_svd.html#the-problem-of-small-eigenvalues",
+    "title": "4  Singular Value Decomposition",
+    "section": "4.15 The problem of small eigenvalues",
+    "text": "4.15 The problem of small eigenvalues\nGeneralized inverse \\(\\vb G^\\dagger = \\vb V_r \\vb \\Sigma_r^{-1} \\vb U_r^T\\) to invert noisy data \\(\\vb G \\vb m + \\vb n\\)\n\\[ \\vb G^\\dagger (\\vb G \\vb m + \\vb n) = \\vb G^\\dagger\\vb G\\vb m + \\vb G^\\dagger \\vb n\n= \\vb R^M + \\sum\\limits_{i=1}^r \\frac{\\vb u_i^T \\vb n}{\\sigma_i} \\vb v_i \\]\n\n\n\n\n\n\nImportantProblem\n\n\n\nSmall eigenvalues amplify noise in the data!",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
+    ]
+  },
+  {
+    "objectID": "04_svd.html#moderate-example",
+    "href": "04_svd.html#moderate-example",
+    "title": "4  Singular Value Decomposition",
+    "section": "4.16 Moderate Example",
+    "text": "4.16 Moderate Example\n\n\n\\[ \\vb G = \\mqty(1&1&0&0\\\\1&1.1&0&0\\\\0&0&1&0.5\\\\0&0&0.5&1) \\]\n\\(\\Rightarrow \\sigma_i=[2.05, 1.5, 0.5, 0.05]\\)\nm = pinv(G) * (d + n)\n\n\\(\\vb m=[10, 11, 12, 13]\\), \\(\\epsilon=0.2\\)\n\\(\\Rightarrow \\vb d=[21.0, 22.1, 18.5, 19.0]\\)\n\\(\\vb m^1=[4.45, 16.24, 11.62, 13.37]\\) \\(\\vb m^2=[9.92, 10.92, 12.36, 12.59]\\) \\(\\vb m^3=[15.11, 6.2, 11.66, 13.41]\\) \\(\\vb m^4=[4.11, 16.76, 11.74, 13.05]\\) \\(\\vb m^5=[4.4, 16.48, 11.55, 13.19]\\)\n\n\nEven a small noise level let the solution explode.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
+    ]
+  },
+  {
+    "objectID": "04_svd.html#solution-drop-small-singular-values",
+    "href": "04_svd.html#solution-drop-small-singular-values",
+    "title": "4  Singular Value Decomposition",
+    "section": "4.17 Solution: drop small singular values",
+    "text": "4.17 Solution: drop small singular values\n\n\n\\[ \\vb G = \\mqty(1&1&0&0\\\\1&1.1&0&0\\\\0&0&1&0.5\\\\0&0&0.5&1) \\]\n\\(\\Rightarrow \\sigma_i=[2.05, 1.5, 0.5, 0.05]\\)\n\\(\\Rightarrow\\) m=pinv(G, rtol=0.1)*(d+n)\n\n\\(\\vb m=[10, 11, 12, 13]\\), \\(\\epsilon=0.2\\)\n\\(\\Rightarrow \\vb d=[21.0, 22.1, 18.5, 19.0]\\)\n\\(\\vb m^1=[10.36, 10.89, 12.07, 13.2]\\) \\(\\vb m^2=[10.29, 10.82, 11.67, 13.08]\\) \\(\\vb m^3=[10.32, 10.84, 11.97, 13.16]\\) \\(\\vb m^4=[10.25, 10.78, 11.81, 13.04]\\) \\(\\vb m^3=[10.29, 10.82, 11.71, 13.13]\\)\n\n\nThe solution is much less noise-depending!",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
+    ]
+  },
+  {
+    "objectID": "04_svd.html#truncated-singular-value-tsvd-method",
+    "href": "04_svd.html#truncated-singular-value-tsvd-method",
+    "title": "4  Singular Value Decomposition",
+    "section": "4.18 Truncated singular value (TSVD) method",
+    "text": "4.18 Truncated singular value (TSVD) method\n\nLook at the singular value spectrum\nChoose a maximum number \\(p\\) or rtol and compute (e.g. by pinv) \\[\\vb G^\\dagger_p = \\vb V_p \\vb\\Sigma_p^{-1}\\vb U_p^T\\]\nHow to choose \\(p\\)? Trade-off between resolution and artifacts.\n\n\n\n\n\n\n\nNoteDiscrepancy principle (free after Occam)\n\n\n\nLook at data fit and choose \\(p\\) such that the data can be fitted within the error.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
+    ]
+  },
+  {
+    "objectID": "04_svd.html#the-singular-value-decomposition",
+    "href": "04_svd.html#the-singular-value-decomposition",
+    "title": "4  Singular Value Decomposition",
+    "section": "",
+    "text": "4.1.1 Derivation - eigenvalue decomposition\nThe quadratic matrix \\(\\bf A\\) projects a vector in another direction. Special vectors are eigenvectors who keep their direction \\[ \\vb A \\vb x = \\lambda \\vb x \\]\nThe solution of the equation \\(\\vb A - \\lambda\\vb I=0\\) leads to eigenvalues \\(\\lambda\\) over the characteristic polynome \\(\\text{det}(\\vb A - \\lambda \\vb I)\\) that correspond to eigenvectors in the matrix \\(\\vb Q\\) by\n\\[ \\vb A = \\vb Q \\text{diag}(\\lambda_i) \\vb Q^T = \\vb Q \\vb\\Lambda \\vb Q^T \\]\nWe create a symmetric matrix from \\(\\vb G\\) and its transpose \\[ \\vb A = \\mqty(0 & \\vb G\\\\ \\vb G^T & 0) \\]\nIt has the eigenvalue decomposition (two coupled eigenvalue problems)\n\\[ \\vb A \\vb x_i = \\lambda_i \\vb x_i \\quad\\mbox{with}\\quad \\vb x_i = \\mqty(\\vb u_i\\\\ \\vb v_i) \\]\n\\[ \\Rightarrow \\vb G \\vb v = \\lambda \\vb u \\quad\\mbox{and}\\quad \\vb G^T \\vb u = \\lambda \\vb v \\]\n\\[ \\Rightarrow \\vb G \\vb v = \\lambda \\vb u \\quad\\mbox{and}\\quad \\vb G^T \\vb u = \\lambda \\vb v \\]\nThrough multiplication with \\(\\vb G^T\\) or \\(\\vb G\\) we obtain\n\\[ \\vb G^T \\vb G \\vb v = \\lambda^2 \\vb v \\quad\\mbox{and}\\quad \\vb G \\vb G^T \\vb u = \\lambda^2 \\vb u \\]\ni.e. two eigenvalue problems for model space (\\(\\vb v\\)) and data space (\\(\\vb u\\))\n\\[ \\vb G = \\vb U \\vb \\Sigma \\vb V^T \\quad\\mbox{and}\\quad \\vb G^T = \\vb V \\vb \\Sigma \\vb U^T \\quad\\mbox{with}\\quad \\vb\\Sigma = \\mbox{diag}(\\lambda_i) \\]",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
+    ]
+  },
+  {
+    "objectID": "04_svd.html#truncated-svd-tsvd",
+    "href": "04_svd.html#truncated-svd-tsvd",
+    "title": "4  Singular Value Decomposition",
+    "section": "4.6 Truncated SVD (TSVD)",
+    "text": "4.6 Truncated SVD (TSVD)\n\nLook at the singular value spectrum\nChoose a maximum number \\(p\\) or rtol and compute (e.g. by pinv) \\[\\vb G^\\dagger_p = \\vb V_p \\vb\\Sigma_p^{-1}\\vb U_p^T\\]\nHow to choose \\(p\\)? Trade-off between resolution and artifacts.\n\n\n\n\n\n\n\nNoteDiscrepancy principle (free after Occam)\n\n\n\nLook at data fit and choose \\(p\\) such that the data can be fitted within the error.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
+    ]
   }
 ]
