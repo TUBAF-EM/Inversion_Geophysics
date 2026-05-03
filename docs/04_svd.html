@@ -242,23 +242,25 @@ window.Quarto = {
 </header>
 
 
-<p>Splitting an inverse problem into the fundamental ingredients</p>
+<p>We are now splitting an inverse problem into the fundamental ingredients</p>
 <section id="the-singular-value-decomposition" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="the-singular-value-decomposition"><span class="header-section-number">4.1</span> The Singular Value Decomposition</h2>
-<p>Any matrix <span class="math inline">\(\bf A\)</span> can be decomposed into model and data eigenvectors, weighted by singular values:</p>
-<p><span class="math display">\[\vb A = \sum_{i=1}^{r} \sigma_i \vb u_i\cdot \vb v_i^T = \vb U \vb\Sigma\vb V^T\]</span></p>
+<p>Our forward matrix <span class="math inline">\(\bf G\)</span> can be decomposed into model and data eigenvectors, weighted by singular values:</p>
+<p><span class="math display">\[\vb G = \sum_{i=1}^{r} \sigma_i \vb u_i\cdot \vb v_i^T = \vb U \vb\Sigma\vb V^T\]</span></p>
 <p>with the eigenvalues in <span class="math inline">\(\vb\Sigma=\text{diag}(\sigma_i)\)</span>, a set of orthogonal data eigenvectors <span class="math inline">\(\vb U \in \mathbb{R}^{N\times N}\)</span> with <span class="math inline">\(\vb U^{-1}=\vb U^T\)</span>, and model eigenvectors <span class="math inline">\(\vb V \in\mathbb{R}^{M\times M}\)</span> with <span class="math inline">\(\vb V^{-1}=\vb V^T\)</span>.</p>
 <section id="derivation---eigenvalue-decomposition" class="level3" data-number="4.1.1">
 <h3 data-number="4.1.1" class="anchored" data-anchor-id="derivation---eigenvalue-decomposition"><span class="header-section-number">4.1.1</span> Derivation - eigenvalue decomposition</h3>
-<p>The quadratic matrix <span class="math inline">\(\bf A\)</span> projects a vector in another direction. Special vectors are eigenvectors who keep their direction <span class="math display">\[ \vb A \vb x = \lambda \vb x \]</span></p>
-<p>The solution of the equation <span class="math inline">\(\vb A - \lambda\vb I=0\)</span> leads to eigenvalues <span class="math inline">\(\lambda\)</span> over the characteristic polynome <span class="math inline">\(\text{det}(\vb A - \lambda \vb I)\)</span> that correspond to eigenvectors in the matrix <span class="math inline">\(\vb Q\)</span> by</p>
+<p>A quadratic matrix <span class="math inline">\(\bf A\)</span> projects a vector into one with the same length but another direction. Special vectors are eigenvectors who keep their direction when being project <span class="math display">\[ \vb A \vb x = \lambda \vb x \]</span></p>
+<p>The solution of the equation <span class="math inline">\((\vb A - \lambda\vb I)\vb x=0\)</span> leads to eigenvalues <span class="math inline">\(\lambda\)</span> over the characteristic polynome <span class="math inline">\(\text{det}(\vb A - \lambda \vb I)\)</span> that correspond to orthonormal eigenvectors in the matrix <span class="math inline">\(\vb Q\)</span> by</p>
 <p><span class="math display">\[ \vb A = \vb Q \text{diag}(\lambda_i) \vb Q^T = \vb Q \vb\Lambda \vb Q^T \]</span></p>
-<p>We create a symmetric matrix from <span class="math inline">\(\vb G\)</span> and its transpose <span class="math display">\[ \vb A = \mqty(0 &amp; \vb G\\ \vb G^T &amp; 0) \]</span></p>
-<p>It has the eigenvalue decomposition (two coupled eigenvalue problems)</p>
-<p><span class="math display">\[ \vb A \vb x_i = \lambda_i \vb x_i \quad\mbox{with}\quad \vb x_i = \mqty(\vb u_i\\ \vb v_i) \]</span></p>
+<p>The orthonormal eigenvectors have the length 1 and mutually perpendicular (<span class="math inline">\(\vb q_i \vdot \vb q_j\)</span> is 1 for <span class="math inline">\(i=j\)</span> and 0 otherwise). As a consequence, the transposed <span class="math inline">\(\vb Q\)</span> equals its inverse <span class="math inline">\(\vb Q^{-1}=\vb Q^T\)</span>.</p>
+<p>As our matrix is assymmetric, we create a symmetric matrix from <span class="math inline">\(\vb G\)</span> and its transpose <span class="math display">\[ \vb A = \mqty(0 &amp; \vb G\\ \vb G^T &amp; 0) \]</span></p>
+<p>being of size <span class="math inline">\((N+M)\times(N+M)\)</span>. It has the eigenvalue decomposition <span class="math display">\[ \vb A \vb x_i = \lambda_i \vb x_i \quad\mbox{with}\quad \vb x_i = \mqty(\vb u_i\\ \vb v_i) \]</span></p>
+<p>The vector <span class="math inline">\(\vb x_i\)</span> is of length <span class="math inline">\(N+M\)</span> and can be split into two parts <span class="math inline">\(\vb u_i\in R^N\)</span> and <span class="math inline">\(\vb v_i\in R^M\)</span></p>
+<p>Splitting the upper and the lower part, we see that <span class="math inline">\(\vb G\)</span> projects <span class="math inline">\(\vb u\)</span> into <span class="math inline">\(\vb v\)</span> and vice versa.</p>
 <p><span class="math display">\[ \Rightarrow \vb G \vb v = \lambda \vb u \quad\mbox{and}\quad \vb G^T \vb u = \lambda \vb v \]</span></p>
-<p><span class="math display">\[ \Rightarrow \vb G \vb v = \lambda \vb u \quad\mbox{and}\quad \vb G^T \vb u = \lambda \vb v \]</span></p>
-<p>Through multiplication with <span class="math inline">\(\vb G^T\)</span> or <span class="math inline">\(\vb G\)</span> we obtain</p>
+<p>so that we have two intertwined eigenvalue problems.</p>
+<p>Through multiplication of the first equation with <span class="math inline">\(\vb G^T\)</span> and the second with <span class="math inline">\(\vb G\)</span> we obtain</p>
 <p><span class="math display">\[ \vb G^T \vb G \vb v = \lambda^2 \vb v \quad\mbox{and}\quad \vb G \vb G^T \vb u = \lambda^2 \vb u \]</span></p>
 <p>i.e.&nbsp;two eigenvalue problems for model space (<span class="math inline">\(\vb v\)</span>) and data space (<span class="math inline">\(\vb u\)</span>)</p>
 <p><span class="math display">\[ \vb G = \vb U \vb \Sigma \vb V^T \quad\mbox{and}\quad \vb G^T = \vb V \vb \Sigma \vb U^T \quad\mbox{with}\quad \vb\Sigma = \mbox{diag}(\lambda_i) \]</span></p>
@@ -280,20 +282,29 @@ window.Quarto = {
 </section>
 <section id="operators-in-terms-of-svd" class="level3" data-number="4.2.2">
 <h3 data-number="4.2.2" class="anchored" data-anchor-id="operators-in-terms-of-svd"><span class="header-section-number">4.2.2</span> Operators in terms of SVD</h3>
-<p>The forward operator <span class="math inline">\(\vb G \vb m\)</span> and its adjoint <span class="math inline">\(\vb G^T\)</span> are written:</p>
+<p>The forward operator</p>
 <p><span class="math display">\[\vb G = \vb U_r \vb \Sigma_r \vb V_r^T\]</span></p>
+<p>and its adjoint</p>
 <p><span class="math display">\[ \vb G^T = \vb V_r \vb \Sigma_r \vb U_r^T \]</span></p>
+<p>can be combined to the model-sided square</p>
 <p><span class="math display">\[ \vb G^T \vb G = \vb V_r^T \vb \Sigma_r \vb U_r^T \vb U_r \vb \Sigma_r \vb V_r = \vb V_r^T \vb \Sigma_r^2 \vb V_r \]</span></p>
+<p>that depends only on the model eigenvectors and the data-sided square</p>
 <p><span class="math display">\[ \vb G \vb G^T = \vb U_r \vb \Sigma_r \vb V_r \vb V_r^T \vb \Sigma_r \vb U_r^T  = \vb U_r \vb \Sigma_r^2 \vb U_r^T \]</span></p>
+<p>that only consists of data eigenvectors.</p>
 </section>
 </section>
 <section id="the-generalized-inverse" class="level2" data-number="4.3">
 <h2 data-number="4.3" class="anchored" data-anchor-id="the-generalized-inverse"><span class="header-section-number">4.3</span> The generalized inverse</h2>
+<p>Starting from the forward operator</p>
 <p><span class="math display">\[\vb G_r \vb m = \vb U_r \vb \Sigma_r \vb V_r^T \vb m = \vb d\]</span></p>
+<p>we multiply both equations from the left with <span class="math inline">\(\vb U_r^T\)</span></p>
 <p><span class="math display">\[ \vb U_r^T \vb U_r \vb \Sigma_r \vb V_r^T \vb m = \vb \Sigma_r \vb V_r^T \vb m = \vb U_r^T \vb d\]</span></p>
+<p>then with <span class="math inline">\(\vb \Sigma_r^{-1}\)</span></p>
 <p><span class="math display">\[ \vb \Sigma_r^{-1} \vb \Sigma_r \vb V_r^T \vb m = \vb V_r^T \vb m = \vb \Sigma_r^{-1} \vb U_r^T \vb d\]</span></p>
+<p>and with <span class="math inline">\(\vb V_r\)</span></p>
 <p><span class="math display">\[ \vb V_r \vb V_r^T \vb m = \vb m = \vb V_r \vb \Sigma_r^{-1} \vb U_r^T \vb d\]</span></p>
-<p><span class="math display">\[ \Rightarrow \vb m = \vb G^\dagger \vb d \quad\mbox{with}\quad \vb G^\dagger = \vb V_r \vb \Sigma_r^{-1} \vb U_r^T \]</span></p>
+<p>so that we have <span class="math inline">\(\Rightarrow \vb m =  \vb G^\dagger \vb d\)</span> with the inverse operator</p>
+<p><span class="math display">\[ \vb G^\dagger = \vb V_r \vb \Sigma_r^{-1} \vb U_r^T \]</span></p>
 <p>The SVD provides a generalized (Moore-Penrose) inverse</p>
 <!-- ## Inverse operator in terms of SVD
 
@@ -303,8 +314,9 @@ i.e., the least-squares inverse for overdetermined problems. -->
 </section>
 <section id="resolution" class="level2" data-number="4.4">
 <h2 data-number="4.4" class="anchored" data-anchor-id="resolution"><span class="header-section-number">4.4</span> Resolution</h2>
-<p>The model resolution <span class="math display">\[ \vb R^M = \vb G^\dagger \vb G = \vb V_p \vb \Sigma^{-1}_p \vb U^T_p \vb U_p \vb \Sigma_p \vb V_p^T = \vb V_p \vb V_p^T \]</span> depends only on the model eigenvectors!</p>
-<p>And the data resolution <span class="math display">\[ \vb R^D = {\bf G} {\bf G}^\dagger = {\bf U}_p{\bf \Sigma}_p{\bf V}_p^T {\bf V}_p {\bf \Sigma}^{-1}_p{\bf U}^T_p = {\bf U}_p {\bf U}_p^T \]</span> depends only on the data eigenvectors!</p>
+<p>Combining inverse and forward operators containing a number of <span class="math inline">\(p\)</span> singular values (not necessarily <span class="math inline">\(r\)</span>) we obtain the model resolution matrix <span class="math display">\[ \vb R^M = \vb G^\dagger \vb G = \vb V_p \vb \Sigma^{-1}_p \vb U^T_p \vb U_p \vb \Sigma_p \vb V_p^T = \vb V_p \vb V_p^T \]</span></p>
+<p>which depends only on the model eigenvectors.</p>
+<p>Combining forward and inverse operators yields the data resolution matrix <span class="math display">\[ \vb R^D = {\bf G} {\bf G}^\dagger = {\bf U}_p{\bf \Sigma}_p{\bf V}_p^T {\bf V}_p {\bf \Sigma}^{-1}_p{\bf U}^T_p = {\bf U}_p {\bf U}_p^T \]</span> depends only on the data eigenvectors!</p>
 </section>
 <section id="inverse-problem-types---classification-scheme" class="level2" data-number="4.5">
 <h2 data-number="4.5" class="anchored" data-anchor-id="inverse-problem-types---classification-scheme"><span class="header-section-number">4.5</span> Inverse problem types - classification scheme</h2>
@@ -397,7 +409,7 @@ i.e., the least-squares inverse for overdetermined problems. -->
 </section>
 <section id="inverse-problem-types---mixed-determined" class="level3" data-number="4.5.4">
 <h3 data-number="4.5.4" class="anchored" data-anchor-id="inverse-problem-types---mixed-determined"><span class="header-section-number">4.5.4</span> Inverse problem types - Mixed-determined</h3>
-<p><span class="math display">\[r&lt;M \quad\mbox{and}\quad r&lt;M\]</span></p>
+<p><span class="math display">\[r&lt;N \quad\mbox{and}\quad r&lt;M\]</span></p>
 <p>The generalized inverse</p>
 <p><span class="math display">\[\vb G^\dagger = \vb V_r \vb \Sigma_r^{-1} \vb U_r^T \]</span></p>
 <p>handles both over-determined and underdetermined model parts.</p>
