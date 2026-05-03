@@ -213,8 +213,6 @@ window.Quarto = {
   <li><a href="#inverse-problem-types---under-determined" id="toc-inverse-problem-types---under-determined" class="nav-link" data-scroll-target="#inverse-problem-types---under-determined"><span class="header-section-number">4.5.3</span> Inverse problem types - Under-determined</a></li>
   <li><a href="#inverse-problem-types---mixed-determined" id="toc-inverse-problem-types---mixed-determined" class="nav-link" data-scroll-target="#inverse-problem-types---mixed-determined"><span class="header-section-number">4.5.4</span> Inverse problem types - Mixed-determined</a></li>
   <li><a href="#the-problem-of-small-eigenvalues" id="toc-the-problem-of-small-eigenvalues" class="nav-link" data-scroll-target="#the-problem-of-small-eigenvalues"><span class="header-section-number">4.5.5</span> The problem of small eigenvalues</a></li>
-  <li><a href="#moderate-example" id="toc-moderate-example" class="nav-link" data-scroll-target="#moderate-example"><span class="header-section-number">4.5.6</span> Moderate Example</a></li>
-  <li><a href="#solution-drop-small-singular-values" id="toc-solution-drop-small-singular-values" class="nav-link" data-scroll-target="#solution-drop-small-singular-values"><span class="header-section-number">4.5.7</span> Solution: drop small singular values</a></li>
   </ul></li>
   <li><a href="#truncated-svd-tsvd" id="toc-truncated-svd-tsvd" class="nav-link" data-scroll-target="#truncated-svd-tsvd"><span class="header-section-number">4.6</span> Truncated SVD (TSVD)</a></li>
   </ul>
@@ -417,9 +415,10 @@ i.e., the least-squares inverse for overdetermined problems. -->
 </section>
 <section id="the-problem-of-small-eigenvalues" class="level3" data-number="4.5.5">
 <h3 data-number="4.5.5" class="anchored" data-anchor-id="the-problem-of-small-eigenvalues"><span class="header-section-number">4.5.5</span> The problem of small eigenvalues</h3>
-<p>Generalized inverse <span class="math inline">\(\vb G^\dagger = \vb V_r \vb \Sigma_r^{-1} \vb U_r^T\)</span> to invert noisy data <span class="math inline">\(\vb G \vb m + \vb n\)</span></p>
+<p>Let the generalized inverse <span class="math inline">\(\vb G^\dagger = \vb V_r \vb \Sigma_r^{-1} \vb U_r^T\)</span> invert noisy data <span class="math inline">\(\vb G \vb m + \vb n\)</span></p>
 <p><span class="math display">\[ \vb G^\dagger (\vb G \vb m + \vb n) = \vb G^\dagger\vb G\vb m + \vb G^\dagger \vb n
 = \vb R^M + \sum\limits_{i=1}^r \frac{\vb u_i^T \vb n}{\sigma_i} \vb v_i \]</span></p>
+<p>The projection of the noise into the data eigenvectors is generating model eigenvector contributions. However, these can be very large as the eigenvalue is in the denominator.</p>
 <div class="callout callout-style-default callout-important callout-titled" title="Problem">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -433,36 +432,29 @@ i.e., the least-squares inverse for overdetermined problems. -->
 <p>Small eigenvalues amplify noise in the data!</p>
 </div>
 </div>
-</section>
-<section id="moderate-example" class="level3" data-number="4.5.6">
-<h3 data-number="4.5.6" class="anchored" data-anchor-id="moderate-example"><span class="header-section-number">4.5.6</span> Moderate Example</h3>
-<div class="columns">
-<div class="column">
+<section id="moderate-example" class="level4" data-number="4.5.5.1">
+<h4 data-number="4.5.5.1" class="anchored" data-anchor-id="moderate-example"><span class="header-section-number">4.5.5.1</span> Moderate Example</h4>
+<p>Consider a simple example of four data and model</p>
 <p><span class="math display">\[ \vb G = \mqty(1&amp;1&amp;0&amp;0\\1&amp;1.1&amp;0&amp;0\\0&amp;0&amp;1&amp;0.5\\0&amp;0&amp;0.5&amp;1) \]</span></p>
-<p><span class="math inline">\(\Rightarrow \sigma_i=[2.05, 1.5, 0.5, 0.05]\)</span></p>
-<p><code>m = pinv(G) * (d + n)</code></p>
-</div><div class="column">
-<p><span class="math inline">\(\vb m=[10, 11, 12, 13]\)</span>, <span class="math inline">\(\epsilon=0.2\)</span></p>
-<p><span class="math inline">\(\Rightarrow \vb d=[21.0, 22.1, 18.5, 19.0]\)</span></p>
+<p>Let the model be simple numbers <span class="math inline">\(\vb m=[10, 11, 12, 13]^T\)</span></p>
+<p>leading to the data vector <span class="math inline">\(\Rightarrow \vb d=[21.0, 22.1, 18.5, 19.0]^T\)</span></p>
+<p>For the error, we choose <span class="math inline">\(\epsilon=0.2\)</span>, which is just about 1% of the data.</p>
+<p>If we now compute models for four different noise realizations</p>
+<p><code>mi = np.linalg.pinv(G) @ (G@m + np.random.randn(4)*eps)</code></p>
+<p>we obtain quite different models, e.g.,</p>
 <p><span class="math inline">\(\vb m^1=[4.45, 16.24, 11.62, 13.37]\)</span> <span class="math inline">\(\vb m^2=[9.92, 10.92, 12.36, 12.59]\)</span> <span class="math inline">\(\vb m^3=[15.11, 6.2, 11.66, 13.41]\)</span> <span class="math inline">\(\vb m^4=[4.11, 16.76, 11.74, 13.05]\)</span> <span class="math inline">\(\vb m^5=[4.4, 16.48, 11.55, 13.19]\)</span></p>
-</div>
-</div>
-<p>Even a small noise level let the solution explode.</p>
+<p>Whereas the last two values are recovered quite well, the first are varying and different from the synthetics. Even small noise levels let the solution explode.</p>
+<p>Looking at the singular value spectrum we observe two big, a medium and a rather small value (2.5% of the biggest) <span class="math inline">\(\sigma_i=[2.05, 1.5, 0.5, 0.05]\)</span></p>
+<p>The latter one is responsible for the problems.</p>
 </section>
-<section id="solution-drop-small-singular-values" class="level3" data-number="4.5.7">
-<h3 data-number="4.5.7" class="anchored" data-anchor-id="solution-drop-small-singular-values"><span class="header-section-number">4.5.7</span> Solution: drop small singular values</h3>
-<div class="columns">
-<div class="column">
-<p><span class="math display">\[ \vb G = \mqty(1&amp;1&amp;0&amp;0\\1&amp;1.1&amp;0&amp;0\\0&amp;0&amp;1&amp;0.5\\0&amp;0&amp;0.5&amp;1) \]</span></p>
-<p><span class="math inline">\(\Rightarrow \sigma_i=[2.05, 1.5, 0.5, 0.05]\)</span></p>
-<p><span class="math inline">\(\Rightarrow\)</span> <code>m=pinv(G, rtol=0.1)*(d+n)</code></p>
-</div><div class="column">
-<p><span class="math inline">\(\vb m=[10, 11, 12, 13]\)</span>, <span class="math inline">\(\epsilon=0.2\)</span></p>
-<p><span class="math inline">\(\Rightarrow \vb d=[21.0, 22.1, 18.5, 19.0]\)</span></p>
+<section id="solution-drop-small-singular-values" class="level4" data-number="4.5.5.2">
+<h4 data-number="4.5.5.2" class="anchored" data-anchor-id="solution-drop-small-singular-values"><span class="header-section-number">4.5.5.2</span> Solution: drop small singular values</h4>
+<p>If we approximate the matrix by the biggest three only , using a cutoff of 10%</p>
+<p><code>mi = np.linalg.pinv(G, rtol=0.1) @ (G@m+np.random.randn(4)*eps)</code></p>
+<p>we obtain values that are more stable and much closer to the synthetics</p>
 <p><span class="math inline">\(\vb m^1=[10.36, 10.89, 12.07, 13.2]\)</span> <span class="math inline">\(\vb m^2=[10.29, 10.82, 11.67, 13.08]\)</span> <span class="math inline">\(\vb m^3=[10.32, 10.84, 11.97, 13.16]\)</span> <span class="math inline">\(\vb m^4=[10.25, 10.78, 11.81, 13.04]\)</span> <span class="math inline">\(\vb m^3=[10.29, 10.82, 11.71, 13.13]\)</span></p>
-</div>
-</div>
 <p>The solution is much less noise-depending!</p>
+</section>
 </section>
 </section>
 <section id="truncated-svd-tsvd" class="level2" data-number="4.6">
