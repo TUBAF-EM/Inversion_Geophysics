@@ -1,7 +1,7 @@
 
 ## The course {.unnumbered}
 
-These are the lecture notes for the module **Inverse Problems in Geophysics.**, tailored for Master's students of Geophysics, Geoinformatics, Applied Geoscience or Mathematics for Data and Resource Sciences at the [Institute of Geophysics and Geoinformatics](https://tu-freiberg.de/geophysik), [TU Bergakademie Freiberg](https://tu-freiberg.de).
+These are the lecture notes for the module **Inverse Problems in Geophysics**, tailored for Master's students of Geophysics, Geoinformatics, Applied Geoscience or Mathematics for Data and Resource Sciences at the [Institute of Geophysics and Geoinformatics](https://tu-freiberg.de/geophysik), [TU Bergakademie Freiberg](https://tu-freiberg.de).
 You can access all the sources on the [GitHub repository](https://github.com/TUBAF-EM/Inversion_Geophysics) or [the slides](https://github.com/halbmy/InversionGeophysics).
 
 Enjoy studying!
