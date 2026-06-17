@@ -324,40 +324,41 @@ $$ {\bf R}^D = \bf G G^\dagger = G G^T (G G^T)^{-1} = I $$
 For underdetermined problems, all data are independent and equally important. Model parameters are insufficiently resolved.
 :::
 
+## Resolution kernels (point spread functions)
 
+$$ \Rightarrow \vb R^M=\vb G^\dagger \vb G=(\vb G^T \vb G + \lambda \vb C^T \vb C)^{-1} \vb G^T \vb G $$
 
-## Appendix
-### Derivation (1)
-$$\Phi = \| {\vb d}-{\vb G}{\vb m}\|^2_2 = ({\vb d}-{\vb G}{\vb m})^T ({\vb d}-{\vb G}{\vb m}) $$
-$$\Phi = ({\vb G}{\vb m}-{\vb d})^T ({\vb G}{\vb m}-{\vb d})$$
+A column represents how a cell anomaly is "spread" [@Friedel2003].
 
-$$\frac{\partial\Phi}{\partial m} = \frac{\partial}{\partial m} ({\vb G}{\vb m}-{\vb d})^T ({\vb G}{\vb m}-{\vb d}) +
-     ({\vb G}{\vb m}-{\vb d})^T \frac{\partial}{\partial m}({\vb G}{\vb m}-{\vb d}) = 0$$
+:::: {.columns}
+::: {.column}
+![Ideal imaging](pics/res/friedel1.png)
+:::
+::: {.column}
+![Contrast deficiency](pics/res/friedel2.png)
+:::
+::: {.column}
+![Geometrical distortion](pics/res/friedel3.png)
+:::
+::: {.column}
+![Side lobes](pics/res/friedel4.png)
+:::
+::::
 
-$${\vb G}^T{\vb G}{\vb m}- {\vb G}^T{\vb d}+ {\vb G}^T{\vb G}{\vb m}- {\vb G}^T{\vb d}= 0$$
+## Model resolution radius
 
-$${\vb G}^T{\vb G}{\vb m}= {\vb G}^T{\vb d}\quad \Rightarrow \quad {\vb m}={\vb G}^\dagger{\vb d}
-    \quad\mbox{with}\quad {\vb G}^\dagger = ({\vb G}^T{\vb G})^{-1} {\vb G}^T$$
+::: {.callout-note title="The diagonal of the resolution matrix"}
+ states how a single model cell can be retrieved
+:::
+::: {.columns}
+::: {.column width="40%"}
+![](notebooks/xhS-rmdiag.svg)
+:::
+::: {.column width="60%"}
+How big needs a sphere to be to integrate a value of 1 (perfect resolution)?
 
-### Derivation (2)
-
-$$\Phi = ({\vb d}-{\vb G}{\vb m})^T ({\vb d}-{\vb G}{\vb m}) = \sum_i \left[ (d_i-\sum_j G_{ij}m_j )(d_i-\sum_k G_{ij}m_j ) \right]$$
-$$\Phi = \sum_i \left[ d_i d_i - d_i\sum_k G_{ik}m_k - d_i\sum_j G_{ij}m_j + \sum_j G_{ij}m_j\sum_k G_{ik}m_k \right]$$
-$$\Phi = \sum_i d_i d_i - 2 \sum_j m_j \sum d_i G{ij} + \sum_i \sum_j\sum_k m_j G_{ij}G_{ik}m_j m_k$$
-$$\Phi = \sum_i d_i d_i - 2 \sum_j m_j \sum_i d_i G{ij} +\sum_j\sum_k m_j m_k \sum_i G_{ij}G_{ik}$$
-
-$$\partial\Phi=\partial m_q = \sum_i\sum_k(\delta_{iq}m_k+m_j\delta_{ik})\sum G_{ij}G_{ik} - 2\sum_j \delta_{iq}\sum G_{ij} d_i = 0$$
-
-$$0 = 2\sum_k\sum_i G_{iq}G_{ik} - 2\sum_i G_{iq}d_i = 2{\vb G}^T{\vb G}-2{\vb G}^T {\vb d}$$
-
-### Derivation by change $t\delta{\vb m}$
-
-$$\Phi(t) = ({\vb d}-{\vb G}({\vb m}+t\delta{\vb m}))^T ({\vb d}-{\vb G}({\vb m}+t\delta{\vb m}))$$
-$$\Phi(t) = ({\vb m}+t\delta{\vb m})^T{\vb G}^T{\vb G}({\vb m}+t\delta{\vb m})-2({\vb m}+t\delta{\vb m}){\vb G}^T{\vb d}+{\vb d}^T{\vb d}$$
-$$\Phi(t) = t^2(\delta{\vb m}{\vb G}^T{\vb G}\delta{\vb m}) + 2t(\delta{\vb m}{\vb G}^T{\vb G}{\vb m}-\delta{\vb m}^T{\vb G}^T{\vb d})
-    + ({\vb m}^T{\vb G}^T{\vb G}{\vb m}+{\vb d}^T{\vb d}-2{\vb m}^T{\vb G}^T{\vb d})$$
-$\Phi(t)$ has a minimum at $t=0$, therefore $\partial\Phi/\partial t$ must be 0
-$$\partial\Phi(t=0)/\partial t = 2(\delta{\vb m}^T{\vb G}^T{\vb G}{\vb m}- \delta{\vb m}^T{\vb G}{\vb d}) = 2\delta{\vb m}^T ({\vb G}^T{\vb G}{\vb m}-{\vb G}^T{\vb d}) = 0$$
-As this holds for every $\delta{\vb m}$, we obtain
-${\vb G}^T{\vb G}{\vb m}={\vb G}^T{\vb d}$
+Resolution radius
+$$ r = \frac{r_i}{\sqrt{\vb R^M_{ii}}}=\frac{\sqrt{A_i/\pi}}{\sqrt{\vb R^M_{ii}}} $$
+:::
+:::
 
