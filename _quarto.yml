@@ -17,10 +17,19 @@ book:
   chapters:
     - index.qmd
     - 01_introduction.qmd
-    - 02_linear_problems.qmd
-    - 03_resolution.qmd
-    - 04_svd.qmd
-    - 05_regularization.qmd
+    - part: "Linear problems"
+      chapters:
+        - 02_linear_problems.qmd
+        - 03_resolution.qmd
+        - 04_svd.qmd
+    - part: "Regularization"
+      chapters:
+        - 05_regularization.qmd
+        # - 06_traveltime_tomography.qmd
+        # - 07_enhanced_regularization.qmd
+    # - part: "Non-linear problems"
+      # chapters:
+        # - probability.qmd
     - literature.qmd
 bibliography: inv.bib
 csl: harvard.csl

@@ -52,7 +52,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./04_svd.html" rel="prev">
+<link href="./05_regularization.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -150,24 +150,52 @@ window.MathJax = {
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Linear problems</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./02_linear_problems.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Linear problems</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./03_resolution.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Resolution analysis</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04_svd.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Singular Value Decomposition</span></span></a>
   </div>
 </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Regularization</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_regularization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Regularization</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./literature.html" class="sidebar-item-text sidebar-link active">
@@ -187,7 +215,7 @@ window.MathJax = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">References</h1>
+<h1 class="title"><span id="sec-refs" class="quarto-section-identifier">References</span></h1>
 </div>
 
 
@@ -204,48 +232,82 @@ window.MathJax = {
 </header>
 
 
+
+
 <div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-Aster2005" class="csl-entry" role="listitem">
+Aster R C, Borchers B and Thurber C H. 2005. <em><span>P</span>arameter <span>E</span>stimation and <span>I</span>nverse <span>P</span>roblems</em> (Elsevier Academic Press)
+</div>
+<div id="ref-Coscia2011" class="csl-entry" role="listitem">
+Coscia I, Greenhalgh S, Linde N, Doetsch J, Marescot L, Günther T and Green A. 2011. 3<span>D</span> crosshole apparent resistivity static inversion and monitoring of a coupled river-aquifer system. <em>Geophysics</em>. <strong>76</strong>. G49–59
+</div>
+<div id="ref-Dentith2014" class="csl-entry" role="listitem">
+Dentith M and Mudge S T. 2014. <em><a href="https://doi.org/10.1017/cbo9781139024358">Geophysics for the mineral exploration geoscientist</a></em> (Cambridge University Press)
+</div>
 <div id="ref-Everett2013" class="csl-entry" role="listitem">
-Everett M E. 2013. <em><a href="https://doi.org/10.1017/cbo9781139088435">Near-surface applied
-geophysics</a></em> (Cambridge University Press)
+Everett M E. 2013. <em><a href="https://doi.org/10.1017/cbo9781139088435">Near-surface applied geophysics</a></em> (Cambridge University Press)
+</div>
+<div id="ref-Friedel2003" class="csl-entry" role="listitem">
+Friedel S. 2003. Resolution, stability and effiency of resistivity tomography estimated from a generalized inverse approach. <em>Geophys. J. Int.</em> <strong>153</strong>. 305–16
 </div>
 <div id="ref-Gubbins2004" class="csl-entry" role="listitem">
-Gubbins D. 2004. <em>Time series analysis and inverse theory for
-geophysicists</em> (Cambridge Univ. Press)
+Gubbins D. 2004. <em>Time series analysis and inverse theory for geophysicists</em> (Cambridge Univ. Press)
 </div>
 <div id="ref-Guenther2004" class="csl-entry" role="listitem">
-Günther T. 2004. <em><span>I</span>nversion <span>M</span>ethods and
-<span>R</span>esolution <span>A</span>nalysis for the
-2<span>D</span>/3<span>D</span> <span>R</span>econstruction of
-<span>R</span>esistivity <span>S</span>tructures from <span>DC</span>
-<span>M</span>easurements</em> PhD thesis (University of Mining;
-Technology Freiberg)
+Günther T. 2004. <em><span>I</span>nversion <span>M</span>ethods and <span>R</span>esolution <span>A</span>nalysis for the 2<span>D</span>/3<span>D</span> <span>R</span>econstruction of <span>R</span>esistivity <span>S</span>tructures from <span>DC</span> <span>M</span>easurements</em> PhD thesis (University of Mining; Technology Freiberg)
+</div>
+<div id="ref-Guenther2016" class="csl-entry" role="listitem">
+Günther T and Martin T. 2016. <a href="https://doi.org/10.1016/j.jappgeo.2016.01.008"><span>S</span>pectral two-dimensional inversion of frequency-domain induced polarisation data from a mining slag heap</a>. <em>Journal of Applied Geophysics</em>. <strong>135</strong>. 436–48
+</div>
+<div id="ref-Guenther2006" class="csl-entry" role="listitem">
+Günther T, Rücker C and Spitzer K. 2006. <a href="https://doi.org/10.1111/j.1365-246X.2006.03011.x">Three-dimensional modeling and inversion of dc resistivity data incorporating topography - <span>II</span>: inversion</a>. <em>Geophys. J. Int.</em> <strong>166</strong>. 506–17
+</div>
+<div id="ref-Huebner2017" class="csl-entry" role="listitem">
+Hübner R, Günther T, Heller K, Noell U and Kleber A. 2017. <a href="https://doi.org/10.5194/hess-21-5181-2017">Impacts of a capillary barrier on infiltration and subsurface stormflow in layered slope deposits monitored with <span>3-D</span> <span>ERT</span> and hydrometric measurements</a>. <em>Hydrology and Earth System Sciences</em>. <strong>21</strong>. 5181–99
+</div>
+<div id="ref-Huebner2015" class="csl-entry" role="listitem">
+Hübner R, Heller K, Günther T and Kleber A. 2015. <span>M</span>onitoring hillslope moisture dynamics with surface <span>ERT</span> for enhancing spatial significance of hydrometric point measurements. <em>Hydrology and Earth System Sciences</em>. <strong>19</strong>. 225–40 Online: <a href="http://www.hydrol-earth-syst-sci.net/19/225/2015/">http://www.hydrol-earth-syst-sci.net/19/225/2015/</a>
+</div>
+<div id="ref-Jiang2020" class="csl-entry" role="listitem">
+Jiang C, Igel J, Dlugosch R, Müller-Petke M, Günther T, Helms J, Lang J and Winsemann J. 2020. <a href="https://doi.org/10.1190/geo2020-0052.1">Magnetic resonance tomography constrained by ground-penetrating radar for improved hydrogeophysical characterisation</a>. <em><span>GEOPHYSICS</span></em>. 1–56
+</div>
+<div id="ref-Martin2013" class="csl-entry" role="listitem">
+Martin T and Günther T. 2013. <span>C</span>omplex resistivity tomography (<span>CRT</span>) for fungus detection on standing oak trees. <em>European Journal of Forest Research</em>. <strong>132</strong>. 765–76 Online: <a href="http://dx.doi.org/10.1007/s10342-013-0711-4">http://dx.doi.org/10.1007/s10342-013-0711-4</a>
 </div>
 <div id="ref-Martin2020" class="csl-entry" role="listitem">
-Martin T, Günther T, Orozco A F and Dahlin T. 2020. <a href="https://doi.org/10.1016/j.jappgeo.2020.104141">Evaluation of
-spectral induced polarization field measurements in time and frequency
-domain</a>. <em>Journal of Applied Geophysics</em>.
-<strong>180</strong>. 104141
+Martin T, Günther T, Orozco A F and Dahlin T. 2020. <a href="https://doi.org/10.1016/j.jappgeo.2020.104141">Evaluation of spectral induced polarization field measurements in time and frequency domain</a>. <em>Journal of Applied Geophysics</em>. <strong>180</strong>. 104141
+</div>
+<div id="ref-Meju1994" class="csl-entry" role="listitem">
+Meju M A. 1994. <em>Geophysical data analysis: Understanding inverse problem theory and practice</em> (Society of Exploration Geophysicists)
+</div>
+<div id="ref-Menke1989" class="csl-entry" role="listitem">
+Menke W. 1989. <em>Geophysical data analysis: Discrete inverse theory</em> vol 45 (Academic Press Inc.)
 </div>
 <div id="ref-Menke2012" class="csl-entry" role="listitem">
-Menke W. 2012. <em><a href="https://doi.org/10.1016/B978-0-12-397160-9.00001-1">Geophysical
-data analysis: Discrete inverse theory</a></em> (Elsevier)
+Menke W. 2012. <em><a href="https://doi.org/10.1016/B978-0-12-397160-9.00001-1">Geophysical data analysis: Discrete inverse theory</a></em> (Elsevier)
+</div>
+<div id="ref-Nickschick2019" class="csl-entry" role="listitem">
+Nickschick T, Flechsig C, Mrlina J, Oppermann F, Löbig F and Günther T. 2019. Large-scale electrical resistivity tomography in the <span>Cheb Basin</span> (<span>Eger Rift</span>) at an <span>I</span>nternational <span>C</span>ontinental <span>D</span>rilling <span>P</span>rogram (<span>ICDP</span>) monitoring site to image fluid-related structures. <em>Solid Earth</em>. <strong>10</strong>. 1951–69 Online: <a href="https://www.solid-earth.net/10/1951/2019/">https://www.solid-earth.net/10/1951/2019/</a>
+</div>
+<div id="ref-Nocedal2006" class="csl-entry" role="listitem">
+Nocedal J and Wright S. 2006. <em><span>N</span>umerical <span>O</span>ptimization</em> vol XXII, ed T Mikosch, S Robinson and S Resnick (Springer Verlag) Online: <a href="http://www.springer.com/mathematics/book/978-0-387-30303-1">http://www.springer.com/mathematics/book/978-0-387-30303-1</a>
 </div>
 <div id="ref-Richter2016" class="csl-entry" role="listitem">
-Richter M. 2016. <em><a href="https://doi.org/10.1007/978-3-319-48384-9">Inverse problems:
-Basics, theory and applications in geophysics</a></em> (Springer
-International Publishing)
+Richter M. 2016. <em><a href="https://doi.org/10.1007/978-3-319-48384-9">Inverse problems: Basics, theory and applications in geophysics</a></em> (Springer International Publishing)
+</div>
+<div id="ref-Ruecker2017" class="csl-entry" role="listitem">
+Rücker C, Günther T and Wagner F. 2017. <a href="https://doi.org/10.1016/j.cageo.2017.07.011"><span class="nocase">pyGIMLi</span>: An open-source library for modelling and inversion in geophysics</a>. <em>Computers &amp; Geosciences</em>. <strong>109</strong>. 106–23
 </div>
 <div id="ref-Tarantola1978" class="csl-entry" role="listitem">
 Tarantola A. 1978. <em>Inverse problem theory</em> (Amsterdam: Elsevier)
 </div>
+<div id="ref-Udphuay2011" class="csl-entry" role="listitem">
+Udphuay S, Günther T, Everett M E, Warden R R and Briaud J-L. 2011. <span>T</span>hree—dimensional resistivity tomography in extreme coastal terrain amidst dense cultural signals: Application to cliff stability assessment at the historic <span>D</span>—<span>D</span>ay site. <em>Geophys. J. Int.</em> <strong>185</strong>. 201–20
+</div>
 <div id="ref-Zhdanov2002" class="csl-entry" role="listitem">
-Zhdanov M S. 2002. <em>Geophysical inverse theory and regularization
-problems</em> (Amsterdam - New York - Tokyo: Elsevier)
+Zhdanov M S. 2002. <em>Geophysical inverse theory and regularization problems</em> (Amsterdam - New York - Tokyo: Elsevier)
 </div>
 </div>
-
-
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -650,8 +712,8 @@ problems</em> (Amsterdam - New York - Tokyo: Elsevier)
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./04_svd.html" class="pagination-link" aria-label="Singular Value Decomposition">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Singular Value Decomposition</span></span>
+      <a href="./05_regularization.html" class="pagination-link" aria-label="Regularization">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Regularization</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

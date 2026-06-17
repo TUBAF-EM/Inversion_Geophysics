@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Inverse Problems in Geophysics",
     "section": "",
-    "text": "The course\nThese are the lecture notes for the module Inverse Problems in Geophysics., tailored for Master’s students of Geophysics, Geoinformatics, Applied Geoscience or Mathematics for Data and Resource Sciences at the Institute of Geophysics and Geoinformatics, TU Bergakademie Freiberg. You can access all the sources on the GitHub repository or the slides.\nEnjoy studying!",
+    "text": "The course\nThese are the lecture notes for the module Inverse Problems in Geophysics, tailored for Master’s students of Geophysics, Geoinformatics, Applied Geoscience or Mathematics for Data and Resource Sciences at the Institute of Geophysics and Geoinformatics, TU Bergakademie Freiberg. You can access all the sources on the GitHub repository or the slides.\nEnjoy studying!",
     "crumbs": [
       "The course"
     ]
@@ -74,7 +74,7 @@
     "href": "index.html#text-books",
     "title": "Inverse Problems in Geophysics",
     "section": "Text books",
-    "text": "Text books\n\nMenke (2012): Geophysical Data Analysis: Discrete Inverse Theory, Academic\nRichter (2016): Inverse Problems: Basics, Theory and Applications in Geophysics\nGünther (2004): Inversion Methods and Resolution Analysis for the 2D/3D Reconstruction of Resistivity Structures from DC Measurements, PhD thesis\nGubbins (2004): Time series analysis and inverse theory for geophysicists (Cambridge Univ. Press)\nTarantola (1978): Inverse problem theory (Amsterdam: Elsevier)\nZhdanov (2002): Geophysical inverse theory and regularization problems (Amsterdam - New York - Tokyo: Elsevier)\nsee also Reference list (refs?)",
+    "text": "Text books\n\nMenke (2012): Geophysical Data Analysis: Discrete Inverse Theory, Academic\nRichter (2016): Inverse Problems: Basics, Theory and Applications in Geophysics\nGünther (2004): Inversion Methods and Resolution Analysis for the 2D/3D Reconstruction of Resistivity Structures from DC Measurements, PhD thesis\nGubbins (2004): Time series analysis and inverse theory for geophysicists (Cambridge Univ. Press)\nTarantola (1978): Inverse problem theory (Amsterdam: Elsevier)\nZhdanov (2002): Geophysical inverse theory and regularization problems (Amsterdam - New York - Tokyo: Elsevier)\nsee also ?sec-refs",
     "crumbs": [
       "The course"
     ]
@@ -156,6 +156,7 @@
     "section": "",
     "text": "2.1 Types of inverse problems (naive)",
     "crumbs": [
+      "Linear problems",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Linear problems</span>"
     ]
   },
@@ -164,8 +165,9 @@
     "href": "02_linear_problems.html#types-of-inverse-problems-naive",
     "title": "2  Linear problems",
     "section": "",
-    "text": "ImportantProblem size\n\n\n\n\nevery row stands for a measurement (data point)\nevery column represents a model parameter\n\n\\[\\vb d = Gm + n \\Rightarrow \\vb G\\in \\mathfrak{R}^{N\\times M}\\]\n\n\n\n\\(N\\) = \\(M\\): even-determined\n\\(N\\) &gt; \\(M\\): over-determined problem (no existing solution)\n\\(N\\) &lt; \\(M\\): under-determined problem (no unique solution)\nmostly: (both over- and) under-determined model parts\n\n\n\n\nTypes of inverse problems (Menke 2012)",
+    "text": "ImportantProblem size\n\n\n\n\nevery row stands for a measurement (data point)\nevery column represents a model parameter\n\n\\[\\vb d = \\vb G \\vb m + \\vb n \\Rightarrow \\vb G \\in \\mathfrak{R}^{N\\times M}\\]\n\n\n\n\\(N\\) = \\(M\\): even-determined\n\\(N\\) &gt; \\(M\\): over-determined problem (no existing solution)\n\\(N\\) &lt; \\(M\\): under-determined problem (no unique solution)\nmostly: (both over- and) under-determined model parts\n\n\n\n\nTypes of inverse problems (Menke 2012)",
     "crumbs": [
+      "Linear problems",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Linear problems</span>"
     ]
   },
@@ -176,6 +178,7 @@
     "section": "2.2 A simple matrix problem",
     "text": "2.2 A simple matrix problem\nLet us assume a simple linear problem with two model parameters and three equations (representing data)\n\\[\n\\begin{align}\n~ m_1 - m_2 = -1 \\\\\n2 m_1 - m_2 = 0  \\\\\n~ m_1 + m_2 = 2.5\n\\end{align}\n\\]\nwhose forward operator can be expressed by a matrix \\[ \\textbf{G}=\\mqty(1&-1\\\\2&-1\\\\1&1) \\]\nWe can transform every equation to one parameter being a function of the other\n\\[m_2 = (d_i - G_{i1} \\cdot m_1)/G_{i2}\\]\nAll three equations can be plotted\n\n\nShow the code\nG = np.array([[1, -1], [2, -1], [1, 1]])\nd = np.array([-1, 0, 2.5]);\nfig, ax = plt.subplots()\nm1 = np.linspace(0.65, 1.1, 10)\nfor i in range(3):\n    m2 = (d[i] - G[i, 0]*m1) / G[i, 1]\n    ax.plot(m1, m2)\n\nax.set_aspect(1.0)\nax.set_ylim(1.5, 2.1)\nax.grid()\nax.set_xlabel(\"$m_1$\")\nax.set_ylabel(\"$m_2$\");\n\n\n\n\n\n\n\n\n\n\n\n2.2.1 Error bars\nIf the data \\(d_i\\) have some data error \\(\\delta d_i\\), the equation for \\(m_2\\) \\[m_2 = (d_i - G_{i1} \\cdot m_1)/G_{i2}\\]\ndoes inherit an error\n\\[\\delta m_2 = \\delta d_i / G_{i2}\\]\n\n\n\n\nShow the code\nfig, ax = plt.subplots()\ndd = 0.05\nfor i in range(len(G)):\n    y = (d[i] - G[i, 0] * m1) / G[i, 1]\n    dy = dd/G[i, 1]\n    ax.fill_between(m1, y-dy, y+dy, color=f\"C{i}\", alpha=0.5)\n    ax.plot(m1, y, \"-\", label=f\"{i}\", color=f\"C{i}\")\n\nax.set_aspect(1.0)\nax.set_ylim(1.6, 2.0)\nax.legend()\nax.grid()\n\n\n\n\n\n\n\n\n\n\n\n\nShow the code\nfig, ax = plt.subplots()\ndd = 0.1\nfor i in range(len(G)):\n    y = (d[i] - G[i, 0] * m1) / G[i, 1]\n    dy = dd/G[i, 1]\n    ax.fill_between(m1, y-dy, y+dy, color=f\"C{i}\", alpha=0.5)\n    ax.plot(m1, y, \"-\", label=f\"{i}\", color=f\"C{i}\")\n\nax.set_aspect(1.0)\nax.set_ylim(1.6, 2.0)\nax.legend()\nax.grid()",
     "crumbs": [
+      "Linear problems",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Linear problems</span>"
     ]
   },
@@ -186,6 +189,7 @@
     "section": "2.3 The objective function",
     "text": "2.3 The objective function\nWe minimize the L2-norm (summed squared distances) of the residual between data and model response:\n\\[ \\Phi = \\| \\vb d - \\vb G \\vb m \\|^2_2 = \\sum\\limits_1^N (d_i-g_i({\\vb m}))^2 \\rightarrow\\min \\]\nLet’s compute the objective function for a range of values for \\(m_1\\) and \\(m_2\\) (grid search).\n\n2.3.1 Distance function for the first two data\n\n\nShow the code\nm1 = np.arange(0.65, 1.1, 0.01)\nm2 = np.arange(1.6, 2.001, 0.01)\nM1, M2 = np.meshgrid(m1, m2)\nfig, ax = plt.subplots(ncols=3, sharex=True, sharey=True)\nY = [0, 0, 0]\next = [m1[0], m1[-1], m2[-1], m2[0]]\nfor i in range(3):\n    Y[i] = np.abs(G[i, 0] * M1 + G[i, 1] * M2 - d[i])\n    ax[i].matshow(Y[i], extent=ext, cmap=\"Spectral_r\")\n\nax[0].invert_yaxis()\n\n\n\n\n\n\n\n\n\nIf we combine the distances of the first two (the square root of their squares), we observe an elongated minimum similar to that of the two lines alone.\n\n\nShow the code\nplt.matshow(np.sqrt(Y[0]**2+Y[1]**2), extent=ext, cmap=\"Spectral_r\")\nplt.gca().invert_yaxis()\n\n\n\n\n\n\n\n\n\nThus, the ambiguity is not much reduced be combining these two similar equations. If we use all three equations, there is a clear minimum of ellipsoidal shape.\n\n\nShow the code\nplt.matshow(np.sqrt(Y[0]**2+Y[1]**2+Y[2]**2), extent=ext, cmap=\"Spectral_r\")\nplt.gca().invert_yaxis()\n\n\n\n\n\n\n\n\n\nThe minimum pixel (grid spacing of 0.01) lies at (0.82, 1.71). How can we determine the absolute minimum value?",
     "crumbs": [
+      "Linear problems",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Linear problems</span>"
     ]
   },
@@ -196,6 +200,7 @@
     "section": "2.4 The method of least squares",
     "text": "2.4 The method of least squares\n\n2.4.1 Derivation\n\\[\\Phi = \\| {\\vb d}-{\\vb G}{\\vb m}\\|^2_2 = ({\\vb d}-{\\vb G}{\\vb m})^T ({\\vb d}-{\\vb G}{\\vb m}) \\]\n\n\\[\\nabla_m = \\qty(\\pdv{m_1}, \\pdv{m_2}, \\ldots, \\pdv{m_M})^T\\]\n\\[\\nabla_m \\Phi = \\nabla_m ({\\vb G}{\\vb m}-{\\vb d})^T ({\\vb G}{\\vb m}-{\\vb d})=0\\]\n\\[\\nabla_m \\Phi = \\nabla_m ({\\vb m}^T{\\vb G}^T-{\\vb d}^T) ({\\vb G}{\\vb m}-{\\vb d})=0\\]\n\\[\\nabla_m \\Phi = \\nabla_m {\\vb m}^T{\\vb G}^T ({\\vb G}{\\vb m}-{\\vb d})=0\\]\n\\[\\nabla_m \\Phi = {\\vb G}^T ({\\vb G}{\\vb m}-{\\vb d})={\\vb G}^T {\\vb G}{\\vb m}-{\\vb G}^T{\\vb d}=0\\]\n\\[\\Rightarrow \\quad\\quad {\\vb m}=({\\vb G}^T{\\vb G})^{-1} {\\vb G}^T{\\vb d} ={\\vb G}^\\dagger{\\vb d}\\] \\[\\mbox{with}\\quad {\\vb G}^\\dagger = ({\\vb G}^T{\\vb G})^{-1} {\\vb G}^T\\]\nThis operator is called generalized inverse or pseudo-inverse (np.linalg.pinv).\nThe solution \\({\\vb m}_{LS}={\\vb G}^\\dagger {\\vb d}\\) is the least-squares solution, which can also be computed by m=np.linalg.lstsq(G, d) (in Matlab/Julia simply G\\d). Further derivations are at the bottom of the page.",
     "crumbs": [
+      "Linear problems",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Linear problems</span>"
     ]
   },
@@ -206,6 +211,7 @@
     "section": "2.5 Simple matrix problem - Solution",
     "text": "2.5 Simple matrix problem - Solution\n\n\nShow the code\nmLS, *_ = np.linalg.lstsq(G, d, rcond=None)\nfig, ax = plt.subplots()\nx = np.array([0.65, 1.1])\ndd = 0.081\nfor i in range(len(G)):\n    y = (d[i] - G[i, 0] * x) / G[i, 1]\n    dy = dd/G[i, 1]\n    co = f\"C{i}\"\n    ax.fill_between(x, y-dy, y+dy,\n        color=co, alpha=.5)\n    ax.plot(x, y, \"-\", label=f\"{i}\", color=co)\n\nax.plot(mLS[0], mLS[1], \"r*\", label=\"m-LS\")\nax.set_aspect(1.0)\nax.set_ylim(1.6, 2.0)\nax.legend()\nax.grid()",
     "crumbs": [
+      "Linear problems",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Linear problems</span>"
     ]
   },
@@ -216,6 +222,7 @@
     "section": "2.6 Resolution analysis",
     "text": "2.6 Resolution analysis\n\nHow does reality propagate into our image?\nWhat is the quality of the inversion result?\nWhat is the contribution of the individual data?\n\n\n2.6.1 Model resolution\n\\[{\\vb d}= {\\vb G}{\\vb m}^\\text{true} + {\\vb n}\\] Matrix inversion with inverse operator \\({\\vb G}^\\dagger\\): \\[{\\vb m}^\\text{est} = {\\vb G}^\\dagger {\\vb d}= {\\vb G}^\\dagger{\\vb G}{\\vb m}^\\text{true} +\n{\\vb G}^\\dagger{\\vb n} = {\\vb R}^M {\\vb m}^\\text{true} + {\\vb G}^\\dagger{\\vb n}\\] with the model resolution matrix \\({\\vb R}^M={\\vb G}^\\dagger{\\vb G}\\)\n\\(\\Rightarrow\\) How is the true model (\\({\\vb m}^\\text{true}\\)) reflected in the estimated (\\({\\vb m}^\\text{est}\\))?\nDiagonal of \\(\\vb R^M\\): resolution of individual parameters (0-1)\n\n\n2.6.2 Data resolution\n\\[{\\vb m}^\\text{est} = {\\vb G}^\\dagger {\\vb d}^\\text{obs}\\]\nHow are the data explained by the model? \\[{\\vb d}^\\text{est} = {\\vb G}{\\vb m}^\\text{est} =\n{\\vb G}{\\vb G}^\\dagger{\\vb d}^\\text{obs} = {\\vb R}^D {\\vb d}^\\text{obs}\\]\nwith the data resolution (information density) matrix: \\[{\\vb R}^D={\\vb G}{\\vb G}^\\dagger\\]\nDiagonal of \\(R^D\\): information content of individual data\n\n\n2.6.3 Model resolution for overdetermined problems\n\\[{\\vb G}^\\dagger=({\\vb G}^T{\\vb G})^{-1} {\\vb G}^T\\]\n\\[\\Rightarrow {\\vb R}^M = ({\\vb G}^T{\\vb G})^{-1} {\\vb G}^T {\\vb G}= {\\vb I}\\]\nperfect model resolution\n\\[{\\vb G}^\\dagger=({\\vb G}^T{\\vb G})^{-1} {\\vb G}^T \\quad \\Rightarrow \\quad\n{\\vb R}^D = {\\vb G}({\\vb G}^T{\\vb G})^{-1} {\\vb G}^T\\]\n\n\n2.6.4 Resolution of matrix problem\n\n\nShow the code\nGinv = np.linalg.inv(G.T @ G) @ G.T\nRM = Ginv@G\nRD = G@Ginv\nim = plt.imshow(RD, vmin=-1, vmax=1, cmap=\"bwr\")\nplt.colorbar(im)\n\n\n\n\n\n\n\n\n\n\n3rd row (measurement) is most important\n1st and 2nd are highly correlated, sum(diag(RD)) \\(\\Rightarrow\\) 2",
     "crumbs": [
+      "Linear problems",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Linear problems</span>"
     ]
   },
@@ -224,8 +231,9 @@
     "href": "02_linear_problems.html#linear-regression",
     "title": "2  Linear problems",
     "section": "2.7 Linear regression",
-    "text": "2.7 Linear regression\n\n\nShow the code\nx = np.arange(0, 3, 0.1)\nx[-1] = 3.5\nerr = 0.1\nd = 0.5-0.5*x + np.random.randn(len(x)) * err\nA = np.ones((len(x), 2))\nA[:, 1] = x[:]\nAinv = np.linalg.inv(A.T @ A) @ A.T\nm = Ainv @ d\nprint(\"m = \", m)\nfig, ax = plt.subplots()\nax.plot(x, d, \"b+\")\nax.plot(x, A@m, \"r-\")\nax.grid()\nresidual = A @ m - d\nprint(\"mean=\", np.mean(residual))\nprint(\"std=\", np.std(residual))\nprint(\"X²=\", np.sqrt(np.mean((residual/err)**2)))\n\n\nm =  [ 0.51836636 -0.50509473]\nmean= 5.828670879282072e-17\nstd= 0.12347393482751115\nX²= 1.2347393482751117",
+    "text": "2.7 Linear regression\n\n\nShow the code\nx = np.arange(0, 3, 0.1)\nx[-1] = 3.5\nerr = 0.1\nd = 0.5-0.5*x + np.random.randn(len(x)) * err\nA = np.ones((len(x), 2))\nA[:, 1] = x[:]\nAinv = np.linalg.inv(A.T @ A) @ A.T\nm = Ainv @ d\nprint(\"m = \", m)\nfig, ax = plt.subplots()\nax.plot(x, d, \"b+\")\nax.plot(x, A@m, \"r-\")\nax.grid()\nresidual = A @ m - d\nprint(\"mean=\", np.mean(residual))\nprint(\"std=\", np.std(residual))\nprint(\"X²=\", np.sqrt(np.mean((residual/err)**2)))\n\n\nm =  [ 0.49432989 -0.48737419]\nmean= -9.344377123928401e-17\nstd= 0.06514595637000295\nX²= 0.6514595637000296",
     "crumbs": [
+      "Linear problems",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Linear problems</span>"
     ]
   },
@@ -234,8 +242,9 @@
     "href": "02_linear_problems.html#linear-regression---data-importance-matrix",
     "title": "2  Linear problems",
     "section": "2.8 Linear regression - data importance matrix",
-    "text": "2.8 Linear regression - data importance matrix\n\n\nShow the code\nRD = A @ Ainv\nfig, ax = plt.subplots(figsize=(7,6))\nim = ax.matshow(RD, cmap=\"bwr\",\n    vmin=-0.3, vmax=0.3)\nplt.colorbar(im);\n\n\n\n\n\n\n\n\n\n\nneighboring data points are correlated, opposite anti-correlated\n\n\n\n\nShow the code\nrd = np.diag(RD)\ndisplay(np.sum(rd))\nplt.plot(x, rd, \"+-\", ms=5);\n\n\n1.9999999999999993\n\n\n\n\n\n\n\n\n\n\nmain diagonal of \\(\\vb R^D\\) \\(\\Rightarrow\\) data importance (outside biggest)\nsum of importances equals \\(M\\) (later: rank of matrix)",
+    "text": "2.8 Linear regression - data importance matrix\n\n\nShow the code\nRD = A @ Ainv\nfig, ax = plt.subplots(figsize=(7,6))\nim = ax.matshow(RD, cmap=\"bwr\",\n    vmin=-0.3, vmax=0.3)\nplt.colorbar(im);\n\n\n\n\n\n\n\n\n\n\nneighboring data points are correlated, opposite anti-correlated\n\n\n\n\nShow the code\nrd = np.diag(RD)\ndisplay(np.sum(rd))\nplt.plot(x, rd, \"+-\", ms=5);\n\n\nnp.float64(1.9999999999999996)\n\n\n\n\n\n\n\n\n\n\nmain diagonal of \\(\\vb R^D\\) \\(\\Rightarrow\\) data importance (outside biggest)\nsum of importances equals \\(M\\) (later: rank of matrix)",
     "crumbs": [
+      "Linear problems",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Linear problems</span>"
     ]
   },
@@ -244,8 +253,9 @@
     "href": "02_linear_problems.html#errors-robust-inversion",
     "title": "2  Linear problems",
     "section": "2.9 Errors & robust inversion",
-    "text": "2.9 Errors & robust inversion\n\nerror goes into the scaling of \\(\\vb G\\) and \\(\\vb d\\)\nsometimes data have different errors\nthere might be outliers spoiling the result\n\n\n2.9.1 Error weighting\nUnweighted residual norm (root-mean square RMS)\n\\[\\|{\\bf d}-{\\bf f}({\\bf m})\\| = \\sqrt{1/N\\sum (d_i-f_i({\\bf m}))^2}\\]\nWeighting by individual error \\(\\epsilon_i\\) (chi-square value):\n\\[\\chi^2=\\frac1N \\sum \\left( \\frac{d_i-f_i({\\bf m})}{\\epsilon_i} \\right)^2 \\rightarrow \\min\\]\nIn case of exact error estimates: \\(\\chi^2=1\\)\n\n\n2.9.2 Error weighting\nreplace \\(d_i\\) by \\(\\hat{d}_i=d_i/\\epsilon_i\\) leads to \\[{\\bf m}= (\\hat{\\bf G}^T\\hat{\\bf G})^{-1} \\hat{\\bf G}^T \\hat{\\bf d}\\] with \\(\\hat{{\\bf G}}=\\mbox{diag}(1/\\epsilon_i)\\cdot {\\bf G}\\)\n\n\n2.9.3 General \\(L_p\\) norm\nThe \\(L_2\\) norm is the rooted sum of squared elements of a vector \\(\\bf v\\):\n\\[\\Phi^P=\\|{\\bf v}\\|_2=\\sqrt{\\sum_i v_i^2}\\]\nMore generally, the \\(L_P\\) norm is computed by \\[\\Phi^P=\\|{\\bf v}\\|_P=\\left( \\sum_i |v_i|^P \\right)^{1/P}\\]\n\n\n2.9.4 \\(L_1\\) norm minimization (IRLS)\n\\[\\Phi^1=\\|{\\bf v}\\|_1=\\sum_i |v_i|\\]\n\n\n\n\n\n\nThe \\(L_1\\) norm is much less prone to outliers as the misfit is not squared\n\n\n\nBy the ratio of its contribution to L1 and L2 norm we can reweight \\(\\epsilon_i\\) \\[ w_i = \\frac{|v_i|/\\|\\vb v\\|^1_1}{v_i^2/\\|\\vb v\\|^2_2}\n= \\frac{\\|\\vb v\\|^2_2}{|v_i| \\cdot \\|\\vb v\\|^1_1} \\]\nThis is known as Iteratively Reweighted Least-Squares (IRLS)\n\n\n2.9.5 Linear regression with outliers\n\n\nShow the code\nd[-1] += 1\nm = Ainv @ d\nprint(\"m = \", m)\nfig, ax = plt.subplots()\nax.plot(x, d, \"b+\")\nax.plot(x, A@m, \"r-\")\nax.plot(x, 0.5-0.5*x, \"m--\")\nax.grid()\n\n\nm =  [ 0.43021209 -0.4224501 ]\n\n\n\n\n\n\n\n\n\n\n\n2.9.6 The misfit distribution\n\n\n\n\n\n\nImportant\n\n\n\nAlways have a look at the misfit distribution (not only \\(\\chi^2\\))\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n2.9.7 Wrap-up overdetermined problems (\\(N&gt;M\\))\n\nobjective function \\(\\Phi\\) as squared data misfit\nweighting of individual data (unitless, more flexible & objective)\nbroad minimum of the objective function\ngrid search to plot \\(\\phi\\) \\(\\Rightarrow\\) only nice for \\(M\\)=2\nleast squares method yields\nresolution matrices for model (perfect) and data (distributed)",
+    "text": "2.9 Errors & robust inversion\n\nerror goes into the scaling of \\(\\vb G\\) and \\(\\vb d\\)\nsometimes data have different errors\nthere might be outliers spoiling the result\n\n\n2.9.1 Error weighting\nUnweighted residual norm (root-mean square RMS)\n\\[\\|{\\bf d}-{\\bf f}({\\bf m})\\| = \\sqrt{1/N\\sum (d_i-f_i({\\bf m}))^2}\\]\nWeighting by individual error \\(\\epsilon_i\\) (chi-square value):\n\\[\\chi^2=\\frac1N \\sum \\left( \\frac{d_i-f_i({\\bf m})}{\\epsilon_i} \\right)^2 \\rightarrow \\min\\]\nIn case of exact error estimates: \\(\\chi^2=1\\)\n\n\n2.9.2 Error weighting\nreplace \\(d_i\\) by \\(\\hat{d}_i=d_i/\\epsilon_i\\) leads to \\[{\\bf m}= (\\hat{\\bf G}^T\\hat{\\bf G})^{-1} \\hat{\\bf G}^T \\hat{\\bf d}\\] with \\(\\hat{{\\bf G}}=\\mbox{diag}(1/\\epsilon_i)\\cdot {\\bf G}\\)\n\n\n2.9.3 General \\(L_p\\) norm\nThe \\(L_2\\) norm is the rooted sum of squared elements of a vector \\(\\bf v\\):\n\\[\\Phi^P=\\|{\\bf v}\\|_2=\\sqrt{\\sum_i v_i^2}\\]\nMore generally, the \\(L_P\\) norm is computed by \\[\\Phi^P=\\|{\\bf v}\\|_P=\\left( \\sum_i |v_i|^P \\right)^{1/P}\\]\n\n\n2.9.4 \\(L_1\\) norm minimization (IRLS)\n\\[\\Phi^1=\\|{\\bf v}\\|_1=\\sum_i |v_i|\\]\n\n\n\n\n\n\nThe \\(L_1\\) norm is much less prone to outliers as the misfit is not squared\n\n\n\nBy the ratio of its contribution to L1 and L2 norm we can reweight \\(\\epsilon_i\\) \\[ w_i = \\frac{|v_i|/\\|\\vb v\\|^1_1}{v_i^2/\\|\\vb v\\|^2_2}\n= \\frac{\\|\\vb v\\|^2_2}{|v_i| \\cdot \\|\\vb v\\|^1_1} \\]\nThis is known as Iteratively Reweighted Least-Squares (IRLS)\n\n\n2.9.5 Linear regression with outliers\n\n\nShow the code\nd[-1] += 1\nm = Ainv @ d\nprint(\"m = \", m)\nfig, ax = plt.subplots()\nax.plot(x, d, \"b+\")\nax.plot(x, A@m, \"r-\")\nax.plot(x, 0.5-0.5*x, \"m--\")\nax.grid()\n\n\nm =  [ 0.40617562 -0.40472956]\n\n\n\n\n\n\n\n\n\n\n\n2.9.6 The misfit distribution\n\n\n\n\n\n\nImportant\n\n\n\nAlways have a look at the misfit distribution (not only \\(\\chi^2\\))\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n2.9.7 Wrap-up overdetermined problems (\\(N&gt;M\\))\n\nobjective function \\(\\Phi\\) as squared data misfit\nweighting of individual data (unitless, more flexible & objective)\nbroad minimum of the objective function\ngrid search to plot \\(\\phi\\) \\(\\Rightarrow\\) only nice for \\(M\\)=2\nleast squares method yields\nresolution matrices for model (perfect) and data (distributed)",
     "crumbs": [
+      "Linear problems",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Linear problems</span>"
     ]
   },
@@ -256,6 +266,7 @@
     "section": "2.10 Under-determined problems",
     "text": "2.10 Under-determined problems\n\nspecifically \\(N&lt;M\\) (too less data for the model pameters), but, more general, if the rank \\(r&lt;M\\)\n\n\n\n\n\n\n\nNoteRank of a matrix\n\n\n\nnumber of independent columns and rows, i.e. the degree of non-degenerateness.\n\n\n\n2.10.1 Example of a mixed-determined problem\n\\[ \\textbf{G}=\\mqty(1 & 1 & 0 \\\\\n                    0 & 0 & 1) \\]\n\n\\(N\\)&lt;\\(M\\): clearly under-determined,\nparameter \\(m_3\\) is perfectly determined (=\\(d_2\\))\nany combination of \\(m_1\\) and \\(m_2=d_1-m_1\\) fulfils the first equation there is no unique solution (model ambiguity)\n\n\n\n2.10.2 Changing the system\n\\[ \\textbf{G}=\\mqty(1 & 1 & 0 \\\\\n                    0 & 0 & 1) \\]\nadding data 1+2\n\\[ \\textbf{G}=\\mqty(1 & 1 & 0 \\\\\n                    0 & 0 & 1 \\\\\n                    1 & 1 & 1) \\]\ndoes not help, because they are linear dependent (\\(rk({\\bf G})=2\\)).\n\n\n2.10.3 Minimum-norm solution\nAnalog to the least-squares inverse \\(({\\bf G}^T {\\bf G})^{-1} {\\bf G}^T\\) there is an inverse for under-determined problems:\n\\[ \\bf m = G^T (G G^T)^{-1} d = G^\\dagger d \\]\nthat is called minimum-norm solution.\n\n\n\n\n\n\nNoteObservation from Notebook\n\n\n\nThe backslash operator (G\\d) yields the minimum-norm solution.\n\n\n\n\n2.10.4 Derivation\nFrom the models fulfilling \\(\\bf G m=d\\) we are looking for the “smallest”\n\\[ \\text{min} \\Phi=\\bf m^T m \\quad\\mbox{with}\\quad G m=d \\]\nWe use the method of Lagrangian parameters (\\(\\lambda_i\\)) \\[ \\Phi = \\bf m^T m + \\lambda^T (G m - d) \\rightarrow \\mbox{min} \\]\nThe derivatives vanish\n\\[ \\frac{\\partial\\Phi}{\\partial \\lambda} = \\bf G m - d=0 \\]\n\\[ \\frac{\\partial\\Phi}{\\partial m} =  2\\bf m^T + {\\bf \\lambda}^T G = 0 \\]\n\\[ \\Rightarrow {\\bf m} = -\\frac{1}{2} ({\\lambda}^T {\\bf G})^T = -\\frac{1}{2}{\\bf G}^T \\lambda \\]\nfrom which we can determine the Langrangian parameters\n\\[ \\lambda = -2 ({\\bf G G^T})^{-1} \\bf d \\]\nReplacing them we obtain the minimum-norm solution \\[ {\\bf m}_{MN} = \\bf G^T (G G^T)^{-1} d \\]\n\n\n2.10.5 Resolution of the minimum norm inverse\n\\[ \\bf G^\\dagger = G^T (G G^T)^{-1} \\]\n\\[ {\\bf R}^M = \\bf G^\\dagger G = G^T (G G^T)^{-1} G \\]\n\\[ {\\bf R}^D = \\bf G G^\\dagger = G G^T (G G^T)^{-1} = I \\]\n\n\n\n\n\n\nNote\n\n\n\nFor underdetermined problems, all data are independent and equally important. Model parameters are insufficiently resolved.",
     "crumbs": [
+      "Linear problems",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Linear problems</span>"
     ]
   },
@@ -266,6 +277,7 @@
     "section": "2.11 Appendix",
     "text": "2.11 Appendix\n\n2.11.1 Derivation (1)\n\\[\\Phi = \\| {\\vb d}-{\\vb G}{\\vb m}\\|^2_2 = ({\\vb d}-{\\vb G}{\\vb m})^T ({\\vb d}-{\\vb G}{\\vb m}) \\] \\[\\Phi = ({\\vb G}{\\vb m}-{\\vb d})^T ({\\vb G}{\\vb m}-{\\vb d})\\]\n\\[\\frac{\\partial\\Phi}{\\partial m} = \\frac{\\partial}{\\partial m} ({\\vb G}{\\vb m}-{\\vb d})^T ({\\vb G}{\\vb m}-{\\vb d}) +\n     ({\\vb G}{\\vb m}-{\\vb d})^T \\frac{\\partial}{\\partial m}({\\vb G}{\\vb m}-{\\vb d}) = 0\\]\n\\[{\\vb G}^T{\\vb G}{\\vb m}- {\\vb G}^T{\\vb d}+ {\\vb G}^T{\\vb G}{\\vb m}- {\\vb G}^T{\\vb d}= 0\\]\n\\[{\\vb G}^T{\\vb G}{\\vb m}= {\\vb G}^T{\\vb d}\\quad \\Rightarrow \\quad {\\vb m}={\\vb G}^\\dagger{\\vb d}\n    \\quad\\mbox{with}\\quad {\\vb G}^\\dagger = ({\\vb G}^T{\\vb G})^{-1} {\\vb G}^T\\]\n\n\n2.11.2 Derivation (2)\n\\[\\Phi = ({\\vb d}-{\\vb G}{\\vb m})^T ({\\vb d}-{\\vb G}{\\vb m}) = \\sum_i \\left[ (d_i-\\sum_j G_{ij}m_j )(d_i-\\sum_k G_{ij}m_j ) \\right]\\] \\[\\Phi = \\sum_i \\left[ d_i d_i - d_i\\sum_k G_{ik}m_k - d_i\\sum_j G_{ij}m_j + \\sum_j G_{ij}m_j\\sum_k G_{ik}m_k \\right]\\] \\[\\Phi = \\sum_i d_i d_i - 2 \\sum_j m_j \\sum d_i G{ij} + \\sum_i \\sum_j\\sum_k m_j G_{ij}G_{ik}m_j m_k\\] \\[\\Phi = \\sum_i d_i d_i - 2 \\sum_j m_j \\sum_i d_i G{ij} +\\sum_j\\sum_k m_j m_k \\sum_i G_{ij}G_{ik}\\]\n\\[\\partial\\Phi=\\partial m_q = \\sum_i\\sum_k(\\delta_{iq}m_k+m_j\\delta_{ik})\\sum G_{ij}G_{ik} - 2\\sum_j \\delta_{iq}\\sum G_{ij} d_i = 0\\]\n\\[0 = 2\\sum_k\\sum_i G_{iq}G_{ik} - 2\\sum_i G_{iq}d_i = 2{\\vb G}^T{\\vb G}-2{\\vb G}^T {\\vb d}\\]\n\n\n2.11.3 Derivation by change \\(t\\delta{\\vb m}\\)\n\\[\\Phi(t) = ({\\vb d}-{\\vb G}({\\vb m}+t\\delta{\\vb m}))^T ({\\vb d}-{\\vb G}({\\vb m}+t\\delta{\\vb m}))\\] \\[\\Phi(t) = ({\\vb m}+t\\delta{\\vb m})^T{\\vb G}^T{\\vb G}({\\vb m}+t\\delta{\\vb m})-2({\\vb m}+t\\delta{\\vb m}){\\vb G}^T{\\vb d}+{\\vb d}^T{\\vb d}\\] \\[\\Phi(t) = t^2(\\delta{\\vb m}{\\vb G}^T{\\vb G}\\delta{\\vb m}) + 2t(\\delta{\\vb m}{\\vb G}^T{\\vb G}{\\vb m}-\\delta{\\vb m}^T{\\vb G}^T{\\vb d})\n    + ({\\vb m}^T{\\vb G}^T{\\vb G}{\\vb m}+{\\vb d}^T{\\vb d}-2{\\vb m}^T{\\vb G}^T{\\vb d})\\] \\(\\Phi(t)\\) has a minimum at \\(t=0\\), therefore \\(\\partial\\Phi/\\partial t\\) must be 0 \\[\\partial\\Phi(t=0)/\\partial t = 2(\\delta{\\vb m}^T{\\vb G}^T{\\vb G}{\\vb m}- \\delta{\\vb m}^T{\\vb G}{\\vb d}) = 2\\delta{\\vb m}^T ({\\vb G}^T{\\vb G}{\\vb m}-{\\vb G}^T{\\vb d}) = 0\\] As this holds for every \\(\\delta{\\vb m}\\), we obtain \\({\\vb G}^T{\\vb G}{\\vb m}={\\vb G}^T{\\vb d}\\)\n\n\n\n\nMenke W. 2012. Geophysical data analysis: Discrete inverse theory (Elsevier)",
     "crumbs": [
+      "Linear problems",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Linear problems</span>"
     ]
   },
@@ -276,6 +288,7 @@
     "section": "",
     "text": "3.1 Model resolution matrix\nAfter having a solution (e.g. the least-squares solution, but generally), there are a couple of questions that can be summarized with the term resolution:\nWe start with the data consisting of a true model \\(\\vb m^\\text{true}\\) \\[\\vb d= \\vb G \\vb m^\\text{true} + \\vb n\\]\nIf we do a matrix inversion with any inverse operator \\({\\vb G}^\\dagger\\), we obtain our model estimate \\({\\vb m}^\\text{est}\\) by application to \\(\\vb d\\) \\[{\\vb m}^\\text{est} = {\\vb G}^\\dagger {\\vb d}= {\\vb G}^\\dagger{\\vb G}{\\vb m}^\\text{true} +\n{\\vb G}^\\dagger{\\vb n} = \\]\nThe first term on the right-hand side is the combination of forward and inverse operator, projecting from model to data and back to model, and is therefore called model resolution matrix \\({\\vb R}^M={\\vb G}^\\dagger{\\vb G}\\):\n\\[\\vb m^\\text{est} = {\\vb R}^M {\\vb m}^\\text{true} + {\\vb G}^\\dagger{\\vb n}\\]\n\\(\\vb R^M\\) obviously tells us how is the true model (\\({\\vb m}^\\text{true}\\)) is reflected in our estimate (\\({\\vb m}^\\text{est}\\)). Every column of the matrix can be interpreted as a so-called point-spread function, i.e. how a single anomaly is distributed in the model space.\nThe diagonal elements of \\(\\vb R^M\\) states how well the individual points are reflected correctly and can therefore be treated as resolution of individual parameters and plotted like a model, mostly between 0 and 1. Ideally, \\(\\vb R^M\\) is an identity matrix, but mostly it deviates from it.",
     "crumbs": [
+      "Linear problems",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Resolution analysis</span>"
     ]
   },
@@ -286,6 +299,7 @@
     "section": "3.2 Data resolution",
     "text": "3.2 Data resolution\nLet’s put it the other way round: How well are observed data \\(d^\\text{obs}\\) explained by our model? We again use the model\n\\[{\\vb m}^\\text{est} = {\\vb G}^\\dagger {\\vb d}^\\text{obs}\\]\nand project into the data space\n$${d}^ = {G}{m}^ = {G}{G}^^\nThe first term on the right-hand side projects from data to model and back to data and is therefore called data resolution or data importance (or information density) matrix \\({\\vb R}^D={\\vb G}{\\vb G}^\\dagger\\), so that\n\\[{\\vb d}^\\text{est} = {\\vb R}^D {\\vb d}^\\text{obs}\\]\nIt tells us how the individual data are correlated with each other. The diagonal of \\(R^D\\) bears the information content of the individual data contributing to the model and can be plotted like any data vector .\n\n3.2.1 Model resolution for overdetermined problems\n\\[{\\vb G}^\\dagger=({\\vb G}^T{\\vb G})^{-1} {\\vb G}^T\\]\n\\[\\Rightarrow {\\vb R}^M = ({\\vb G}^T{\\vb G})^{-1} {\\vb G}^T {\\vb G}= {\\vb I}\\]\nperfect model resolution\n\\[{\\vb G}^\\dagger=({\\vb G}^T{\\vb G})^{-1} {\\vb G}^T \\quad \\Rightarrow \\quad\n{\\vb R}^D = {\\vb G}({\\vb G}^T{\\vb G})^{-1} {\\vb G}^T\\]\n\n\n3.2.2 Resolution of matrix problem\n\n\nShow the code\nGinv = np.linalg.inv(G.T @ G) @ G.T\nRM = Ginv@G\nRD = G@Ginv\nim = plt.imshow(RD, vmin=-1, vmax=1, cmap=\"bwr\")\nplt.colorbar(im)\n\n\n\n\n\n\n\n\n\n\n3rd row (measurement) is most important\n1st and 2nd are highly correlated, sum(diag(RD)) \\(\\Rightarrow\\) 2",
     "crumbs": [
+      "Linear problems",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Resolution analysis</span>"
     ]
   },
@@ -296,6 +310,7 @@
     "section": "3.3 Linear regression",
     "text": "3.3 Linear regression\n\n\nShow the code\nx = np.arange(0, 3, 0.1)\nx[-1] = 3.5\nerr = 0.1\nd = 0.5-0.5*x + np.random.randn(len(x)) * err\nA = np.ones((len(x), 2))\nA[:, 1] = x[:]\nAinv = np.linalg.inv(A.T @ A) @ A.T\nm = Ainv @ d\nprint(\"m = \", m)\nfig, ax = plt.subplots()\nax.plot(x, d, \"b+\")\nax.plot(x, A@m, \"r-\")\nax.grid()\nresidual = A @ m - d\nprint(\"mean=\", np.mean(residual))\nprint(\"std=\", np.std(residual))\nprint(\"X²=\", np.sqrt(np.mean((residual/err)**2)))\n\n\nm =  [ 0.52864941 -0.50362901]\nmean= -1.420160285666346e-16\nstd= 0.0774217439944723\nX²= 0.7742174399447228",
     "crumbs": [
+      "Linear problems",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Resolution analysis</span>"
     ]
   },
@@ -306,6 +321,7 @@
     "section": "3.4 Linear regression - data importance matrix",
     "text": "3.4 Linear regression - data importance matrix\n\n\nShow the code\nRD = A @ Ainv\nfig, ax = plt.subplots(figsize=(7,6))\nim = ax.matshow(RD, cmap=\"bwr\",\n    vmin=-0.3, vmax=0.3)\nplt.colorbar(im);\n\n\n\n\n\n\n\n\n\n\nneighboring data points are correlated, opposite anti-correlated\n\n\n\n\nShow the code\nrd = np.diag(RD)\ndisplay(np.sum(rd))\nplt.plot(x, rd, \"+-\", ms=5);\n\n\n1.9999999999999993\n\n\n\n\n\n\n\n\n\n\nmain diagonal of \\(\\vb R^D\\) \\(\\Rightarrow\\) data importance (outside biggest)\nsum of importances equals \\(M\\) (later: rank of matrix)",
     "crumbs": [
+      "Linear problems",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Resolution analysis</span>"
     ]
   },
@@ -316,6 +332,7 @@
     "section": "3.5 Errors & robust inversion",
     "text": "3.5 Errors & robust inversion\n\nerror goes into the scaling of \\(\\vb G\\) and \\(\\vb d\\)\nsometimes data have different errors\nthere might be outliers spoiling the result\n\n\n3.5.1 Error weighting\nUnweighted residual norm (root-mean square RMS)\n\\[\\|{\\bf d}-{\\bf f}({\\bf m})\\| = \\sqrt{1/N\\sum (d_i-f_i({\\bf m}))^2}\\]\nWeighting by individual error \\(\\epsilon_i\\) (chi-square value):\n\\[\\chi^2=\\frac1N \\sum \\left( \\frac{d_i-f_i({\\bf m})}{\\epsilon_i} \\right)^2 \\rightarrow \\min\\]\nIn case of exact error estimates: \\(\\chi^2=1\\)\n\n\n3.5.2 Error weighting\nreplace \\(d_i\\) by \\(\\hat{d}_i=d_i/\\epsilon_i\\) leads to \\[{\\bf m}= (\\hat{\\bf G}^T\\hat{\\bf G})^{-1} \\hat{\\bf G}^T \\hat{\\bf d}\\] with \\(\\hat{{\\bf G}}=\\mbox{diag}(1/\\epsilon_i)\\cdot {\\bf G}\\)\n\n\n3.5.3 General \\(L_p\\) norm\nThe \\(L_2\\) norm is the rooted sum of squared elements of a vector \\(\\bf v\\):\n\\[\\Phi^P=\\|{\\bf v}\\|_2=\\sqrt{\\sum_i v_i^2}\\]\nMore generally, the \\(L_P\\) norm is computed by \\[\\Phi^P=\\|{\\bf v}\\|_P=\\left( \\sum_i |v_i|^P \\right)^{1/P}\\]\n\n\n3.5.4 \\(L_1\\) norm minimization (IRLS)\n\\[\\Phi^1=\\|{\\bf v}\\|_1=\\sum_i |v_i|\\]\n\n\n\n\n\n\nThe \\(L_1\\) norm is much less prone to outliers as the misfit is not squared\n\n\n\nBy the ratio of its contribution to L1 and L2 norm we can reweight \\(\\epsilon_i\\) \\[ w_i = \\frac{|v_i|/\\|\\vb v\\|^1_1}{v_i^2/\\|\\vb v\\|^2_2}\n= \\frac{\\|\\vb v\\|^2_2}{|v_i| \\cdot \\|\\vb v\\|^1_1} \\]\nThis is known as Iteratively Reweighted Least-Squares (IRLS)\n\n\n3.5.5 Linear regression with outliers\n\n\nShow the code\nd[-1] += 1\nm = Ainv @ d\nprint(\"m = \", m)\nfig, ax = plt.subplots()\nax.plot(x, d, \"b+\")\nax.plot(x, A@m, \"r-\")\nax.plot(x, 0.5-0.5*x, \"m--\")\nax.grid()\n\n\nm =  [ 0.44049514 -0.42098438]\n\n\n\n\n\n\n\n\n\n\n\n3.5.6 The misfit distribution\n\n\n\n\n\n\nImportant\n\n\n\nAlways have a look at the misfit distribution (not only \\(\\chi^2\\))\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n3.5.7 Wrap-up overdetermined problems (\\(N&gt;M\\))\n\nobjective function \\(\\Phi\\) as squared data misfit\nweighting of individual data (unitless, more flexible & objective)\nbroad minimum of the objective function\ngrid search to plot \\(\\phi\\) \\(\\Rightarrow\\) only nice for \\(M\\)=2\nleast squares method yields\nresolution matrices for model (perfect) and data (distributed)",
     "crumbs": [
+      "Linear problems",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Resolution analysis</span>"
     ]
   },
@@ -326,6 +343,7 @@
     "section": "3.6 Under-determined problems",
     "text": "3.6 Under-determined problems\n\nspecifically \\(N&lt;M\\) (too less data for the model pameters), but, more general, if the rank \\(r&lt;M\\)\n\n\n\n\n\n\n\nNoteRank of a matrix\n\n\n\nnumber of independent columns and rows, i.e. the degree of non-degenerateness.\n\n\n\n3.6.1 Example of a mixed-determined problem\n\\[ \\textbf{G}=\\mqty(1 & 1 & 0 \\\\\n                    0 & 0 & 1) \\]\n\n\\(N\\)&lt;\\(M\\): clearly under-determined,\nparameter \\(m_3\\) is perfectly determined (=\\(d_2\\))\nany combination of \\(m_1\\) and \\(m_2=d_1-m_1\\) fulfils the first equation there is no unique solution (model ambiguity)\n\n\n\n3.6.2 Changing the system\n\\[ \\textbf{G}=\\mqty(1 & 1 & 0 \\\\\n                    0 & 0 & 1) \\]\nadding data 1+2\n\\[ \\textbf{G}=\\mqty(1 & 1 & 0 \\\\\n                    0 & 0 & 1 \\\\\n                    1 & 1 & 1) \\]\ndoes not help, because they are linear dependent (\\(rk({\\bf G})=2\\)).\n\n\n3.6.3 Minimum-norm solution\nAnalog to the least-squares inverse \\(({\\bf G}^T {\\bf G})^{-1} {\\bf G}^T\\) there is an inverse for under-determined problems:\n\\[ \\bf m = G^T (G G^T)^{-1} d = G^\\dagger d \\]\nthat is called minimum-norm solution.\n\n\n\n\n\n\nNoteObservation from Notebook\n\n\n\nThe backslash operator (G\\d) yields the minimum-norm solution.\n\n\n\n\n3.6.4 Derivation\nFrom the models fulfilling \\(\\bf G m=d\\) we are looking for the “smallest”\n\\[ \\text{min} \\Phi=\\bf m^T m \\quad\\mbox{with}\\quad G m=d \\]\nWe use the method of Lagrangian parameters (\\(\\lambda_i\\)) \\[ \\Phi = \\bf m^T m + \\lambda^T (G m - d) \\rightarrow \\mbox{min} \\]\nThe derivatives vanish\n\\[ \\frac{\\partial\\Phi}{\\partial \\lambda} = \\bf G m - d=0 \\]\n\\[ \\frac{\\partial\\Phi}{\\partial m} =  2\\bf m^T + {\\bf \\lambda}^T G = 0 \\]\n\\[ \\Rightarrow {\\bf m} = -\\frac{1}{2} ({\\lambda}^T {\\bf G})^T = -\\frac{1}{2}{\\bf G}^T \\lambda \\]\nfrom which we can determine the Langrangian parameters\n\\[ \\lambda = -2 ({\\bf G G^T})^{-1} \\bf d \\]\nReplacing them we obtain the minimum-norm solution \\[ {\\bf m}_{MN} = \\bf G^T (G G^T)^{-1} d \\]\n\n\n3.6.5 Resolution of the minimum norm inverse\n\\[ \\bf G^\\dagger = G^T (G G^T)^{-1} \\]\n\\[ {\\bf R}^M = \\bf G^\\dagger G = G^T (G G^T)^{-1} G \\]\n\\[ {\\bf R}^D = \\bf G G^\\dagger = G G^T (G G^T)^{-1} = I \\]\n\n\n\n\n\n\nNote\n\n\n\nFor underdetermined problems, all data are independent and equally important. Model parameters are insufficiently resolved.",
     "crumbs": [
+      "Linear problems",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Resolution analysis</span>"
     ]
   },
@@ -336,17 +354,8 @@
     "section": "3.7 Appendix",
     "text": "3.7 Appendix\n\n3.7.1 Derivation (1)\n\\[\\Phi = \\| {\\vb d}-{\\vb G}{\\vb m}\\|^2_2 = ({\\vb d}-{\\vb G}{\\vb m})^T ({\\vb d}-{\\vb G}{\\vb m}) \\] \\[\\Phi = ({\\vb G}{\\vb m}-{\\vb d})^T ({\\vb G}{\\vb m}-{\\vb d})\\]\n\\[\\frac{\\partial\\Phi}{\\partial m} = \\frac{\\partial}{\\partial m} ({\\vb G}{\\vb m}-{\\vb d})^T ({\\vb G}{\\vb m}-{\\vb d}) +\n     ({\\vb G}{\\vb m}-{\\vb d})^T \\frac{\\partial}{\\partial m}({\\vb G}{\\vb m}-{\\vb d}) = 0\\]\n\\[{\\vb G}^T{\\vb G}{\\vb m}- {\\vb G}^T{\\vb d}+ {\\vb G}^T{\\vb G}{\\vb m}- {\\vb G}^T{\\vb d}= 0\\]\n\\[{\\vb G}^T{\\vb G}{\\vb m}= {\\vb G}^T{\\vb d}\\quad \\Rightarrow \\quad {\\vb m}={\\vb G}^\\dagger{\\vb d}\n    \\quad\\mbox{with}\\quad {\\vb G}^\\dagger = ({\\vb G}^T{\\vb G})^{-1} {\\vb G}^T\\]\n\n\n3.7.2 Derivation (2)\n\\[\\Phi = ({\\vb d}-{\\vb G}{\\vb m})^T ({\\vb d}-{\\vb G}{\\vb m}) = \\sum_i \\left[ (d_i-\\sum_j G_{ij}m_j )(d_i-\\sum_k G_{ij}m_j ) \\right]\\] \\[\\Phi = \\sum_i \\left[ d_i d_i - d_i\\sum_k G_{ik}m_k - d_i\\sum_j G_{ij}m_j + \\sum_j G_{ij}m_j\\sum_k G_{ik}m_k \\right]\\] \\[\\Phi = \\sum_i d_i d_i - 2 \\sum_j m_j \\sum d_i G{ij} + \\sum_i \\sum_j\\sum_k m_j G_{ij}G_{ik}m_j m_k\\] \\[\\Phi = \\sum_i d_i d_i - 2 \\sum_j m_j \\sum_i d_i G{ij} +\\sum_j\\sum_k m_j m_k \\sum_i G_{ij}G_{ik}\\]\n\\[\\partial\\Phi=\\partial m_q = \\sum_i\\sum_k(\\delta_{iq}m_k+m_j\\delta_{ik})\\sum G_{ij}G_{ik} - 2\\sum_j \\delta_{iq}\\sum G_{ij} d_i = 0\\]\n\\[0 = 2\\sum_k\\sum_i G_{iq}G_{ik} - 2\\sum_i G_{iq}d_i = 2{\\vb G}^T{\\vb G}-2{\\vb G}^T {\\vb d}\\]\n\n\n3.7.3 Derivation by change \\(t\\delta{\\vb m}\\)\n\\[\\Phi(t) = ({\\vb d}-{\\vb G}({\\vb m}+t\\delta{\\vb m}))^T ({\\vb d}-{\\vb G}({\\vb m}+t\\delta{\\vb m}))\\] \\[\\Phi(t) = ({\\vb m}+t\\delta{\\vb m})^T{\\vb G}^T{\\vb G}({\\vb m}+t\\delta{\\vb m})-2({\\vb m}+t\\delta{\\vb m}){\\vb G}^T{\\vb d}+{\\vb d}^T{\\vb d}\\] \\[\\Phi(t) = t^2(\\delta{\\vb m}{\\vb G}^T{\\vb G}\\delta{\\vb m}) + 2t(\\delta{\\vb m}{\\vb G}^T{\\vb G}{\\vb m}-\\delta{\\vb m}^T{\\vb G}^T{\\vb d})\n    + ({\\vb m}^T{\\vb G}^T{\\vb G}{\\vb m}+{\\vb d}^T{\\vb d}-2{\\vb m}^T{\\vb G}^T{\\vb d})\\] \\(\\Phi(t)\\) has a minimum at \\(t=0\\), therefore \\(\\partial\\Phi/\\partial t\\) must be 0 \\[\\partial\\Phi(t=0)/\\partial t = 2(\\delta{\\vb m}^T{\\vb G}^T{\\vb G}{\\vb m}- \\delta{\\vb m}^T{\\vb G}{\\vb d}) = 2\\delta{\\vb m}^T ({\\vb G}^T{\\vb G}{\\vb m}-{\\vb G}^T{\\vb d}) = 0\\] As this holds for every \\(\\delta{\\vb m}\\), we obtain \\({\\vb G}^T{\\vb G}{\\vb m}={\\vb G}^T{\\vb d}\\)",
     "crumbs": [
+      "Linear problems",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Resolution analysis</span>"
-    ]
-  },
-  {
-    "objectID": "literature.html",
-    "href": "literature.html",
-    "title": "References",
-    "section": "",
-    "text": "Everett M E. 2013. Near-surface applied\ngeophysics (Cambridge University Press)\n\n\nGubbins D. 2004. Time series analysis and inverse theory for\ngeophysicists (Cambridge Univ. Press)\n\n\nGünther T. 2004. Inversion Methods and\nResolution Analysis for the\n2D/3D Reconstruction of\nResistivity Structures from DC\nMeasurements PhD thesis (University of Mining;\nTechnology Freiberg)\n\n\nMartin T, Günther T, Orozco A F and Dahlin T. 2020. Evaluation of\nspectral induced polarization field measurements in time and frequency\ndomain. Journal of Applied Geophysics.\n180. 104141\n\n\nMenke W. 2012. Geophysical\ndata analysis: Discrete inverse theory (Elsevier)\n\n\nRichter M. 2016. Inverse problems:\nBasics, theory and applications in geophysics (Springer\nInternational Publishing)\n\n\nTarantola A. 1978. Inverse problem theory (Amsterdam: Elsevier)\n\n\nZhdanov M S. 2002. Geophysical inverse theory and regularization\nproblems (Amsterdam - New York - Tokyo: Elsevier)",
-    "crumbs": [
-      "References"
     ]
   },
   {
@@ -356,176 +365,7 @@
     "section": "",
     "text": "4.1 The Singular Value Decomposition\nWe are now splitting an inverse problem into the fundamental ingredients\nOur forward matrix \\(\\bf G\\) can be decomposed into model and data eigenvectors, weighted by singular values:\n\\[\\vb G = \\sum_{i=1}^{r} \\sigma_i \\vb u_i\\cdot \\vb v_i^T = \\vb U \\vb\\Sigma\\vb V^T\\]\nwith the eigenvalues in \\(\\vb\\Sigma=\\text{diag}(\\sigma_i)\\), a set of orthogonal data eigenvectors \\(\\vb U \\in \\mathbb{R}^{N\\times N}\\) with \\(\\vb U^{-1}=\\vb U^T\\), and model eigenvectors \\(\\vb V \\in\\mathbb{R}^{M\\times M}\\) with \\(\\vb V^{-1}=\\vb V^T\\).",
     "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
-    ]
-  },
-  {
-    "objectID": "04_svd.html#derivation---eigenvalue-decomposition",
-    "href": "04_svd.html#derivation---eigenvalue-decomposition",
-    "title": "4  Singular Value Decomposition",
-    "section": "4.2 Derivation - eigenvalue decomposition",
-    "text": "4.2 Derivation - eigenvalue decomposition\nThe quadratic matrix \\(\\bf A\\) projects a vector in another direction. Special vectors are eigenvectors who keep their direction \\[ \\vb A \\vb x = \\lambda \\vb x \\]\nThe solution of the equation \\(\\vb A - \\lambda\\vb I=0\\) leads to eigenvalues \\(\\lambda\\) over the characteristic polynome \\(\\text{det}(\\vb A - \\lambda \\vb I)\\) that correspond to eigenvectors in the matrix \\(\\vb Q\\) by\n\\[ \\vb A = \\vb Q \\text{diag}(\\lambda_i) \\vb Q^T = \\vb Q \\vb\\Lambda \\vb Q^T \\]",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
-    ]
-  },
-  {
-    "objectID": "04_svd.html#derivation-2",
-    "href": "04_svd.html#derivation-2",
-    "title": "4  Singular Value Decomposition",
-    "section": "4.3 Derivation (2)",
-    "text": "4.3 Derivation (2)\nWe create a symmetric matrix from \\(\\vb G\\) and its transpose \\[ \\vb A = \\mqty(0 & \\vb G\\\\ \\vb G^T & 0) \\]\n\nIt has the eigenvalue decomposition (two coupled eigenvalue problems)\n\\[ \\vb A \\vb x_i = \\lambda_i \\vb x_i \\quad\\mbox{with}\\quad \\vb x_i = \\mqty(\\vb u_i\\\\ \\vb v_i) \\]\n\\[ \\Rightarrow \\vb G \\vb v = \\lambda \\vb u \\quad\\mbox{and}\\quad \\vb G^T \\vb u = \\lambda \\vb v \\]",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
-    ]
-  },
-  {
-    "objectID": "04_svd.html#derivation-3",
-    "href": "04_svd.html#derivation-3",
-    "title": "4  Singular Value Decomposition",
-    "section": "4.4 Derivation (3)",
-    "text": "4.4 Derivation (3)\n\\[ \\Rightarrow \\vb G \\vb v = \\lambda \\vb u \\quad\\mbox{and}\\quad \\vb G^T \\vb u = \\lambda \\vb v \\]\n\nThrough multiplication with \\(\\vb G^T\\) or \\(\\vb G\\) we obtain\n\\[ \\vb G^T \\vb G \\vb v = \\lambda^2 \\vb v \\quad\\mbox{and}\\quad \\vb G \\vb G^T \\vb u = \\lambda^2 \\vb u \\]\n\n\ni.e. two eigenvalue problems for model space (\\(\\vb v\\)) and data space (\\(\\vb u\\))\n\\[ \\vb G = \\vb U \\vb \\Sigma \\vb V^T \\quad\\mbox{and}\\quad \\vb G^T = \\vb V \\vb \\Sigma \\vb U^T \\quad\\mbox{with}\\quad \\vb\\Sigma = \\mbox{diag}(\\lambda_i) \\]",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
-    ]
-  },
-  {
-    "objectID": "04_svd.html#model-and-data-space",
-    "href": "04_svd.html#model-and-data-space",
-    "title": "4  Singular Value Decomposition",
-    "section": "4.2 Model and Data space",
-    "text": "4.2 Model and Data space\n\\(\\vb U \\in\\mathbb{R}^{N\\times N}\\) spans the data space, \\(\\vb V \\in\\mathbb{R}^{M\\times M}\\) spans the model space\nthe belong together with a number \\(r\\) (rank) of non-zero singular values\n\\(\\vb U\\) and \\(\\vb V\\) can be split into a data/model space and a null space\n\\[\\vb U = [\\vb U_r, \\vb U_0]\\]\n\\[\\vb V = [\\vb V_r, \\vb V_0]\\]\n\n4.2.1 Eigenvectors and singular values\nThe eigenvectors associated with zero singular values (\\(\\sigma_i=0\\)) span the null spaces of data and model. The number of non-zero eigenvalues \\(r\\) defines the rank of the matrix which can be abbreviated by\n\\[\\vb A_r = \\sum_{i=1}^{r} \\sigma_i \\vb u_i \\cdot \\vb v_i^T = \\vb U_r \\vb \\Sigma_r\\vb V_r^T\\]\nwhere \\({\\bf B}_r\\) holds the first \\(r\\) columns of the matrix \\(\\bf B\\).\nA matrix can be approximated by choosing the (pseudo)rank by hand. We will exemplify the approximation on behalf of an image\n\n\nShow the code\nimg = plt.imread(\"pics/rose8bit.png\");\ngrey = img[:, :, 0]\nplt.imshow(grey, cmap=\"gray\");\nprint(\"Image size\", img.shape)\nprint(\"Matrix rank\", np.linalg.matrix_rank(grey))\n\n\nImage size (333, 500, 4)\nMatrix rank 322\n\n\n\n\n\n\n\n\n\nThe image (think of it as forward kernel) shows quite some structure in the middle, i.e., most of the data cover more than half of the parameters, whereas outside the image is blurry (poorly covered). We have 333 data points for 500 model parameter, a relation typical for a small (e.g., ERT) inversion. The rank, however, is smaller than \\(N\\) and\n\n\nShow the code\nU, s, V = np.linalg.svd(grey);\nprint(U.shape, s.shape, V.shape)\nplt.semilogy(s)\nplt.grid()\n\n\n(333, 333) (333,) (500, 500)\n\n\n\n\n\n\n\n\n\nThe singular values (importance of eigenvectors) drop quickly at the beginning, reaching a slope and being under the noise level (e.g., two decades) at a value of about 60. Let’s have a look at the spanned matrices\n\n\nShow the code\nfig, ax = plt.subplots(2, 2, sharex=1, sharey=1)\nfor p, a in zip([1, 5, 10, 20], ax.flat):\n    Ap = s[p] * U[:, p].reshape([-1, 1]) @ V[p, :].reshape([1, -1])\n    a.imshow(Ap, cmap=\"gray\");\n    a.set_title(f\"$p$={p}\")\n\n\n\n\n\n\n\n\n\nWhereas low \\(p\\) are associated with long-wavelength vectors (both in x-data and y-model directions), larger \\(p\\) carry information about fine structures (model) and subtle data anomalies.\nWe now approximate the image by adding the spans of an increasing number of singular values\n\n\nShow the code\nfig, ax = plt.subplots(2, 2, sharex=1, sharey=1)\nfor p, a in zip([5, 10, 20, 40], ax.flat):\n    Ap = U[:, :p] @ np.diag(s[:p]) @ V[:p, :]\n    a.imshow(Ap, cmap=\"gray\");\n    a.set_title(f\"$p$={p}\")\n\n\n\n\n\n\n\n\n\nWhereas a rough picture can already be observed for values of 5-10, the image becomes well reconstructed for values reaching the noise level.\n\n\n4.2.2 Operators in terms of SVD\nThe forward operator\n\\[\\vb G = \\vb U_r \\vb \\Sigma_r \\vb V_r^T\\]\nand its adjoint\n\\[ \\vb G^T = \\vb V_r \\vb \\Sigma_r \\vb U_r^T \\]\ncan be combined to the model-sided square\n\\[ \\vb G^T \\vb G = \\vb V_r^T \\vb \\Sigma_r \\vb U_r^T \\vb U_r \\vb \\Sigma_r \\vb V_r = \\vb V_r^T \\vb \\Sigma_r^2 \\vb V_r \\]\nthat depends only on the model eigenvectors and the data-sided square\n\\[ \\vb G \\vb G^T = \\vb U_r \\vb \\Sigma_r \\vb V_r \\vb V_r^T \\vb \\Sigma_r \\vb U_r^T  = \\vb U_r \\vb \\Sigma_r^2 \\vb U_r^T \\]\nthat only consists of data eigenvectors.",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
-    ]
-  },
-  {
-    "objectID": "04_svd.html#eigenvectors-and-singular-values",
-    "href": "04_svd.html#eigenvectors-and-singular-values",
-    "title": "4  Singular Value Decomposition",
-    "section": "4.6 Eigenvectors and singular values",
-    "text": "4.6 Eigenvectors and singular values\nThe eigenvectors associated with zero singular values (\\(\\sigma_i=0\\)) span the null spaces of data and model. The number of non-zero eigenvalues \\(r\\) defines the rank of the matrix which can be abbreviated by\n\\[\\vb A_r = \\sum_{i=1}^{r} \\sigma_i \\vb u_i \\cdot \\vb v_i^T = \\vb U_r \\vb \\Sigma_r\\vb V_r^T\\]\nwhere \\({\\bf B}_r\\) holds the first \\(r\\) columns of the matrix \\(\\bf B\\).\nA matrix can be approximated by choosing the (pseudo)rank by hand.",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
-    ]
-  },
-  {
-    "objectID": "04_svd.html#operators-in-terms-of-svd",
-    "href": "04_svd.html#operators-in-terms-of-svd",
-    "title": "4  Singular Value Decomposition",
-    "section": "4.7 Operators in terms of SVD",
-    "text": "4.7 Operators in terms of SVD\nThe forward operator \\(\\vb G \\vb m\\) and its adjoint \\(\\vb G^T\\) are written:\n\\[\\vb G = \\vb U_r \\vb \\Sigma_r \\vb V_r^T\\]\n\\[ \\vb G^T = \\vb V_r \\vb \\Sigma_r \\vb U_r^T \\]\n\n\\[ \\vb G^T \\vb G = \\vb V_r^T \\vb \\Sigma_r \\vb U_r^T \\vb U_r \\vb \\Sigma_r \\vb V_r = \\vb V_r^T \\vb \\Sigma_r^2 \\vb V_r \\]\n\n\n\\[ \\vb G \\vb G^T = \\vb U_r \\vb \\Sigma_r \\vb V_r \\vb V_r^T \\vb \\Sigma_r \\vb U_r^T  = \\vb U_r \\vb \\Sigma_r^2 \\vb U_r^T \\]",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
-    ]
-  },
-  {
-    "objectID": "04_svd.html#the-generalized-inverse",
-    "href": "04_svd.html#the-generalized-inverse",
-    "title": "4  Singular Value Decomposition",
-    "section": "4.3 The generalized inverse",
-    "text": "4.3 The generalized inverse\nStarting from the forward operator\n\\[\\vb G_r \\vb m = \\vb U_r \\vb \\Sigma_r \\vb V_r^T \\vb m = \\vb d\\]\nwe multiply both equations from the left with \\(\\vb U_r^T\\)\n\\[ \\vb U_r^T \\vb U_r \\vb \\Sigma_r \\vb V_r^T \\vb m = \\vb \\Sigma_r \\vb V_r^T \\vb m = \\vb U_r^T \\vb d\\]\nthen with \\(\\vb \\Sigma_r^{-1}\\)\n\\[ \\vb \\Sigma_r^{-1} \\vb \\Sigma_r \\vb V_r^T \\vb m = \\vb V_r^T \\vb m = \\vb \\Sigma_r^{-1} \\vb U_r^T \\vb d\\]\nand with \\(\\vb V_r\\)\n\\[ \\vb V_r \\vb V_r^T \\vb m = \\vb m = \\vb V_r \\vb \\Sigma_r^{-1} \\vb U_r^T \\vb d\\]\nso that we have \\(\\Rightarrow \\vb m =  \\vb G^\\dagger \\vb d\\) with the inverse operator\n\\[ \\vb G^\\dagger = \\vb V_r \\vb \\Sigma_r^{-1} \\vb U_r^T \\]\nThe SVD provides a generalized (Moore-Penrose) inverse",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
-    ]
-  },
-  {
-    "objectID": "04_svd.html#resolution",
-    "href": "04_svd.html#resolution",
-    "title": "4  Singular Value Decomposition",
-    "section": "4.4 Resolution",
-    "text": "4.4 Resolution\nCombining inverse and forward operators containing a number of \\(p\\) singular values (not necessarily \\(r\\)) we obtain the model resolution matrix \\[ \\vb R^M = \\vb G^\\dagger \\vb G = \\vb V_p \\vb \\Sigma^{-1}_p \\vb U^T_p \\vb U_p \\vb \\Sigma_p \\vb V_p^T = \\vb V_p \\vb V_p^T \\]\nwhich depends only on the model eigenvectors.\nCombining forward and inverse operators yields the data resolution matrix \\[ \\vb R^D = {\\bf G} {\\bf G}^\\dagger = {\\bf U}_p{\\bf \\Sigma}_p{\\bf V}_p^T {\\bf V}_p {\\bf \\Sigma}^{-1}_p{\\bf U}^T_p = {\\bf U}_p {\\bf U}_p^T \\] depends only on the data eigenvectors!",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
-    ]
-  },
-  {
-    "objectID": "04_svd.html#inverse-problem-types---classification-scheme",
-    "href": "04_svd.html#inverse-problem-types---classification-scheme",
-    "title": "4  Singular Value Decomposition",
-    "section": "4.5 Inverse problem types - classification scheme",
-    "text": "4.5 Inverse problem types - classification scheme\nFor a correct classification, the matrix rank \\(r\\) needs to be taken into account and compared to \\(N\\) and \\(M\\).\n\n\n\n\n\n\n\n\nTipEven-determined\n\n\n\n\\(M=N=r\\)\n\n\n\n\n\n\n\n\nWarningUnder-determined\n\n\n\n\\(N \\le r&lt;M\\)\n\n\n\n\n\n\n\n\n\nNoteOver-determined\n\n\n\n\\(N &gt; r \\ge M\\)\n\n\n\n\n\n\n\n\nImportantMixed-determined\n\n\n\n\\(r&lt;N \\quad\\mbox{and}\\quad r&lt;M\\)\n\n\n\n\n\n4.5.1 Inverse problem types - Even-determined\n\\[M=N=r\\]\nGeneralized inverse = normal inverse\n\\[ \\vb R^M = \\vb R^D = \\vb I \\]\n\n\n4.5.2 Inverse problem types - Over-determined\n\\[N&gt;r=M\\]\nGeneralized inverse = least-squares inverse\n\\[\\vb G^\\dagger = (\\vb G^T \\vb G)^{-1}\\vb G^T = \\vb V_r \\vb \\Sigma_r^{-2} \\vb V_r^T \\vb V_r \\vb \\Sigma_r \\vb U_r^T = \\vb V_r \\vb \\Sigma_r^{-1} \\vb U_r^T \\]\n\\[ \\vb R^M = \\vb I \\quad , \\quad \\vb R^D \\ne \\vb I \\]\n\n\n4.5.3 Inverse problem types - Under-determined\n\\[N=r&lt;M\\]\nGeneralized inverse = minimum-norm inverse\n\\[\\vb G^\\dagger = \\vb G^T(\\vb G \\vb G^T)^{-1} = \\vb V_r \\vb \\Sigma_r \\vb U_r^T \\vb U_r \\vb \\Sigma_r^{-2} \\vb U_r^T  = \\vb V_r \\vb \\Sigma_r^{-1} \\vb U_r^T \\]\n\\[ \\vb R^M \\ne \\vb I \\quad , \\quad \\vb R^D = \\vb I \\]\n\n\n4.5.4 Inverse problem types - Mixed-determined\n\\[r&lt;N \\quad\\mbox{and}\\quad r&lt;M\\]\nThe generalized inverse\n\\[\\vb G^\\dagger = \\vb V_r \\vb \\Sigma_r^{-1} \\vb U_r^T \\]\nhandles both over-determined and underdetermined model parts.\n\\[ \\vb R^M \\ne \\vb I \\quad , \\quad \\vb R^D \\ne \\vb I \\]\n\n\n4.5.5 The problem of small eigenvalues\nLet the generalized inverse \\(\\vb G^\\dagger = \\vb V_r \\vb \\Sigma_r^{-1} \\vb U_r^T\\) invert noisy data \\(\\vb G \\vb m + \\vb n\\)\n\\[ \\vb G^\\dagger (\\vb G \\vb m + \\vb n) = \\vb G^\\dagger\\vb G\\vb m + \\vb G^\\dagger \\vb n\n= \\vb R^M + \\sum\\limits_{i=1}^r \\frac{\\vb u_i^T \\vb n}{\\sigma_i} \\vb v_i \\]\nThe projection of the noise into the data eigenvectors is generating model eigenvector contributions. However, these can be very large as the eigenvalue is in the denominator.\n\n\n\n\n\n\nImportantProblem\n\n\n\nSmall eigenvalues amplify noise in the data!\n\n\n\n4.5.5.1 Moderate Example\nConsider a simple example of four data and model\n\\[ \\vb G = \\mqty(1&1&0&0\\\\1&1.1&0&0\\\\0&0&1&0.5\\\\0&0&0.5&1) \\]\nLet the model be simple numbers \\(\\vb m=[10, 11, 12, 13]^T\\)\nleading to the data vector \\(\\Rightarrow \\vb d=[21.0, 22.1, 18.5, 19.0]^T\\)\nFor the error, we choose \\(\\epsilon=0.2\\), which is just about 1% of the data.\nIf we now compute models for four different noise realizations\nmi = np.linalg.pinv(G) @ (G@m + np.random.randn(4)*eps)\nwe obtain quite different models, e.g.,\n\n\\(\\vb m^1=[4.45, 16.24, 11.62, 13.37]\\)\n\\(\\vb m^2=[9.92, 10.92, 12.36, 12.59]\\)\n\\(\\vb m^3=[15.11, 6.2, 11.66, 13.41]\\)\n\\(\\vb m^4=[4.11, 16.76, 11.74, 13.05]\\)\n\\(\\vb m^5=[4.4, 16.48, 11.55, 13.19]\\)\n\nWhereas the last two values are recovered quite well, the first are varying and different from the synthetics. Even small noise levels let the solution explode.\nLooking at the singular value spectrum we observe two big, a medium and a rather small value (2.5% of the biggest) \\(\\sigma_i=[2.05, 1.5, 0.5, 0.05]\\)\nThe latter one is responsible for the problems.\n\n\n4.5.5.2 Solution: drop small singular values\nIf we approximate the matrix by the biggest three only , using a cutoff of 10%\nmi = np.linalg.pinv(G, rtol=0.1) @ (G@m+np.random.randn(4)*eps)\nwe obtain values that are more stable and much closer to the synthetics\n\n\\(\\vb m^1=[10.36, 10.89, 12.07, 13.2]\\)\n\\(\\vb m^2=[10.29, 10.82, 11.67, 13.08]\\)\n\\(\\vb m^3=[10.32, 10.84, 11.97, 13.16]\\)\n\\(\\vb m^4=[10.25, 10.78, 11.81, 13.04]\\)\n\\(\\vb m^3=[10.29, 10.82, 11.71, 13.13]\\)\n\nThe solution is much less noise-depending!",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
-    ]
-  },
-  {
-    "objectID": "04_svd.html#inverse-problem-types---even-determined",
-    "href": "04_svd.html#inverse-problem-types---even-determined",
-    "title": "4  Singular Value Decomposition",
-    "section": "4.11 Inverse problem types - Even-determined",
-    "text": "4.11 Inverse problem types - Even-determined\n\\[M=N=r\\]\nGeneralized inverse = normal inverse\n\\[ \\vb R^M = \\vb R^D = \\vb I \\]",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
-    ]
-  },
-  {
-    "objectID": "04_svd.html#inverse-problem-types---over-determined",
-    "href": "04_svd.html#inverse-problem-types---over-determined",
-    "title": "4  Singular Value Decomposition",
-    "section": "4.12 Inverse problem types - Over-determined",
-    "text": "4.12 Inverse problem types - Over-determined\n\\[N&gt;r=M\\]\nGeneralized inverse = least-squares inverse\n\\[\\vb G^\\dagger = (\\vb G^T \\vb G)^{-1}\\vb G^T = \\vb V_r \\vb \\Sigma_r^{-2} \\vb V_r^T \\vb V_r \\vb \\Sigma_r \\vb U_r^T = \\vb V_r \\vb \\Sigma_r^{-1} \\vb U_r^T \\]\n\\[ \\vb R^M = \\vb I \\quad , \\quad \\vb R^D \\ne \\vb I \\]",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
-    ]
-  },
-  {
-    "objectID": "04_svd.html#inverse-problem-types---under-determined",
-    "href": "04_svd.html#inverse-problem-types---under-determined",
-    "title": "4  Singular Value Decomposition",
-    "section": "4.13 Inverse problem types - Under-determined",
-    "text": "4.13 Inverse problem types - Under-determined\n\\[N=r&lt;M\\]\nGeneralized inverse = minimum-norm inverse\n\\[\\vb G^\\dagger = \\vb G^T(\\vb G \\vb G^T)^{-1} = \\vb V_r \\vb \\Sigma_r \\vb U_r^T \\vb U_r \\vb \\Sigma_r^{-2} \\vb U_r^T  = \\vb V_r \\vb \\Sigma_r^{-1} \\vb U_r^T \\]\n\\[ \\vb R^M \\ne \\vb I \\quad , \\quad \\vb R^D = \\vb I \\]",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
-    ]
-  },
-  {
-    "objectID": "04_svd.html#inverse-problem-types---mixed-determined",
-    "href": "04_svd.html#inverse-problem-types---mixed-determined",
-    "title": "4  Singular Value Decomposition",
-    "section": "4.14 Inverse problem types - Mixed-determined",
-    "text": "4.14 Inverse problem types - Mixed-determined\n\\[r&lt;M \\quad\\mbox{and}\\quad r&lt;M\\]\nThe generalized inverse\n\\[\\vb G^\\dagger = \\vb V_r \\vb \\Sigma_r^{-1} \\vb U_r^T \\]\nhandles both over-determined and underdetermined model parts.\n\\[ \\vb R^M \\ne \\vb I \\quad , \\quad \\vb R^D \\ne \\vb I \\]",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
-    ]
-  },
-  {
-    "objectID": "04_svd.html#the-problem-of-small-eigenvalues",
-    "href": "04_svd.html#the-problem-of-small-eigenvalues",
-    "title": "4  Singular Value Decomposition",
-    "section": "4.15 The problem of small eigenvalues",
-    "text": "4.15 The problem of small eigenvalues\nGeneralized inverse \\(\\vb G^\\dagger = \\vb V_r \\vb \\Sigma_r^{-1} \\vb U_r^T\\) to invert noisy data \\(\\vb G \\vb m + \\vb n\\)\n\\[ \\vb G^\\dagger (\\vb G \\vb m + \\vb n) = \\vb G^\\dagger\\vb G\\vb m + \\vb G^\\dagger \\vb n\n= \\vb R^M + \\sum\\limits_{i=1}^r \\frac{\\vb u_i^T \\vb n}{\\sigma_i} \\vb v_i \\]\n\n\n\n\n\n\nImportantProblem\n\n\n\nSmall eigenvalues amplify noise in the data!",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
-    ]
-  },
-  {
-    "objectID": "04_svd.html#moderate-example",
-    "href": "04_svd.html#moderate-example",
-    "title": "4  Singular Value Decomposition",
-    "section": "4.16 Moderate Example",
-    "text": "4.16 Moderate Example\n\n\n\\[ \\vb G = \\mqty(1&1&0&0\\\\1&1.1&0&0\\\\0&0&1&0.5\\\\0&0&0.5&1) \\]\n\\(\\Rightarrow \\sigma_i=[2.05, 1.5, 0.5, 0.05]\\)\nm = pinv(G) * (d + n)\n\n\\(\\vb m=[10, 11, 12, 13]\\), \\(\\epsilon=0.2\\)\n\\(\\Rightarrow \\vb d=[21.0, 22.1, 18.5, 19.0]\\)\n\\(\\vb m^1=[4.45, 16.24, 11.62, 13.37]\\) \\(\\vb m^2=[9.92, 10.92, 12.36, 12.59]\\) \\(\\vb m^3=[15.11, 6.2, 11.66, 13.41]\\) \\(\\vb m^4=[4.11, 16.76, 11.74, 13.05]\\) \\(\\vb m^5=[4.4, 16.48, 11.55, 13.19]\\)\n\n\nEven a small noise level let the solution explode.",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
-    ]
-  },
-  {
-    "objectID": "04_svd.html#solution-drop-small-singular-values",
-    "href": "04_svd.html#solution-drop-small-singular-values",
-    "title": "4  Singular Value Decomposition",
-    "section": "4.17 Solution: drop small singular values",
-    "text": "4.17 Solution: drop small singular values\n\n\n\\[ \\vb G = \\mqty(1&1&0&0\\\\1&1.1&0&0\\\\0&0&1&0.5\\\\0&0&0.5&1) \\]\n\\(\\Rightarrow \\sigma_i=[2.05, 1.5, 0.5, 0.05]\\)\n\\(\\Rightarrow\\) m=pinv(G, rtol=0.1)*(d+n)\n\n\\(\\vb m=[10, 11, 12, 13]\\), \\(\\epsilon=0.2\\)\n\\(\\Rightarrow \\vb d=[21.0, 22.1, 18.5, 19.0]\\)\n\\(\\vb m^1=[10.36, 10.89, 12.07, 13.2]\\) \\(\\vb m^2=[10.29, 10.82, 11.67, 13.08]\\) \\(\\vb m^3=[10.32, 10.84, 11.97, 13.16]\\) \\(\\vb m^4=[10.25, 10.78, 11.81, 13.04]\\) \\(\\vb m^3=[10.29, 10.82, 11.71, 13.13]\\)\n\n\nThe solution is much less noise-depending!",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
-    ]
-  },
-  {
-    "objectID": "04_svd.html#truncated-singular-value-tsvd-method",
-    "href": "04_svd.html#truncated-singular-value-tsvd-method",
-    "title": "4  Singular Value Decomposition",
-    "section": "4.18 Truncated singular value (TSVD) method",
-    "text": "4.18 Truncated singular value (TSVD) method\n\nLook at the singular value spectrum\nChoose a maximum number \\(p\\) or rtol and compute (e.g. by pinv) \\[\\vb G^\\dagger_p = \\vb V_p \\vb\\Sigma_p^{-1}\\vb U_p^T\\]\nHow to choose \\(p\\)? Trade-off between resolution and artifacts.\n\n\n\n\n\n\n\nNoteDiscrepancy principle (free after Occam)\n\n\n\nLook at data fit and choose \\(p\\) such that the data can be fitted within the error.",
-    "crumbs": [
+      "Linear problems",
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
     ]
   },
@@ -536,6 +376,51 @@
     "section": "",
     "text": "4.1.1 Derivation - eigenvalue decomposition\nA quadratic matrix \\(\\bf A\\) projects a vector into one with the same length but another direction. Special vectors are eigenvectors who keep their direction when being project \\[ \\vb A \\vb x = \\lambda \\vb x \\]\nThe solution of the equation \\((\\vb A - \\lambda\\vb I)\\vb x=0\\) leads to eigenvalues \\(\\lambda\\) over the characteristic polynome \\(\\text{det}(\\vb A - \\lambda \\vb I)\\) that correspond to orthonormal eigenvectors in the matrix \\(\\vb Q\\) by\n\\[ \\vb A = \\vb Q \\text{diag}(\\lambda_i) \\vb Q^T = \\vb Q \\vb\\Lambda \\vb Q^T \\]\nThe orthonormal eigenvectors have the length 1 and mutually perpendicular (\\(\\vb q_i \\vdot \\vb q_j\\) is 1 for \\(i=j\\) and 0 otherwise). As a consequence, the transposed \\(\\vb Q\\) equals its inverse \\(\\vb Q^{-1}=\\vb Q^T\\).\nAs our matrix is assymmetric, we create a symmetric matrix from \\(\\vb G\\) and its transpose \\[ \\vb A = \\mqty(0 & \\vb G\\\\ \\vb G^T & 0) \\]\nbeing of size \\((N+M)\\times(N+M)\\). It has the eigenvalue decomposition \\[ \\vb A \\vb x_i = \\lambda_i \\vb x_i \\quad\\mbox{with}\\quad \\vb x_i = \\mqty(\\vb u_i\\\\ \\vb v_i) \\]\nThe vector \\(\\vb x_i\\) is of length \\(N+M\\) and can be split into two parts \\(\\vb u_i\\in R^N\\) and \\(\\vb v_i\\in R^M\\)\nSplitting the upper and the lower part, we see that \\(\\vb G\\) projects \\(\\vb u\\) into \\(\\vb v\\) and vice versa.\n\\[ \\Rightarrow \\vb G \\vb v = \\lambda \\vb u \\quad\\mbox{and}\\quad \\vb G^T \\vb u = \\lambda \\vb v \\]\nso that we have two intertwined eigenvalue problems.\nThrough multiplication of the first equation with \\(\\vb G^T\\) and the second with \\(\\vb G\\) we obtain\n\\[ \\vb G^T \\vb G \\vb v = \\lambda^2 \\vb v \\quad\\mbox{and}\\quad \\vb G \\vb G^T \\vb u = \\lambda^2 \\vb u \\]\ni.e. two eigenvalue problems for model space (\\(\\vb v\\)) and data space (\\(\\vb u\\))\n\\[ \\vb G = \\vb U \\vb \\Sigma \\vb V^T \\quad\\mbox{and}\\quad \\vb G^T = \\vb V \\vb \\Sigma \\vb U^T \\quad\\mbox{with}\\quad \\vb\\Sigma = \\mbox{diag}(\\lambda_i) \\]",
     "crumbs": [
+      "Linear problems",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
+    ]
+  },
+  {
+    "objectID": "04_svd.html#model-and-data-space",
+    "href": "04_svd.html#model-and-data-space",
+    "title": "4  Singular Value Decomposition",
+    "section": "4.2 Model and Data space",
+    "text": "4.2 Model and Data space\n\\(\\vb U \\in\\mathbb{R}^{N\\times N}\\) spans the data space, \\(\\vb V \\in\\mathbb{R}^{M\\times M}\\) spans the model space\nthe belong together with a number \\(r\\) (rank) of non-zero singular values\n\\(\\vb U\\) and \\(\\vb V\\) can be split into a data/model space and a null space\n\\[\\vb U = [\\vb U_r, \\vb U_0]\\]\n\\[\\vb V = [\\vb V_r, \\vb V_0]\\]\n\n4.2.1 Eigenvectors and singular values\nThe eigenvectors associated with zero singular values (\\(\\sigma_i=0\\)) span the null spaces of data and model. The number of non-zero eigenvalues \\(r\\) defines the rank of the matrix which can be abbreviated by\n\\[\\vb A_r = \\sum_{i=1}^{r} \\sigma_i \\vb u_i \\cdot \\vb v_i^T = \\vb U_r \\vb \\Sigma_r\\vb V_r^T\\]\nwhere \\({\\bf B}_r\\) holds the first \\(r\\) columns of the matrix \\(\\bf B\\).\nA matrix can be approximated by choosing the (pseudo)rank by hand. We will exemplify the approximation on behalf of an image\n\n\nShow the code\nimg = plt.imread(\"pics/rose8bit.png\");\ngrey = img[:, :, 0]\nplt.imshow(grey, cmap=\"gray\");\nprint(\"Image size\", img.shape)\nprint(\"Matrix rank\", np.linalg.matrix_rank(grey))\n\n\nImage size (333, 500, 4)\nMatrix rank 322\n\n\n\n\n\n\n\n\n\nThe image (think of it as forward kernel) shows quite some structure in the middle, i.e., most of the data cover more than half of the parameters, whereas outside the image is blurry (poorly covered). We have 333 data points for 500 model parameter, a relation typical for a small (e.g., ERT) inversion. The rank, however, is smaller than \\(N\\) and\n\n\nShow the code\nU, s, V = np.linalg.svd(grey);\nprint(U.shape, s.shape, V.shape)\nplt.semilogy(s)\nplt.grid()\n\n\n(333, 333) (333,) (500, 500)\n\n\n\n\n\n\n\n\n\nThe singular values (importance of eigenvectors) drop quickly at the beginning, reaching a slope and being under the noise level (e.g., two decades) at a value of about 60. Let’s have a look at the spanned matrices\n\n\nShow the code\nfig, ax = plt.subplots(2, 2, sharex=1, sharey=1)\nfor p, a in zip([1, 5, 10, 20], ax.flat):\n    Ap = s[p] * U[:, p].reshape([-1, 1]) @ V[p, :].reshape([1, -1])\n    a.imshow(Ap, cmap=\"gray\");\n    a.set_title(f\"$p$={p}\")\n\n\n\n\n\n\n\n\n\nWhereas low \\(p\\) are associated with long-wavelength vectors (both in x-data and y-model directions), larger \\(p\\) carry information about fine structures (model) and subtle data anomalies.\nWe now approximate the image by adding the spans of an increasing number of singular values\n\n\nShow the code\nfig, ax = plt.subplots(2, 2, sharex=1, sharey=1)\nfor p, a in zip([5, 10, 20, 40], ax.flat):\n    Ap = U[:, :p] @ np.diag(s[:p]) @ V[:p, :]\n    a.imshow(Ap, cmap=\"gray\");\n    a.set_title(f\"$p$={p}\")\n\n\n\n\n\n\n\n\n\nWhereas a rough picture can already be observed for values of 5-10, the image becomes well reconstructed for values reaching the noise level.\n\n\n4.2.2 Operators in terms of SVD\nThe forward operator\n\\[\\vb G = \\vb U_r \\vb \\Sigma_r \\vb V_r^T\\]\nand its adjoint\n\\[ \\vb G^T = \\vb V_r \\vb \\Sigma_r \\vb U_r^T \\]\ncan be combined to the model-sided square\n\\[ \\vb G^T \\vb G = \\vb V_r^T \\vb \\Sigma_r \\vb U_r^T \\vb U_r \\vb \\Sigma_r \\vb V_r = \\vb V_r^T \\vb \\Sigma_r^2 \\vb V_r \\]\nthat depends only on the model eigenvectors and the data-sided square\n\\[ \\vb G \\vb G^T = \\vb U_r \\vb \\Sigma_r \\vb V_r \\vb V_r^T \\vb \\Sigma_r \\vb U_r^T  = \\vb U_r \\vb \\Sigma_r^2 \\vb U_r^T \\]\nthat only consists of data eigenvectors.",
+    "crumbs": [
+      "Linear problems",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
+    ]
+  },
+  {
+    "objectID": "04_svd.html#the-generalized-inverse",
+    "href": "04_svd.html#the-generalized-inverse",
+    "title": "4  Singular Value Decomposition",
+    "section": "4.3 The generalized inverse",
+    "text": "4.3 The generalized inverse\nStarting from the forward operator\n\\[\\vb G_r \\vb m = \\vb U_r \\vb \\Sigma_r \\vb V_r^T \\vb m = \\vb d\\]\nwe multiply both equations from the left with \\(\\vb U_r^T\\)\n\\[ \\vb U_r^T \\vb U_r \\vb \\Sigma_r \\vb V_r^T \\vb m = \\vb \\Sigma_r \\vb V_r^T \\vb m = \\vb U_r^T \\vb d\\]\nthen with \\(\\vb \\Sigma_r^{-1}\\)\n\\[ \\vb \\Sigma_r^{-1} \\vb \\Sigma_r \\vb V_r^T \\vb m = \\vb V_r^T \\vb m = \\vb \\Sigma_r^{-1} \\vb U_r^T \\vb d\\]\nand with \\(\\vb V_r\\)\n\\[ \\vb V_r \\vb V_r^T \\vb m = \\vb m = \\vb V_r \\vb \\Sigma_r^{-1} \\vb U_r^T \\vb d\\]\nso that we have \\(\\Rightarrow \\vb m =  \\vb G^\\dagger \\vb d\\) with the inverse operator\n\\[ \\vb G^\\dagger = \\vb V_r \\vb \\Sigma_r^{-1} \\vb U_r^T \\]\nThe SVD provides a generalized (Moore-Penrose) inverse",
+    "crumbs": [
+      "Linear problems",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
+    ]
+  },
+  {
+    "objectID": "04_svd.html#resolution",
+    "href": "04_svd.html#resolution",
+    "title": "4  Singular Value Decomposition",
+    "section": "4.4 Resolution",
+    "text": "4.4 Resolution\nCombining inverse and forward operators containing a number of \\(p\\) singular values (not necessarily \\(r\\)) we obtain the model resolution matrix \\[ \\vb R^M = \\vb G^\\dagger \\vb G = \\vb V_p \\vb \\Sigma^{-1}_p \\vb U^T_p \\vb U_p \\vb \\Sigma_p \\vb V_p^T = \\vb V_p \\vb V_p^T \\]\nwhich depends only on the model eigenvectors.\nCombining forward and inverse operators yields the data resolution matrix \\[ \\vb R^D = {\\bf G} {\\bf G}^\\dagger = {\\bf U}_p{\\bf \\Sigma}_p{\\bf V}_p^T {\\bf V}_p {\\bf \\Sigma}^{-1}_p{\\bf U}^T_p = {\\bf U}_p {\\bf U}_p^T \\] depends only on the data eigenvectors!",
+    "crumbs": [
+      "Linear problems",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
+    ]
+  },
+  {
+    "objectID": "04_svd.html#inverse-problem-types---classification-scheme",
+    "href": "04_svd.html#inverse-problem-types---classification-scheme",
+    "title": "4  Singular Value Decomposition",
+    "section": "4.5 Inverse problem types - classification scheme",
+    "text": "4.5 Inverse problem types - classification scheme\nFor a correct classification, the matrix rank \\(r\\) needs to be taken into account and compared to \\(N\\) and \\(M\\).\n\n\n\n\n\n\n\n\nTipEven-determined\n\n\n\n\\(M=N=r\\)\n\n\n\n\n\n\n\n\nWarningUnder-determined\n\n\n\n\\(N \\le r&lt;M\\)\n\n\n\n\n\n\n\n\n\nNoteOver-determined\n\n\n\n\\(N &gt; r \\ge M\\)\n\n\n\n\n\n\n\n\nImportantMixed-determined\n\n\n\n\\(r&lt;N \\quad\\mbox{and}\\quad r&lt;M\\)\n\n\n\n\n\n4.5.1 Inverse problem types - Even-determined\n\\[M=N=r\\]\nGeneralized inverse = normal inverse\n\\[ \\vb R^M = \\vb R^D = \\vb I \\]\n\n\n4.5.2 Inverse problem types - Over-determined\n\\[N&gt;r=M\\]\nGeneralized inverse = least-squares inverse\n\\[\\vb G^\\dagger = (\\vb G^T \\vb G)^{-1}\\vb G^T = \\vb V_r \\vb \\Sigma_r^{-2} \\vb V_r^T \\vb V_r \\vb \\Sigma_r \\vb U_r^T = \\vb V_r \\vb \\Sigma_r^{-1} \\vb U_r^T \\]\n\\[ \\vb R^M = \\vb I \\quad , \\quad \\vb R^D \\ne \\vb I \\]\n\n\n4.5.3 Inverse problem types - Under-determined\n\\[N=r&lt;M\\]\nGeneralized inverse = minimum-norm inverse\n\\[\\vb G^\\dagger = \\vb G^T(\\vb G \\vb G^T)^{-1} = \\vb V_r \\vb \\Sigma_r \\vb U_r^T \\vb U_r \\vb \\Sigma_r^{-2} \\vb U_r^T  = \\vb V_r \\vb \\Sigma_r^{-1} \\vb U_r^T \\]\n\\[ \\vb R^M \\ne \\vb I \\quad , \\quad \\vb R^D = \\vb I \\]\n\n\n4.5.4 Inverse problem types - Mixed-determined\n\\[r&lt;N \\quad\\mbox{and}\\quad r&lt;M\\]\nThe generalized inverse\n\\[\\vb G^\\dagger = \\vb V_r \\vb \\Sigma_r^{-1} \\vb U_r^T \\]\nhandles both over-determined and underdetermined model parts.\n\\[ \\vb R^M \\ne \\vb I \\quad , \\quad \\vb R^D \\ne \\vb I \\]\n\n\n4.5.5 The problem of small eigenvalues\nLet the generalized inverse \\(\\vb G^\\dagger = \\vb V_r \\vb \\Sigma_r^{-1} \\vb U_r^T\\) invert noisy data \\(\\vb G \\vb m + \\vb n\\)\n\\[ \\vb G^\\dagger (\\vb G \\vb m + \\vb n) = \\vb G^\\dagger\\vb G\\vb m + \\vb G^\\dagger \\vb n\n= \\vb R^M + \\sum\\limits_{i=1}^r \\frac{\\vb u_i^T \\vb n}{\\sigma_i} \\vb v_i \\]\nThe projection of the noise into the data eigenvectors is generating model eigenvector contributions. However, these can be very large as the eigenvalue is in the denominator.\n\n\n\n\n\n\nImportantProblem\n\n\n\nSmall eigenvalues amplify noise in the data!\n\n\n\n4.5.5.1 Moderate Example\nConsider a simple example of four data and model\n\\[ \\vb G = \\mqty(1&1&0&0\\\\1&1.1&0&0\\\\0&0&1&0.5\\\\0&0&0.5&1) \\]\nLet the model be simple numbers \\(\\vb m=[10, 11, 12, 13]^T\\)\nleading to the data vector \\(\\Rightarrow \\vb d=[21.0, 22.1, 18.5, 19.0]^T\\)\nFor the error, we choose \\(\\epsilon=0.2\\), which is just about 1% of the data.\nIf we now compute models for four different noise realizations\nmi = np.linalg.pinv(G) @ (G@m + np.random.randn(4)*eps)\nwe obtain quite different models, e.g.,\n\n\\(\\vb m^1=[4.45, 16.24, 11.62, 13.37]\\)\n\\(\\vb m^2=[9.92, 10.92, 12.36, 12.59]\\)\n\\(\\vb m^3=[15.11, 6.2, 11.66, 13.41]\\)\n\\(\\vb m^4=[4.11, 16.76, 11.74, 13.05]\\)\n\\(\\vb m^5=[4.4, 16.48, 11.55, 13.19]\\)\n\nWhereas the last two values are recovered quite well, the first are varying and different from the synthetics. Even small noise levels let the solution explode.\nLooking at the singular value spectrum we observe two big, a medium and a rather small value (2.5% of the biggest) \\(\\sigma_i=[2.05, 1.5, 0.5, 0.05]\\)\nThe latter one is responsible for the problems.\n\n\n4.5.5.2 Solution: drop small singular values\nIf we approximate the matrix by the biggest three only , using a cutoff of 10%\nmi = np.linalg.pinv(G, rtol=0.1) @ (G@m+np.random.randn(4)*eps)\nwe obtain values that are more stable and much closer to the synthetics\n\n\\(\\vb m^1=[10.36, 10.89, 12.07, 13.2]\\)\n\\(\\vb m^2=[10.29, 10.82, 11.67, 13.08]\\)\n\\(\\vb m^3=[10.32, 10.84, 11.97, 13.16]\\)\n\\(\\vb m^4=[10.25, 10.78, 11.81, 13.04]\\)\n\\(\\vb m^3=[10.29, 10.82, 11.71, 13.13]\\)\n\nThe solution is much less noise-depending!",
+    "crumbs": [
+      "Linear problems",
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
     ]
   },
@@ -546,7 +431,293 @@
     "section": "4.6 Truncated SVD (TSVD)",
     "text": "4.6 Truncated SVD (TSVD)\n\nLook at the singular value spectrum\nChoose a maximum number \\(p\\) or rtol and compute (e.g. by pinv) \\[\\vb G^\\dagger_p = \\vb V_p \\vb\\Sigma_p^{-1}\\vb U_p^T\\]\nHow to choose \\(p\\)? Trade-off between resolution and artifacts.\n\n\n\n\n\n\n\nNoteDiscrepancy principle (free after Occam)\n\n\n\nLook at data fit and choose \\(p\\) such that the data can be fitted within the error.",
     "crumbs": [
+      "Linear problems",
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
+    ]
+  },
+  {
+    "objectID": "05_regularization.html",
+    "href": "05_regularization.html",
+    "title": "5  Regularization",
+    "section": "",
+    "text": "5.1 Regularization basics\nIn total, we are adding equations to the underdetemined system:\n\\[ \\vb G = \\mqty(1 & 1 & 0 \\\\ 0 & 0 & 1) \\Rightarrow \\tilde{\\vb G} \\]\nThere is a couple of different choices",
+    "crumbs": [
+      "Regularization",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Regularization</span>"
+    ]
+  },
+  {
+    "objectID": "05_regularization.html#regularization-basics",
+    "href": "05_regularization.html#regularization-basics",
+    "title": "5  Regularization",
+    "section": "",
+    "text": "making under-determined and ill-posed problems unique (regular)\nmake the model less sensible to small changes (noise) in data\nadding our assumptions or knowledge (valid ranges, prior data, geostatistical behaviour, interfaces)\n\n\n\n\n\n\n\nNoteOccams razor\n\n\n\nOf all possible models, choose the simplest! How to define simple?\n\n\n\n\n\n\\(d_1\\) measures the mean value of \\(m_1\\) and \\(m_2\\)\n\n\n\nsize of subvector [\\(m_1\\), \\(m_2\\)] should be small\n\n\\[ \\tilde{\\vb G} \\vb m =\\mqty(1 & 1 & 0 \\\\\n                              0 & 0 & 1\\\\\n                    \\textcolor{red}1 & 0 & 0 \\\\\n                    0 & \\textcolor{red}1 & 0)\n                    = \\mqty(d_1\\\\ d_2\\\\0\\\\0) \\]\n\n\n\n5.1.1 Minimum norm solution\nAll model parameters are expected to be (similarly) small\n\\[ \\tilde{\\vb G}\\vb m=\\mqty(1 & 1 & 0 \\\\\n                    0 & 0 & 1\\\\\n                    1 & 0 & 0\\\\\n                    0 & 1 & 0\\\\\n                    0 & 0 & 1) \\vb m =\n                    \\mqty(d_1\\\\ d_2\\\\ d_3\\\\ d_4\\\\ d_5) =\n                    \\mqty(d_1\\\\ d_2\\\\ m^P_1\\\\ m^P_2\\\\ m^P_3)\n                    \\]\nor close to some prior knowledge (\\(d_3\\), \\(d_4\\), \\(d_5\\))",
+    "crumbs": [
+      "Regularization",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Regularization</span>"
+    ]
+  },
+  {
+    "objectID": "05_regularization.html#regularization-basics-adding-equations",
+    "href": "05_regularization.html#regularization-basics-adding-equations",
+    "title": "5  Regularization",
+    "section": "5.2 Regularization basics: adding equations",
+    "text": "5.2 Regularization basics: adding equations\n\\[ \\vb G = \\mqty(1 & 1 & 0 \\\\ 0 & 0 & 1) \\tilde{\\vb G}\\]\n\nwe only measure the mean value of \\(m_1\\) & \\(m_2\\) (as well as \\(m_3\\))\n\n\n\ndifference between \\(m_1\\) and \\(m_2\\) should be small\n\n\\[ \\tilde{\\vb G} \\vb m=\\mqty(1 & 1 & 0 \\\\\n                             0 & 0 & 1\\\\\n                    \\textcolor{red}{-1} & \\textcolor{red}1 & 0)\n                    = \\mqty(d_1\\\\ d_2\\\\0) \\]",
+    "crumbs": [
+      "Regularization",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Regularization</span>"
+    ]
+  },
+  {
+    "objectID": "05_regularization.html#smoothness-constraints",
+    "href": "05_regularization.html#smoothness-constraints",
+    "title": "5  Regularization",
+    "section": "5.3 Smoothness constraints",
+    "text": "5.3 Smoothness constraints\nGradient (roughness) between neighboring model parameters\n\\[ \\tilde{\\vb G} \\vb m = \\mqty(1 & 1 & 0 \\\\\n                    0 & 0 & 1\\\\\n                    -1 & 1 & 0\\\\\n                    0 & -1 & 1)\n                    = \\mqty(d_1\\\\ d_2\\\\0\\\\ 0) \\]",
+    "crumbs": [
+      "Regularization",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Regularization</span>"
+    ]
+  },
+  {
+    "objectID": "05_regularization.html#regularization-scheme",
+    "href": "05_regularization.html#regularization-scheme",
+    "title": "5  Regularization",
+    "section": "5.4 Regularization scheme",
+    "text": "5.4 Regularization scheme\n\\(\\tilde{\\vb G}\\) consists of forward part & constraints part\n\\[ \\tilde{\\vb G}=\\mqty[\\vb G \\\\ \\vb C] \\quad\\text{and}\\quad \\tilde{\\vb d} = \\mqty[\\vb d \\\\ \\vb c] \\]\nnow over-determined \\(\\Rightarrow\\) least-squares solution \\((\\tilde{\\vb G}^T\\vb G)^{-1}\\tilde{\\vb G}^T \\tilde{\\vb d}\\)\n\\[ \\tilde{\\vb G}^T \\tilde{\\vb G} = \\vb G^T \\vb G + \\vb C^T \\vb C \\quad,\\quad\n\\tilde{\\vb G}^T \\tilde{\\vb d}= \\vb G^T \\vb d + \\vb C^T \\vb c \\]\n\\[ \\vb m = (\\vb G^T \\vb G + \\vb C^T \\vb C)^{-1} (\\vb G^T \\vb d + \\vb C^T \\vb c) \\]",
+    "crumbs": [
+      "Regularization",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Regularization</span>"
+    ]
+  },
+  {
+    "objectID": "05_regularization.html#weighting-data-vs.-constraints",
+    "href": "05_regularization.html#weighting-data-vs.-constraints",
+    "title": "5  Regularization",
+    "section": "5.5 Weighting data vs. constraints",
+    "text": "5.5 Weighting data vs. constraints\n\\(\\vb d\\) & \\(\\vb c\\) may have completely different magnitudes & physical units, data/constraints maybe too weak or too strong \\(\\Rightarrow\\) weighting of constraints by regularization parameter \\(\\lambda\\):\n\\[ \\Phi = \\|\\vb G \\vb m - \\vb d\\|^2 + \\lambda \\|\\vb C \\vb m - \\vb c \\|^2 = \\Phi_d + \\lambda\\Phi_m \\rightarrow \\min \\]\n\\(\\lambda\\)..regularization strength, \\(\\Phi_d\\)/\\(\\Phi_m\\)..data/model objective function\n\\[ \\Rightarrow \\vb m = (\\vb G^T \\vb G + \\lambda \\vb C^T \\vb C)^{-1} (\\vb G^T \\vb d + \\lambda\\vb C^T \\vb c) \\]",
+    "crumbs": [
+      "Regularization",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Regularization</span>"
+    ]
+  },
+  {
+    "objectID": "05_regularization.html#interpretation-as-constrained-minimization-lagrangian",
+    "href": "05_regularization.html#interpretation-as-constrained-minimization-lagrangian",
+    "title": "5  Regularization",
+    "section": "5.6 Interpretation as constrained minimization (Lagrangian)",
+    "text": "5.6 Interpretation as constrained minimization (Lagrangian)\n\\[ \\Phi = \\|\\vb G \\vb m - \\vb d\\|^2 + \\lambda \\|\\vb C \\vb m - \\vb c \\|^2 \\rightarrow \\min \\]\n\\[ \\tilde\\Phi = \\|\\vb C \\vb m - \\vb c \\|^2 + \\mu \\|\\vb G \\vb m - \\vb d\\|^2 = \\Phi_m+\\mu\\Phi_d \\rightarrow \\min \\]\nMinimize regularization term under constraint (Lagrangian method)\n\n\n\n\n\n\nTipInterpretation with Occam\n\n\n\nMinimize the non-simplicity subject to \\(\\Phi_d\\) reflects noise",
+    "crumbs": [
+      "Regularization",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Regularization</span>"
+    ]
+  },
+  {
+    "objectID": "05_regularization.html#model-and-data-norms",
+    "href": "05_regularization.html#model-and-data-norms",
+    "title": "5  Regularization",
+    "section": "5.7 Model and data norms",
+    "text": "5.7 Model and data norms",
+    "crumbs": [
+      "Regularization",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Regularization</span>"
+    ]
+  },
+  {
+    "objectID": "05_regularization.html#the-l-curve",
+    "href": "05_regularization.html#the-l-curve",
+    "title": "5  Regularization",
+    "section": "5.8 The L-curve",
+    "text": "5.8 The L-curve\n\n\n\n\nData vs. model norm for wide range of \\(\\lambda\\)\n\nlow data residual achieved by high norm (oscillating model)\nlow model norm cannot fit the data (large misfit)\noptimum somewhere “at the corner” (not always a corner)",
+    "crumbs": [
+      "Regularization",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Regularization</span>"
+    ]
+  },
+  {
+    "objectID": "05_regularization.html#choice-of-regularization-strength",
+    "href": "05_regularization.html#choice-of-regularization-strength",
+    "title": "5  Regularization",
+    "section": "5.9 Choice of regularization strength",
+    "text": "5.9 Choice of regularization strength\n\n\n\n\n\n\nTipAlways have a look at your data fit and model plausibility.\n\n\n\n\n\n\n\nuse different values and look at models (and misfit)\ntry to determine the corner of the L-curve (maximum curvature)\nstart large \\(\\lambda\\), decrease & stop when data misfit show no systematics\n\n\n\n\n\n\n\nNoteDiscrepancy principle\n\n\n\nChoose the highest \\(\\lambda\\) value that is able to fit the data (\\(\\chi^2\\)=1)!",
+    "crumbs": [
+      "Regularization",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Regularization</span>"
+    ]
+  },
+  {
+    "objectID": "05_regularization.html#damped-normal-equations-and-svd",
+    "href": "05_regularization.html#damped-normal-equations-and-svd",
+    "title": "5  Regularization",
+    "section": "5.10 Damped normal equations and SVD",
+    "text": "5.10 Damped normal equations and SVD\n\\[ \\vb C = \\vb I, \\vb c=0 \\quad\\Rightarrow\\quad \\vb m = (\\vb G^T\\vb G + \\lambda \\vb I)^{-1} \\vb G^T \\vb d \\]\n\\[ \\vb m = (\\vb V \\vb \\Sigma \\vb U^T \\vb U \\vb \\Sigma \\vb V^T + \\lambda \\vb I)^{-1} \\vb V \\vb \\Sigma \\vb U^T \\vb d \\]\n\\[ \\vb m = (\\vb V \\mbox{diag}(s_i^2+\\lambda) \\vb V^T + \\lambda \\vb I)^{-1} \\vb V \\vb \\Sigma \\vb U^T \\vb d \\]\n\\[ \\vb m = \\sum\\limits_i^r \\frac{s_i}{s_i^2+\\lambda} \\vb u_i^T \\vb d \\cdot v_i^T = \\sum\\limits_i^r \\frac{s_i^2}{s_i^2+\\lambda} \\frac{\\vb u_i^T \\vb d}{s_i} v_i^T \\]\nSmall singular values are damped in inversion, large unchanged",
+    "crumbs": [
+      "Regularization",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Regularization</span>"
+    ]
+  },
+  {
+    "objectID": "05_regularization.html#resolution-of-regularized-inverse-problems",
+    "href": "05_regularization.html#resolution-of-regularized-inverse-problems",
+    "title": "5  Regularization",
+    "section": "5.11 Resolution of regularized inverse problems",
+    "text": "5.11 Resolution of regularized inverse problems\nFor \\(c=0\\) we have \\(\\vb G^\\dagger=(\\vb G^T \\vb G + \\lambda \\vb C^T \\vb C)^{-1} \\vb G^T\\)\n\\[ \\Rightarrow \\vb R^M=\\vb G^\\dagger \\vb G=(\\vb G^T \\vb G + \\lambda \\vb C^T \\vb C)^{-1} \\vb G^T \\vb G \\]\napproaches \\(\\vb I\\) for \\(\\lambda\\rightarrow 0\\) and deviates if \\(\\lambda\\) grows",
+    "crumbs": [
+      "Regularization",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Regularization</span>"
+    ]
+  },
+  {
+    "objectID": "05_regularization.html#wrap-up",
+    "href": "05_regularization.html#wrap-up",
+    "title": "5  Regularization",
+    "section": "5.12 Wrap up",
+    "text": "5.12 Wrap up\n\nSVD provides a general tool, BUT:\n\nill-conditioned inverse problems (SV spectrum) tend to amplify noise\ntruncated SVD is a method so suppress this\n\nregularization can (also) be done to make solution unique\ndifferent strategies: smoothness, norm, …\nchoice of regularization strength \\(\\lambda\\) is vital",
+    "crumbs": [
+      "Regularization",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Regularization</span>"
+    ]
+  },
+  {
+    "objectID": "05_regularization.html#damped-least-squares-and-svd",
+    "href": "05_regularization.html#damped-least-squares-and-svd",
+    "title": "5  Regularization",
+    "section": "6.1 Damped least squares and SVD",
+    "text": "6.1 Damped least squares and SVD\n\\[ \\vb m = (\\vb G^T\\vb G + \\lambda \\vb I)^{-1} \\vb G^T \\vb d \\]\n\\[ \\vb m = (\\vb V \\vb \\Sigma \\vb U^T \\vb U \\vb \\Sigma \\vb V^T + \\lambda \\vb I)^{-1} \\vb V \\vb \\Sigma \\vb U^T \\vb d \\]\n\\[ \\vb m = (\\vb V \\mbox{diag}(s_i^2+\\lambda) \\vb V^T)^{-1} \\vb V \\vb \\Sigma \\vb U^T \\vb d \\]\n\\[ \\vb m = \\sum\\limits_i^r \\frac{s_i}{s_i^2+\\lambda} \\vb u_i^T \\vb d \\cdot \\vb v_i = \\sum\\limits_i^r \\frac{s_i^2}{s_i^2+\\lambda} \\frac{\\vb u_i^T \\vb d}{s_i} \\vb v_i = \\sum\\limits_i^r f_i \\frac{\\vb u_i^T \\vb d}{s_i} \\vb v_i \\]\nSmall singular values are damped by filter factors \\(f_i=s_i^2/(s_i^2+\\lambda)\\)",
+    "crumbs": [
+      "Regularization",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Regularization</span>"
+    ]
+  },
+  {
+    "objectID": "05_regularization.html#filter-factors",
+    "href": "05_regularization.html#filter-factors",
+    "title": "5  Regularization",
+    "section": "6.2 Filter factors",
+    "text": "6.2 Filter factors",
+    "crumbs": [
+      "Regularization",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Regularization</span>"
+    ]
+  },
+  {
+    "objectID": "05_regularization.html#inversion-with-damping",
+    "href": "05_regularization.html#inversion-with-damping",
+    "title": "5  Regularization",
+    "section": "6.3 Inversion with damping",
+    "text": "6.3 Inversion with damping",
+    "crumbs": [
+      "Regularization",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Regularization</span>"
+    ]
+  },
+  {
+    "objectID": "05_regularization.html#choosing-lambda-data-and-model-norm",
+    "href": "05_regularization.html#choosing-lambda-data-and-model-norm",
+    "title": "5  Regularization",
+    "section": "6.4 Choosing \\(\\lambda\\): Data and model norm",
+    "text": "6.4 Choosing \\(\\lambda\\): Data and model norm",
+    "crumbs": [
+      "Regularization",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Regularization</span>"
+    ]
+  },
+  {
+    "objectID": "05_regularization.html#the-l-curve-1",
+    "href": "05_regularization.html#the-l-curve-1",
+    "title": "5  Regularization",
+    "section": "6.5 The L-curve",
+    "text": "6.5 The L-curve",
+    "crumbs": [
+      "Regularization",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Regularization</span>"
+    ]
+  },
+  {
+    "objectID": "05_regularization.html#resolution-of-regularized-inverse-problems-1",
+    "href": "05_regularization.html#resolution-of-regularized-inverse-problems-1",
+    "title": "5  Regularization",
+    "section": "6.6 Resolution of regularized inverse problems",
+    "text": "6.6 Resolution of regularized inverse problems\nFor \\(c=0\\) we have \\(\\vb G^\\dagger=(\\vb G^T \\vb G + \\lambda \\vb C^T \\vb C)^{-1} \\vb G^T\\)\n\\[ \\Rightarrow \\vb R^M=\\vb G^\\dagger \\vb G=(\\vb G^T \\vb G + \\lambda \\vb C^T \\vb C)^{-1} \\vb G^T \\vb G \\]\napproaches \\(\\vb I\\) for \\(\\lambda\\rightarrow 0\\) and deviates if \\(\\lambda\\) grows",
+    "crumbs": [
+      "Regularization",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Regularization</span>"
+    ]
+  },
+  {
+    "objectID": "05_regularization.html#resolution-for-damped-normal-equations",
+    "href": "05_regularization.html#resolution-for-damped-normal-equations",
+    "title": "5  Regularization",
+    "section": "6.7 Resolution for damped normal equations",
+    "text": "6.7 Resolution for damped normal equations\n\\[ \\vb R^M = \\vb V \\cdot \\mbox{diag}(f_i) \\cdot \\vb V^T \\]\n\\[ \\vb R^D = \\vb U \\cdot \\mbox{diag}(f_i) \\cdot \\vb U^T \\]\n\n\\(\\Rightarrow\\) like for TSVD with \\(f_i=[1, \\ldots, 1, 0, \\ldots, 0]^T\\)\n\\[ \\vb R^M = \\vb V_p \\vb V_p^T \\quad\\mbox{and}\\quad \\vb R^D = \\vb U_p \\vb U_p^T \\]\n\\[ \\vb R^M-\\vb I = \\vb V_p \\vb V_p^T - \\vb V \\vb V^T = -\\vb V_0 \\vb V_0^T \\]",
+    "crumbs": [
+      "Regularization",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Regularization</span>"
+    ]
+  },
+  {
+    "objectID": "05_regularization.html#inversion-with-smoothness-constraints",
+    "href": "05_regularization.html#inversion-with-smoothness-constraints",
+    "title": "5  Regularization",
+    "section": "6.8 Inversion with smoothness constraints",
+    "text": "6.8 Inversion with smoothness constraints",
+    "crumbs": [
+      "Regularization",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Regularization</span>"
+    ]
+  },
+  {
+    "objectID": "05_regularization.html#smoothness-constraints-data-and-model-norm",
+    "href": "05_regularization.html#smoothness-constraints-data-and-model-norm",
+    "title": "5  Regularization",
+    "section": "6.9 Smoothness constraints: Data and model norm",
+    "text": "6.9 Smoothness constraints: Data and model norm",
+    "crumbs": [
+      "Regularization",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Regularization</span>"
+    ]
+  },
+  {
+    "objectID": "05_regularization.html#smoothness-constraints-the-l-curve",
+    "href": "05_regularization.html#smoothness-constraints-the-l-curve",
+    "title": "5  Regularization",
+    "section": "6.10 Smoothness constraints: The L-curve",
+    "text": "6.10 Smoothness constraints: The L-curve",
+    "crumbs": [
+      "Regularization",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Regularization</span>"
+    ]
+  },
+  {
+    "objectID": "05_regularization.html#resolution-kernels-point-spread-functions",
+    "href": "05_regularization.html#resolution-kernels-point-spread-functions",
+    "title": "5  Regularization",
+    "section": "6.11 Resolution kernels (point spread functions)",
+    "text": "6.11 Resolution kernels (point spread functions)\n\\[ \\Rightarrow \\vb R^M=\\vb G^\\dagger \\vb G=(\\vb G^T \\vb G + \\lambda \\vb C^T \\vb C)^{-1} \\vb G^T \\vb G \\]\nA column represents how a cell anomaly is “spread” (Friedel 2003).\n\n\n\n\n\nIdeal imaging\n\n\n\n\n\n\nContrast deficiency\n\n\n\n\n\n\nGeometrical distortion\n\n\n\n\n\n\nSide lobes",
+    "crumbs": [
+      "Regularization",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Regularization</span>"
+    ]
+  },
+  {
+    "objectID": "05_regularization.html#model-resolution-radius",
+    "href": "05_regularization.html#model-resolution-radius",
+    "title": "5  Regularization",
+    "section": "6.12 Model resolution radius",
+    "text": "6.12 Model resolution radius\n\n\n\n\n\n\nNoteThe diagonal of the resolution matrix\n\n\n\nstates how a single model cell can be retrieved\n\n\n\n\n\n\nHow big needs a sphere to be to integrate a value of 1 (perfect resolution)?\nResolution radius \\[ r = \\frac{r_i}{\\sqrt{\\vb R^M_{ii}}}=\\frac{\\sqrt{A_i/\\pi}}{\\sqrt{\\vb R^M_{ii}}} \\]\n\n\n\n\n\n\nFriedel S. 2003. Resolution, stability and effiency of resistivity tomography estimated from a generalized inverse approach. Geophys. J. Int. 153. 305–16",
+    "crumbs": [
+      "Regularization",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Regularization</span>"
+    ]
+  },
+  {
+    "objectID": "literature.html",
+    "href": "literature.html",
+    "title": "References",
+    "section": "",
+    "text": "Aster R C, Borchers B and Thurber C H. 2005. Parameter Estimation and Inverse Problems (Elsevier Academic Press)\n\n\nCoscia I, Greenhalgh S, Linde N, Doetsch J, Marescot L, Günther T and Green A. 2011. 3D crosshole apparent resistivity static inversion and monitoring of a coupled river-aquifer system. Geophysics. 76. G49–59\n\n\nDentith M and Mudge S T. 2014. Geophysics for the mineral exploration geoscientist (Cambridge University Press)\n\n\nEverett M E. 2013. Near-surface applied geophysics (Cambridge University Press)\n\n\nFriedel S. 2003. Resolution, stability and effiency of resistivity tomography estimated from a generalized inverse approach. Geophys. J. Int. 153. 305–16\n\n\nGubbins D. 2004. Time series analysis and inverse theory for geophysicists (Cambridge Univ. Press)\n\n\nGünther T. 2004. Inversion Methods and Resolution Analysis for the 2D/3D Reconstruction of Resistivity Structures from DC Measurements PhD thesis (University of Mining; Technology Freiberg)\n\n\nGünther T and Martin T. 2016. Spectral two-dimensional inversion of frequency-domain induced polarisation data from a mining slag heap. Journal of Applied Geophysics. 135. 436–48\n\n\nGünther T, Rücker C and Spitzer K. 2006. Three-dimensional modeling and inversion of dc resistivity data incorporating topography - II: inversion. Geophys. J. Int. 166. 506–17\n\n\nHübner R, Günther T, Heller K, Noell U and Kleber A. 2017. Impacts of a capillary barrier on infiltration and subsurface stormflow in layered slope deposits monitored with 3-D ERT and hydrometric measurements. Hydrology and Earth System Sciences. 21. 5181–99\n\n\nHübner R, Heller K, Günther T and Kleber A. 2015. Monitoring hillslope moisture dynamics with surface ERT for enhancing spatial significance of hydrometric point measurements. Hydrology and Earth System Sciences. 19. 225–40 Online: http://www.hydrol-earth-syst-sci.net/19/225/2015/\n\n\nJiang C, Igel J, Dlugosch R, Müller-Petke M, Günther T, Helms J, Lang J and Winsemann J. 2020. Magnetic resonance tomography constrained by ground-penetrating radar for improved hydrogeophysical characterisation. GEOPHYSICS. 1–56\n\n\nMartin T and Günther T. 2013. Complex resistivity tomography (CRT) for fungus detection on standing oak trees. European Journal of Forest Research. 132. 765–76 Online: http://dx.doi.org/10.1007/s10342-013-0711-4\n\n\nMartin T, Günther T, Orozco A F and Dahlin T. 2020. Evaluation of spectral induced polarization field measurements in time and frequency domain. Journal of Applied Geophysics. 180. 104141\n\n\nMeju M A. 1994. Geophysical data analysis: Understanding inverse problem theory and practice (Society of Exploration Geophysicists)\n\n\nMenke W. 1989. Geophysical data analysis: Discrete inverse theory vol 45 (Academic Press Inc.)\n\n\nMenke W. 2012. Geophysical data analysis: Discrete inverse theory (Elsevier)\n\n\nNickschick T, Flechsig C, Mrlina J, Oppermann F, Löbig F and Günther T. 2019. Large-scale electrical resistivity tomography in the Cheb Basin (Eger Rift) at an International Continental Drilling Program (ICDP) monitoring site to image fluid-related structures. Solid Earth. 10. 1951–69 Online: https://www.solid-earth.net/10/1951/2019/\n\n\nNocedal J and Wright S. 2006. Numerical Optimization vol XXII, ed T Mikosch, S Robinson and S Resnick (Springer Verlag) Online: http://www.springer.com/mathematics/book/978-0-387-30303-1\n\n\nRichter M. 2016. Inverse problems: Basics, theory and applications in geophysics (Springer International Publishing)\n\n\nRücker C, Günther T and Wagner F. 2017. pyGIMLi: An open-source library for modelling and inversion in geophysics. Computers & Geosciences. 109. 106–23\n\n\nTarantola A. 1978. Inverse problem theory (Amsterdam: Elsevier)\n\n\nUdphuay S, Günther T, Everett M E, Warden R R and Briaud J-L. 2011. Three—dimensional resistivity tomography in extreme coastal terrain amidst dense cultural signals: Application to cliff stability assessment at the historic D—Day site. Geophys. J. Int. 185. 201–20\n\n\nZhdanov M S. 2002. Geophysical inverse theory and regularization problems (Amsterdam - New York - Tokyo: Elsevier)",
+    "crumbs": [
+      "References"
     ]
   }
 ]

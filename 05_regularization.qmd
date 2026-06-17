@@ -1,8 +1,7 @@
 ---
 title: "Regularization"
 ---
-
-# Regularization
+## Regularization basics
 
 * making under-determined and ill-posed problems unique (regular)
 * make the model less sensible to small changes (noise) in data
@@ -12,7 +11,7 @@ title: "Regularization"
 Of all possible models, choose the simplest! How to define simple?
 :::
 
-## Regularization basics: adding equations
+In total, we are adding equations to the underdetemined system:
 
 $$ \vb G = \mqty(1 & 1 & 0 \\ 0 & 0 & 1) \Rightarrow \tilde{\vb G} $$
 
@@ -28,7 +27,9 @@ $$ \tilde{\vb G} \vb m =\mqty(1 & 1 & 0 \\
                     = \mqty(d_1\\ d_2\\0\\0) $$
 :::
 
-## Minimum norm solution
+There is a couple of different choices
+
+### Minimum norm solution
 
 All model parameters are expected to be (similarly) small
 
@@ -279,26 +280,20 @@ $$ \vb R^M-\vb I = \vb V_p \vb V_p^T - \vb V \vb V^T = -\vb V_0 \vb V_0^T $$
 
 $$ \Rightarrow \vb R^M=\vb G^\dagger \vb G=(\vb G^T \vb G + \lambda \vb C^T \vb C)^{-1} \vb G^T \vb G $$
 
+A column represents how a cell anomaly is "spread" [@Friedel2003].
+
 :::: {.columns}
 ::: {.column}
-A column represents how a cell anomaly is "spread".
-
-- Ideal imaging
-- Contrast deficiency
-- Geometrical distortion
-- Side lobes
+![Ideal imaging](pics/res/friedel1.png)
 :::
 ::: {.column}
-
-![](pics/res/friedel1.png){.fragment width="150%"}
-
-![](pics/res/friedel2.png){.fragment width="150%"}
-
-![](pics/res/friedel3.png){.fragment width="150%"}
-
-![](pics/res/friedel4.png){.fragment width="150%"}
-
-@Friedel2003
+![Contrast deficiency](pics/res/friedel2.png)
+:::
+::: {.column}
+![Geometrical distortion](pics/res/friedel3.png)
+:::
+::: {.column}
+![Side lobes](pics/res/friedel4.png)
 :::
 ::::
 

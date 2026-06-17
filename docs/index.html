@@ -151,24 +151,52 @@ window.MathJax = {
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Linear problems</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./02_linear_problems.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Linear problems</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./03_resolution.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Resolution analysis</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04_svd.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Singular Value Decomposition</span></span></a>
   </div>
 </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Regularization</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_regularization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Regularization</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./literature.html" class="sidebar-item-text sidebar-link">
@@ -231,7 +259,7 @@ window.MathJax = {
 
 <section id="the-course" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="the-course">The course</h2>
-<p>These are the lecture notes for the module <strong>Inverse Problems in Geophysics.</strong>, tailored for Master’s students of Geophysics, Geoinformatics, Applied Geoscience or Mathematics for Data and Resource Sciences at the <a href="https://tu-freiberg.de/geophysik">Institute of Geophysics and Geoinformatics</a>, <a href="https://tu-freiberg.de">TU Bergakademie Freiberg</a>. You can access all the sources on the <a href="https://github.com/TUBAF-EM/Inversion_Geophysics">GitHub repository</a> or <a href="https://github.com/halbmy/InversionGeophysics">the slides</a>.</p>
+<p>These are the lecture notes for the module <strong>Inverse Problems in Geophysics</strong>, tailored for Master’s students of Geophysics, Geoinformatics, Applied Geoscience or Mathematics for Data and Resource Sciences at the <a href="https://tu-freiberg.de/geophysik">Institute of Geophysics and Geoinformatics</a>, <a href="https://tu-freiberg.de">TU Bergakademie Freiberg</a>. You can access all the sources on the <a href="https://github.com/TUBAF-EM/Inversion_Geophysics">GitHub repository</a> or <a href="https://github.com/halbmy/InversionGeophysics">the slides</a>.</p>
 <p>Enjoy studying!</p>
 </section>
 <section id="background" class="level2">
@@ -336,13 +364,13 @@ import pygimli as pg</code></pre>
 <section id="text-books" class="level2">
 <h2 class="anchored" data-anchor-id="text-books">Text books</h2>
 <ul>
-<li><span class="citation" data-cites="Menke2012">Menke (<a href="literature.html#ref-Menke2012" role="doc-biblioref">2012</a>)</span>: <a href="https://www.sciencedirect.com/book/9780128135556/geophysical-data-analysis">Geophysical Data Analysis: Discrete Inverse Theory</a>, Academic</li>
-<li><span class="citation" data-cites="Richter2016">Richter (<a href="literature.html#ref-Richter2016" role="doc-biblioref">2016</a>)</span>: <a href="https://link.springer.com/book/10.1007/978-3-030-59317-9">Inverse Problems: Basics, Theory and Applications in Geophysics</a></li>
-<li><span class="citation" data-cites="Guenther2004">Günther (<a href="literature.html#ref-Guenther2004" role="doc-biblioref">2004</a>)</span>: <a href="http://nbn-resolving.de/urn:nbn:de:swb:105-4152277">Inversion Methods and Resolution Analysis for the 2D/3D Reconstruction of Resistivity Structures from DC Measurements</a>, PhD thesis</li>
-<li><span class="citation" data-cites="Gubbins2004">Gubbins (<a href="literature.html#ref-Gubbins2004" role="doc-biblioref">2004</a>)</span>: Time series analysis and inverse theory for geophysicists (Cambridge Univ. Press)</li>
-<li><span class="citation" data-cites="Tarantola1978">Tarantola (<a href="literature.html#ref-Tarantola1978" role="doc-biblioref">1978</a>)</span>: Inverse problem theory (Amsterdam: Elsevier)</li>
-<li><span class="citation" data-cites="Zhdanov2002">Zhdanov (<a href="literature.html#ref-Zhdanov2002" role="doc-biblioref">2002</a>)</span>: Geophysical inverse theory and regularization problems (Amsterdam - New York - Tokyo: Elsevier)</li>
-<li>see also Reference list <span class="citation" data-cites="refs">(<a href="literature.html#ref-refs" role="doc-biblioref"><strong>refs?</strong></a>)</span></li>
+<li><span class="citation" data-cites="Menke2012">Menke (<a href="#ref-Menke2012" role="doc-biblioref">2012</a>)</span>: <a href="https://www.sciencedirect.com/book/9780128135556/geophysical-data-analysis">Geophysical Data Analysis: Discrete Inverse Theory</a>, Academic</li>
+<li><span class="citation" data-cites="Richter2016">Richter (<a href="#ref-Richter2016" role="doc-biblioref">2016</a>)</span>: <a href="https://link.springer.com/book/10.1007/978-3-030-59317-9">Inverse Problems: Basics, Theory and Applications in Geophysics</a></li>
+<li><span class="citation" data-cites="Guenther2004">Günther (<a href="#ref-Guenther2004" role="doc-biblioref">2004</a>)</span>: <a href="http://nbn-resolving.de/urn:nbn:de:swb:105-4152277">Inversion Methods and Resolution Analysis for the 2D/3D Reconstruction of Resistivity Structures from DC Measurements</a>, PhD thesis</li>
+<li><span class="citation" data-cites="Gubbins2004">Gubbins (<a href="#ref-Gubbins2004" role="doc-biblioref">2004</a>)</span>: Time series analysis and inverse theory for geophysicists (Cambridge Univ. Press)</li>
+<li><span class="citation" data-cites="Tarantola1978">Tarantola (<a href="#ref-Tarantola1978" role="doc-biblioref">1978</a>)</span>: Inverse problem theory (Amsterdam: Elsevier)</li>
+<li><span class="citation" data-cites="Zhdanov2002">Zhdanov (<a href="#ref-Zhdanov2002" role="doc-biblioref">2002</a>)</span>: Geophysical inverse theory and regularization problems (Amsterdam - New York - Tokyo: Elsevier)</li>
+<li>see also <span class="quarto-unresolved-ref">?sec-refs</span></li>
 </ul>
 </section>
 <section id="further-links" class="level2">
@@ -360,7 +388,7 @@ import pygimli as pg</code></pre>
 <p>This material is licensed under the Creative Commons License CC-by 2.0.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-Gubbins2004" class="csl-entry" role="listitem">
 Gubbins D. 2004. <em>Time series analysis and inverse theory for geophysicists</em> (Cambridge Univ. Press)
 </div>

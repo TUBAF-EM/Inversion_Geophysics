@@ -25,7 +25,7 @@ No, because  is usually not invertible, not even quadratic.
 * every row stands for a measurement (data point)
 * every column represents a model parameter
 
-$$\vb d = Gm + n \Rightarrow \vb G\in \mathfrak{R}^{N\times M}$$
+$$\vb d = \vb G \vb m + \vb n \Rightarrow \vb G \in \mathfrak{R}^{N\times M}$$
 :::
 
 * $N$ = $M$: even-determined

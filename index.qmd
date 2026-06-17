@@ -95,7 +95,7 @@ PhD thesis
 * @Gubbins2004: Time series analysis and inverse theory for geophysicists (Cambridge Univ. Press)
 - @Tarantola1978: Inverse problem theory (Amsterdam: Elsevier)
 - @Zhdanov2002: Geophysical inverse theory and regularization problems (Amsterdam - New York - Tokyo: Elsevier)
-- see also Reference list @refs
+- see also [Reference list @sec-refs]
 
 ## Further links
 
