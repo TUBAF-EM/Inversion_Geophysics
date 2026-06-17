@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Thomas Günther (TU Bergakademie Freiberg)">
 
-<title>Inverse Problems in Geophysics</title>
+<title>9&nbsp; A simple model – Inverse Problems in Geophysics</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -23,6 +22,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 /* CSS for citations */
 div.csl-bib-body { }
@@ -53,7 +87,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./01_introduction.html" rel="next">
+<link href="./10_probability.html" rel="next">
+<link href="./08_nonlinear_minimization.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -102,6 +137,35 @@ window.MathJax = {
 };
 </script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -114,7 +178,7 @@ window.MathJax = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">The course</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./08_nonlinear_minimization.html">Non-linear problems</a></li><li class="breadcrumb-item"><a href="./09_simple_model.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">A simple model</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -141,7 +205,7 @@ window.MathJax = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">The course</span></a>
   </div>
 </li>
@@ -226,7 +290,7 @@ window.MathJax = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./09_simple_model.html" class="sidebar-item-text sidebar-link">
+  <a href="./09_simple_model.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">A simple model</span></span></a>
   </div>
 </li>
@@ -254,40 +318,24 @@ window.MathJax = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#the-course" id="toc-the-course" class="nav-link active" data-scroll-target="#the-course">The course</a></li>
-  <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background">Background</a></li>
-  <li><a href="#code" id="toc-code" class="nav-link" data-scroll-target="#code">Code</a></li>
-  <li><a href="#self-study" id="toc-self-study" class="nav-link" data-scroll-target="#self-study">Self study</a></li>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a>
-  <ul class="collapse">
-  <li><a href="#subject-and-objectives" id="toc-subject-and-objectives" class="nav-link" data-scroll-target="#subject-and-objectives">Subject and Objectives</a></li>
-  <li><a href="#content" id="toc-content" class="nav-link" data-scroll-target="#content">Content</a></li>
-  <li><a href="#what-should-you-know-already" id="toc-what-should-you-know-already" class="nav-link" data-scroll-target="#what-should-you-know-already">What should you know already?</a></li>
-  <li><a href="#text-books" id="toc-text-books" class="nav-link" data-scroll-target="#text-books">Text books</a></li>
-  <li><a href="#further-links" id="toc-further-links" class="nav-link" data-scroll-target="#further-links">Further links</a></li>
-  <li><a href="#license" id="toc-license" class="nav-link" data-scroll-target="#license">License</a></li>
-  </ul></li>
+  <li><a href="#regularization-effect" id="toc-regularization-effect" class="nav-link active" data-scroll-target="#regularization-effect"><span class="header-section-number">9.1</span> Regularization effect</a></li>
+  <li><a href="#smoothness" id="toc-smoothness" class="nav-link" data-scroll-target="#smoothness"><span class="header-section-number">9.2</span> Smoothness</a></li>
+  <li><a href="#a-priori-information" id="toc-a-priori-information" class="nav-link" data-scroll-target="#a-priori-information"><span class="header-section-number">9.3</span> A-priori information</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./08_nonlinear_minimization.html">Non-linear problems</a></li><li class="breadcrumb-item"><a href="./09_simple_model.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">A simple model</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Inverse Problems in Geophysics</h1>
+<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">A simple model</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Thomas Günther (TU Bergakademie Freiberg) </p>
-          </div>
-  </div>
     
   
     
@@ -298,158 +346,182 @@ window.MathJax = {
 </header>
 
 
-<section id="the-course" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="the-course">The course</h2>
-<p>These are the lecture notes for the module <strong>Inverse Problems in Geophysics</strong>, tailored for Master’s students of Geophysics, Geoinformatics, Applied Geoscience or Mathematics for Data and Resource Sciences at the <a href="https://tu-freiberg.de/geophysik">Institute of Geophysics and Geoinformatics</a>, <a href="https://tu-freiberg.de">TU Bergakademie Freiberg</a>. You can access all the sources on the <a href="https://github.com/TUBAF-EM/Inversion_Geophysics">GitHub repository</a> or <a href="https://github.com/halbmy/InversionGeophysics">the slides</a>.</p>
-<p>Enjoy studying!</p>
-</section>
-<section id="background" class="level2">
-<h2 class="anchored" data-anchor-id="background">Background</h2>
-<p>This course was already existing in the early 2000s when I did my PhD that was a lot about inversion and regularization, back then with exercises in Matlab. In 2020, I held this course using <a href="https://julialang.org">Julia</a> as programming language. After starting as professor, I mainly transferred the slides from LaTeX to Quarto and switched back from Julia to Python in 2026. As the course is again slightly adapted, the content of the slides is step by step moving into the script and enriched by the Notebooks shown in the lectures. Any feedback (mistakes, ideas, missing content) is highly welcome!</p>
-</section>
-<section id="code" class="level2">
-<h2 class="anchored" data-anchor-id="code">Code</h2>
-<p>The website’s course material includes sections with embedded Python code. You can easily copy the code and execute it in a compatible Python runtime environment. For an optimal experience, we recommend installing Python via <a href="https://github.com/conda-forge/miniforge"><em>miniforge</em></a>. You mainly need the numerical base library <a href="https://numpy.org">NumPy</a> for doing the computations, and <a href="https://matplotlib.org">Matplotlib</a> for visualization purposes. For higher-dimensional problems, we use the <a href="https://pygimli.org">pyGIMLi</a> package to generate meshes and matrices, but stay with its core and equation levels for didactic reasons. In the following code snippets, we assume the following imports</p>
-<pre><code>import numpy as np
-import matplotlib.pyplot as plt
-import pygimli as pg</code></pre>
-<p>Moreover, you have the freedom to explore your own concepts and delve deeper into the course content by creating your personalized Jupyter notebooks. You can utilize use either <a href="https://code.visualstudio.com/">Visual Studio Code</a> or <a href="https://jupyter.org">Jupyterlab</a> Working with Jupyter Notebooks in Visual Studio Code is <a href="https://code.visualstudio.com/docs/datascience/jupyter-notebooks">exceptionally straightforward</a>.</p>
-<p>The material was created by <a href="https://quarto.org">Quarto</a>.</p>
-</section>
-<section id="self-study" class="level2">
-<h2 class="anchored" data-anchor-id="self-study">Self study</h2>
-<p>There are individual small tasks for self-study that are scattered throughout the lecture.</p>
-<div class="callout callout-style-simple callout-none no-icon callout-titled" title="Self study">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
+<p>Let us consider the forward response<span class="citation" data-cites="Menke2012">(after <a href="#ref-Menke2012" role="doc-biblioref">Menke 2012</a>)</span> <span class="math display">\[f(m)= \sin(\omega m_1 x_i) + m_1 m_2\]</span> a nonlinear function in both model parameters <span class="math inline">\(m_1\)</span> and <span class="math inline">\(m_2\)</span>.</p>
+<div id="04c28dff" class="cell" data-execution_count="3">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="fl">1.001</span>, <span class="fl">0.05</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>omega <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>forward <span class="op">=</span> <span class="kw">lambda</span> m: np.sin(omega <span class="op">*</span> x <span class="op">*</span> m[<span class="dv">0</span>]) <span class="op">+</span> m[<span class="dv">0</span>] <span class="op">*</span> m[<span class="dv">1</span>]</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>mSynth <span class="op">=</span> [<span class="fl">1.25</span>, <span class="fl">1.25</span>]</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> forward(mSynth)<span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>data <span class="op">+=</span> np.random.randn(<span class="bu">len</span>(data))<span class="op">*</span><span class="fl">0.1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 </div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">None</span>Self study
+<p>We create a function for showing the objective function for a range of values</p>
+<div id="d705ed09" class="cell" data-execution_count="4">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> showPhi(Phi, mrange, clim<span class="op">=</span><span class="va">None</span>, ax<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> ax <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>))</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> clim <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        clim <span class="op">=</span> [np.<span class="bu">min</span>(Phi), np.percentile(Phi, <span class="dv">95</span>)]</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    ext <span class="op">=</span> [mrange[<span class="dv">0</span>], mrange[<span class="op">-</span><span class="dv">1</span>], mrange[<span class="op">-</span><span class="dv">1</span>], mrange[<span class="dv">0</span>]]</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    im <span class="op">=</span> ax.matshow(Phi.T, extent<span class="op">=</span>ext, vmin<span class="op">=</span>clim[<span class="dv">0</span>], vmax<span class="op">=</span>clim[<span class="dv">1</span>], cmap<span class="op">=</span><span class="st">"Spectral_r"</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="st">"m1"</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    ax.set_ylabel(<span class="st">"m2"</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    ax.invert_yaxis()</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># fig.colorbar(im);</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ax</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 </div>
-</div>
-<div class="callout-body-container callout-body">
-<p>You can easily identify these callouts.</p>
-</div>
-</div>
-</section>
-<section id="introduction" class="level1">
-<h1>Introduction</h1>
-<ul>
-<li>Content and dates</li>
-<li>Literature and Links</li>
-<li>definition of data and model</li>
-<li>error and noise</li>
-<li>linear vs.&nbsp;non-linear</li>
-<li>linear inversion: simple matrix problem</li>
-</ul>
-<section id="subject-and-objectives" class="level2">
-<h2 class="anchored" data-anchor-id="subject-and-objectives">Subject and Objectives</h2>
-<div class="callout callout-style-default callout-important callout-titled" title="Inversion (main task in applied geophysics)">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Inversion (main task in applied geophysics)
+<p>We choose a range for values of the two and compute the data objective function</p>
+<div id="ba85c1e3" class="cell" data-execution_count="5">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>mrange <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="fl">2.001</span>, <span class="fl">0.01</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>PhiD <span class="op">=</span> np.zeros([<span class="bu">len</span>(mrange), <span class="bu">len</span>(mrange)])</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, m1 <span class="kw">in</span> <span class="bu">enumerate</span>(mrange):</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j, m2 <span class="kw">in</span> <span class="bu">enumerate</span>(mrange):</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        PhiD[i, j] <span class="op">=</span> <span class="bu">sum</span>((data<span class="op">-</span>forward([m1, m2]))<span class="op">**</span><span class="dv">2</span>) <span class="co"># + 1 * (m1-m2)**2</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>showPhi(PhiD, mrange)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="09_simple_model_files/figure-html/cell-5-output-1.png" width="430" height="435" class="figure-img"></p>
+</figure>
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<p>Determine a <strong>model</strong> describing the subsurface that can <strong>explain our data</strong>!</p>
 </div>
-</div>
-<div class="fragment callout callout-style-default callout-note callout-titled" title="Aim of the lecture">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Aim of the lecture
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>understand the process of imaging/inversion</li>
-<li>solve inverse problems by simple scripts</li>
-<li>actively control the inversion process</li>
-<li>use tools to get a feeling for the value of models</li>
-</ul>
-</div>
+<section id="regularization-effect" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="regularization-effect"><span class="header-section-number">9.1</span> Regularization effect</h2>
+<p><span class="math display">\[\Phi = \Phi_d + \lambda\Phi_m\]</span></p>
+<p><span class="math inline">\(\Phi_m\)</span>: difference from reference model or smoothness</p>
+<p>How does this regularization affect convergence?</p>
+<p><span class="math inline">\(\Rightarrow\)</span> impact of regularization terms on objective function</p>
+<p>We create another function that can show several objective functions with the same scaling</p>
+<div id="edf4aa3e" class="cell" data-execution_count="6">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> showNPhi(Phis, mrange, clim<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    fig, ax <span class="op">=</span> plt.subplots(ncols<span class="op">=</span><span class="bu">len</span>(Phis), sharex<span class="op">=</span><span class="va">True</span>, sharey<span class="op">=</span><span class="va">True</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">3</span>))</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> clim <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        clim <span class="op">=</span> [np.<span class="bu">min</span>(Phis[<span class="dv">0</span>]), np.percentile(Phis[<span class="dv">0</span>], <span class="dv">95</span>)]</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    ext <span class="op">=</span> [mrange[<span class="dv">0</span>], mrange[<span class="op">-</span><span class="dv">1</span>], mrange[<span class="op">-</span><span class="dv">1</span>], mrange[<span class="dv">0</span>]]</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, Phi <span class="kw">in</span> <span class="bu">enumerate</span>(Phis):</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        showPhi(Phi, mrange, clim<span class="op">=</span>clim, ax<span class="op">=</span>ax[i])</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ax</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 </div>
 </section>
-<section id="content" class="level2">
-<h2 class="anchored" data-anchor-id="content">Content</h2>
-<ol start="0" type="1">
-<li>Introduction, data, models</li>
-<li>Simple matrix problems, linear regression</li>
-<li>Method of least squares</li>
-<li>Resolution and Singular Value Decomposition</li>
-<li>Regularization methods</li>
-<li>Ray tomography</li>
-<li>Non-linear minimization</li>
-<li>Time-lapse inversion</li>
-<li>Global optimization methods</li>
-</ol>
+<section id="smoothness" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="smoothness"><span class="header-section-number">9.2</span> Smoothness</h2>
+<div id="555286d7" class="cell" data-execution_count="7">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>M1, M2 <span class="op">=</span> np.meshgrid(mrange, mrange)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>PhiM <span class="op">=</span> (M1<span class="op">-</span>M2)<span class="op">**</span><span class="dv">2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="d691cfc0" class="cell" data-execution_count="8">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> lam <span class="kw">in</span> [<span class="dv">30</span>, <span class="dv">100</span>, <span class="dv">300</span>, <span class="dv">1000</span>]:</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> showNPhi([PhiD, lam<span class="op">*</span>PhiM, PhiD<span class="op">+</span>lam<span class="op">*</span>PhiM], mrange)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> a <span class="kw">in</span> ax: a.plot(<span class="fl">1.25</span>, <span class="fl">1.25</span>, <span class="st">"wo"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">0</span>].figure.suptitle(<span class="vs">rf"</span><span class="dv">$</span><span class="er">\</span><span class="vs">lambda</span><span class="dv">$</span><span class="vs">=</span><span class="sc">{</span>lam<span class="sc">}</span><span class="vs">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="09_simple_model_files/figure-html/cell-8-output-1.png" width="655" height="270" class="figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="09_simple_model_files/figure-html/cell-8-output-2.png" width="655" height="270" class="figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="09_simple_model_files/figure-html/cell-8-output-3.png" width="655" height="270" class="figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="09_simple_model_files/figure-html/cell-8-output-4.png" width="655" height="270" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
-<section id="what-should-you-know-already" class="level2">
-<h2 class="anchored" data-anchor-id="what-should-you-know-already">What should you know already?</h2>
-<ul>
-<li>Higher mathematics: differential equations, algebra (1.-2. BGIP)</li>
-<li>Experimental and theoretical physics: governing equations</li>
-<li>Numerics for engineers (2. BGIP)</li>
-<li>Programming (1. BGIP), Software development (3. BGIP)</li>
-<li>Geophysics: feeling for physical fields &amp; methods (2.-4. BGIP)</li>
-<li>MSc level: Scientific programming, HPC, seismic imaging</li>
-</ul>
-</section>
-<section id="text-books" class="level2">
-<h2 class="anchored" data-anchor-id="text-books">Text books</h2>
-<ul>
-<li><span class="citation" data-cites="Menke2012">Menke (<a href="#ref-Menke2012" role="doc-biblioref">2012</a>)</span>: <a href="https://www.sciencedirect.com/book/9780128135556/geophysical-data-analysis">Geophysical Data Analysis: Discrete Inverse Theory</a>, Academic</li>
-<li><span class="citation" data-cites="Richter2016">Richter (<a href="#ref-Richter2016" role="doc-biblioref">2016</a>)</span>: <a href="https://link.springer.com/book/10.1007/978-3-030-59317-9">Inverse Problems: Basics, Theory and Applications in Geophysics</a></li>
-<li><span class="citation" data-cites="Guenther2004">Günther (<a href="#ref-Guenther2004" role="doc-biblioref">2004</a>)</span>: <a href="http://nbn-resolving.de/urn:nbn:de:swb:105-4152277">Inversion Methods and Resolution Analysis for the 2D/3D Reconstruction of Resistivity Structures from DC Measurements</a>, PhD thesis</li>
-<li><span class="citation" data-cites="Gubbins2004">Gubbins (<a href="#ref-Gubbins2004" role="doc-biblioref">2004</a>)</span>: Time series analysis and inverse theory for geophysicists (Cambridge Univ. Press)</li>
-<li><span class="citation" data-cites="Tarantola1978">Tarantola (<a href="#ref-Tarantola1978" role="doc-biblioref">1978</a>)</span>: Inverse problem theory (Amsterdam: Elsevier)</li>
-<li><span class="citation" data-cites="Zhdanov2002">Zhdanov (<a href="#ref-Zhdanov2002" role="doc-biblioref">2002</a>)</span>: Geophysical inverse theory and regularization problems (Amsterdam - New York - Tokyo: Elsevier)</li>
-<li>see also <a href="literature.html" class="quarto-xref">Reference list&nbsp;<span>11&nbsp; References</span></a></li>
-</ul>
-</section>
-<section id="further-links" class="level2">
-<h2 class="anchored" data-anchor-id="further-links">Further links</h2>
-<ul>
-<li>pyGIMLi: Python Geophysical Inversion and Modelling Library <a href="https://pygimli.org" class="uri">https://pygimli.org</a></li>
-<li>Geoscience.XYZ: <a href="https://geosci.xyz" class="uri">https://geosci.xyz</a></li>
-<li><a href="https://github.com/halbmy/IJulia" class="uri">https://github.com/halbmy/IJulia</a> - Julia Notebooks for Inverse Problems</li>
-<li><a href="https://tubaf-em.github.io/Geoelektrik_Elektromagnetik/">Electromagnetics &amp; Geoelectrics</a> (5. BGIP, in German)</li>
-<li><a href="https://ruboerner.github.io/ThEM/">Theory of Electromagnetic Methods</a>,</li>
-</ul>
-</section>
-<section id="license" class="level2">
-<h2 class="anchored" data-anchor-id="license">License</h2>
-<p>This material is licensed under the Creative Commons License CC-by 2.0.</p>
+<section id="a-priori-information" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="a-priori-information"><span class="header-section-number">9.3</span> A-priori information</h2>
+<div id="31e02722" class="cell" data-execution_count="9">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>PhiM <span class="op">=</span> np.sqrt((M1<span class="op">-</span><span class="fl">1.25</span>)<span class="op">**</span><span class="dv">2</span><span class="op">+</span>(M2<span class="op">-</span><span class="fl">1.25</span>)<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> lam <span class="kw">in</span> [<span class="dv">30</span>, <span class="dv">100</span>]:</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> showNPhi([PhiD, lam<span class="op">*</span>PhiM, PhiD<span class="op">+</span>lam<span class="op">*</span>PhiM], mrange)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> a <span class="kw">in</span> ax: a.plot(<span class="fl">1.25</span>, <span class="fl">1.25</span>, <span class="st">"wo"</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">0</span>].figure.suptitle(<span class="vs">rf"</span><span class="dv">$</span><span class="er">\</span><span class="vs">lambda</span><span class="dv">$</span><span class="vs">=</span><span class="sc">{</span>lam<span class="sc">}</span><span class="vs">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="09_simple_model_files/figure-html/cell-9-output-1.png" width="655" height="270" class="figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="09_simple_model_files/figure-html/cell-9-output-2.png" width="655" height="270" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We now choose a wrong reference model</p>
+<div id="2fe19e5c" class="cell" data-execution_count="10">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>PhiM <span class="op">=</span> np.sqrt((M1<span class="op">-</span><span class="dv">1</span>)<span class="op">**</span><span class="dv">2</span><span class="op">+</span>(M2<span class="op">-</span><span class="dv">1</span>)<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> lam <span class="kw">in</span> [<span class="dv">100</span>, <span class="dv">30</span>]:</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> showNPhi([PhiD, lam<span class="op">*</span>PhiM, PhiD<span class="op">+</span>lam<span class="op">*</span>PhiM], mrange)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> a <span class="kw">in</span> ax: a.plot(<span class="fl">1.25</span>, <span class="fl">1.25</span>, <span class="st">"wo"</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">0</span>].figure.suptitle(<span class="vs">rf"</span><span class="dv">$</span><span class="er">\</span><span class="vs">lambda</span><span class="dv">$</span><span class="vs">=</span><span class="sc">{</span>lam<span class="sc">}</span><span class="vs">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="09_simple_model_files/figure-html/cell-10-output-1.png" width="655" height="270" class="figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="09_simple_model_files/figure-html/cell-10-output-2.png" width="655" height="270" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list">
-<div id="ref-Gubbins2004" class="csl-entry" role="listitem">
-Gubbins D. 2004. <em>Time series analysis and inverse theory for geophysicists</em> (Cambridge Univ. Press)
-</div>
-<div id="ref-Guenther2004" class="csl-entry" role="listitem">
-Günther T. 2004. <em><span>I</span>nversion <span>M</span>ethods and <span>R</span>esolution <span>A</span>nalysis for the 2<span>D</span>/3<span>D</span> <span>R</span>econstruction of <span>R</span>esistivity <span>S</span>tructures from <span>DC</span> <span>M</span>easurements</em> PhD thesis (University of Mining; Technology Freiberg)
-</div>
 <div id="ref-Menke2012" class="csl-entry" role="listitem">
 Menke W. 2012. <em><a href="https://doi.org/10.1016/B978-0-12-397160-9.00001-1">Geophysical data analysis: Discrete inverse theory</a></em> (Elsevier)
 </div>
-<div id="ref-Richter2016" class="csl-entry" role="listitem">
-Richter M. 2016. <em><a href="https://doi.org/10.1007/978-3-319-48384-9">Inverse problems: Basics, theory and applications in geophysics</a></em> (Springer International Publishing)
 </div>
-<div id="ref-Tarantola1978" class="csl-entry" role="listitem">
-Tarantola A. 1978. <em>Inverse problem theory</em> (Amsterdam: Elsevier)
-</div>
-<div id="ref-Zhdanov2002" class="csl-entry" role="listitem">
-Zhdanov M S. 2002. <em>Geophysical inverse theory and regularization problems</em> (Amsterdam - New York - Tokyo: Elsevier)
-</div>
-</div>
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -855,10 +927,13 @@ Zhdanov M S. 2002. <em>Geophysical inverse theory and regularization problems</e
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./08_nonlinear_minimization.html" class="pagination-link" aria-label="Non-linear minimization">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Non-linear minimization</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./01_introduction.html" class="pagination-link" aria-label="Introduction">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./10_probability.html" class="pagination-link" aria-label="Probability &amp; Likelihood">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Probability &amp; Likelihood</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

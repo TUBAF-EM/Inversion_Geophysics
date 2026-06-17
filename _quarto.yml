@@ -27,9 +27,11 @@ book:
         - 05_regularization.qmd
         - 06_traveltime_tomography.qmd
         - 07_enhanced_regularization.qmd
-    # - part: "Non-linear problems"
-      # chapters:
-        # - probability.qmd
+    - part: "Non-linear problems"
+      chapters:
+        - 08_nonlinear_minimization.qmd
+        - 09_simple_model.qmd
+        - 10_probability.qmd
     - literature.qmd
 bibliography: inv.bib
 csl: harvard.csl

@@ -74,7 +74,7 @@
     "href": "index.html#text-books",
     "title": "Inverse Problems in Geophysics",
     "section": "Text books",
-    "text": "Text books\n\nMenke (2012): Geophysical Data Analysis: Discrete Inverse Theory, Academic\nRichter (2016): Inverse Problems: Basics, Theory and Applications in Geophysics\nGünther (2004): Inversion Methods and Resolution Analysis for the 2D/3D Reconstruction of Resistivity Structures from DC Measurements, PhD thesis\nGubbins (2004): Time series analysis and inverse theory for geophysicists (Cambridge Univ. Press)\nTarantola (1978): Inverse problem theory (Amsterdam: Elsevier)\nZhdanov (2002): Geophysical inverse theory and regularization problems (Amsterdam - New York - Tokyo: Elsevier)\nsee also Reference list 8  References",
+    "text": "Text books\n\nMenke (2012): Geophysical Data Analysis: Discrete Inverse Theory, Academic\nRichter (2016): Inverse Problems: Basics, Theory and Applications in Geophysics\nGünther (2004): Inversion Methods and Resolution Analysis for the 2D/3D Reconstruction of Resistivity Structures from DC Measurements, PhD thesis\nGubbins (2004): Time series analysis and inverse theory for geophysicists (Cambridge Univ. Press)\nTarantola (1978): Inverse problem theory (Amsterdam: Elsevier)\nZhdanov (2002): Geophysical inverse theory and regularization problems (Amsterdam - New York - Tokyo: Elsevier)\nsee also Reference list 11  References",
     "crumbs": [
       "The course"
     ]
@@ -821,13 +821,530 @@
     ]
   },
   {
+    "objectID": "08_nonlinear_minimization.html",
+    "href": "08_nonlinear_minimization.html",
+    "title": "8  Non-linear minimization",
+    "section": "",
+    "text": "8.1 Comparison straight vs. curved rays\nUp to now: \\(\\vb f(\\vb m)=\\vb G \\vb m\\) (with constant \\(\\vb G\\))\nNow: either there is no \\(\\vb G\\) or \\(\\vb G\\) depends on \\(\\vb m\\)\nExample: traveltime tomography with curved rays",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Non-linear minimization</span>"
+    ]
+  },
+  {
+    "objectID": "08_nonlinear_minimization.html#linearization-of-non-linears",
+    "href": "08_nonlinear_minimization.html#linearization-of-non-linears",
+    "title": "8  Non-linear minimization",
+    "section": "8.2 Linearization of non-linears",
+    "text": "8.2 Linearization of non-linears\nNon-linear problem \\(y=y_0 e^{\\beta x}\\) with \\(\\vb m=(y_0, \\beta)^T\\)\nData transformation: \\(\\hat y = \\log y=\\log y_0 + \\beta x\\)\n\\(\\Rightarrow\\) Application of linear inverse theory\nLogarithmic model transform (positivity constraint)\n\\(\\hat m_i = \\log m_i\\) \\(\\Rightarrow\\) non-linear problem for \\(\\hat{\\vb m}\\) even if linear for \\(\\vb m\\)",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Non-linear minimization</span>"
+    ]
+  },
+  {
+    "objectID": "08_nonlinear_minimization.html#linearization-using-taylor-series",
+    "href": "08_nonlinear_minimization.html#linearization-using-taylor-series",
+    "title": "8  Non-linear minimization",
+    "section": "8.3 Linearization using Taylor series",
+    "text": "8.3 Linearization using Taylor series\nOne-dimensional function \\(f(x)\\) of single parameter \\(x\\):\n\\[ f(x) = f(x_0) + f'(x_0) \\cdot (x-x_0) + f''(x_0)/2 \\cdot (x-x_0)^2 + \\ldots \\]\nMulti-dimensional function of model parameters \\(m_1, m_2, ...\\):\n\\[ f(\\vb m) = f(\\vb m_0 + \\Delta \\vb m) \\approx f(\\vb m_0) + \\sum\\limits_i^M \\pdv{f(\\vb m_0)}{m_j} \\Delta m_j \\]\n\\[ \\vb f(\\vb m_0 + \\Delta \\vb m ) = \\vb f(\\vb m_0) + \\sum\\limits_i^M \\pdv{\\vb f(\\vb m_0)}{m_j} \\Delta m_j = \\vb S \\Delta\\vb m  \\]",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Non-linear minimization</span>"
+    ]
+  },
+  {
+    "objectID": "08_nonlinear_minimization.html#linearization",
+    "href": "08_nonlinear_minimization.html#linearization",
+    "title": "8  Non-linear minimization",
+    "section": "8.4 Linearization",
+    "text": "8.4 Linearization\n\\[ \\vb f(\\vb m_0 + \\Delta \\vb m ) = \\vb f(\\vb m_0) + \\sum\\limits_i^M \\pdv{\\vb f(\\vb m_0)}{m_j} \\Delta m_j = \\vb f(\\vb m_0) + \\vb S \\Delta\\vb m \\]\nWe hope the change in the model fits our data: \\(\\vb f(\\vb m_0 + \\Delta \\vb m ) \\approx \\vb d\\)\nThis leads to a linearized problem\n\\[\\vb S \\Delta \\vb m = \\vb d - \\vb f(\\vb m_0) = \\Delta \\vb d\\]\n\\(\\vb S(\\vb m_0)\\): sensitivity matrix of partial derivatives \\(S_{ij} = \\pdv{f_i(\\vb m_0)}{m_j}\\)",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Non-linear minimization</span>"
+    ]
+  },
+  {
+    "objectID": "08_nonlinear_minimization.html#computation-of-the-sensitivity-jacobian",
+    "href": "08_nonlinear_minimization.html#computation-of-the-sensitivity-jacobian",
+    "title": "8  Non-linear minimization",
+    "section": "8.5 Computation of the sensitivity (Jacobian)",
+    "text": "8.5 Computation of the sensitivity (Jacobian)\n\nanalytically (derivation of the forward operator)\ntransforming the PDE and its numerical solution\nperturbation method (brute force)\n\n\\[ \\pdv{f_i(\\vb m)}{m_j} \\approx \\frac{f_i(\\vb m+\\delta_j \\Delta m) - f_i(\\vb m)}{\\Delta m} \\]",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Non-linear minimization</span>"
+    ]
+  },
+  {
+    "objectID": "08_nonlinear_minimization.html#iterative-solution-of-non-linear-problems",
+    "href": "08_nonlinear_minimization.html#iterative-solution-of-non-linear-problems",
+    "title": "8  Non-linear minimization",
+    "section": "8.6 Iterative solution of non-linear problems",
+    "text": "8.6 Iterative solution of non-linear problems\nStarting with a model \\(\\vb m_0\\), we iteratively (\\(n=0,1,\\ldots\\)) improve the model by\n\\[ \\vb m^{n+1} = \\vb m^n + \\Delta \\vb m^n \\]\nby solving the linear sub-problem\n\\[ \\vb S^n \\Delta \\vb m^n = \\Delta \\vb d^n = \\vb d - \\vb f(\\vb m^n) \\]",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Non-linear minimization</span>"
+    ]
+  },
+  {
+    "objectID": "08_nonlinear_minimization.html#the-objective-function",
+    "href": "08_nonlinear_minimization.html#the-objective-function",
+    "title": "8  Non-linear minimization",
+    "section": "8.7 The objective function",
+    "text": "8.7 The objective function\n\\[ \\Phi_d = \\| \\vb d - \\vb f(\\vb m) \\|^2 = (\\vb d - \\vb f(\\vb m))^T \\cdot (\\vb d - \\vb f(\\vb m)) \\]\nTopography of \\(\\Phi_d\\) determines non-linearity (s. Notebook on VES)",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Non-linear minimization</span>"
+    ]
+  },
+  {
+    "objectID": "08_nonlinear_minimization.html#objective-function-for-linear-problems",
+    "href": "08_nonlinear_minimization.html#objective-function-for-linear-problems",
+    "title": "8  Non-linear minimization",
+    "section": "8.8 Objective function for linear problems",
+    "text": "8.8 Objective function for linear problems\n\n\n\\[ \\Phi_d = (\\vb d - \\vb G \\vb m)^T (\\vb d - \\vb G \\vb m) = \\] \\[ (\\vb d^T -  \\vb m^T\\vb G^T) (\\vb d - \\vb G \\vb m) = \\] \\[ \\vb d^T \\vb d + \\vb m^T \\vb G^T \\vb G \\vb m - 2 \\vb d^T \\vb G\\vb m \\]\n\\(\\Rightarrow\\) a parabola for all \\(m_i\\)\n\n\n\n\nMenke (2012)",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Non-linear minimization</span>"
+    ]
+  },
+  {
+    "objectID": "08_nonlinear_minimization.html#example-linear-regression",
+    "href": "08_nonlinear_minimization.html#example-linear-regression",
+    "title": "8  Non-linear minimization",
+    "section": "8.9 Example: linear regression",
+    "text": "8.9 Example: linear regression\n\n\n\\(y = a x + b\\) (\\(a\\)=0.5, \\(b\\)=-1)",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Non-linear minimization</span>"
+    ]
+  },
+  {
+    "objectID": "08_nonlinear_minimization.html#misfit-for-non-linear-problems-menke-2012",
+    "href": "08_nonlinear_minimization.html#misfit-for-non-linear-problems-menke-2012",
+    "title": "8  Non-linear minimization",
+    "section": "8.10 Misfit for non-linear problems (Menke, 2012)",
+    "text": "8.10 Misfit for non-linear problems (Menke, 2012)\n\n\n\n\nA single minimum B multiple minima C periodics D broad range E flat valley F separated valleys",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Non-linear minimization</span>"
+    ]
+  },
+  {
+    "objectID": "08_nonlinear_minimization.html#linearization-menke-2012",
+    "href": "08_nonlinear_minimization.html#linearization-menke-2012",
+    "title": "8  Non-linear minimization",
+    "section": "8.11 Linearization (Menke, 2012)",
+    "text": "8.11 Linearization (Menke, 2012)",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Non-linear minimization</span>"
+    ]
+  },
+  {
+    "objectID": "08_nonlinear_minimization.html#line-search-for-strong-non-linearity",
+    "href": "08_nonlinear_minimization.html#line-search-for-strong-non-linearity",
+    "title": "8  Non-linear minimization",
+    "section": "8.12 Line search for strong non-linearity",
+    "text": "8.12 Line search for strong non-linearity\nThe Taylor approximation might change along \\(\\Delta\\vb m\\), so we optimize the step length\n\\[ \\vb m^{n+1} = \\vb m^n + \\tau^n \\Delta \\vb m^n \\]",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Non-linear minimization</span>"
+    ]
+  },
+  {
+    "objectID": "08_nonlinear_minimization.html#newtons-method-1",
+    "href": "08_nonlinear_minimization.html#newtons-method-1",
+    "title": "8  Non-linear minimization",
+    "section": "9.1 Newtons method",
+    "text": "9.1 Newtons method\n\\[ \\ldots \\sum\\limits_i^M b_i (m_i-m_i^0) + \\frac12 \\sum\\limits_i^M \\sum\\limits_j^M B_{ij} (m_i-m_i^0) (m_j-m_j^0) \\]\nMinimum: derivative zero\n\\(\\pdv{Phi_d}{m_k}=0=b_k + \\sum\\limits_j B_{kj}(m_k-m_k^0) \\Rightarrow \\vb m - \\vb m^0=-\\vb B^{-1} \\vb b\\)",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Non-linear minimization</span>"
+    ]
+  },
+  {
+    "objectID": "08_nonlinear_minimization.html#newtons-method-for-linear-problems",
+    "href": "08_nonlinear_minimization.html#newtons-method-for-linear-problems",
+    "title": "8  Non-linear minimization",
+    "section": "9.2 Newtons method for linear problems",
+    "text": "9.2 Newtons method for linear problems\n\\[\\Phi_d=(\\vb d - \\vb G \\vb m)^T (\\vb d - \\vb G \\vb m)\\]\n\\[b_i=\\pdv{\\Phi_d}{m_i}=-2\\vb G^T(\\vb d - \\vb G \\vb m)\\]\n\\[B_{ij}=\\pdv{\\Phi_d}{m_i}{m_j}=2\\vb G^T\\vb G\\]\n\\(\\Rightarrow \\vb m = -\\vb B^{-1} \\vb b = (\\vb G^T\\vb G)^{-1} \\vb G^T \\vb d\\) (least-squares solution)",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Non-linear minimization</span>"
+    ]
+  },
+  {
+    "objectID": "08_nonlinear_minimization.html#newtons-method-for-non-linear-problems",
+    "href": "08_nonlinear_minimization.html#newtons-method-for-non-linear-problems",
+    "title": "8  Non-linear minimization",
+    "section": "9.3 Newtons method for non-linear problems",
+    "text": "9.3 Newtons method for non-linear problems\n\\[\\Phi_d=(\\vb d - \\vb f(\\vb m))^T (\\vb d - \\vb f(\\vb m))\\]\n\\[b_i=\\pdv{\\Phi_d}{m_i}=-2\\vb S^T(\\vb d - \\vb f(\\vb m)) \\quad\\mbox{with}\\quad S_{ij}=\\pdv{f_i(\\vb m^0)}{m_j}\\]\n\\[B_{ij} = \\pdv{\\Phi_d}{m_i}{m_j} = \\pdv{b_i}{m_j} \\approx 2\\vb S^T\\vb S\\]\n\\(\\Rightarrow \\vb m - \\vb m^0 = -\\vb B^{-1} \\vb b = (\\vb S^T\\vb S)^{-1} \\vb S^T (\\vb d - \\vb f(\\vb m))\\)\n\\(\\Rightarrow\\) least-squares solution for \\(\\Delta\\vb m\\)/\\(\\Delta\\vb d\\)",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Non-linear minimization</span>"
+    ]
+  },
+  {
+    "objectID": "08_nonlinear_minimization.html#linearization-menke-2012-1",
+    "href": "08_nonlinear_minimization.html#linearization-menke-2012-1",
+    "title": "8  Non-linear minimization",
+    "section": "9.4 Linearization (Menke, 2012)",
+    "text": "9.4 Linearization (Menke, 2012)",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Non-linear minimization</span>"
+    ]
+  },
+  {
+    "objectID": "08_nonlinear_minimization.html#gauss-newton-minimization",
+    "href": "08_nonlinear_minimization.html#gauss-newton-minimization",
+    "title": "8  Non-linear minimization",
+    "section": "9.5 Gauss-Newton minimization",
+    "text": "9.5 Gauss-Newton minimization\n\nChoose starting model \\(\\vb m^0\\) and set \\(n\\)=0\nCompute model response \\(\\vb f(\\vb m^n)\\)\nCompute sensitivity matrix \\(\\vb S^n\\)\nSolve linearized subproblem \\(\\vb S^n \\Delta\\vb m^n=\\Delta\\vb d=(\\vb d-\\vb f(\\vb m^n))\\)\nUpdate model by \\(\\vb m^{n+1} = \\vb m^n + \\Delta\\vb m^n\\)\nIf convergence quit, otherwise \\(n\\leftarrow n+1\\) & proceed with 2.",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Non-linear minimization</span>"
+    ]
+  },
+  {
+    "objectID": "08_nonlinear_minimization.html#line-search-for-strong-non-linearity-1",
+    "href": "08_nonlinear_minimization.html#line-search-for-strong-non-linearity-1",
+    "title": "8  Non-linear minimization",
+    "section": "9.6 Line search for strong non-linearity",
+    "text": "9.6 Line search for strong non-linearity\nThe Taylor approximation might change along \\(\\Delta\\vb m\\), so we optimize the step length \\(\\tau\\) by “searching along the line”\n\\[ \\vb m^{n+1} = \\vb m^n + \\tau^n \\Delta \\vb m^n \\]\n\nexact line search: testing \\(\\vb f(\\vb m + \\tau \\Delta \\vb m)\\) for many \\(\\tau\\)\ninterpolation of \\(\\vb f(\\vb m^n+\\tau\\Delta\\vb m)\\) between \\(\\vb f(\\vb m^n)\\) & \\(\\vb f(\\vb m^n+\\Delta \\vb m)\\)\nfit parabola through points \\(\\vb f(\\vb m^n)\\), \\(\\vb f(\\vb m^n+\\Delta \\vb m/2)\\), \\(\\vb f(\\vb m^n+\\Delta \\vb m)\\)",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Non-linear minimization</span>"
+    ]
+  },
+  {
+    "objectID": "08_nonlinear_minimization.html#gauss-newton-minimization-1",
+    "href": "08_nonlinear_minimization.html#gauss-newton-minimization-1",
+    "title": "8  Non-linear minimization",
+    "section": "9.7 Gauss-Newton minimization",
+    "text": "9.7 Gauss-Newton minimization\n\nChoose starting model \\(\\vb m^0\\) and set \\(n\\)=0\nCompute model response \\(\\vb f(\\vb m^n)\\)\nCompute sensitivity matrix \\(\\vb S^n\\)\nSolve linearized subproblem \\(\\vb S^n \\Delta\\vb m^n=\\Delta\\vb d=(\\vb d-\\vb f(\\vb m^n))\\)\nOptimize line search parameter \\(\\tau^n\\)\nUpdate model by \\(\\vb m^{n+1} = \\vb m^n + \\tau^n \\Delta\\vb m^n\\)\nIf convergence quit, otherwise \\(n\\leftarrow n+1\\) & proceed with 2.",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Non-linear minimization</span>"
+    ]
+  },
+  {
+    "objectID": "08_nonlinear_minimization.html#model-transformation",
+    "href": "08_nonlinear_minimization.html#model-transformation",
+    "title": "8  Non-linear minimization",
+    "section": "9.8 Model transformation",
+    "text": "9.8 Model transformation\n\n\n\n\n\nObjective function for VES\n\n\n\nTo keep the parameters positive, we often invert for the logarithms.\nIf we invert for \\(\\hat{m}\\) instead of \\(m\\), we use the chain rule \\[\\pdv{f}{\\hat{m}} = \\pdv{f}{m} \\cdot \\pdv{m}{\\hat{m}} = \\pdv{f}{m} / \\pdv{\\hat{m}}{m}\\]\nE.g. \\(\\pdv*{\\log\\rho}{\\rho}=1/\\rho\\)",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Non-linear minimization</span>"
+    ]
+  },
+  {
+    "objectID": "08_nonlinear_minimization.html#data-transformation",
+    "href": "08_nonlinear_minimization.html#data-transformation",
+    "title": "8  Non-linear minimization",
+    "section": "9.9 Data transformation",
+    "text": "9.9 Data transformation\n\n\n\n\n\nObjective function for VES\n\n\n\nOften, measured data show a wide range so that we use the logarithm\nIf we invert \\(\\hat{d}\\) instead of \\(d\\), we use the chain rule \\[\\pdv{\\hat{f}}{m} = \\pdv{f}{m} \\cdot \\pdv{\\hat{f}}{f}\\]\nE.g. \\(\\pdv*{\\log\\rho^a}{\\rho^a}=1/\\rho_a\\)",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Non-linear minimization</span>"
+    ]
+  },
+  {
+    "objectID": "08_nonlinear_minimization.html#combined-model-and-data-transformation",
+    "href": "08_nonlinear_minimization.html#combined-model-and-data-transformation",
+    "title": "8  Non-linear minimization",
+    "section": "9.10 Combined model and data transformation",
+    "text": "9.10 Combined model and data transformation\nSensitivity \\(S_{ij}=\\pdv{\\rho^a_i}{\\rho_j}\\)\nData \\(d_i=\\log \\rho^a_i\\), model parameter \\(m_i=\\log\\rho_j\\)\n\\(\\Rightarrow\\) Jacobian matrix\n\\[J_{ij} = \\pdv{\\log \\rho^a_i}{\\log\\rho_j} = \\pdv{\\rho^a_i}{\\rho_j} \\cdot \\frac{\\rho_j}{\\rho^a_i}\\]",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Non-linear minimization</span>"
+    ]
+  },
+  {
+    "objectID": "08_nonlinear_minimization.html#regularization",
+    "href": "08_nonlinear_minimization.html#regularization",
+    "title": "8  Non-linear minimization",
+    "section": "9.11 Regularization",
+    "text": "9.11 Regularization\n\\[\\Phi=(\\vb d - \\vb f(\\vb m))^T (\\vb d - \\vb f(\\vb m)) + \\lambda (\\vb c - \\vb C\\vb m)^T (\\vb c - \\vb C\\vb m)\\]\n\\[b_i=\\pdv{\\Phi}{m_i}=-2\\vb S^T(\\vb d - \\vb f(\\vb m)) - 2\\lambda \\vb C^T (\\vb c - \\vb C \\vb m)\\]\n\\[B_{ij} = \\pdv{\\Phi}{m_i}{m_j} = \\pdv{b_i}{m_j} \\approx 2\\vb S^T\\vb S + 2\\lambda\\vb C^T \\vb C\\]\n\\[\\Rightarrow (\\vb S^T\\vb S + \\lambda \\vb C^T\\vb C) \\Delta\\vb m = \\vb S^T (\\vb d-\\vb f(\\vb m^n)) + \\lambda \\vb C^T(\\vb c - \\vb C\\vb m)\\]",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Non-linear minimization</span>"
+    ]
+  },
+  {
+    "objectID": "09_simple_model.html",
+    "href": "09_simple_model.html",
+    "title": "9  A simple model",
+    "section": "",
+    "text": "9.1 Regularization effect\nLet us consider the forward response(after Menke 2012) \\[f(m)= \\sin(\\omega m_1 x_i) + m_1 m_2\\] a nonlinear function in both model parameters \\(m_1\\) and \\(m_2\\).\nWe create a function for showing the objective function for a range of values\nWe choose a range for values of the two and compute the data objective function\n\\[\\Phi = \\Phi_d + \\lambda\\Phi_m\\]\n\\(\\Phi_m\\): difference from reference model or smoothness\nHow does this regularization affect convergence?\n\\(\\Rightarrow\\) impact of regularization terms on objective function\nWe create another function that can show several objective functions with the same scaling\nShow the code\ndef showNPhi(Phis, mrange, clim=None):\n    fig, ax = plt.subplots(ncols=len(Phis), sharex=True, sharey=True, figsize=(8, 3))\n    if clim is None:\n        clim = [np.min(Phis[0]), np.percentile(Phis[0], 95)]\n    ext = [mrange[0], mrange[-1], mrange[-1], mrange[0]]\n    for i, Phi in enumerate(Phis):\n        showPhi(Phi, mrange, clim=clim, ax=ax[i])\n\n    return ax",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>A simple model</span>"
+    ]
+  },
+  {
+    "objectID": "09_simple_model.html#smoothness",
+    "href": "09_simple_model.html#smoothness",
+    "title": "9  A simple model",
+    "section": "9.2 Smoothness",
+    "text": "9.2 Smoothness\n\n\nShow the code\nM1, M2 = np.meshgrid(mrange, mrange)\nPhiM = (M1-M2)**2\n\n\n\n\nShow the code\nfor lam in [30, 100, 300, 1000]:\n    ax = showNPhi([PhiD, lam*PhiM, PhiD+lam*PhiM], mrange)\n    for a in ax: a.plot(1.25, 1.25, \"wo\")\n    ax[0].figure.suptitle(rf\"$\\lambda$={lam}\")",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>A simple model</span>"
+    ]
+  },
+  {
+    "objectID": "09_simple_model.html#a-priori-information",
+    "href": "09_simple_model.html#a-priori-information",
+    "title": "9  A simple model",
+    "section": "9.3 A-priori information",
+    "text": "9.3 A-priori information\n\n\nShow the code\nPhiM = np.sqrt((M1-1.25)**2+(M2-1.25)**2)\nfor lam in [30, 100]:\n    ax = showNPhi([PhiD, lam*PhiM, PhiD+lam*PhiM], mrange)\n    for a in ax: a.plot(1.25, 1.25, \"wo\")\n    ax[0].figure.suptitle(rf\"$\\lambda$={lam}\")\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWe now choose a wrong reference model\n\n\nShow the code\nPhiM = np.sqrt((M1-1)**2+(M2-1)**2)\nfor lam in [100, 30]:\n    ax = showNPhi([PhiD, lam*PhiM, PhiD+lam*PhiM], mrange)\n    for a in ax: a.plot(1.25, 1.25, \"wo\")\n    ax[0].figure.suptitle(rf\"$\\lambda$={lam}\")\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMenke W. 2012. Geophysical data analysis: Discrete inverse theory (Elsevier)",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>A simple model</span>"
+    ]
+  },
+  {
+    "objectID": "10_probability.html",
+    "href": "10_probability.html",
+    "title": "10  Probability & Likelihood",
+    "section": "",
+    "text": "10.1 Probability density function",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Probability & Likelihood</span>"
+    ]
+  },
+  {
+    "objectID": "10_probability.html#probability-density-function",
+    "href": "10_probability.html#probability-density-function",
+    "title": "10  Probability & Likelihood",
+    "section": "",
+    "text": "\\[\\int p(d)\\dd d=1\\]",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Probability & Likelihood</span>"
+    ]
+  },
+  {
+    "objectID": "10_probability.html#definitions",
+    "href": "10_probability.html#definitions",
+    "title": "10  Probability & Likelihood",
+    "section": "10.2 Definitions",
+    "text": "10.2 Definitions\n\n\n\n\n\n\nImportantProbability\n\n\n\ndefines how probable a certain event is expected to occur\nGiven a known model or system, what are the chances of a specific outcome?\n\n\n\n\n\n\n\n\nImportantLikelihood\n\n\n\ndefines probability of data under the assumption of a model (hypothesis) is true\nGiven an observed outcome, what is the chance that our model or system parameters are correct?\n\n\n\n\n\n\n\n\nImportantConditional probability\n\n\n\n\\(P(A|B)\\) Probability of A under the assumption that B occurs",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Probability & Likelihood</span>"
+    ]
+  },
+  {
+    "objectID": "10_probability.html#variance",
+    "href": "10_probability.html#variance",
+    "title": "10  Probability & Likelihood",
+    "section": "10.3 Variance",
+    "text": "10.3 Variance\n\\[ \\sigma^2 = \\int (d-\\expval{d})^2 p(d) \\dd{d} \\]\n\\(\\sigma\\) is a measure of the width of the distribution\nrelated to standard deviation and mean of sampling\n\\[ \\sigma^2_{est}=\\frac{1}{N-1} \\sum\\limits_{i=1}^N (d_i - \\expval{d})^2 \\qq{with} \\expval{d}=\\frac{1}{N}\\sum\\limits_{i=1}^{N} d_i \\]",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Probability & Likelihood</span>"
+    ]
+  },
+  {
+    "objectID": "10_probability.html#data-correlation",
+    "href": "10_probability.html#data-correlation",
+    "title": "10  Probability & Likelihood",
+    "section": "10.4 Data correlation",
+    "text": "10.4 Data correlation\nindependent: \\(p(\\vb d) = p(d_1) p(d_2)\\ldots p(d_N)\\)\n\n\n\n\n\nuncorrelated data (Menke, 2012)\n\n\n\n\n\n\ncorrelated data (Menke, 2012)",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Probability & Likelihood</span>"
+    ]
+  },
+  {
+    "objectID": "10_probability.html#covariance",
+    "href": "10_probability.html#covariance",
+    "title": "10  Probability & Likelihood",
+    "section": "10.5 Covariance",
+    "text": "10.5 Covariance\n(measure of correlation between data)\n\\[ \\mbox{cov}(d_1, d_2) = \\int\\int (d_1-\\expval{d_1})(d_2-\\expval{d_2}) p(d_1, d_2) \\dd{d_1}\\dd{d_2} \\]\n\\[ \\expval{d_i} = \\int\\ldots\\int d_i p(\\vb d) \\dd{d_1}\\ldots \\dd{d_N} \\]",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Probability & Likelihood</span>"
+    ]
+  },
+  {
+    "objectID": "10_probability.html#covariance-propagation",
+    "href": "10_probability.html#covariance-propagation",
+    "title": "10  Probability & Likelihood",
+    "section": "10.6 Covariance propagation",
+    "text": "10.6 Covariance propagation\nLinear problem \\(\\vb m = \\vb M \\vb d\\), e.g., \\(\\vb m = \\vb G^\\dagger\\vb d\\)\nMean value \\(\\expval{\\vb m}=\\vb M \\expval{\\vb d} + \\vb n\\) and covariance\n\\[\\mbox{cov}(\\vb m) = \\vb M \\mbox{cov}(\\vb d) \\vb M^T\\]\n\nLeast-squares: \\(\\vb M=(\\vb G^T \\vb G)^{-1} \\vb G^T\\), uncorrelated data: \\(\\mbox{cov}(\\vb d)=\\sigma_d^2 \\vb I\\)\n\\[ \\Rightarrow \\mbox{cov}(\\vb m) = (\\vb G^T \\vb G)^{-1} \\vb G^T \\sigma_d^2 \\vb I ((\\vb G^T \\vb G)^{-1} \\vb G^T)^T = \\sigma_d^2 (\\vb G^T \\vb G)^{-1} \\]",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Probability & Likelihood</span>"
+    ]
+  },
+  {
+    "objectID": "10_probability.html#a-priori-knowledge",
+    "href": "10_probability.html#a-priori-knowledge",
+    "title": "10  Probability & Likelihood",
+    "section": "10.7 A priori knowledge",
+    "text": "10.7 A priori knowledge\n\n\n\n\n\naccurate prior model (Menke, 2012)\n\n\n\n\n\n\naccurate data (Menke, 2012)",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Probability & Likelihood</span>"
+    ]
+  },
+  {
+    "objectID": "10_probability.html#bayes-theorem",
+    "href": "10_probability.html#bayes-theorem",
+    "title": "10  Probability & Likelihood",
+    "section": "10.8 Bayes’ theorem",
+    "text": "10.8 Bayes’ theorem\n\n\n\n\n\n\nNoteConditional probability\n\n\n\n\\(p(a|b) = p(a, b) / p(b)\\)\n\n\n\\[p(\\vb m|\\vb d)p(\\vb d) = p(\\vb d|\\vb m)p(\\vb m)\\]\n\\[p(\\vb m|\\vb d) = \\frac{p(\\vb d|\\vb m)p(\\vb m)}{p(\\vb d)}\\]\nposterior distribution \\(\\propto\\) likelihood x prior distribution",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Probability & Likelihood</span>"
+    ]
+  },
+  {
+    "objectID": "10_probability.html#example-covid-test",
+    "href": "10_probability.html#example-covid-test",
+    "title": "10  Probability & Likelihood",
+    "section": "10.9 Example: COVID test",
+    "text": "10.9 Example: COVID test\n\n\\(P(T)\\): probability of positive test (\\(T\\))\n\\(P(I)\\): probability of a person to be ill (1%) (\\(I\\))\n\\(P(T|I)\\): (conditional) probability of a test recognizing illness (90%)\n\n\nassume 1000 patients (1%=10 ill, 99%=990 healthy)\n\n\nfalse tests (10%) \\(\\Rightarrow\\) 1 false negative (9 correct), 99 false positive\n\n\n\\[ P(I|T) = \\frac{P(T|I)P(I)}{P(T)} = \\frac{0.9 \\cdot 0.01}{108/1000}=8.3\\% \\]",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Probability & Likelihood</span>"
+    ]
+  },
+  {
+    "objectID": "10_probability.html#example-covid-test-2",
+    "href": "10_probability.html#example-covid-test-2",
+    "title": "10  Probability & Likelihood",
+    "section": "10.10 Example: COVID test (2)",
+    "text": "10.10 Example: COVID test (2)\n\n\\(P(T)\\): probability of positive test (\\(T\\))\n\\(P(I)\\): probability of a person to be ill (1%) (\\(I\\))\n\\(P(T|I)\\): (conditional) probability of a test recognizing illness (99%)\n\n\nassume 10000 patients (1%=100 ill, 99%=9900 healthy)\n\n\nfalse tests (1%) \\(\\Rightarrow\\) 1 false negative (99 correct), 99 false positive\n\n\n\\[ P(I|T) = \\frac{P(T|I)P(I)}{P(T)} = \\frac{0.99 \\cdot 0.01}{198/10000}=50\\% \\]",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Probability & Likelihood</span>"
+    ]
+  },
+  {
+    "objectID": "10_probability.html#fifa-example",
+    "href": "10_probability.html#fifa-example",
+    "title": "10  Probability & Likelihood",
+    "section": "10.11 FIFA example",
+    "text": "10.11 FIFA example\n\n\n\n\n\n\nNote\n\n\n\nTony hears football-watching Arthur cheer. How probable is a goal being made?\n\nAssumption: In 2% of the time (segments covering a cheer) there is a goal.\nAssumption: If a goal is made by Arthurs team, he cheers by 90%.\nAssumption: Reasons for non-goal cheers (98%) have a probability of 1%.\n\n\n\n\n\\[ P(G|C)=\\frac{P(C|G) P(G)}{P(C|G)+P(C|-G)} = \\frac{0.9 \\cdot 0.02}{0.02 \\cdot 0.9+0.98\\cdot 0.01}=64.7\\% \\]",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Probability & Likelihood</span>"
+    ]
+  },
+  {
+    "objectID": "10_probability.html#bayes-theorem-simple-example",
+    "href": "10_probability.html#bayes-theorem-simple-example",
+    "title": "10  Probability & Likelihood",
+    "section": "10.12 Bayes theorem simple example",
+    "text": "10.12 Bayes theorem simple example\n\n\n\njoint probability & conditional probabilities (Menke, 2015)",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Probability & Likelihood</span>"
+    ]
+  },
+  {
+    "objectID": "10_probability.html#a-priori-menke-2012",
+    "href": "10_probability.html#a-priori-menke-2012",
+    "title": "10  Probability & Likelihood",
+    "section": "10.13 A priori (Menke, 2012)",
+    "text": "10.13 A priori (Menke, 2012)\n\n\n\n\n\nA: a priori pdf \\(p_a(\\vb m, \\vb d)\\), B: conditional pdf \\(p_g(\\vb m, \\vb d)\\), C: product \\(p_t(\\vb m, \\vb d)=p_a(\\vb m, \\vb d) p_g(\\vb m, \\vb d)\\), white: theory",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Probability & Likelihood</span>"
+    ]
+  },
+  {
+    "objectID": "10_probability.html#a-priori-and-likelihood",
+    "href": "10_probability.html#a-priori-and-likelihood",
+    "title": "10  Probability & Likelihood",
+    "section": "10.14 A priori and likelihood",
+    "text": "10.14 A priori and likelihood",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Probability & Likelihood</span>"
+    ]
+  },
+  {
+    "objectID": "10_probability.html#bayes-view-in-nonlinear-problems",
+    "href": "10_probability.html#bayes-view-in-nonlinear-problems",
+    "title": "10  Probability & Likelihood",
+    "section": "10.15 Bayes view in nonlinear problems",
+    "text": "10.15 Bayes view in nonlinear problems",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Probability & Likelihood</span>"
+    ]
+  },
+  {
+    "objectID": "10_probability.html#highly-nonlinear-problems",
+    "href": "10_probability.html#highly-nonlinear-problems",
+    "title": "10  Probability & Likelihood",
+    "section": "10.16 Highly nonlinear problems",
+    "text": "10.16 Highly nonlinear problems",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Probability & Likelihood</span>"
+    ]
+  },
+  {
+    "objectID": "10_probability.html#monte-carlo-methods",
+    "href": "10_probability.html#monte-carlo-methods",
+    "title": "10  Probability & Likelihood",
+    "section": "10.17 Monte Carlo methods",
+    "text": "10.17 Monte Carlo methods\n\n\n\nMonte Carlos search: randomly draw solutions from grid\naccept solution only if better than old\nMarkow-Chain-Monte-Carlo\nMetropolis-Hastings (Metropolis et al., 1953; Hastings, 1970)\n\n\n\n\n\nMonte Carlo method",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Probability & Likelihood</span>"
+    ]
+  },
+  {
+    "objectID": "10_probability.html#simulate-annealing",
+    "href": "10_probability.html#simulate-annealing",
+    "title": "10  Probability & Likelihood",
+    "section": "10.18 Simulate Annealing",
+    "text": "10.18 Simulate Annealing\n\n\nTest parameter\n\\[ t = e^{-(\\Phi(\\vb m)-\\Phi(\\vb m^p))/T} \\]\n\n\n\n\n\nSimulated Annealing",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Probability & Likelihood</span>"
+    ]
+  },
+  {
+    "objectID": "10_probability.html#alternatives-to-grid-search",
+    "href": "10_probability.html#alternatives-to-grid-search",
+    "title": "10  Probability & Likelihood",
+    "section": "10.19 Alternatives to grid search",
+    "text": "10.19 Alternatives to grid search\n\n\n\n\n\n\nNoteMonte Carlo search\n\n\n\ndraw random samples and accept them if the error is improved\n\n\nundirected search (Newtons method is directed)\n\n\n\n\n\n\nNoteSimulated annealing\n\n\n\ndecrease temperature controlling particle movements:\nhigh \\(T\\): undirected, low \\(T\\): search in vicinity of current model",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Probability & Likelihood</span>"
+    ]
+  },
+  {
+    "objectID": "10_probability.html#monte-carlo-vs.-simulated-annealing",
+    "href": "10_probability.html#monte-carlo-vs.-simulated-annealing",
+    "title": "10  Probability & Likelihood",
+    "section": "10.20 Monte Carlo vs. Simulated Annealing",
+    "text": "10.20 Monte Carlo vs. Simulated Annealing\n\n\n\n\n\nMonte Carlo method\n\n\n\n\n\n\n\nSimulated Annealing",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Probability & Likelihood</span>"
+    ]
+  },
+  {
     "objectID": "literature.html",
     "href": "literature.html",
-    "title": "8  References",
+    "title": "11  References",
     "section": "",
     "text": "Aster R C, Borchers B and Thurber C H. 2005. Parameter Estimation and Inverse Problems (Elsevier Academic Press)\n\n\nBergmann P, Ivandic M, Norden B, Rücker C, Kiessling D, Lüth S, Schmidt-Hattenberger C and Juhlin C. 2013. Combination of seismic reflection and constrained resistivity inversion with an application to 4D imaging of the CO2 storage site, ketzin, germany. Geophysics. 79. B37–50\n\n\nCoscia I, Greenhalgh S, Linde N, Doetsch J, Marescot L, Günther T and Green A. 2011. 3D crosshole apparent resistivity static inversion and monitoring of a coupled river-aquifer system. Geophysics. 76. G49–59\n\n\nDentith M and Mudge S T. 2014. Geophysics for the mineral exploration geoscientist (Cambridge University Press)\n\n\nEverett M E. 2013. Near-surface applied geophysics (Cambridge University Press)\n\n\nFriedel S. 2003. Resolution, stability and effiency of resistivity tomography estimated from a generalized inverse approach. Geophys. J. Int. 153. 305–16\n\n\nGubbins D. 2004. Time series analysis and inverse theory for geophysicists (Cambridge Univ. Press)\n\n\nGünther T. 2004. Inversion Methods and Resolution Analysis for the 2D/3D Reconstruction of Resistivity Structures from DC Measurements PhD thesis (University of Mining; Technology Freiberg)\n\n\nGünther T and Martin T. 2016. Spectral two-dimensional inversion of frequency-domain induced polarisation data from a mining slag heap. Journal of Applied Geophysics. 135. 436–48\n\n\nGünther T, Rücker C and Spitzer K. 2006. Three-dimensional modeling and inversion of dc resistivity data incorporating topography - II: inversion. Geophys. J. Int. 166. 506–17\n\n\nHübner R, Günther T, Heller K, Noell U and Kleber A. 2017. Impacts of a capillary barrier on infiltration and subsurface stormflow in layered slope deposits monitored with 3-D ERT and hydrometric measurements. Hydrology and Earth System Sciences. 21. 5181–99\n\n\nHübner R, Heller K, Günther T and Kleber A. 2015. Monitoring hillslope moisture dynamics with surface ERT for enhancing spatial significance of hydrometric point measurements. Hydrology and Earth System Sciences. 19. 225–40 Online: http://www.hydrol-earth-syst-sci.net/19/225/2015/\n\n\nJiang C, Igel J, Dlugosch R, Müller-Petke M, Günther T, Helms J, Lang J and Winsemann J. 2020. Magnetic resonance tomography constrained by ground-penetrating radar for improved hydrogeophysical characterisation. GEOPHYSICS. 1–56\n\n\nJordi C, Doetsch J, Günther T, Schmelzbach C and Robertsson J O A. 2018. Geostatistical regularization operators for geophysical inverse problems on irregular meshes. Geophysical Journal International. 213. 1374–86\n\n\nMartin T and Günther T. 2013. Complex resistivity tomography (CRT) for fungus detection on standing oak trees. European Journal of Forest Research. 132. 765–76 Online: http://dx.doi.org/10.1007/s10342-013-0711-4\n\n\nMartin T, Günther T, Orozco A F and Dahlin T. 2020. Evaluation of spectral induced polarization field measurements in time and frequency domain. Journal of Applied Geophysics. 180. 104141\n\n\nMeju M A. 1994. Geophysical data analysis: Understanding inverse problem theory and practice (Society of Exploration Geophysicists)\n\n\nMenke W. 1989. Geophysical data analysis: Discrete inverse theory vol 45 (Academic Press Inc.)\n\n\nMenke W. 2012. Geophysical data analysis: Discrete inverse theory (Elsevier)\n\n\nNickschick T, Flechsig C, Mrlina J, Oppermann F, Löbig F and Günther T. 2019. Large-scale electrical resistivity tomography in the Cheb Basin (Eger Rift) at an International Continental Drilling Program (ICDP) monitoring site to image fluid-related structures. Solid Earth. 10. 1951–69 Online: https://www.solid-earth.net/10/1951/2019/\n\n\nNocedal J and Wright S. 2006. Numerical Optimization vol XXII, ed T Mikosch, S Robinson and S Resnick (Springer Verlag) Online: http://www.springer.com/mathematics/book/978-0-387-30303-1\n\n\nRichter M. 2016. Inverse problems: Basics, theory and applications in geophysics (Springer International Publishing)\n\n\nRücker C, Günther T and Wagner F. 2017. pyGIMLi: An open-source library for modelling and inversion in geophysics. Computers & Geosciences. 109. 106–23\n\n\nTanner D C, Buness H, Igel J, Günther T, Gabriel G, Skiba P, Plenefisch T, Gestermann N and Walter T R. 2020. Chapter 3 - fault detection. Understanding faults ed D Tanner and C Brandes (Elsevier) pp 81–146 Online: http://www.sciencedirect.com/science/article/pii/B9780128159859000035\n\n\nTarantola A. 1978. Inverse problem theory (Amsterdam: Elsevier)\n\n\nUdphuay S, Günther T, Everett M E, Warden R R and Briaud J-L. 2011. Three—dimensional resistivity tomography in extreme coastal terrain amidst dense cultural signals: Application to cliff stability assessment at the historic D—Day site. Geophys. J. Int. 185. 201–20\n\n\nWagner F M and Uhlemann S. 2021. Advances in geophysics. Inversion of geophysical data (Elsevier) pp 1–72\n\n\nZhdanov M S. 2002. Geophysical inverse theory and regularization problems (Amsterdam - New York - Tokyo: Elsevier)",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>References</span>"
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>References</span>"
     ]
   }
 ]

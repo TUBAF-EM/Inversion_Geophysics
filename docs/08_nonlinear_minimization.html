@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>5&nbsp; Regularization – Inverse Problems in Geophysics</title>
+<title>8&nbsp; Non-linear minimization – Inverse Problems in Geophysics</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -33,8 +33,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./06_traveltime_tomography.html" rel="next">
-<link href="./04_svd.html" rel="prev">
+<link href="./09_simple_model.html" rel="next">
+<link href="./07_enhanced_regularization.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -124,7 +124,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05_regularization.html">Regularization</a></li><li class="breadcrumb-item"><a href="./05_regularization.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Regularization</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./08_nonlinear_minimization.html">Non-linear problems</a></li><li class="breadcrumb-item"><a href="./08_nonlinear_minimization.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Non-linear minimization</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -201,7 +201,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05_regularization.html" class="sidebar-item-text sidebar-link active">
+  <a href="./05_regularization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Regularization</span></span></a>
   </div>
 </li>
@@ -230,7 +230,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./08_nonlinear_minimization.html" class="sidebar-item-text sidebar-link">
+  <a href="./08_nonlinear_minimization.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Non-linear minimization</span></span></a>
   </div>
 </li>
@@ -264,33 +264,31 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#regularization-basics" id="toc-regularization-basics" class="nav-link active" data-scroll-target="#regularization-basics"><span class="header-section-number">5.1</span> Regularization basics</a>
+  <li><a href="#comparison-straight-vs.-curved-rays" id="toc-comparison-straight-vs.-curved-rays" class="nav-link active" data-scroll-target="#comparison-straight-vs.-curved-rays"><span class="header-section-number">8.1</span> Comparison straight vs.&nbsp;curved rays</a></li>
+  <li><a href="#linearization-of-non-linears" id="toc-linearization-of-non-linears" class="nav-link" data-scroll-target="#linearization-of-non-linears"><span class="header-section-number">8.2</span> Linearization of non-linears</a></li>
+  <li><a href="#linearization-using-taylor-series" id="toc-linearization-using-taylor-series" class="nav-link" data-scroll-target="#linearization-using-taylor-series"><span class="header-section-number">8.3</span> Linearization using Taylor series</a></li>
+  <li><a href="#linearization" id="toc-linearization" class="nav-link" data-scroll-target="#linearization"><span class="header-section-number">8.4</span> Linearization</a></li>
+  <li><a href="#computation-of-the-sensitivity-jacobian" id="toc-computation-of-the-sensitivity-jacobian" class="nav-link" data-scroll-target="#computation-of-the-sensitivity-jacobian"><span class="header-section-number">8.5</span> Computation of the sensitivity (Jacobian)</a></li>
+  <li><a href="#iterative-solution-of-non-linear-problems" id="toc-iterative-solution-of-non-linear-problems" class="nav-link" data-scroll-target="#iterative-solution-of-non-linear-problems"><span class="header-section-number">8.6</span> Iterative solution of non-linear problems</a></li>
+  <li><a href="#the-objective-function" id="toc-the-objective-function" class="nav-link" data-scroll-target="#the-objective-function"><span class="header-section-number">8.7</span> The objective function</a></li>
+  <li><a href="#objective-function-for-linear-problems" id="toc-objective-function-for-linear-problems" class="nav-link" data-scroll-target="#objective-function-for-linear-problems"><span class="header-section-number">8.8</span> Objective function for linear problems</a></li>
+  <li><a href="#example-linear-regression" id="toc-example-linear-regression" class="nav-link" data-scroll-target="#example-linear-regression"><span class="header-section-number">8.9</span> Example: linear regression</a></li>
+  <li><a href="#misfit-for-non-linear-problems-menke-2012" id="toc-misfit-for-non-linear-problems-menke-2012" class="nav-link" data-scroll-target="#misfit-for-non-linear-problems-menke-2012"><span class="header-section-number">8.10</span> Misfit for non-linear problems (Menke, 2012)</a></li>
+  <li><a href="#linearization-menke-2012" id="toc-linearization-menke-2012" class="nav-link" data-scroll-target="#linearization-menke-2012"><span class="header-section-number">8.11</span> Linearization (Menke, 2012)</a></li>
+  <li><a href="#line-search-for-strong-non-linearity" id="toc-line-search-for-strong-non-linearity" class="nav-link" data-scroll-target="#line-search-for-strong-non-linearity"><span class="header-section-number">8.12</span> Line search for strong non-linearity</a></li>
+  <li><a href="#newtons-method" id="toc-newtons-method" class="nav-link" data-scroll-target="#newtons-method"><span class="header-section-number">9</span> Newtons method</a>
   <ul class="collapse">
-  <li><a href="#minimum-norm-solution" id="toc-minimum-norm-solution" class="nav-link" data-scroll-target="#minimum-norm-solution"><span class="header-section-number">5.1.1</span> Minimum norm solution</a></li>
-  </ul></li>
-  <li><a href="#regularization-basics-adding-equations" id="toc-regularization-basics-adding-equations" class="nav-link" data-scroll-target="#regularization-basics-adding-equations"><span class="header-section-number">5.2</span> Regularization basics: adding equations</a></li>
-  <li><a href="#smoothness-constraints" id="toc-smoothness-constraints" class="nav-link" data-scroll-target="#smoothness-constraints"><span class="header-section-number">5.3</span> Smoothness constraints</a></li>
-  <li><a href="#regularization-scheme" id="toc-regularization-scheme" class="nav-link" data-scroll-target="#regularization-scheme"><span class="header-section-number">5.4</span> Regularization scheme</a></li>
-  <li><a href="#weighting-data-vs.-constraints" id="toc-weighting-data-vs.-constraints" class="nav-link" data-scroll-target="#weighting-data-vs.-constraints"><span class="header-section-number">5.5</span> Weighting data vs.&nbsp;constraints</a></li>
-  <li><a href="#interpretation-as-constrained-minimization-lagrangian" id="toc-interpretation-as-constrained-minimization-lagrangian" class="nav-link" data-scroll-target="#interpretation-as-constrained-minimization-lagrangian"><span class="header-section-number">5.6</span> Interpretation as constrained minimization (Lagrangian)</a></li>
-  <li><a href="#model-and-data-norms" id="toc-model-and-data-norms" class="nav-link" data-scroll-target="#model-and-data-norms"><span class="header-section-number">5.7</span> Model and data norms</a></li>
-  <li><a href="#the-l-curve" id="toc-the-l-curve" class="nav-link" data-scroll-target="#the-l-curve"><span class="header-section-number">5.8</span> The L-curve</a></li>
-  <li><a href="#choice-of-regularization-strength" id="toc-choice-of-regularization-strength" class="nav-link" data-scroll-target="#choice-of-regularization-strength"><span class="header-section-number">5.9</span> Choice of regularization strength</a></li>
-  <li><a href="#damped-normal-equations-and-svd" id="toc-damped-normal-equations-and-svd" class="nav-link" data-scroll-target="#damped-normal-equations-and-svd"><span class="header-section-number">5.10</span> Damped normal equations and SVD</a></li>
-  <li><a href="#resolution-of-regularized-inverse-problems" id="toc-resolution-of-regularized-inverse-problems" class="nav-link" data-scroll-target="#resolution-of-regularized-inverse-problems"><span class="header-section-number">5.11</span> Resolution of regularized inverse problems</a></li>
-  <li><a href="#wrap-up" id="toc-wrap-up" class="nav-link" data-scroll-target="#wrap-up"><span class="header-section-number">5.12</span> Wrap up</a></li>
-  <li><a href="#application" id="toc-application" class="nav-link" data-scroll-target="#application"><span class="header-section-number">6</span> Application</a>
-  <ul class="collapse">
-  <li><a href="#damped-least-squares-and-svd" id="toc-damped-least-squares-and-svd" class="nav-link" data-scroll-target="#damped-least-squares-and-svd"><span class="header-section-number">6.1</span> Damped least squares and SVD</a></li>
-  <li><a href="#filter-factors" id="toc-filter-factors" class="nav-link" data-scroll-target="#filter-factors"><span class="header-section-number">6.2</span> Filter factors</a></li>
-  <li><a href="#inversion-with-damping" id="toc-inversion-with-damping" class="nav-link" data-scroll-target="#inversion-with-damping"><span class="header-section-number">6.3</span> Inversion with damping</a></li>
-  <li><a href="#choosing-lambda-data-and-model-norm" id="toc-choosing-lambda-data-and-model-norm" class="nav-link" data-scroll-target="#choosing-lambda-data-and-model-norm"><span class="header-section-number">6.4</span> Choosing <span class="math inline">\(\lambda\)</span>: Data and model norm</a></li>
-  <li><a href="#the-l-curve-1" id="toc-the-l-curve-1" class="nav-link" data-scroll-target="#the-l-curve-1"><span class="header-section-number">6.5</span> The L-curve</a></li>
-  <li><a href="#resolution-of-regularized-inverse-problems-1" id="toc-resolution-of-regularized-inverse-problems-1" class="nav-link" data-scroll-target="#resolution-of-regularized-inverse-problems-1"><span class="header-section-number">6.6</span> Resolution of regularized inverse problems</a></li>
-  <li><a href="#resolution-for-damped-normal-equations" id="toc-resolution-for-damped-normal-equations" class="nav-link" data-scroll-target="#resolution-for-damped-normal-equations"><span class="header-section-number">6.7</span> Resolution for damped normal equations</a></li>
-  <li><a href="#inversion-with-smoothness-constraints" id="toc-inversion-with-smoothness-constraints" class="nav-link" data-scroll-target="#inversion-with-smoothness-constraints"><span class="header-section-number">6.8</span> Inversion with smoothness constraints</a></li>
-  <li><a href="#smoothness-constraints-data-and-model-norm" id="toc-smoothness-constraints-data-and-model-norm" class="nav-link" data-scroll-target="#smoothness-constraints-data-and-model-norm"><span class="header-section-number">6.9</span> Smoothness constraints: Data and model norm</a></li>
-  <li><a href="#smoothness-constraints-the-l-curve" id="toc-smoothness-constraints-the-l-curve" class="nav-link" data-scroll-target="#smoothness-constraints-the-l-curve"><span class="header-section-number">6.10</span> Smoothness constraints: The L-curve</a></li>
+  <li><a href="#newtons-method-1" id="toc-newtons-method-1" class="nav-link" data-scroll-target="#newtons-method-1"><span class="header-section-number">9.1</span> Newtons method</a></li>
+  <li><a href="#newtons-method-for-linear-problems" id="toc-newtons-method-for-linear-problems" class="nav-link" data-scroll-target="#newtons-method-for-linear-problems"><span class="header-section-number">9.2</span> Newtons method for linear problems</a></li>
+  <li><a href="#newtons-method-for-non-linear-problems" id="toc-newtons-method-for-non-linear-problems" class="nav-link" data-scroll-target="#newtons-method-for-non-linear-problems"><span class="header-section-number">9.3</span> Newtons method for non-linear problems</a></li>
+  <li><a href="#linearization-menke-2012-1" id="toc-linearization-menke-2012-1" class="nav-link" data-scroll-target="#linearization-menke-2012-1"><span class="header-section-number">9.4</span> Linearization (Menke, 2012)</a></li>
+  <li><a href="#gauss-newton-minimization" id="toc-gauss-newton-minimization" class="nav-link" data-scroll-target="#gauss-newton-minimization"><span class="header-section-number">9.5</span> Gauss-Newton minimization</a></li>
+  <li><a href="#line-search-for-strong-non-linearity-1" id="toc-line-search-for-strong-non-linearity-1" class="nav-link" data-scroll-target="#line-search-for-strong-non-linearity-1"><span class="header-section-number">9.6</span> Line search for strong non-linearity</a></li>
+  <li><a href="#gauss-newton-minimization-1" id="toc-gauss-newton-minimization-1" class="nav-link" data-scroll-target="#gauss-newton-minimization-1"><span class="header-section-number">9.7</span> Gauss-Newton minimization</a></li>
+  <li><a href="#model-transformation" id="toc-model-transformation" class="nav-link" data-scroll-target="#model-transformation"><span class="header-section-number">9.8</span> Model transformation</a></li>
+  <li><a href="#data-transformation" id="toc-data-transformation" class="nav-link" data-scroll-target="#data-transformation"><span class="header-section-number">9.9</span> Data transformation</a></li>
+  <li><a href="#combined-model-and-data-transformation" id="toc-combined-model-and-data-transformation" class="nav-link" data-scroll-target="#combined-model-and-data-transformation"><span class="header-section-number">9.10</span> Combined model and data transformation</a></li>
+  <li><a href="#regularization" id="toc-regularization" class="nav-link" data-scroll-target="#regularization"><span class="header-section-number">9.11</span> Regularization</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -298,9 +296,9 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05_regularization.html">Regularization</a></li><li class="breadcrumb-item"><a href="./05_regularization.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Regularization</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./08_nonlinear_minimization.html">Non-linear problems</a></li><li class="breadcrumb-item"><a href="./08_nonlinear_minimization.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Non-linear minimization</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Regularization</span></h1>
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Non-linear minimization</span></h1>
 </div>
 
 
@@ -317,271 +315,269 @@ window.Quarto = {
 </header>
 
 
-<section id="regularization-basics" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="regularization-basics"><span class="header-section-number">5.1</span> Regularization basics</h2>
+<p>Up to now: <span class="math inline">\(\vb f(\vb m)=\vb G \vb m\)</span> (with constant <span class="math inline">\(\vb G\)</span>)</p>
+<p>Now: either there is no <span class="math inline">\(\vb G\)</span> or <span class="math inline">\(\vb G\)</span> depends on <span class="math inline">\(\vb m\)</span></p>
+<p>Example: traveltime tomography with curved rays</p>
+<section id="comparison-straight-vs.-curved-rays" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="comparison-straight-vs.-curved-rays"><span class="header-section-number">8.1</span> Comparison straight vs.&nbsp;curved rays</h2>
+<p><img src="pics/tomography_comp.png" class="img-fluid"></p>
+</section>
+<section id="linearization-of-non-linears" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="linearization-of-non-linears"><span class="header-section-number">8.2</span> Linearization of non-linears</h2>
+<p>Non-linear problem <span class="math inline">\(y=y_0 e^{\beta x}\)</span> with <span class="math inline">\(\vb m=(y_0, \beta)^T\)</span></p>
+<p>Data transformation: <span class="math inline">\(\hat y = \log y=\log y_0 + \beta x\)</span></p>
+<p><span class="math inline">\(\Rightarrow\)</span> Application of linear inverse theory</p>
+<p><strong>Logarithmic model transform (positivity constraint)</strong></p>
+<p><span class="math inline">\(\hat m_i = \log m_i\)</span> <span class="math inline">\(\Rightarrow\)</span> non-linear problem for <span class="math inline">\(\hat{\vb m}\)</span> even if linear for <span class="math inline">\(\vb m\)</span></p>
+</section>
+<section id="linearization-using-taylor-series" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="linearization-using-taylor-series"><span class="header-section-number">8.3</span> Linearization using Taylor series</h2>
+<p>One-dimensional function <span class="math inline">\(f(x)\)</span> of single parameter <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[ f(x) = f(x_0) + f'(x_0) \cdot (x-x_0) + f''(x_0)/2 \cdot (x-x_0)^2 + \ldots \]</span></p>
+<p>Multi-dimensional function of model parameters <span class="math inline">\(m_1, m_2, ...\)</span>:</p>
+<p><span class="math display">\[ f(\vb m) = f(\vb m_0 + \Delta \vb m) \approx f(\vb m_0) + \sum\limits_i^M \pdv{f(\vb m_0)}{m_j} \Delta m_j \]</span></p>
+<p><span class="math display">\[ \vb f(\vb m_0 + \Delta \vb m ) = \vb f(\vb m_0) + \sum\limits_i^M \pdv{\vb f(\vb m_0)}{m_j} \Delta m_j = \vb S \Delta\vb m  \]</span></p>
+</section>
+<section id="linearization" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="linearization"><span class="header-section-number">8.4</span> Linearization</h2>
+<p><span class="math display">\[ \vb f(\vb m_0 + \Delta \vb m ) = \vb f(\vb m_0) + \sum\limits_i^M \pdv{\vb f(\vb m_0)}{m_j} \Delta m_j = \vb f(\vb m_0) + \vb S \Delta\vb m \]</span></p>
+<p>We hope the change in the model fits our data: <span class="math inline">\(\vb f(\vb m_0 + \Delta \vb m ) \approx \vb d\)</span></p>
+<p>This leads to a linearized problem</p>
+<p><span class="math display">\[\vb S \Delta \vb m = \vb d - \vb f(\vb m_0) = \Delta \vb d\]</span></p>
+<p><span class="math inline">\(\vb S(\vb m_0)\)</span>: sensitivity matrix of partial derivatives <span class="math inline">\(S_{ij} = \pdv{f_i(\vb m_0)}{m_j}\)</span></p>
+</section>
+<section id="computation-of-the-sensitivity-jacobian" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="computation-of-the-sensitivity-jacobian"><span class="header-section-number">8.5</span> Computation of the sensitivity (Jacobian)</h2>
 <ul>
-<li>making under-determined and ill-posed problems unique (regular)</li>
-<li>make the model less sensible to small changes (noise) in data</li>
-<li>adding our assumptions or knowledge (valid ranges, prior data, geostatistical behaviour, interfaces)</li>
+<li>analytically (derivation of the forward operator)</li>
+<li>transforming the PDE and its numerical solution</li>
+<li>perturbation method (brute force)</li>
 </ul>
-<div class="callout callout-style-default callout-note callout-titled" title="Occams razor">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Occams razor
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Of all possible models, choose the simplest! How to define simple?</p>
-</div>
-</div>
-<p>In total, we are adding equations to the underdetemined system:</p>
-<p><span class="math display">\[ \vb G = \mqty(1 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 1) \Rightarrow \tilde{\vb G} \]</span></p>
-<ul>
-<li><span class="math inline">\(d_1\)</span> measures the mean value of <span class="math inline">\(m_1\)</span> and <span class="math inline">\(m_2\)</span></li>
-</ul>
-<div class="fragment">
-<ul>
-<li>size of subvector [<span class="math inline">\(m_1\)</span>, <span class="math inline">\(m_2\)</span>] should be small</li>
-</ul>
-<p><span class="math display">\[ \tilde{\vb G} \vb m =\mqty(1 &amp; 1 &amp; 0 \\
-                              0 &amp; 0 &amp; 1\\
-                    \textcolor{red}1 &amp; 0 &amp; 0 \\
-                    0 &amp; \textcolor{red}1 &amp; 0)
-                    = \mqty(d_1\\ d_2\\0\\0) \]</span></p>
-</div>
-<p>There is a couple of different choices</p>
-<section id="minimum-norm-solution" class="level3" data-number="5.1.1">
-<h3 data-number="5.1.1" class="anchored" data-anchor-id="minimum-norm-solution"><span class="header-section-number">5.1.1</span> Minimum norm solution</h3>
-<p>All model parameters are expected to be (similarly) small</p>
-<p><span class="math display">\[ \tilde{\vb G}\vb m=\mqty(1 &amp; 1 &amp; 0 \\
-                    0 &amp; 0 &amp; 1\\
-                    1 &amp; 0 &amp; 0\\
-                    0 &amp; 1 &amp; 0\\
-                    0 &amp; 0 &amp; 1) \vb m =
-                    \mqty(d_1\\ d_2\\ d_3\\ d_4\\ d_5) =
-                    \mqty(d_1\\ d_2\\ m^P_1\\ m^P_2\\ m^P_3)
-                    \]</span></p>
-<p>or close to some prior knowledge (<span class="math inline">\(d_3\)</span>, <span class="math inline">\(d_4\)</span>, <span class="math inline">\(d_5\)</span>)</p>
+<p><span class="math display">\[ \pdv{f_i(\vb m)}{m_j} \approx \frac{f_i(\vb m+\delta_j \Delta m) - f_i(\vb m)}{\Delta m} \]</span></p>
 </section>
+<section id="iterative-solution-of-non-linear-problems" class="level2" data-number="8.6">
+<h2 data-number="8.6" class="anchored" data-anchor-id="iterative-solution-of-non-linear-problems"><span class="header-section-number">8.6</span> Iterative solution of non-linear problems</h2>
+<p>Starting with a model <span class="math inline">\(\vb m_0\)</span>, we iteratively (<span class="math inline">\(n=0,1,\ldots\)</span>) improve the model by</p>
+<p><span class="math display">\[ \vb m^{n+1} = \vb m^n + \Delta \vb m^n \]</span></p>
+<p>by solving the linear sub-problem</p>
+<p><span class="math display">\[ \vb S^n \Delta \vb m^n = \Delta \vb d^n = \vb d - \vb f(\vb m^n) \]</span></p>
 </section>
-<section id="regularization-basics-adding-equations" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="regularization-basics-adding-equations"><span class="header-section-number">5.2</span> Regularization basics: adding equations</h2>
-<p><span class="math display">\[ \vb G = \mqty(1 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 1) \tilde{\vb G}\]</span></p>
-<ul>
-<li>we only measure the mean value of <span class="math inline">\(m_1\)</span> &amp; <span class="math inline">\(m_2\)</span> (as well as <span class="math inline">\(m_3\)</span>)</li>
-</ul>
-<div class="fragment">
-<ul>
-<li>difference between <span class="math inline">\(m_1\)</span> and <span class="math inline">\(m_2\)</span> should be small</li>
-</ul>
-<p><span class="math display">\[ \tilde{\vb G} \vb m=\mqty(1 &amp; 1 &amp; 0 \\
-                             0 &amp; 0 &amp; 1\\
-                    \textcolor{red}{-1} &amp; \textcolor{red}1 &amp; 0)
-                    = \mqty(d_1\\ d_2\\0) \]</span></p>
-</div>
+<section id="the-objective-function" class="level2" data-number="8.7">
+<h2 data-number="8.7" class="anchored" data-anchor-id="the-objective-function"><span class="header-section-number">8.7</span> The objective function</h2>
+<p><span class="math display">\[ \Phi_d = \| \vb d - \vb f(\vb m) \|^2 = (\vb d - \vb f(\vb m))^T \cdot (\vb d - \vb f(\vb m)) \]</span></p>
+<p>Topography of <span class="math inline">\(\Phi_d\)</span> determines non-linearity (s. Notebook on VES)</p>
 </section>
-<section id="smoothness-constraints" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="smoothness-constraints"><span class="header-section-number">5.3</span> Smoothness constraints</h2>
-<p>Gradient (roughness) between neighboring model parameters</p>
-<p><span class="math display">\[ \tilde{\vb G} \vb m = \mqty(1 &amp; 1 &amp; 0 \\
-                    0 &amp; 0 &amp; 1\\
-                    -1 &amp; 1 &amp; 0\\
-                    0 &amp; -1 &amp; 1)
-                    = \mqty(d_1\\ d_2\\0\\ 0) \]</span></p>
-</section>
-<section id="regularization-scheme" class="level2" data-number="5.4">
-<h2 data-number="5.4" class="anchored" data-anchor-id="regularization-scheme"><span class="header-section-number">5.4</span> Regularization scheme</h2>
-<p><span class="math inline">\(\tilde{\vb G}\)</span> consists of forward part &amp; constraints part</p>
-<p><span class="math display">\[ \tilde{\vb G}=\mqty[\vb G \\ \vb C] \quad\text{and}\quad \tilde{\vb d} = \mqty[\vb d \\ \vb c] \]</span></p>
-<p>now over-determined <span class="math inline">\(\Rightarrow\)</span> least-squares solution <span class="math inline">\((\tilde{\vb G}^T\vb G)^{-1}\tilde{\vb G}^T \tilde{\vb d}\)</span></p>
-<p><span class="math display">\[ \tilde{\vb G}^T \tilde{\vb G} = \vb G^T \vb G + \vb C^T \vb C \quad,\quad
-\tilde{\vb G}^T \tilde{\vb d}= \vb G^T \vb d + \vb C^T \vb c \]</span></p>
-<p><span class="math display">\[ \vb m = (\vb G^T \vb G + \vb C^T \vb C)^{-1} (\vb G^T \vb d + \vb C^T \vb c) \]</span></p>
-</section>
-<section id="weighting-data-vs.-constraints" class="level2" data-number="5.5">
-<h2 data-number="5.5" class="anchored" data-anchor-id="weighting-data-vs.-constraints"><span class="header-section-number">5.5</span> Weighting data vs.&nbsp;constraints</h2>
-<p><span class="math inline">\(\vb d\)</span> &amp; <span class="math inline">\(\vb c\)</span> may have completely different magnitudes &amp; physical units, data/constraints maybe too weak or too strong<br> <span class="math inline">\(\Rightarrow\)</span> weighting of constraints by regularization parameter <span class="math inline">\(\lambda\)</span>:</p>
-<p><span class="math display">\[ \Phi = \|\vb G \vb m - \vb d\|^2 + \lambda \|\vb C \vb m - \vb c \|^2 = \Phi_d + \lambda\Phi_m \rightarrow \min \]</span></p>
-<p><span class="math inline">\(\lambda\)</span>..regularization strength, <span class="math inline">\(\Phi_d\)</span>/<span class="math inline">\(\Phi_m\)</span>..data/model objective function</p>
-<p><span class="math display">\[ \Rightarrow \vb m = (\vb G^T \vb G + \lambda \vb C^T \vb C)^{-1} (\vb G^T \vb d + \lambda\vb C^T \vb c) \]</span></p>
-</section>
-<section id="interpretation-as-constrained-minimization-lagrangian" class="level2" data-number="5.6">
-<h2 data-number="5.6" class="anchored" data-anchor-id="interpretation-as-constrained-minimization-lagrangian"><span class="header-section-number">5.6</span> Interpretation as constrained minimization (Lagrangian)</h2>
-<p><span class="math display">\[ \Phi = \|\vb G \vb m - \vb d\|^2 + \lambda \|\vb C \vb m - \vb c \|^2 \rightarrow \min \]</span></p>
-<p><span class="math display">\[ \tilde\Phi = \|\vb C \vb m - \vb c \|^2 + \mu \|\vb G \vb m - \vb d\|^2 = \Phi_m+\mu\Phi_d \rightarrow \min \]</span></p>
-<p>Minimize regularization term under constraint (Lagrangian method)</p>
-<div class="callout callout-style-default callout-tip callout-titled" title="Interpretation with Occam">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Interpretation with Occam
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Minimize the non-simplicity subject to <span class="math inline">\(\Phi_d\)</span> reflects noise</p>
-</div>
-</div>
-</section>
-<section id="model-and-data-norms" class="level2" data-number="5.7">
-<h2 data-number="5.7" class="anchored" data-anchor-id="model-and-data-norms"><span class="header-section-number">5.7</span> Model and data norms</h2>
-<p><img src="pics/modeldatanorm.png" class="img-fluid"></p>
-</section>
-<section id="the-l-curve" class="level2" data-number="5.8">
-<h2 data-number="5.8" class="anchored" data-anchor-id="the-l-curve"><span class="header-section-number">5.8</span> The L-curve</h2>
+<section id="objective-function-for-linear-problems" class="level2" data-number="8.8">
+<h2 data-number="8.8" class="anchored" data-anchor-id="objective-function-for-linear-problems"><span class="header-section-number">8.8</span> Objective function for linear problems</h2>
 <div class="columns">
-<div class="column" style="width:55%;">
-<p><img src="pics/lcurve.png" class="img-fluid"></p>
-</div><div class="column" style="width:45%;">
-<p>Data vs.&nbsp;model norm for wide range of <span class="math inline">\(\lambda\)</span></p>
-<ul>
-<li>low data residual achieved by high norm (oscillating model)</li>
-<li>low model norm cannot fit the data (large misfit)</li>
-<li>optimum somewhere “at the corner” (not always a corner)</li>
-</ul>
+<div class="column">
+<p><span class="math display">\[ \Phi_d = (\vb d - \vb G \vb m)^T (\vb d - \vb G \vb m) = \]</span> <span class="math display">\[ (\vb d^T -  \vb m^T\vb G^T) (\vb d - \vb G \vb m) = \]</span> <span class="math display">\[ \vb d^T \vb d + \vb m^T \vb G^T \vb G \vb m - 2 \vb d^T \vb G\vb m \]</span></p>
+<p><span class="math inline">\(\Rightarrow\)</span> a parabola for all <span class="math inline">\(m_i\)</span></p>
+</div><div class="column">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pics/menke-linearPhi.png" class="img-fluid figure-img"></p>
+<figcaption>Menke (2012)</figcaption>
+</figure>
+</div>
 </div>
 </div>
 </section>
-<section id="choice-of-regularization-strength" class="level2" data-number="5.9">
-<h2 data-number="5.9" class="anchored" data-anchor-id="choice-of-regularization-strength"><span class="header-section-number">5.9</span> Choice of regularization strength</h2>
-<div class="callout callout-style-default callout-tip callout-empty-content callout-titled" title="Always have a look at your data fit and model plausibility.">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<section id="example-linear-regression" class="level2" data-number="8.9">
+<h2 data-number="8.9" class="anchored" data-anchor-id="example-linear-regression"><span class="header-section-number">8.9</span> Example: linear regression</h2>
+<div class="columns">
+<div class="column">
+<p><span class="math inline">\(y = a x + b\)</span> (<span class="math inline">\(a\)</span>=0.5, <span class="math inline">\(b\)</span>=-1)</p>
+<p><img src="pics/linReg-phi.svg" class="img-fluid"></p>
+</div><div class="column">
+<div class="r-stack">
+<p><img src="pics/linRegCurve1.svg" class="fragment img-fluid"></p>
+<p><img src="pics/linRegCurve2.svg" class="fragment img-fluid"></p>
 </div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Always have a look at your data fit and model plausibility.
 </div>
 </div>
-<div class="callout-body-container callout-body">
+<!--
+## Objective function for linear problems
+:::: {.columns}
+::: {.column}
+$$ \Phi_d = (\vb d - \vb G \vb m)^T (\vb d - \vb G \vb m) = $$
+$$ \vb d^T \vb d + \vb m^T \vb G^T \vb G \vb m - 2 \vb d^T \vb G\vb m $$
 
+Parabola for all $m_i$
+
+:::
+::: {.column}
+![Menke (2012)](pics/menke-linearPhi.png)
+:::
+::::
+-->
+</section>
+<section id="misfit-for-non-linear-problems-menke-2012" class="level2" data-number="8.10">
+<h2 data-number="8.10" class="anchored" data-anchor-id="misfit-for-non-linear-problems-menke-2012"><span class="header-section-number">8.10</span> Misfit for non-linear problems (Menke, 2012)</h2>
+<div class="columns">
+<div class="column" style="width:80%;">
+<p><img src="pics/menke-predictionError.png" class="img-fluid"></p>
+</div><div class="column" style="width:20%;">
+<p><strong>A</strong> single minimum<br> <strong>B</strong> multiple minima<br> <strong>C</strong> periodics<br> <strong>D</strong> broad range<br> <strong>E</strong> flat valley <strong>F</strong> separated valleys</p>
 </div>
 </div>
+</section>
+<section id="linearization-menke-2012" class="level2" data-number="8.11">
+<h2 data-number="8.11" class="anchored" data-anchor-id="linearization-menke-2012"><span class="header-section-number">8.11</span> Linearization (Menke, 2012)</h2>
+<div class="columns">
+<div class="column">
+<div class="r-stack">
+<p><img src="pics/menke-phiDLinearizedNoRed.png" class="img-fluid"></p>
+<p><img src="pics/menke-phiDLinearized.png" class="fragment img-fluid"></p>
+</div>
+</div><div class="column">
+<div class="r-stack">
+<p><img src="pics/menke-phiDLocalNoRed.png" class="fragment img-fluid"></p>
+<p><img src="pics/menke-phiDLocal.png" class="fragment img-fluid"></p>
+</div>
+</div>
+</div>
+<!--
+
+## Linearization in the objective (Menke, 2012)
+
+:::: {.columns}
+::: {.column}
+![](pics/menke-phiDLinearized.png)
+:::
+::: {.column}
+![](pics/menke-phiDLocal.png){.fragment}
+:::
+::::
+ -->
+</section>
+<section id="line-search-for-strong-non-linearity" class="level2" data-number="8.12">
+<h2 data-number="8.12" class="anchored" data-anchor-id="line-search-for-strong-non-linearity"><span class="header-section-number">8.12</span> Line search for strong non-linearity</h2>
+<p>The Taylor approximation might change along <span class="math inline">\(\Delta\vb m\)</span>, so we optimize the step length</p>
+<p><span class="math display">\[ \vb m^{n+1} = \vb m^n + \tau^n \Delta \vb m^n \]</span></p>
+</section>
+<section id="newtons-method" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Newtons method</h1>
+<p>Taylor series expansion for the objective function:</p>
+<p><span class="math display">\[ \Phi_d(\vb m) = \Phi_d(\vb m^0) + \sum\limits_i^M b_i (m_i-m_i^0) + \]</span> <span class="math display">\[ + \frac12 \sum\limits_i^M \sum\limits_j^M B_{ij} (m_i-m_i^0) (m_j-m_j^0) \]</span></p>
+<p>with <strong>gradient vector</strong> <span class="math inline">\(b_i=\pdv{\Phi_d}{m_i}\)</span> and <strong>Hessian matrix</strong> <span class="math inline">\(B_{ij}=\pdv{\Phi_d}{m_i}{m_j}\)</span></p>
+<section id="newtons-method-1" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="newtons-method-1"><span class="header-section-number">9.1</span> Newtons method</h2>
+<p><span class="math display">\[ \ldots \sum\limits_i^M b_i (m_i-m_i^0) + \frac12 \sum\limits_i^M \sum\limits_j^M B_{ij} (m_i-m_i^0) (m_j-m_j^0) \]</span></p>
+<p>Minimum: derivative zero</p>
+<p><span class="math inline">\(\pdv{Phi_d}{m_k}=0=b_k + \sum\limits_j B_{kj}(m_k-m_k^0) \Rightarrow \vb m - \vb m^0=-\vb B^{-1} \vb b\)</span></p>
+</section>
+<section id="newtons-method-for-linear-problems" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="newtons-method-for-linear-problems"><span class="header-section-number">9.2</span> Newtons method for linear problems</h2>
+<p><span class="math display">\[\Phi_d=(\vb d - \vb G \vb m)^T (\vb d - \vb G \vb m)\]</span></p>
+<p><span class="math display">\[b_i=\pdv{\Phi_d}{m_i}=-2\vb G^T(\vb d - \vb G \vb m)\]</span></p>
+<p><span class="math display">\[B_{ij}=\pdv{\Phi_d}{m_i}{m_j}=2\vb G^T\vb G\]</span></p>
+<p><span class="math inline">\(\Rightarrow \vb m = -\vb B^{-1} \vb b = (\vb G^T\vb G)^{-1} \vb G^T \vb d\)</span> (least-squares solution)</p>
+</section>
+<section id="newtons-method-for-non-linear-problems" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="newtons-method-for-non-linear-problems"><span class="header-section-number">9.3</span> Newtons method for non-linear problems</h2>
+<p><span class="math display">\[\Phi_d=(\vb d - \vb f(\vb m))^T (\vb d - \vb f(\vb m))\]</span></p>
+<p><span class="math display">\[b_i=\pdv{\Phi_d}{m_i}=-2\vb S^T(\vb d - \vb f(\vb m)) \quad\mbox{with}\quad S_{ij}=\pdv{f_i(\vb m^0)}{m_j}\]</span></p>
+<p><span class="math display">\[B_{ij} = \pdv{\Phi_d}{m_i}{m_j} = \pdv{b_i}{m_j} \approx 2\vb S^T\vb S\]</span></p>
+<p><span class="math inline">\(\Rightarrow \vb m - \vb m^0 = -\vb B^{-1} \vb b = (\vb S^T\vb S)^{-1} \vb S^T (\vb d - \vb f(\vb m))\)</span></p>
+<p><span class="math inline">\(\Rightarrow\)</span> least-squares solution for <span class="math inline">\(\Delta\vb m\)</span>/<span class="math inline">\(\Delta\vb d\)</span></p>
+</section>
+<section id="linearization-menke-2012-1" class="level2" data-number="9.4">
+<h2 data-number="9.4" class="anchored" data-anchor-id="linearization-menke-2012-1"><span class="header-section-number">9.4</span> Linearization (Menke, 2012)</h2>
+<div class="columns">
+<div class="column">
+<div class="r-stack">
+<p><img src="pics/menke-phiDLinearizedNoRed.png" class="img-fluid"></p>
+<p><img src="pics/menke-phiDLinearized.png" class="fragment img-fluid"></p>
+</div>
+</div><div class="column">
+<div class="r-stack">
+<p><img src="pics/menke-phiDLocalNoRed.png" class="fragment img-fluid"></p>
+<p><img src="pics/menke-phiDLocal.png" class="fragment img-fluid"></p>
+</div>
+</div>
+</div>
+</section>
+<section id="gauss-newton-minimization" class="level2" data-number="9.5">
+<h2 data-number="9.5" class="anchored" data-anchor-id="gauss-newton-minimization"><span class="header-section-number">9.5</span> Gauss-Newton minimization</h2>
+<ol type="1">
+<li>Choose starting model <span class="math inline">\(\vb m^0\)</span> and set <span class="math inline">\(n\)</span>=0</li>
+<li>Compute model response <span class="math inline">\(\vb f(\vb m^n)\)</span></li>
+<li>Compute sensitivity matrix <span class="math inline">\(\vb S^n\)</span></li>
+<li>Solve linearized subproblem <span class="math inline">\(\vb S^n \Delta\vb m^n=\Delta\vb d=(\vb d-\vb f(\vb m^n))\)</span></li>
+<li>Update model by <span class="math inline">\(\vb m^{n+1} = \vb m^n + \Delta\vb m^n\)</span></li>
+<li>If convergence quit, otherwise <span class="math inline">\(n\leftarrow n+1\)</span> &amp; proceed with 2.</li>
+</ol>
+</section>
+<section id="line-search-for-strong-non-linearity-1" class="level2" data-number="9.6">
+<h2 data-number="9.6" class="anchored" data-anchor-id="line-search-for-strong-non-linearity-1"><span class="header-section-number">9.6</span> Line search for strong non-linearity</h2>
+<p>The Taylor approximation might change along <span class="math inline">\(\Delta\vb m\)</span>, so we optimize the step length <span class="math inline">\(\tau\)</span> by “searching along the line”</p>
+<p><span class="math display">\[ \vb m^{n+1} = \vb m^n + \tau^n \Delta \vb m^n \]</span></p>
 <ul>
-<li>use different values and look at models (and misfit)</li>
-<li>try to determine the corner of the L-curve (maximum curvature)</li>
-<li>start large <span class="math inline">\(\lambda\)</span>, decrease &amp; stop when data misfit show no systematics</li>
+<li>exact line search: testing <span class="math inline">\(\vb f(\vb m + \tau \Delta \vb m)\)</span> for many <span class="math inline">\(\tau\)</span></li>
+<li>interpolation of <span class="math inline">\(\vb f(\vb m^n+\tau\Delta\vb m)\)</span> between <span class="math inline">\(\vb f(\vb m^n)\)</span> &amp; <span class="math inline">\(\vb f(\vb m^n+\Delta \vb m)\)</span></li>
+<li>fit parabola through points <span class="math inline">\(\vb f(\vb m^n)\)</span>, <span class="math inline">\(\vb f(\vb m^n+\Delta \vb m/2)\)</span>, <span class="math inline">\(\vb f(\vb m^n+\Delta \vb m)\)</span></li>
 </ul>
-<div class="callout callout-style-default callout-note callout-titled" title="Discrepancy principle">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+</section>
+<section id="gauss-newton-minimization-1" class="level2" data-number="9.7">
+<h2 data-number="9.7" class="anchored" data-anchor-id="gauss-newton-minimization-1"><span class="header-section-number">9.7</span> Gauss-Newton minimization</h2>
+<ol type="1">
+<li>Choose starting model <span class="math inline">\(\vb m^0\)</span> and set <span class="math inline">\(n\)</span>=0</li>
+<li>Compute model response <span class="math inline">\(\vb f(\vb m^n)\)</span></li>
+<li>Compute sensitivity matrix <span class="math inline">\(\vb S^n\)</span></li>
+<li>Solve linearized subproblem <span class="math inline">\(\vb S^n \Delta\vb m^n=\Delta\vb d=(\vb d-\vb f(\vb m^n))\)</span></li>
+<li>Optimize line search parameter <span class="math inline">\(\tau^n\)</span></li>
+<li>Update model by <span class="math inline">\(\vb m^{n+1} = \vb m^n + \tau^n \Delta\vb m^n\)</span></li>
+<li>If convergence quit, otherwise <span class="math inline">\(n\leftarrow n+1\)</span> &amp; proceed with 2.</li>
+</ol>
+</section>
+<section id="model-transformation" class="level2" data-number="9.8">
+<h2 data-number="9.8" class="anchored" data-anchor-id="model-transformation"><span class="header-section-number">9.8</span> Model transformation</h2>
+<div class="columns">
+<div class="column">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pics/VES-phi.svg" class="img-fluid figure-img"></p>
+<figcaption>Objective function for VES</figcaption>
+</figure>
 </div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Discrepancy principle
+</div><div class="column">
+<p>To keep the parameters positive, we often invert for the logarithms.</p>
+<p>If we invert for <span class="math inline">\(\hat{m}\)</span> instead of <span class="math inline">\(m\)</span>, we use the chain rule <span class="math display">\[\pdv{f}{\hat{m}} = \pdv{f}{m} \cdot \pdv{m}{\hat{m}} = \pdv{f}{m} / \pdv{\hat{m}}{m}\]</span></p>
+<p>E.g. <span class="math inline">\(\pdv*{\log\rho}{\rho}=1/\rho\)</span></p>
 </div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Choose the highest <span class="math inline">\(\lambda\)</span> value that is able to fit the data (<span class="math inline">\(\chi^2\)</span>=1)!</p>
-</div>
-</div>
-</section>
-<section id="damped-normal-equations-and-svd" class="level2" data-number="5.10">
-<h2 data-number="5.10" class="anchored" data-anchor-id="damped-normal-equations-and-svd"><span class="header-section-number">5.10</span> Damped normal equations and SVD</h2>
-<p><span class="math display">\[ \vb C = \vb I, \vb c=0 \quad\Rightarrow\quad \vb m = (\vb G^T\vb G + \lambda \vb I)^{-1} \vb G^T \vb d \]</span></p>
-<p><span class="math display">\[ \vb m = (\vb V \vb \Sigma \vb U^T \vb U \vb \Sigma \vb V^T + \lambda \vb I)^{-1} \vb V \vb \Sigma \vb U^T \vb d \]</span></p>
-<p><span class="math display">\[ \vb m = (\vb V \mbox{diag}(s_i^2+\lambda) \vb V^T + \lambda \vb I)^{-1} \vb V \vb \Sigma \vb U^T \vb d \]</span></p>
-<p><span class="math display">\[ \vb m = \sum\limits_i^r \frac{s_i}{s_i^2+\lambda} \vb u_i^T \vb d \cdot v_i^T = \sum\limits_i^r \frac{s_i^2}{s_i^2+\lambda} \frac{\vb u_i^T \vb d}{s_i} v_i^T \]</span></p>
-<p>Small singular values are damped in inversion, large unchanged</p>
-</section>
-<section id="resolution-of-regularized-inverse-problems" class="level2" data-number="5.11">
-<h2 data-number="5.11" class="anchored" data-anchor-id="resolution-of-regularized-inverse-problems"><span class="header-section-number">5.11</span> Resolution of regularized inverse problems</h2>
-<p>For <span class="math inline">\(c=0\)</span> we have <span class="math inline">\(\vb G^\dagger=(\vb G^T \vb G + \lambda \vb C^T \vb C)^{-1} \vb G^T\)</span></p>
-<p><span class="math display">\[ \Rightarrow \vb R^M=\vb G^\dagger \vb G=(\vb G^T \vb G + \lambda \vb C^T \vb C)^{-1} \vb G^T \vb G \]</span></p>
-<p>approaches <span class="math inline">\(\vb I\)</span> for <span class="math inline">\(\lambda\rightarrow 0\)</span> and deviates if <span class="math inline">\(\lambda\)</span> grows</p>
-</section>
-<section id="wrap-up" class="level2" data-number="5.12">
-<h2 data-number="5.12" class="anchored" data-anchor-id="wrap-up"><span class="header-section-number">5.12</span> Wrap up</h2>
-<ul>
-<li>SVD provides a general tool, BUT:
-<ul>
-<li>ill-conditioned inverse problems (SV spectrum) tend to amplify noise</li>
-<li>truncated SVD is a method so suppress this</li>
-</ul></li>
-<li>regularization can (also) be done to make solution unique</li>
-<li>different strategies: smoothness, norm, …</li>
-<li>choice of regularization strength <span class="math inline">\(\lambda\)</span> is vital</li>
-</ul>
-</section>
-<section id="application" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Application</h1>
-<section id="damped-least-squares-and-svd" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="damped-least-squares-and-svd"><span class="header-section-number">6.1</span> Damped least squares and SVD</h2>
-<p><span class="math display">\[ \vb m = (\vb G^T\vb G + \lambda \vb I)^{-1} \vb G^T \vb d \]</span></p>
-<p><span class="math display">\[ \vb m = (\vb V \vb \Sigma \vb U^T \vb U \vb \Sigma \vb V^T + \lambda \vb I)^{-1} \vb V \vb \Sigma \vb U^T \vb d \]</span></p>
-<p><span class="math display">\[ \vb m = (\vb V \mbox{diag}(s_i^2+\lambda) \vb V^T)^{-1} \vb V \vb \Sigma \vb U^T \vb d \]</span></p>
-<p><span class="math display">\[ \vb m = \sum\limits_i^r \frac{s_i}{s_i^2+\lambda} \vb u_i^T \vb d \cdot \vb v_i = \sum\limits_i^r \frac{s_i^2}{s_i^2+\lambda} \frac{\vb u_i^T \vb d}{s_i} \vb v_i = \sum\limits_i^r f_i \frac{\vb u_i^T \vb d}{s_i} \vb v_i \]</span></p>
-<p>Small singular values are damped by filter factors <span class="math inline">\(f_i=s_i^2/(s_i^2+\lambda)\)</span></p>
-</section>
-<section id="filter-factors" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="filter-factors"><span class="header-section-number">6.2</span> Filter factors</h2>
-<p><img src="notebooks/xh-filterfactor.svg" class="img-fluid"></p>
-</section>
-<section id="inversion-with-damping" class="level2" data-number="6.3">
-<h2 data-number="6.3" class="anchored" data-anchor-id="inversion-with-damping"><span class="header-section-number">6.3</span> Inversion with damping</h2>
-<div class="r-stack" width="120%">
-<p><img src="notebooks/xh/xh-lam1000_0.svg" class="img-fluid"></p>
-<p><img src="notebooks/xh/xh-lam483_3.svg" class="fragment img-fluid"></p>
-<p><img src="notebooks/xh/xh-lam233_6.svg" class="fragment img-fluid"></p>
-<p><img src="notebooks/xh/xh-lam112_9.svg" class="fragment img-fluid"></p>
-<p><img src="notebooks/xh/xh-lam54_6.svg" class="fragment img-fluid"></p>
-<p><img src="notebooks/xh/xh-lam26_4.svg" class="fragment img-fluid"></p>
-<p><img src="notebooks/xh/xh-lam12_7.svg" class="fragment img-fluid"></p>
-<p><img src="notebooks/xh/xh-lam6_2.svg" class="fragment img-fluid"></p>
-<p><img src="notebooks/xh/xh-lam3_0.svg" class="fragment img-fluid"></p>
-<p><img src="notebooks/xh/xh-lam1_4.svg" class="fragment img-fluid"></p>
 </div>
 </section>
-<section id="choosing-lambda-data-and-model-norm" class="level2" data-number="6.4">
-<h2 data-number="6.4" class="anchored" data-anchor-id="choosing-lambda-data-and-model-norm"><span class="header-section-number">6.4</span> Choosing <span class="math inline">\(\lambda\)</span>: Data and model norm</h2>
-<p><img src="notebooks/xhI-modeldatanorm.svg" class="img-fluid"></p>
-</section>
-<section id="the-l-curve-1" class="level2" data-number="6.5">
-<h2 data-number="6.5" class="anchored" data-anchor-id="the-l-curve-1"><span class="header-section-number">6.5</span> The L-curve</h2>
-<p><img src="notebooks/xhI-Lcurve.svg" class="img-fluid"></p>
-</section>
-<section id="resolution-of-regularized-inverse-problems-1" class="level2" data-number="6.6">
-<h2 data-number="6.6" class="anchored" data-anchor-id="resolution-of-regularized-inverse-problems-1"><span class="header-section-number">6.6</span> Resolution of regularized inverse problems</h2>
-<p>For <span class="math inline">\(c=0\)</span> we have <span class="math inline">\(\vb G^\dagger=(\vb G^T \vb G + \lambda \vb C^T \vb C)^{-1} \vb G^T\)</span></p>
-<p><span class="math display">\[ \Rightarrow \vb R^M=\vb G^\dagger \vb G=(\vb G^T \vb G + \lambda \vb C^T \vb C)^{-1} \vb G^T \vb G \]</span></p>
-<p>approaches <span class="math inline">\(\vb I\)</span> for <span class="math inline">\(\lambda\rightarrow 0\)</span> and deviates if <span class="math inline">\(\lambda\)</span> grows</p>
-</section>
-<section id="resolution-for-damped-normal-equations" class="level2" data-number="6.7">
-<h2 data-number="6.7" class="anchored" data-anchor-id="resolution-for-damped-normal-equations"><span class="header-section-number">6.7</span> Resolution for damped normal equations</h2>
-<p><span class="math display">\[ \vb R^M = \vb V \cdot \mbox{diag}(f_i) \cdot \vb V^T \]</span></p>
-<p><span class="math display">\[ \vb R^D = \vb U \cdot \mbox{diag}(f_i) \cdot \vb U^T \]</span></p>
-<!-- with $f_i=\frac{s_i^2}{s_i^2+\lambda}$ (damping of contributions from higher eigenvectors) -->
-<p><span class="math inline">\(\Rightarrow\)</span> like for TSVD with <span class="math inline">\(f_i=[1, \ldots, 1, 0, \ldots, 0]^T\)</span></p>
-<p><span class="math display">\[ \vb R^M = \vb V_p \vb V_p^T \quad\mbox{and}\quad \vb R^D = \vb U_p \vb U_p^T \]</span></p>
-<p><span class="math display">\[ \vb R^M-\vb I = \vb V_p \vb V_p^T - \vb V \vb V^T = -\vb V_0 \vb V_0^T \]</span></p>
-<!-- ## Resolution and the null space -->
-</section>
-<section id="inversion-with-smoothness-constraints" class="level2" data-number="6.8">
-<h2 data-number="6.8" class="anchored" data-anchor-id="inversion-with-smoothness-constraints"><span class="header-section-number">6.8</span> Inversion with smoothness constraints</h2>
-<div class="r-stack" width="120%">
-<p><img src="notebooks/xh/xhS-lam1000_0.svg" class="img-fluid"></p>
-<p><img src="notebooks/xh/xhS-lam483_3.svg" class="fragment img-fluid"></p>
-<p><img src="notebooks/xh/xhS-lam233_6.svg" class="fragment img-fluid"></p>
-<p><img src="notebooks/xh/xhS-lam112_9.svg" class="fragment img-fluid"></p>
-<p><img src="notebooks/xh/xhS-lam54_6.svg" class="fragment img-fluid"></p>
-<p><img src="notebooks/xh/xhS-lam26_4.svg" class="fragment img-fluid"></p>
-<p><img src="notebooks/xh/xhS-lam12_7.svg" class="fragment img-fluid"></p>
-<p><img src="notebooks/xh/xhS-lam6_2.svg" class="fragment img-fluid"></p>
-<p><img src="notebooks/xh/xhS-lam3_0.svg" class="fragment img-fluid"></p>
-<p><img src="notebooks/xh/xhS-lam1_4.svg" class="fragment img-fluid"></p>
+<section id="data-transformation" class="level2" data-number="9.9">
+<h2 data-number="9.9" class="anchored" data-anchor-id="data-transformation"><span class="header-section-number">9.9</span> Data transformation</h2>
+<div class="columns">
+<div class="column">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pics/VES-phi.svg" class="img-fluid figure-img"></p>
+<figcaption>Objective function for VES</figcaption>
+</figure>
+</div>
+</div><div class="column">
+<p>Often, measured data show a wide range so that we use the logarithm</p>
+<p>If we invert <span class="math inline">\(\hat{d}\)</span> instead of <span class="math inline">\(d\)</span>, we use the chain rule <span class="math display">\[\pdv{\hat{f}}{m} = \pdv{f}{m} \cdot \pdv{\hat{f}}{f}\]</span></p>
+<p>E.g. <span class="math inline">\(\pdv*{\log\rho^a}{\rho^a}=1/\rho_a\)</span></p>
+</div>
 </div>
 </section>
-<section id="smoothness-constraints-data-and-model-norm" class="level2" data-number="6.9">
-<h2 data-number="6.9" class="anchored" data-anchor-id="smoothness-constraints-data-and-model-norm"><span class="header-section-number">6.9</span> Smoothness constraints: Data and model norm</h2>
-<p><img src="notebooks/xhS-modeldatanorm.svg" class="img-fluid"></p>
+<section id="combined-model-and-data-transformation" class="level2" data-number="9.10">
+<h2 data-number="9.10" class="anchored" data-anchor-id="combined-model-and-data-transformation"><span class="header-section-number">9.10</span> Combined model and data transformation</h2>
+<p>Sensitivity <span class="math inline">\(S_{ij}=\pdv{\rho^a_i}{\rho_j}\)</span></p>
+<p>Data <span class="math inline">\(d_i=\log \rho^a_i\)</span>, model parameter <span class="math inline">\(m_i=\log\rho_j\)</span></p>
+<p><span class="math inline">\(\Rightarrow\)</span> Jacobian matrix</p>
+<p><span class="math display">\[J_{ij} = \pdv{\log \rho^a_i}{\log\rho_j} = \pdv{\rho^a_i}{\rho_j} \cdot \frac{\rho_j}{\rho^a_i}\]</span></p>
 </section>
-<section id="smoothness-constraints-the-l-curve" class="level2" data-number="6.10">
-<h2 data-number="6.10" class="anchored" data-anchor-id="smoothness-constraints-the-l-curve"><span class="header-section-number">6.10</span> Smoothness constraints: The L-curve</h2>
-<p><img src="notebooks/xhS-Lcurve.svg" class="img-fluid"></p>
+<section id="regularization" class="level2" data-number="9.11">
+<h2 data-number="9.11" class="anchored" data-anchor-id="regularization"><span class="header-section-number">9.11</span> Regularization</h2>
+<p><span class="math display">\[\Phi=(\vb d - \vb f(\vb m))^T (\vb d - \vb f(\vb m)) + \lambda (\vb c - \vb C\vb m)^T (\vb c - \vb C\vb m)\]</span></p>
+<p><span class="math display">\[b_i=\pdv{\Phi}{m_i}=-2\vb S^T(\vb d - \vb f(\vb m)) - 2\lambda \vb C^T (\vb c - \vb C \vb m)\]</span></p>
+<p><span class="math display">\[B_{ij} = \pdv{\Phi}{m_i}{m_j} = \pdv{b_i}{m_j} \approx 2\vb S^T\vb S + 2\lambda\vb C^T \vb C\]</span></p>
+<p><span class="math display">\[\Rightarrow (\vb S^T\vb S + \lambda \vb C^T\vb C) \Delta\vb m = \vb S^T (\vb d-\vb f(\vb m^n)) + \lambda \vb C^T(\vb c - \vb C\vb m)\]</span></p>
 
 
 </section>
@@ -990,13 +986,13 @@ window.Quarto = {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./04_svd.html" class="pagination-link" aria-label="Singular Value Decomposition">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Singular Value Decomposition</span></span>
+      <a href="./07_enhanced_regularization.html" class="pagination-link" aria-label="Enhanced regularization">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Enhanced regularization</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./06_traveltime_tomography.html" class="pagination-link" aria-label="Traveltime tomography">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Traveltime tomography</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./09_simple_model.html" class="pagination-link" aria-label="A simple model">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">A simple model</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

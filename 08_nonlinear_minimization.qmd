@@ -1,0 +1,321 @@
+---
+title: "Non-linear minimization"
+---
+
+Up to now: $\vb f(\vb m)=\vb G \vb m$ (with constant $\vb G$)
+
+Now: either there is no $\vb G$ or $\vb G$ depends on $\vb m$
+
+Example: traveltime tomography with curved rays
+
+## Comparison straight vs. curved rays
+
+![](pics/tomography_comp.png)
+
+
+
+## Linearization of non-linears
+
+Non-linear problem $y=y_0 e^{\beta x}$ with $\vb m=(y_0, \beta)^T$
+
+Data transformation: $\hat y = \log y=\log y_0 + \beta x$
+
+$\Rightarrow$ Application of linear inverse theory
+
+**Logarithmic model transform (positivity constraint)**
+
+$\hat m_i = \log m_i$ $\Rightarrow$ non-linear problem for $\hat{\vb m}$ even if linear for $\vb m$
+
+## Linearization using Taylor series
+
+One-dimensional function $f(x)$ of single parameter $x$:
+
+$$ f(x) = f(x_0) + f'(x_0) \cdot (x-x_0) + f''(x_0)/2 \cdot (x-x_0)^2 + \ldots $$
+
+Multi-dimensional function of model parameters $m_1, m_2, ...$:
+
+$$ f(\vb m) = f(\vb m_0 + \Delta \vb m) \approx f(\vb m_0) + \sum\limits_i^M \pdv{f(\vb m_0)}{m_j} \Delta m_j $$
+
+$$ \vb f(\vb m_0 + \Delta \vb m ) = \vb f(\vb m_0) + \sum\limits_i^M \pdv{\vb f(\vb m_0)}{m_j} \Delta m_j = \vb S \Delta\vb m  $$
+
+## Linearization
+
+$$ \vb f(\vb m_0 + \Delta \vb m ) = \vb f(\vb m_0) + \sum\limits_i^M \pdv{\vb f(\vb m_0)}{m_j} \Delta m_j = \vb f(\vb m_0) + \vb S \Delta\vb m $$
+
+We hope the change in the model fits our data: $\vb f(\vb m_0 + \Delta \vb m ) \approx \vb d$
+
+This leads to a linearized problem
+
+$$\vb S \Delta \vb m = \vb d - \vb f(\vb m_0) = \Delta \vb d$$
+
+$\vb S(\vb m_0)$: sensitivity matrix of partial derivatives $S_{ij} = \pdv{f_i(\vb m_0)}{m_j}$
+
+## Computation of the sensitivity (Jacobian)
+
+* analytically (derivation of the forward operator)
+* transforming the PDE and its numerical solution
+* perturbation method (brute force)
+
+$$ \pdv{f_i(\vb m)}{m_j} \approx \frac{f_i(\vb m+\delta_j \Delta m) - f_i(\vb m)}{\Delta m} $$
+
+
+## Iterative solution of non-linear problems
+
+Starting with a model $\vb m_0$, we iteratively ($n=0,1,\ldots$) improve the model by
+
+$$ \vb m^{n+1} = \vb m^n + \Delta \vb m^n $$
+
+by solving the linear sub-problem
+
+$$ \vb S^n \Delta \vb m^n = \Delta \vb d^n = \vb d - \vb f(\vb m^n) $$
+
+
+## The objective function
+
+$$ \Phi_d = \| \vb d - \vb f(\vb m) \|^2 = (\vb d - \vb f(\vb m))^T \cdot (\vb d - \vb f(\vb m)) $$
+
+Topography of $\Phi_d$ determines non-linearity (s. Notebook on VES)
+
+## Objective function for linear problems
+:::: {.columns}
+::: {.column}
+$$ \Phi_d = (\vb d - \vb G \vb m)^T (\vb d - \vb G \vb m) = $$
+$$ (\vb d^T -  \vb m^T\vb G^T) (\vb d - \vb G \vb m) = $$
+$$ \vb d^T \vb d + \vb m^T \vb G^T \vb G \vb m - 2 \vb d^T \vb G\vb m $$
+
+$\Rightarrow$ a parabola for all $m_i$
+
+:::
+::: {.column}
+![Menke (2012)](pics/menke-linearPhi.png)
+:::
+::::
+
+## Example: linear regression
+
+:::: {.columns}
+::: {.column}
+$y = a x + b$ ($a$=0.5, $b$=-1)
+
+![](pics/linReg-phi.svg)
+:::
+::: {.column}
+::: {.r-stack}
+![](pics/linRegCurve1.svg){.fragment}
+
+![](pics/linRegCurve2.svg){.fragment}
+:::
+:::
+::::
+
+<!--
+## Objective function for linear problems
+:::: {.columns}
+::: {.column}
+$$ \Phi_d = (\vb d - \vb G \vb m)^T (\vb d - \vb G \vb m) = $$
+$$ \vb d^T \vb d + \vb m^T \vb G^T \vb G \vb m - 2 \vb d^T \vb G\vb m $$
+
+Parabola for all $m_i$
+
+:::
+::: {.column}
+![Menke (2012)](pics/menke-linearPhi.png)
+:::
+::::
+-->
+
+## Misfit for non-linear problems (Menke, 2012)
+
+:::: {.columns}
+::: {.column width="80%"}
+![](pics/menke-predictionError.png)
+:::
+::: {.column width="20%"}
+**A** single minimum<br>
+**B** multiple minima<br>
+**C** periodics<br>
+**D** broad range<br>
+**E** flat valley
+**F** separated valleys
+:::
+::::
+
+## Linearization (Menke, 2012)
+
+:::: {.columns}
+::: {.column}
+::: {.r-stack}
+![](pics/menke-phiDLinearizedNoRed.png)
+
+![](pics/menke-phiDLinearized.png){.fragment}
+:::
+:::
+::: {.column}
+::: {.r-stack}
+![](pics/menke-phiDLocalNoRed.png){.fragment}
+
+![](pics/menke-phiDLocal.png){.fragment}
+:::
+:::
+::::
+
+<!--
+
+## Linearization in the objective (Menke, 2012)
+
+:::: {.columns}
+::: {.column}
+![](pics/menke-phiDLinearized.png)
+:::
+::: {.column}
+![](pics/menke-phiDLocal.png){.fragment}
+:::
+::::
+ -->
+
+## Line search for strong non-linearity
+
+The Taylor approximation might change along $\Delta\vb m$, so we optimize the step length
+
+$$ \vb m^{n+1} = \vb m^n + \tau^n \Delta \vb m^n $$
+
+# Newtons method
+
+Taylor series expansion for the objective function:
+
+$$ \Phi_d(\vb m) = \Phi_d(\vb m^0) + \sum\limits_i^M b_i (m_i-m_i^0) + $$
+$$ + \frac12 \sum\limits_i^M \sum\limits_j^M B_{ij} (m_i-m_i^0) (m_j-m_j^0) $$
+
+with **gradient vector** $b_i=\pdv{\Phi_d}{m_i}$ and **Hessian matrix** $B_{ij}=\pdv{\Phi_d}{m_i}{m_j}$
+
+## Newtons method
+
+$$ \ldots \sum\limits_i^M b_i (m_i-m_i^0) + \frac12 \sum\limits_i^M \sum\limits_j^M B_{ij} (m_i-m_i^0) (m_j-m_j^0) $$
+
+Minimum: derivative zero
+
+$\pdv{Phi_d}{m_k}=0=b_k + \sum\limits_j B_{kj}(m_k-m_k^0) \Rightarrow \vb m - \vb m^0=-\vb B^{-1} \vb b$
+
+## Newtons method for linear problems
+
+$$\Phi_d=(\vb d - \vb G \vb m)^T (\vb d - \vb G \vb m)$$
+
+$$b_i=\pdv{\Phi_d}{m_i}=-2\vb G^T(\vb d - \vb G \vb m)$$
+
+$$B_{ij}=\pdv{\Phi_d}{m_i}{m_j}=2\vb G^T\vb G$$
+
+$\Rightarrow \vb m = -\vb B^{-1} \vb b = (\vb G^T\vb G)^{-1} \vb G^T \vb d$ (least-squares solution)
+
+## Newtons method for non-linear problems
+
+$$\Phi_d=(\vb d - \vb f(\vb m))^T (\vb d - \vb f(\vb m))$$
+
+$$b_i=\pdv{\Phi_d}{m_i}=-2\vb S^T(\vb d - \vb f(\vb m)) \quad\mbox{with}\quad S_{ij}=\pdv{f_i(\vb m^0)}{m_j}$$
+
+$$B_{ij} = \pdv{\Phi_d}{m_i}{m_j} = \pdv{b_i}{m_j} \approx 2\vb S^T\vb S$$
+
+$\Rightarrow \vb m - \vb m^0 = -\vb B^{-1} \vb b = (\vb S^T\vb S)^{-1} \vb S^T (\vb d - \vb f(\vb m))$
+
+$\Rightarrow$ least-squares solution for $\Delta\vb m$/$\Delta\vb d$
+
+## Linearization (Menke, 2012)
+
+:::: {.columns}
+::: {.column}
+::: {.r-stack}
+![](pics/menke-phiDLinearizedNoRed.png)
+
+![](pics/menke-phiDLinearized.png){.fragment}
+:::
+:::
+::: {.column}
+::: {.r-stack}
+![](pics/menke-phiDLocalNoRed.png){.fragment}
+
+![](pics/menke-phiDLocal.png){.fragment}
+:::
+:::
+::::
+
+## Gauss-Newton minimization
+
+1. Choose starting model $\vb m^0$ and set $n$=0
+1. Compute model response $\vb f(\vb m^n)$
+1. Compute sensitivity matrix $\vb S^n$
+1. Solve linearized subproblem $\vb S^n \Delta\vb m^n=\Delta\vb d=(\vb d-\vb f(\vb m^n))$
+1. Update model by $\vb m^{n+1} = \vb m^n + \Delta\vb m^n$
+1. If convergence quit, otherwise $n\leftarrow n+1$ & proceed with 2.
+
+## Line search for strong non-linearity
+
+The Taylor approximation might change along $\Delta\vb m$, so we optimize the step length $\tau$ by "searching along the line"
+
+$$ \vb m^{n+1} = \vb m^n + \tau^n \Delta \vb m^n $$
+
+* exact line search: testing $\vb f(\vb m + \tau \Delta \vb m)$ for many $\tau$
+* interpolation of $\vb f(\vb m^n+\tau\Delta\vb m)$ between $\vb f(\vb m^n)$ & $\vb f(\vb m^n+\Delta \vb m)$
+* fit parabola through points $\vb f(\vb m^n)$, $\vb f(\vb m^n+\Delta \vb m/2)$, $\vb f(\vb m^n+\Delta \vb m)$
+
+## Gauss-Newton minimization
+
+1. Choose starting model $\vb m^0$ and set $n$=0
+1. Compute model response $\vb f(\vb m^n)$
+1. Compute sensitivity matrix $\vb S^n$
+1. Solve linearized subproblem $\vb S^n \Delta\vb m^n=\Delta\vb d=(\vb d-\vb f(\vb m^n))$
+1. Optimize line search parameter $\tau^n$
+1. Update model by $\vb m^{n+1} = \vb m^n + \tau^n \Delta\vb m^n$
+1. If convergence quit, otherwise $n\leftarrow n+1$ & proceed with 2.
+
+## Model transformation
+
+:::: {.columns}
+::: {.column}
+![Objective function for VES](pics/VES-phi.svg)
+:::
+::: {.column}
+To keep the parameters positive, we often invert for the logarithms.
+
+If we invert for $\hat{m}$ instead of $m$, we use the chain rule
+$$\pdv{f}{\hat{m}} = \pdv{f}{m} \cdot \pdv{m}{\hat{m}} = \pdv{f}{m} / \pdv{\hat{m}}{m}$$
+
+E.g. $\pdv*{\log\rho}{\rho}=1/\rho$
+:::
+::::
+
+## Data transformation
+
+:::: {.columns}
+::: {.column}
+![Objective function for VES](pics/VES-phi.svg)
+:::
+::: {.column}
+Often, measured data show a wide range so that we use the logarithm
+
+If we invert $\hat{d}$ instead of $d$, we use the chain rule
+$$\pdv{\hat{f}}{m} = \pdv{f}{m} \cdot \pdv{\hat{f}}{f}$$
+
+E.g. $\pdv*{\log\rho^a}{\rho^a}=1/\rho_a$
+:::
+::::
+
+## Combined model and data transformation
+
+Sensitivity $S_{ij}=\pdv{\rho^a_i}{\rho_j}$
+
+Data $d_i=\log \rho^a_i$, model parameter $m_i=\log\rho_j$
+
+$\Rightarrow$ Jacobian matrix
+
+$$J_{ij} = \pdv{\log \rho^a_i}{\log\rho_j} = \pdv{\rho^a_i}{\rho_j} \cdot \frac{\rho_j}{\rho^a_i}$$
+
+
+## Regularization
+
+$$\Phi=(\vb d - \vb f(\vb m))^T (\vb d - \vb f(\vb m)) + \lambda (\vb c - \vb C\vb m)^T (\vb c - \vb C\vb m)$$
+
+$$b_i=\pdv{\Phi}{m_i}=-2\vb S^T(\vb d - \vb f(\vb m)) - 2\lambda \vb C^T (\vb c - \vb C \vb m)$$
+
+$$B_{ij} = \pdv{\Phi}{m_i}{m_j} = \pdv{b_i}{m_j} \approx 2\vb S^T\vb S + 2\lambda\vb C^T \vb C$$
+
+$$\Rightarrow (\vb S^T\vb S + \lambda \vb C^T\vb C) \Delta\vb m = \vb S^T (\vb d-\vb f(\vb m^n)) + \lambda \vb C^T(\vb c - \vb C\vb m)$$
+
