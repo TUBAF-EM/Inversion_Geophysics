@@ -704,7 +704,18 @@
     "href": "06_traveltime_tomography.html",
     "title": "6  Traveltime tomography",
     "section": "",
-    "text": "6.1 Crosshole tomography",
+    "text": "6.1 Crosshole tomography\nFor this example, we use the traveltime module from pyGIMLi\nShow the code\nimport pygimli.physics.traveltime as tt\nShow the code\ndata = tt.createCrossholeData(x=[0, 10], z=-np.arange(10)-0.5)\nWe create a grid of\nShow the code\nx = np.arange(10.1)  # 0 1 .. 10\ny = -np.arange(0, 12.1)  # 0 1 .. 11\ngrid = pg.createGrid(x, y)\nprint(grid)\npg.show(grid);\n\n\nMesh: Nodes: 143 Cells: 120 Boundaries: 262\nShow the code\nax, cb = grid.show(grid.cellMarkers(), showMesh=1,\n                   colorBar=False, cMap=\"Spectral\")\nsx = pg.x(data)\nsy = pg.y(data)\nsC = data.sensorCount()\nax.plot(sx[:sC//2], sy[:sC//2], \"b*\", ms=8)\nax.plot(sx[sC//2:], sy[sC//2:], \"gs\", ms=8)\n# ax.figure.savefig(\"crosshole-setup.svg\")\nfor s, g in zip(data[\"s\"], data[\"g\"]):\n    ax.plot([sx[s], sx[g]], [sy[s], sy[g]],\n            color=\"0.8\", alpha=0.5, lw=1)",
+    "crumbs": [
+      "Regularization",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Traveltime tomography</span>"
+    ]
+  },
+  {
+    "objectID": "06_traveltime_tomography.html#smoothness-constraints",
+    "href": "06_traveltime_tomography.html#smoothness-constraints",
+    "title": "6  Traveltime tomography",
+    "section": "6.2 Smoothness constraints",
+    "text": "6.2 Smoothness constraints\n\n\nShow the code\nplt.spy(C)",
     "crumbs": [
       "Regularization",
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Traveltime tomography</span>"

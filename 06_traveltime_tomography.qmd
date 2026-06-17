@@ -3,4 +3,77 @@ title: "Traveltime tomography"
 ---
 ## Crosshole tomography
 
+```{python}
+#| eval: true
+#| echo: false
 
+import numpy as np
+import matplotlib.pyplot as plt
+import pygimli as pg
+```
+
+For this example, we use the [traveltime module](https://www.pygimli.org/pygimliapi/_generated/pygimli.physics.traveltime/) from [pyGIMLi](https://www.pygimli.org)
+
+```{python}
+import pygimli.physics.traveltime as tt
+```
+
+```{python}
+data = tt.createCrossholeData(x=[0, 10], z=-np.arange(10)-0.5)
+```
+
+We create a grid of
+```{python}
+x = np.arange(10.1)  # 0 1 .. 10
+y = -np.arange(0, 12.1)  # 0 1 .. 11
+grid = pg.createGrid(x, y)
+print(grid)
+pg.show(grid);
+```
+
+```{python}
+ax, cb = grid.show(grid.cellMarkers(), showMesh=1,
+                   colorBar=False, cMap="Spectral")
+sx = pg.x(data)
+sy = pg.y(data)
+sC = data.sensorCount()
+ax.plot(sx[:sC//2], sy[:sC//2], "b*", ms=8)
+ax.plot(sx[sC//2:], sy[sC//2:], "gs", ms=8)
+# ax.figure.savefig("crosshole-setup.svg")
+for s, g in zip(data["s"], data["g"]):
+    ax.plot([sx[s], sx[g]], [sy[s], sy[g]],
+            color="0.8", alpha=0.5, lw=1)
+```
+
+
+
+
+
+## Smoothness constraints
+
+```{python}
+#| echo: false
+
+nB = 9*9 + 10*8
+C = np.zeros([nB, grid.cellCount()]) # 9x10
+i = 0
+for row in range(9):
+    for col in range(9):
+        left = row*10+col
+        C[i, left] = -1
+        C[i, left+1] = 1
+        i += 1
+
+for row in range(8):
+    for col in range(10):
+        up = row*10+col
+        C[i, up] = -1
+        C[i, up+10] = 1
+        i += 1
+```
+
+```{python}
+#| echo: true
+
+plt.spy(C)
+```
