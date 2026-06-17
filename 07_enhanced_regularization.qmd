@@ -1,0 +1,130 @@
+---
+title: "Enhanced regularization"
+---
+
+::: {.callout-note title="Regularization is key to subsurface imaging "}
+:::
+
+$\Rightarrow$ Add any information about the subsurface:
+
+- correlation lengths and angles
+- structural boundaries (from boreholes, seismics, GPR)
+- point information (samples, borehole logs, )
+- limits of the possible parameters (e.g. positivity, natural bounds)
+
+## Smoothness constraints
+
+:::: {.columns}
+::: {.column}
+![](pics/reg/minimodel4.png)
+
+4 model cells, 3 boundaries
+:::
+::: {.column}
+1st order derivative
+$$ \vb C = \mqty(-1 & 1 & 0 & 0\\0 & -1 & 1 & 0\\0 & -1 & 0 & 1) $$
+can be weighted by
+
+* inverse midpoint distance
+* boundary size (length, area)
+* information about boundaries
+:::
+::::
+
+## Anisotropic smoothness
+
+:::: {.columns}
+::: {.column}
+![isotropic smoothness](pics/reg/MiniModel-ws-1.png)
+:::
+::: {.column}
+![anisotropic smoothness](pics/reg/MiniModel-ws-wz.png){.fragment}
+:::
+::::
+
+## Structural decoupling
+
+:::: {.columns}
+::: {.column}
+![isotropic smoothness](pics/reg/MiniModel-ws-1.png)
+:::
+::: {.column}
+![decoupling](pics/reg/MiniModel-ws-0.png)
+:::
+::::
+
+## Structural constraints
+
+:::: {.columns}
+::: {.column width="30%"}
+![Bergmann et al. 2014](pics/reg/bergmann2014.png)
+:::
+::: {.column width="67%"}
+![Wagner & Uhlemann 2021](pics/reg/structuralConstraints.png){.fragment}
+:::
+::::
+
+## Structural example (Tanner et al. 2020)
+
+:::: {.columns}
+::: {.column width="48%"}
+![](pics/reg/tannerSeis.png)
+:::
+::: {.column width="48%"}
+![](pics/reg/tannerFault.png)
+:::
+::::
+
+## Selected smoothness
+:::: {.columns}
+::: {.column}
+![decoupling](pics/reg/MiniModel-ws-0.png)
+:::
+::: {.column}
+![disjunct regions](pics/reg/MiniModel-region.png){.fragment}
+:::
+::::
+
+## Model reduction
+:::: {.columns}
+::: {.column}
+![clustering models](pics/reg/MiniModel-cluster.png)
+:::
+::: {.column}
+![disjunct regions](pics/reg/MiniModel-region.png)
+:::
+::::
+
+## Region-wise settings
+
+:::: {.columns}
+::: {.column}
+![](pics/reg/widen_mesh.png)
+:::
+::: {.column}
+![](pics/reg/widen_compare.png)
+:::
+::::
+
+
+
+## Geostatistical regularization
+
+<!-- :::: {.columns}
+::: {.column}
+:::
+::: {.column}
+
+:::
+::::
+ -->
+
+$\vb M_{ij}=\sigma^2\exp(-3\sqrt{\frac{|x_i-x_j|}{I_x}^2+\frac{|y_i-y_j|}{I_y}^2})\quad\Rightarrow\quad \vb C=\vb M^{-0.5}$
+
+![](pics/reg/geostat-operators2.png)
+<!-- ![Correlation matrix (left) and regularization operator](pics/reg/geostat-operators2.png) -->
+
+## Geostatistical regularization - example
+
+![Jordi et al. (2018)](pics/reg/syntheticReshuffle.png)
+
