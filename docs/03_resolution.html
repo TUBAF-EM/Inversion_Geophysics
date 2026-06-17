@@ -58,7 +58,26 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -240,12 +259,24 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Regularization</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_traveltime_tomography.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Traveltime tomography</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07_enhanced_regularization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Enhanced regularization</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./literature.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">References</span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">References</span></span></a>
   </div>
 </li>
     </ul>
@@ -284,12 +315,8 @@ window.Quarto = {
   <li><a href="#derivation" id="toc-derivation" class="nav-link" data-scroll-target="#derivation"><span class="header-section-number">3.6.4</span> Derivation</a></li>
   <li><a href="#resolution-of-the-minimum-norm-inverse" id="toc-resolution-of-the-minimum-norm-inverse" class="nav-link" data-scroll-target="#resolution-of-the-minimum-norm-inverse"><span class="header-section-number">3.6.5</span> Resolution of the minimum norm inverse</a></li>
   </ul></li>
-  <li><a href="#appendix" id="toc-appendix" class="nav-link" data-scroll-target="#appendix"><span class="header-section-number">3.7</span> Appendix</a>
-  <ul class="collapse">
-  <li><a href="#derivation-1" id="toc-derivation-1" class="nav-link" data-scroll-target="#derivation-1"><span class="header-section-number">3.7.1</span> Derivation (1)</a></li>
-  <li><a href="#derivation-2" id="toc-derivation-2" class="nav-link" data-scroll-target="#derivation-2"><span class="header-section-number">3.7.2</span> Derivation (2)</a></li>
-  <li><a href="#derivation-by-change-tdeltavb-m" id="toc-derivation-by-change-tdeltavb-m" class="nav-link" data-scroll-target="#derivation-by-change-tdeltavb-m"><span class="header-section-number">3.7.3</span> Derivation by change <span class="math inline">\(t\delta{\vb m}\)</span></a></li>
-  </ul></li>
+  <li><a href="#resolution-kernels-point-spread-functions" id="toc-resolution-kernels-point-spread-functions" class="nav-link" data-scroll-target="#resolution-kernels-point-spread-functions"><span class="header-section-number">3.7</span> Resolution kernels (point spread functions)</a></li>
+  <li><a href="#model-resolution-radius" id="toc-model-resolution-radius" class="nav-link" data-scroll-target="#model-resolution-radius"><span class="header-section-number">3.8</span> Model resolution radius</a></li>
   </ul>
 </nav>
     </div>
@@ -350,7 +377,7 @@ window.Quarto = {
 </section>
 <section id="resolution-of-matrix-problem" class="level3" data-number="3.2.2">
 <h3 data-number="3.2.2" class="anchored" data-anchor-id="resolution-of-matrix-problem"><span class="header-section-number">3.2.2</span> Resolution of matrix problem</h3>
-<div id="8d9271ba" class="cell" data-output-location="column" data-execution_count="2">
+<div id="70360868" class="cell" data-output-location="column" data-execution_count="2">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Ginv <span class="op">=</span> np.linalg.inv(G.T <span class="op">@</span> G) <span class="op">@</span> G.T</span>
@@ -362,7 +389,7 @@ window.Quarto = {
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="03_resolution_files/figure-html/cell-3-output-1.png" width="525" height="416" class="figure-img"></p>
+<p><img src="03_resolution_files/figure-html/cell-3-output-1.png" width="526" height="417" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -375,7 +402,7 @@ window.Quarto = {
 </section>
 <section id="linear-regression" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="linear-regression"><span class="header-section-number">3.3</span> Linear regression</h2>
-<div id="2b96f4b3" class="cell" data-output-location="column" data-execution_count="3">
+<div id="b5a96b96" class="cell" data-output-location="column" data-execution_count="3">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">3</span>, <span class="fl">0.1</span>)</span>
@@ -397,15 +424,15 @@ window.Quarto = {
 <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"X²="</span>, np.sqrt(np.mean((residual<span class="op">/</span>err)<span class="op">**</span><span class="dv">2</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>m =  [ 0.52864941 -0.50362901]
-mean= -1.420160285666346e-16
-std= 0.0774217439944723
-X²= 0.7742174399447228</code></pre>
+<pre><code>m =  [ 0.47881015 -0.46971096]
+mean= 1.295260195396016e-17
+std= 0.08725032651333633
+X²= 0.8725032651333633</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="03_resolution_files/figure-html/cell-4-output-2.png" width="590" height="411" class="figure-img"></p>
+<p><img src="03_resolution_files/figure-html/cell-4-output-2.png" width="591" height="411" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -413,7 +440,7 @@ X²= 0.7742174399447228</code></pre>
 </section>
 <section id="linear-regression---data-importance-matrix" class="level2" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="linear-regression---data-importance-matrix"><span class="header-section-number">3.4</span> Linear regression - data importance matrix</h2>
-<div id="792131a5" class="cell" data-output-location="column" data-execution_count="4">
+<div id="26580387" class="cell" data-output-location="column" data-execution_count="4">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>RD <span class="op">=</span> A <span class="op">@</span> Ainv</span>
@@ -425,7 +452,7 @@ X²= 0.7742174399447228</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="03_resolution_files/figure-html/cell-5-output-1.png" width="552" height="480" class="figure-img"></p>
+<p><img src="03_resolution_files/figure-html/cell-5-output-1.png" width="553" height="480" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -434,7 +461,7 @@ X²= 0.7742174399447228</code></pre>
 <li>neighboring data points are correlated, opposite anti-correlated</li>
 </ul>
 <hr>
-<div id="9c82004d" class="cell" data-output-location="column" data-execution_count="5">
+<div id="8c298e4b" class="cell" data-output-location="column" data-execution_count="5">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>rd <span class="op">=</span> np.diag(RD)</span>
@@ -442,7 +469,7 @@ X²= 0.7742174399447228</code></pre>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x, rd, <span class="st">"+-"</span>, ms<span class="op">=</span><span class="dv">5</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
-<pre><code>1.9999999999999993</code></pre>
+<pre><code>np.float64(1.9999999999999996)</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -501,7 +528,7 @@ X²= 0.7742174399447228</code></pre>
 </section>
 <section id="linear-regression-with-outliers" class="level3" data-number="3.5.5">
 <h3 data-number="3.5.5" class="anchored" data-anchor-id="linear-regression-with-outliers"><span class="header-section-number">3.5.5</span> Linear regression with outliers</h3>
-<div id="8583714c" class="cell" data-output-location="column" data-execution_count="6">
+<div id="e0779bcf" class="cell" data-output-location="column" data-execution_count="6">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>d[<span class="op">-</span><span class="dv">1</span>] <span class="op">+=</span> <span class="dv">1</span></span>
@@ -514,12 +541,12 @@ X²= 0.7742174399447228</code></pre>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>ax.grid()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>m =  [ 0.44049514 -0.42098438]</code></pre>
+<pre><code>m =  [ 0.39065588 -0.38706633]</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="03_resolution_files/figure-html/cell-7-output-2.png" width="590" height="411" class="figure-img"></p>
+<p><img src="03_resolution_files/figure-html/cell-7-output-2.png" width="591" height="411" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -540,11 +567,11 @@ Important
 <p>Always have a look at the misfit distribution (not only <span class="math inline">\(\chi^2\)</span>)</p>
 </div>
 </div>
-<div id="5bc013f3" class="cell" data-output-location="column" data-execution_count="7">
+<div id="601cd09c" class="cell" data-output-location="column" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="03_resolution_files/figure-html/cell-8-output-1.png" width="569" height="435" class="figure-img"></p>
+<p><img src="03_resolution_files/figure-html/cell-8-output-1.png" width="569" height="434" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -668,30 +695,72 @@ Note
 </div>
 </section>
 </section>
-<section id="appendix" class="level2" data-number="3.7">
-<h2 data-number="3.7" class="anchored" data-anchor-id="appendix"><span class="header-section-number">3.7</span> Appendix</h2>
-<section id="derivation-1" class="level3" data-number="3.7.1">
-<h3 data-number="3.7.1" class="anchored" data-anchor-id="derivation-1"><span class="header-section-number">3.7.1</span> Derivation (1)</h3>
-<p><span class="math display">\[\Phi = \| {\vb d}-{\vb G}{\vb m}\|^2_2 = ({\vb d}-{\vb G}{\vb m})^T ({\vb d}-{\vb G}{\vb m}) \]</span> <span class="math display">\[\Phi = ({\vb G}{\vb m}-{\vb d})^T ({\vb G}{\vb m}-{\vb d})\]</span></p>
-<p><span class="math display">\[\frac{\partial\Phi}{\partial m} = \frac{\partial}{\partial m} ({\vb G}{\vb m}-{\vb d})^T ({\vb G}{\vb m}-{\vb d}) +
-     ({\vb G}{\vb m}-{\vb d})^T \frac{\partial}{\partial m}({\vb G}{\vb m}-{\vb d}) = 0\]</span></p>
-<p><span class="math display">\[{\vb G}^T{\vb G}{\vb m}- {\vb G}^T{\vb d}+ {\vb G}^T{\vb G}{\vb m}- {\vb G}^T{\vb d}= 0\]</span></p>
-<p><span class="math display">\[{\vb G}^T{\vb G}{\vb m}= {\vb G}^T{\vb d}\quad \Rightarrow \quad {\vb m}={\vb G}^\dagger{\vb d}
-    \quad\mbox{with}\quad {\vb G}^\dagger = ({\vb G}^T{\vb G})^{-1} {\vb G}^T\]</span></p>
+<section id="resolution-kernels-point-spread-functions" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="resolution-kernels-point-spread-functions"><span class="header-section-number">3.7</span> Resolution kernels (point spread functions)</h2>
+<p><span class="math display">\[ \Rightarrow \vb R^M=\vb G^\dagger \vb G=(\vb G^T \vb G + \lambda \vb C^T \vb C)^{-1} \vb G^T \vb G \]</span></p>
+<p>A column represents how a cell anomaly is “spread” <span class="citation" data-cites="Friedel2003">(<a href="#ref-Friedel2003" role="doc-biblioref">Friedel 2003</a>)</span>.</p>
+<div class="columns">
+<div class="column">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pics/res/friedel1.png" class="img-fluid figure-img"></p>
+<figcaption>Ideal imaging</figcaption>
+</figure>
+</div>
+</div><div class="column">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pics/res/friedel2.png" class="img-fluid figure-img"></p>
+<figcaption>Contrast deficiency</figcaption>
+</figure>
+</div>
+</div><div class="column">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pics/res/friedel3.png" class="img-fluid figure-img"></p>
+<figcaption>Geometrical distortion</figcaption>
+</figure>
+</div>
+</div><div class="column">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pics/res/friedel4.png" class="img-fluid figure-img"></p>
+<figcaption>Side lobes</figcaption>
+</figure>
+</div>
+</div>
+</div>
 </section>
-<section id="derivation-2" class="level3" data-number="3.7.2">
-<h3 data-number="3.7.2" class="anchored" data-anchor-id="derivation-2"><span class="header-section-number">3.7.2</span> Derivation (2)</h3>
-<p><span class="math display">\[\Phi = ({\vb d}-{\vb G}{\vb m})^T ({\vb d}-{\vb G}{\vb m}) = \sum_i \left[ (d_i-\sum_j G_{ij}m_j )(d_i-\sum_k G_{ij}m_j ) \right]\]</span> <span class="math display">\[\Phi = \sum_i \left[ d_i d_i - d_i\sum_k G_{ik}m_k - d_i\sum_j G_{ij}m_j + \sum_j G_{ij}m_j\sum_k G_{ik}m_k \right]\]</span> <span class="math display">\[\Phi = \sum_i d_i d_i - 2 \sum_j m_j \sum d_i G{ij} + \sum_i \sum_j\sum_k m_j G_{ij}G_{ik}m_j m_k\]</span> <span class="math display">\[\Phi = \sum_i d_i d_i - 2 \sum_j m_j \sum_i d_i G{ij} +\sum_j\sum_k m_j m_k \sum_i G_{ij}G_{ik}\]</span></p>
-<p><span class="math display">\[\partial\Phi=\partial m_q = \sum_i\sum_k(\delta_{iq}m_k+m_j\delta_{ik})\sum G_{ij}G_{ik} - 2\sum_j \delta_{iq}\sum G_{ij} d_i = 0\]</span></p>
-<p><span class="math display">\[0 = 2\sum_k\sum_i G_{iq}G_{ik} - 2\sum_i G_{iq}d_i = 2{\vb G}^T{\vb G}-2{\vb G}^T {\vb d}\]</span></p>
-</section>
-<section id="derivation-by-change-tdeltavb-m" class="level3" data-number="3.7.3">
-<h3 data-number="3.7.3" class="anchored" data-anchor-id="derivation-by-change-tdeltavb-m"><span class="header-section-number">3.7.3</span> Derivation by change <span class="math inline">\(t\delta{\vb m}\)</span></h3>
-<p><span class="math display">\[\Phi(t) = ({\vb d}-{\vb G}({\vb m}+t\delta{\vb m}))^T ({\vb d}-{\vb G}({\vb m}+t\delta{\vb m}))\]</span> <span class="math display">\[\Phi(t) = ({\vb m}+t\delta{\vb m})^T{\vb G}^T{\vb G}({\vb m}+t\delta{\vb m})-2({\vb m}+t\delta{\vb m}){\vb G}^T{\vb d}+{\vb d}^T{\vb d}\]</span> <span class="math display">\[\Phi(t) = t^2(\delta{\vb m}{\vb G}^T{\vb G}\delta{\vb m}) + 2t(\delta{\vb m}{\vb G}^T{\vb G}{\vb m}-\delta{\vb m}^T{\vb G}^T{\vb d})
-    + ({\vb m}^T{\vb G}^T{\vb G}{\vb m}+{\vb d}^T{\vb d}-2{\vb m}^T{\vb G}^T{\vb d})\]</span> <span class="math inline">\(\Phi(t)\)</span> has a minimum at <span class="math inline">\(t=0\)</span>, therefore <span class="math inline">\(\partial\Phi/\partial t\)</span> must be 0 <span class="math display">\[\partial\Phi(t=0)/\partial t = 2(\delta{\vb m}^T{\vb G}^T{\vb G}{\vb m}- \delta{\vb m}^T{\vb G}{\vb d}) = 2\delta{\vb m}^T ({\vb G}^T{\vb G}{\vb m}-{\vb G}^T{\vb d}) = 0\]</span> As this holds for every <span class="math inline">\(\delta{\vb m}\)</span>, we obtain <span class="math inline">\({\vb G}^T{\vb G}{\vb m}={\vb G}^T{\vb d}\)</span></p>
+<section id="model-resolution-radius" class="level2" data-number="3.8">
+<h2 data-number="3.8" class="anchored" data-anchor-id="model-resolution-radius"><span class="header-section-number">3.8</span> Model resolution radius</h2>
+<div class="callout callout-style-default callout-note callout-titled" title="The diagonal of the resolution matrix">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>The diagonal of the resolution matrix
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>states how a single model cell can be retrieved</p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:40%;">
+<p><img src="notebooks/xhS-rmdiag.svg" class="img-fluid"></p>
+</div><div class="column" style="width:60%;">
+<p>How big needs a sphere to be to integrate a value of 1 (perfect resolution)?</p>
+<p>Resolution radius <span class="math display">\[ r = \frac{r_i}{\sqrt{\vb R^M_{ii}}}=\frac{\sqrt{A_i/\pi}}{\sqrt{\vb R^M_{ii}}} \]</span></p>
+</div>
+</div>
 
 
-</section>
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-Friedel2003" class="csl-entry" role="listitem">
+Friedel S. 2003. Resolution, stability and effiency of resistivity tomography estimated from a generalized inverse approach. <em>Geophys. J. Int.</em> <strong>153</strong>. 305–16
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->

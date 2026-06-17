@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>1&nbsp; Introduction – Inverse Problems in Geophysics</title>
+<title>6&nbsp; Traveltime tomography – Inverse Problems in Geophysics</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -23,26 +23,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -52,8 +33,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./02_linear_problems.html" rel="next">
-<link href="./index.html" rel="prev">
+<link href="./07_enhanced_regularization.html" rel="next">
+<link href="./05_regularization.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -102,35 +83,6 @@ window.MathJax = {
 };
 </script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -143,7 +95,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01_introduction.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05_regularization.html">Regularization</a></li><li class="breadcrumb-item"><a href="./06_traveltime_tomography.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Traveltime tomography</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -176,7 +128,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01_introduction.html" class="sidebar-item-text sidebar-link active">
+  <a href="./01_introduction.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
@@ -226,7 +178,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06_traveltime_tomography.html" class="sidebar-item-text sidebar-link">
+  <a href="./06_traveltime_tomography.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Traveltime tomography</span></span></a>
   </div>
 </li>
@@ -254,30 +206,16 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#data" id="toc-data" class="nav-link active" data-scroll-target="#data"><span class="header-section-number">1.1</span> Data</a>
-  <ul class="collapse">
-  <li><a href="#example-data" id="toc-example-data" class="nav-link" data-scroll-target="#example-data"><span class="header-section-number">1.1.1</span> Example Data</a></li>
-  <li><a href="#data-organization" id="toc-data-organization" class="nav-link" data-scroll-target="#data-organization"><span class="header-section-number">1.1.2</span> Data organization</a></li>
-  </ul></li>
-  <li><a href="#geophysical-workflow" id="toc-geophysical-workflow" class="nav-link" data-scroll-target="#geophysical-workflow"><span class="header-section-number">1.2</span> Geophysical Workflow</a></li>
-  <li><a href="#model" id="toc-model" class="nav-link" data-scroll-target="#model"><span class="header-section-number">1.3</span> Model</a>
-  <ul class="collapse">
-  <li><a href="#model-types" id="toc-model-types" class="nav-link" data-scroll-target="#model-types"><span class="header-section-number">1.3.1</span> Model types</a></li>
-  </ul></li>
-  <li><a href="#inversion" id="toc-inversion" class="nav-link" data-scroll-target="#inversion"><span class="header-section-number">1.4</span> Inversion</a>
-  <ul class="collapse">
-  <li><a href="#minimization-problem" id="toc-minimization-problem" class="nav-link" data-scroll-target="#minimization-problem"><span class="header-section-number">1.4.1</span> Minimization problem</a></li>
-  <li><a href="#correctness" id="toc-correctness" class="nav-link" data-scroll-target="#correctness"><span class="header-section-number">1.4.2</span> Correctness</a></li>
-  </ul></li>
+  <li><a href="#crosshole-tomography" id="toc-crosshole-tomography" class="nav-link active" data-scroll-target="#crosshole-tomography"><span class="header-section-number">6.1</span> Crosshole tomography</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05_regularization.html">Regularization</a></li><li class="breadcrumb-item"><a href="./06_traveltime_tomography.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Traveltime tomography</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></h1>
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Traveltime tomography</span></h1>
 </div>
 
 
@@ -294,250 +232,10 @@ window.Quarto = {
 </header>
 
 
-<section id="data" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="data"><span class="header-section-number">1.1</span> Data</h2>
-<p>In geophysics, we measure many different types of data depending on the physical method being used.</p>
-<section id="example-data" class="level3" data-number="1.1.1">
-<h3 data-number="1.1.1" class="anchored" data-anchor-id="example-data"><span class="header-section-number">1.1.1</span> Example Data</h3>
-<p>Data can be simple point-like measurements associated to measuring positions, like the Bouguer anomaly in gravity (measurement, reduced by temporal, global field and topographic effects).</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="pics/grav-data.png" class="img-fluid figure-img"></p>
-<figcaption>Bouguer anomaly of gravity profile in Zellwald</figcaption>
-</figure>
-</div>
-<p>In seismology and seismics, wave trains (time series of acceleration, velocity or position) are acquired, of which either the whole series (full waveform), the first arrival, or an amplitude is used.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="pics/wellenzug.png" class="img-fluid figure-img"></p>
-<figcaption>Seismic data: first arrival, amplitude or full waveform</figcaption>
-</figure>
-</div>
-<p>In travel-time tomography, an example that we extensively use here, the first arrivals, i.e. traveltimes between shots and geophones, are used.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="pics/ra-data.png" class="img-fluid figure-img"></p>
-<figcaption>Measured traveltimes as functions of receiver position for different shot points (*).</figcaption>
-</figure>
-</div>
-<p>So they are associated to measuring points, but also depending on the experiment.</p>
-<p>In electrical resistivity tomography (ERT), even more electrodes come into play, using different current and voltage combinations.</p>
-<p><img src="pics/ERT1-model.png" class="img-fluid"></p>
-<p>As a result, we obtain a pseudosection of apparent resistivity, which is however, even though organized in a logical/geometrical way, just a colored representation. These experiments can be repeated in time, opening the temporal dimension. In spectral IP (induced polarization), we even measure pseudosections for different frequencies, and introduce further dimensions.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="pics/schleiz-phasen.png" class="img-fluid figure-img"></p>
-<figcaption>Phase pseudosections for different frequencies <span class="citation" data-cites="Martin2020">(<a href="#ref-Martin2020" role="doc-biblioref">Martin <em>et al.</em> 2020</a>)</span></figcaption>
-</figure>
-</div>
-</section>
-<section id="data-organization" class="level3" data-number="1.1.2">
-<h3 data-number="1.1.2" class="anchored" data-anchor-id="data-organization"><span class="header-section-number">1.1.2</span> Data organization</h3>
-<p>In geophysics, there are rules to <em>look at</em> data across several dimensions in space, time, or frequeny, but eventually, the data are single values that are even independent or correlating across these dimensions.</p>
-<ul>
-<li>can be a discretized function of space, time or frequency, and plotted as such (curves)</li>
-<li>can depend on several sensor (shot/geophone, ABMN) and visualized as several curves or a coloured matrix (crossplot, pseudosection)</li>
-</ul>
-<p>Data are subsumed in the <em>data vector</em> <span class="math display">\[\textbf{d}=[d_1, d_2, \ldots, d_N]^T\]</span> consist of true <em>model response</em> <span class="math inline">\(\bf f(m)\)</span> plus <em>noise</em> <span class="math inline">\(\bf n\)</span>: <span class="math inline">\(\bf d=f(m)+n\)</span></p>
-</section>
-</section>
-<section id="geophysical-workflow" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="geophysical-workflow"><span class="header-section-number">1.2</span> Geophysical Workflow</h2>
-<p>A workflow for geophysical data consist</p>
-<div class="columns">
-<div class="column">
-<ol type="1">
-<li>Experimental design &amp; synthetic models</li>
-<li>Data acquisition</li>
-<li>Preprocessing (QC, filtering)</li>
-<li>Error estimation</li>
-<li>Subsurface parameterization (model)</li>
-<li><strong>Inversion</strong></li>
-<li>Fit of data with model response</li>
-<li>Evaluation &amp; resolution analysis</li>
-<li>Postprocessing &amp; visualization</li>
-<li>Interpretation</li>
-</ol>
-</div><div class="column">
-<p><img src="pics/intro-3.png" class="img-fluid"></p>
-</div>
-</div>
-<p>Here, we deal with the inversion, i.e.&nbsp;obtaining a subsurface model that fits the data. However, to this end, the previous steps (e.g., errors and model building) are important for carrying out inversion. Understanding the inversion process is crucial for the steps following inversion.</p>
-</section>
-<section id="model" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="model"><span class="header-section-number">1.3</span> Model</h2>
-<div class="callout callout-style-default callout-important callout-titled" title="A geophysical model">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>A geophysical model
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>is a numerical parameterization of subsurface and reflects our assumption of the truth by a simplification (reduction of complexity).</p>
-</div>
-</div>
-<section id="model-types" class="level3" data-number="1.3.1">
-<h3 data-number="1.3.1" class="anchored" data-anchor-id="model-types"><span class="header-section-number">1.3.1</span> Model types</h3>
-<p>Models describe the distribution of one or more physical parameter in the subsurface, mostly by means of discrete values and possibly geometrical descriptions (layer thickness, anomaly size). There are some typical model types</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="pics/modeltypes.png" class="img-fluid figure-img"></p>
-<figcaption>Model types <span class="citation" data-cites="Everett2013">(<a href="#ref-Everett2013" role="doc-biblioref">Everett 2013</a>)</span></figcaption>
-</figure>
-</div>
-<p><strong>Independent parameters:</strong></p>
-<ul>
-<li>seismology: earthquake location, stress, principal axis</li>
-<li>gravity: position and depth of anomaly, size, density contrast</li>
-<li>spectroscopy (e.g.&nbsp;SIP): function parameters (e.g.&nbsp;Cole-Cole)</li>
-<li>layered model thicknesses and values (<span class="math inline">\(\rho\)</span>, <span class="math inline">\(v\)</span>)</li>
-</ul>
-<p><strong><em>Discrete functions of space, time, frequency</em></strong></p>
-<p>(same property aligned along axes)</p>
-<ul>
-<li>refraction: depth (and velocity) of refractor</li>
-<li>distribution of a parameter in space (and time)</li>
-<li>spectroscopy: Fourier or Debye distribution</li>
-<li>e.g.&nbsp;2D/3D resistivity/velocity/density distribution</li>
-</ul>
-<p>In all cases, the subsurface is described by <em>model vector</em> <span class="math inline">\(\textbf{m}=[m_1, m_2, \ldots, m_M]^T\)</span>, which can consist of physical or geometrical values.</p>
-</section>
-</section>
-<section id="inversion" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="inversion"><span class="header-section-number">1.4</span> Inversion</h2>
-<div class="callout callout-style-default callout-note callout-titled" title="Inverse problem: determine $\vb m$ so that data are explained">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Inverse problem: determine <span class="math inline">\(\vb m\)</span> so that data are explained
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><span class="math display">\[ \vb d \approx \vb f(\vb m) \]</span></p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="Why not">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Why not
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><span class="math display">\[ \vb d = \vb f(\vb m) \]</span></p>
-<p>Because <span class="math inline">\(\vb d=\vb f(\vb m)+\vb n\)</span> contains random noise <span class="math inline">\(\vb n\)</span> that is not to be explained.</p>
-</div>
-</div>
-<section id="minimization-problem" class="level3" data-number="1.4.1">
-<h3 data-number="1.4.1" class="anchored" data-anchor-id="minimization-problem"><span class="header-section-number">1.4.1</span> Minimization problem</h3>
-<div class="callout callout-style-default callout-note callout-titled" title="The (data) objective function">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>The (data) objective function
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><span class="math display">\[ \Phi_d=\|{\vb d - f(m)}\|^2_2 = \sum_i^N (d_i-f_i(\vb m))^2 \rightarrow \min \]</span></p>
-<p>Take into account errors: Explain model within error (<span class="math inline">\(\boldsymbol{\epsilon}\)</span>) bounds <span class="math display">\[ \Phi_d = \| \frac{\vb d-f(m)}{\boldsymbol{\epsilon}}\|^2_2 = \sum_i^N \left(\frac{d_i-f_i(\vb m)}{\epsilon_i}\right)^2 \| \rightarrow \min \]</span></p>
-<p>error model <span class="math inline">\(\boldsymbol{\epsilon}=[\epsilon_1, \epsilon_2, \ldots, \epsilon_N]^T\)</span> (assumption of noise standard deviation)</p>
-</div>
-</div>
-</section>
-<section id="correctness" class="level3" data-number="1.4.2">
-<h3 data-number="1.4.2" class="anchored" data-anchor-id="correctness"><span class="header-section-number">1.4.2</span> Correctness</h3>
-<p>In mathematics, we distinguish well and ill posed problems.</p>
-<div class="columns">
-<div class="column">
-<div class="callout callout-style-default callout-note callout-titled" title="Well-posed problems (Hadamard)">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Well-posed problems (Hadamard)
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>There is a solution,</li>
-<li>it is uniquely defined &amp;</li>
-<li>depends steadily from input data (small variations lead to small model deviations)</li>
-</ul>
-</div>
-</div>
-</div><div class="column">
-<div class="callout callout-style-default callout-important callout-titled" title="Ill-posed problem">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Ill-posed problem
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>There is no model to fit the data perfectly</li>
-<li>Many models can fit the data within errors</li>
-<li>Small data variations can lead to large model deviations</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<p>It turns out that in geophysics most problems are of the second type. To cope with the non-uniqueness of possible solutions, there is Occam’s razor, a fundamental rule:</p>
-<div class="callout callout-style-default callout-important callout-titled" title="Occams razor (novacula Occami)">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Occams razor (novacula Occami)
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Pluralitas non est ponenda sine neccesitate!</p>
-<p>(William of Ockham, Scottish philosopher and theologian, 14th century)</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="Principle of Parsimony">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Principle of Parsimony
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Entities must not be multiplied beyond necessity.</p>
-<p>Of two competing theories, the simpler explanation is to be preferred.</p>
-<p>From all models fitting the data, choose the simplest!</p>
-</div>
-</div>
-<p>Inversion is to a large degree about the methodology of defining this through wise parameterization and regularization of the model.</p>
-<p>We will first consider linear problems and study the methodology, before we treat non-linear problems by using what we learned from linear ones.</p>
+<section id="crosshole-tomography" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="crosshole-tomography"><span class="header-section-number">6.1</span> Crosshole tomography</h2>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
-<div id="ref-Everett2013" class="csl-entry" role="listitem">
-Everett M E. 2013. <em><a href="https://doi.org/10.1017/cbo9781139088435">Near-surface applied geophysics</a></em> (Cambridge University Press)
-</div>
-<div id="ref-Martin2020" class="csl-entry" role="listitem">
-Martin T, Günther T, Orozco A F and Dahlin T. 2020. <a href="https://doi.org/10.1016/j.jappgeo.2020.104141">Evaluation of spectral induced polarization field measurements in time and frequency domain</a>. <em>Journal of Applied Geophysics</em>. <strong>180</strong>. 104141
-</div>
-</div>
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -943,13 +641,13 @@ Martin T, Günther T, Orozco A F and Dahlin T. 2020. <a href="https://doi.org/10
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./index.html" class="pagination-link" aria-label="The course">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">The course</span>
+      <a href="./05_regularization.html" class="pagination-link" aria-label="Regularization">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Regularization</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./02_linear_problems.html" class="pagination-link" aria-label="Linear problems">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Linear problems</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./07_enhanced_regularization.html" class="pagination-link" aria-label="Enhanced regularization">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Enhanced regularization</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

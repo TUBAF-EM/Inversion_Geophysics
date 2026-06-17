@@ -53,25 +53,25 @@ can be weighted by
 :::
 ::::
 
-## Structural constraints
+<!-- ## Structural constraints -->
 
 :::: {.columns}
 ::: {.column width="30%"}
-![Bergmann et al. 2014](pics/reg/bergmann2014.png)
+![Structurally constrained inversion [@Bergmann2013]](pics/reg/bergmann2014.png)
 :::
 ::: {.column width="67%"}
-![Wagner & Uhlemann 2021](pics/reg/structuralConstraints.png){.fragment}
+![Derivation of smoothness matrix [@WagnerUhlemann2021]](pics/reg/structuralConstraints.png){.fragment}
 :::
 ::::
 
-## Structural example (Tanner et al. 2020)
+<!-- ## Structural example (Tanner et al. 2020) -->
 
 :::: {.columns}
 ::: {.column width="48%"}
-![](pics/reg/tannerSeis.png)
+![Seismic cross-section [@Tanner2020]](pics/reg/tannerSeis.png)
 :::
 ::: {.column width="48%"}
-![](pics/reg/tannerFault.png)
+![ERT inversion result without (a) and with (b) structural constraints from seismic [@Tanner2020]](pics/reg/tannerFault.png)
 :::
 ::::
 
@@ -97,12 +97,14 @@ can be weighted by
 
 ## Region-wise settings
 
+Placement of mesh divided into different regions in greater for
+
 :::: {.columns}
 ::: {.column}
-![](pics/reg/widen_mesh.png)
+![Mesh with different regions [@Coscia2011]](pics/reg/widen_mesh.png)
 :::
 ::: {.column}
-![](pics/reg/widen_compare.png)
+![Cross-section with decoupled (a) and coupled (b) regions [@Coscia2011]](pics/reg/widen_compare.png)
 :::
 ::::
 
@@ -110,21 +112,12 @@ can be weighted by
 
 ## Geostatistical regularization
 
-<!-- :::: {.columns}
-::: {.column}
-:::
-::: {.column}
-
-:::
-::::
- -->
-
 $\vb M_{ij}=\sigma^2\exp(-3\sqrt{\frac{|x_i-x_j|}{I_x}^2+\frac{|y_i-y_j|}{I_y}^2})\quad\Rightarrow\quad \vb C=\vb M^{-0.5}$
 
-![](pics/reg/geostat-operators2.png)
-<!-- ![Correlation matrix (left) and regularization operator](pics/reg/geostat-operators2.png) -->
+![Geostatistical correlation function (left) and regularization operator (right) after @Jordi2018](pics/reg/geostat-operators2.png)
 
 ## Geostatistical regularization - example
 
-![Jordi et al. (2018)](pics/reg/syntheticReshuffle.png)
+
+![Synthetic model (a) and inversion results with classic smoothness constraints (b), true correlation (c) and slightly wrong correlation (d) [@Jordi2018]](pics/reg/syntheticReshuffle.png)
 

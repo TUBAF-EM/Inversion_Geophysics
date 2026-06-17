@@ -74,7 +74,7 @@
     "href": "index.html#text-books",
     "title": "Inverse Problems in Geophysics",
     "section": "Text books",
-    "text": "Text books\n\nMenke (2012): Geophysical Data Analysis: Discrete Inverse Theory, Academic\nRichter (2016): Inverse Problems: Basics, Theory and Applications in Geophysics\nGünther (2004): Inversion Methods and Resolution Analysis for the 2D/3D Reconstruction of Resistivity Structures from DC Measurements, PhD thesis\nGubbins (2004): Time series analysis and inverse theory for geophysicists (Cambridge Univ. Press)\nTarantola (1978): Inverse problem theory (Amsterdam: Elsevier)\nZhdanov (2002): Geophysical inverse theory and regularization problems (Amsterdam - New York - Tokyo: Elsevier)\nsee also ?sec-refs",
+    "text": "Text books\n\nMenke (2012): Geophysical Data Analysis: Discrete Inverse Theory, Academic\nRichter (2016): Inverse Problems: Basics, Theory and Applications in Geophysics\nGünther (2004): Inversion Methods and Resolution Analysis for the 2D/3D Reconstruction of Resistivity Structures from DC Measurements, PhD thesis\nGubbins (2004): Time series analysis and inverse theory for geophysicists (Cambridge Univ. Press)\nTarantola (1978): Inverse problem theory (Amsterdam: Elsevier)\nZhdanov (2002): Geophysical inverse theory and regularization problems (Amsterdam - New York - Tokyo: Elsevier)\nsee also Reference list 8  References",
     "crumbs": [
       "The course"
     ]
@@ -308,7 +308,7 @@
     "href": "03_resolution.html#linear-regression",
     "title": "3  Resolution analysis",
     "section": "3.3 Linear regression",
-    "text": "3.3 Linear regression\n\n\nShow the code\nx = np.arange(0, 3, 0.1)\nx[-1] = 3.5\nerr = 0.1\nd = 0.5-0.5*x + np.random.randn(len(x)) * err\nA = np.ones((len(x), 2))\nA[:, 1] = x[:]\nAinv = np.linalg.inv(A.T @ A) @ A.T\nm = Ainv @ d\nprint(\"m = \", m)\nfig, ax = plt.subplots()\nax.plot(x, d, \"b+\")\nax.plot(x, A@m, \"r-\")\nax.grid()\nresidual = A @ m - d\nprint(\"mean=\", np.mean(residual))\nprint(\"std=\", np.std(residual))\nprint(\"X²=\", np.sqrt(np.mean((residual/err)**2)))\n\n\nm =  [ 0.52864941 -0.50362901]\nmean= -1.420160285666346e-16\nstd= 0.0774217439944723\nX²= 0.7742174399447228",
+    "text": "3.3 Linear regression\n\n\nShow the code\nx = np.arange(0, 3, 0.1)\nx[-1] = 3.5\nerr = 0.1\nd = 0.5-0.5*x + np.random.randn(len(x)) * err\nA = np.ones((len(x), 2))\nA[:, 1] = x[:]\nAinv = np.linalg.inv(A.T @ A) @ A.T\nm = Ainv @ d\nprint(\"m = \", m)\nfig, ax = plt.subplots()\nax.plot(x, d, \"b+\")\nax.plot(x, A@m, \"r-\")\nax.grid()\nresidual = A @ m - d\nprint(\"mean=\", np.mean(residual))\nprint(\"std=\", np.std(residual))\nprint(\"X²=\", np.sqrt(np.mean((residual/err)**2)))\n\n\nm =  [ 0.47881015 -0.46971096]\nmean= 1.295260195396016e-17\nstd= 0.08725032651333633\nX²= 0.8725032651333633",
     "crumbs": [
       "Linear problems",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Resolution analysis</span>"
@@ -319,7 +319,7 @@
     "href": "03_resolution.html#linear-regression---data-importance-matrix",
     "title": "3  Resolution analysis",
     "section": "3.4 Linear regression - data importance matrix",
-    "text": "3.4 Linear regression - data importance matrix\n\n\nShow the code\nRD = A @ Ainv\nfig, ax = plt.subplots(figsize=(7,6))\nim = ax.matshow(RD, cmap=\"bwr\",\n    vmin=-0.3, vmax=0.3)\nplt.colorbar(im);\n\n\n\n\n\n\n\n\n\n\nneighboring data points are correlated, opposite anti-correlated\n\n\n\n\nShow the code\nrd = np.diag(RD)\ndisplay(np.sum(rd))\nplt.plot(x, rd, \"+-\", ms=5);\n\n\n1.9999999999999993\n\n\n\n\n\n\n\n\n\n\nmain diagonal of \\(\\vb R^D\\) \\(\\Rightarrow\\) data importance (outside biggest)\nsum of importances equals \\(M\\) (later: rank of matrix)",
+    "text": "3.4 Linear regression - data importance matrix\n\n\nShow the code\nRD = A @ Ainv\nfig, ax = plt.subplots(figsize=(7,6))\nim = ax.matshow(RD, cmap=\"bwr\",\n    vmin=-0.3, vmax=0.3)\nplt.colorbar(im);\n\n\n\n\n\n\n\n\n\n\nneighboring data points are correlated, opposite anti-correlated\n\n\n\n\nShow the code\nrd = np.diag(RD)\ndisplay(np.sum(rd))\nplt.plot(x, rd, \"+-\", ms=5);\n\n\nnp.float64(1.9999999999999996)\n\n\n\n\n\n\n\n\n\n\nmain diagonal of \\(\\vb R^D\\) \\(\\Rightarrow\\) data importance (outside biggest)\nsum of importances equals \\(M\\) (later: rank of matrix)",
     "crumbs": [
       "Linear problems",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Resolution analysis</span>"
@@ -330,7 +330,7 @@
     "href": "03_resolution.html#errors-robust-inversion",
     "title": "3  Resolution analysis",
     "section": "3.5 Errors & robust inversion",
-    "text": "3.5 Errors & robust inversion\n\nerror goes into the scaling of \\(\\vb G\\) and \\(\\vb d\\)\nsometimes data have different errors\nthere might be outliers spoiling the result\n\n\n3.5.1 Error weighting\nUnweighted residual norm (root-mean square RMS)\n\\[\\|{\\bf d}-{\\bf f}({\\bf m})\\| = \\sqrt{1/N\\sum (d_i-f_i({\\bf m}))^2}\\]\nWeighting by individual error \\(\\epsilon_i\\) (chi-square value):\n\\[\\chi^2=\\frac1N \\sum \\left( \\frac{d_i-f_i({\\bf m})}{\\epsilon_i} \\right)^2 \\rightarrow \\min\\]\nIn case of exact error estimates: \\(\\chi^2=1\\)\n\n\n3.5.2 Error weighting\nreplace \\(d_i\\) by \\(\\hat{d}_i=d_i/\\epsilon_i\\) leads to \\[{\\bf m}= (\\hat{\\bf G}^T\\hat{\\bf G})^{-1} \\hat{\\bf G}^T \\hat{\\bf d}\\] with \\(\\hat{{\\bf G}}=\\mbox{diag}(1/\\epsilon_i)\\cdot {\\bf G}\\)\n\n\n3.5.3 General \\(L_p\\) norm\nThe \\(L_2\\) norm is the rooted sum of squared elements of a vector \\(\\bf v\\):\n\\[\\Phi^P=\\|{\\bf v}\\|_2=\\sqrt{\\sum_i v_i^2}\\]\nMore generally, the \\(L_P\\) norm is computed by \\[\\Phi^P=\\|{\\bf v}\\|_P=\\left( \\sum_i |v_i|^P \\right)^{1/P}\\]\n\n\n3.5.4 \\(L_1\\) norm minimization (IRLS)\n\\[\\Phi^1=\\|{\\bf v}\\|_1=\\sum_i |v_i|\\]\n\n\n\n\n\n\nThe \\(L_1\\) norm is much less prone to outliers as the misfit is not squared\n\n\n\nBy the ratio of its contribution to L1 and L2 norm we can reweight \\(\\epsilon_i\\) \\[ w_i = \\frac{|v_i|/\\|\\vb v\\|^1_1}{v_i^2/\\|\\vb v\\|^2_2}\n= \\frac{\\|\\vb v\\|^2_2}{|v_i| \\cdot \\|\\vb v\\|^1_1} \\]\nThis is known as Iteratively Reweighted Least-Squares (IRLS)\n\n\n3.5.5 Linear regression with outliers\n\n\nShow the code\nd[-1] += 1\nm = Ainv @ d\nprint(\"m = \", m)\nfig, ax = plt.subplots()\nax.plot(x, d, \"b+\")\nax.plot(x, A@m, \"r-\")\nax.plot(x, 0.5-0.5*x, \"m--\")\nax.grid()\n\n\nm =  [ 0.44049514 -0.42098438]\n\n\n\n\n\n\n\n\n\n\n\n3.5.6 The misfit distribution\n\n\n\n\n\n\nImportant\n\n\n\nAlways have a look at the misfit distribution (not only \\(\\chi^2\\))\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n3.5.7 Wrap-up overdetermined problems (\\(N&gt;M\\))\n\nobjective function \\(\\Phi\\) as squared data misfit\nweighting of individual data (unitless, more flexible & objective)\nbroad minimum of the objective function\ngrid search to plot \\(\\phi\\) \\(\\Rightarrow\\) only nice for \\(M\\)=2\nleast squares method yields\nresolution matrices for model (perfect) and data (distributed)",
+    "text": "3.5 Errors & robust inversion\n\nerror goes into the scaling of \\(\\vb G\\) and \\(\\vb d\\)\nsometimes data have different errors\nthere might be outliers spoiling the result\n\n\n3.5.1 Error weighting\nUnweighted residual norm (root-mean square RMS)\n\\[\\|{\\bf d}-{\\bf f}({\\bf m})\\| = \\sqrt{1/N\\sum (d_i-f_i({\\bf m}))^2}\\]\nWeighting by individual error \\(\\epsilon_i\\) (chi-square value):\n\\[\\chi^2=\\frac1N \\sum \\left( \\frac{d_i-f_i({\\bf m})}{\\epsilon_i} \\right)^2 \\rightarrow \\min\\]\nIn case of exact error estimates: \\(\\chi^2=1\\)\n\n\n3.5.2 Error weighting\nreplace \\(d_i\\) by \\(\\hat{d}_i=d_i/\\epsilon_i\\) leads to \\[{\\bf m}= (\\hat{\\bf G}^T\\hat{\\bf G})^{-1} \\hat{\\bf G}^T \\hat{\\bf d}\\] with \\(\\hat{{\\bf G}}=\\mbox{diag}(1/\\epsilon_i)\\cdot {\\bf G}\\)\n\n\n3.5.3 General \\(L_p\\) norm\nThe \\(L_2\\) norm is the rooted sum of squared elements of a vector \\(\\bf v\\):\n\\[\\Phi^P=\\|{\\bf v}\\|_2=\\sqrt{\\sum_i v_i^2}\\]\nMore generally, the \\(L_P\\) norm is computed by \\[\\Phi^P=\\|{\\bf v}\\|_P=\\left( \\sum_i |v_i|^P \\right)^{1/P}\\]\n\n\n3.5.4 \\(L_1\\) norm minimization (IRLS)\n\\[\\Phi^1=\\|{\\bf v}\\|_1=\\sum_i |v_i|\\]\n\n\n\n\n\n\nThe \\(L_1\\) norm is much less prone to outliers as the misfit is not squared\n\n\n\nBy the ratio of its contribution to L1 and L2 norm we can reweight \\(\\epsilon_i\\) \\[ w_i = \\frac{|v_i|/\\|\\vb v\\|^1_1}{v_i^2/\\|\\vb v\\|^2_2}\n= \\frac{\\|\\vb v\\|^2_2}{|v_i| \\cdot \\|\\vb v\\|^1_1} \\]\nThis is known as Iteratively Reweighted Least-Squares (IRLS)\n\n\n3.5.5 Linear regression with outliers\n\n\nShow the code\nd[-1] += 1\nm = Ainv @ d\nprint(\"m = \", m)\nfig, ax = plt.subplots()\nax.plot(x, d, \"b+\")\nax.plot(x, A@m, \"r-\")\nax.plot(x, 0.5-0.5*x, \"m--\")\nax.grid()\n\n\nm =  [ 0.39065588 -0.38706633]\n\n\n\n\n\n\n\n\n\n\n\n3.5.6 The misfit distribution\n\n\n\n\n\n\nImportant\n\n\n\nAlways have a look at the misfit distribution (not only \\(\\chi^2\\))\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n3.5.7 Wrap-up overdetermined problems (\\(N&gt;M\\))\n\nobjective function \\(\\Phi\\) as squared data misfit\nweighting of individual data (unitless, more flexible & objective)\nbroad minimum of the objective function\ngrid search to plot \\(\\phi\\) \\(\\Rightarrow\\) only nice for \\(M\\)=2\nleast squares method yields\nresolution matrices for model (perfect) and data (distributed)",
     "crumbs": [
       "Linear problems",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Resolution analysis</span>"
@@ -348,11 +348,22 @@
     ]
   },
   {
-    "objectID": "03_resolution.html#appendix",
-    "href": "03_resolution.html#appendix",
+    "objectID": "03_resolution.html#resolution-kernels-point-spread-functions",
+    "href": "03_resolution.html#resolution-kernels-point-spread-functions",
     "title": "3  Resolution analysis",
-    "section": "3.7 Appendix",
-    "text": "3.7 Appendix\n\n3.7.1 Derivation (1)\n\\[\\Phi = \\| {\\vb d}-{\\vb G}{\\vb m}\\|^2_2 = ({\\vb d}-{\\vb G}{\\vb m})^T ({\\vb d}-{\\vb G}{\\vb m}) \\] \\[\\Phi = ({\\vb G}{\\vb m}-{\\vb d})^T ({\\vb G}{\\vb m}-{\\vb d})\\]\n\\[\\frac{\\partial\\Phi}{\\partial m} = \\frac{\\partial}{\\partial m} ({\\vb G}{\\vb m}-{\\vb d})^T ({\\vb G}{\\vb m}-{\\vb d}) +\n     ({\\vb G}{\\vb m}-{\\vb d})^T \\frac{\\partial}{\\partial m}({\\vb G}{\\vb m}-{\\vb d}) = 0\\]\n\\[{\\vb G}^T{\\vb G}{\\vb m}- {\\vb G}^T{\\vb d}+ {\\vb G}^T{\\vb G}{\\vb m}- {\\vb G}^T{\\vb d}= 0\\]\n\\[{\\vb G}^T{\\vb G}{\\vb m}= {\\vb G}^T{\\vb d}\\quad \\Rightarrow \\quad {\\vb m}={\\vb G}^\\dagger{\\vb d}\n    \\quad\\mbox{with}\\quad {\\vb G}^\\dagger = ({\\vb G}^T{\\vb G})^{-1} {\\vb G}^T\\]\n\n\n3.7.2 Derivation (2)\n\\[\\Phi = ({\\vb d}-{\\vb G}{\\vb m})^T ({\\vb d}-{\\vb G}{\\vb m}) = \\sum_i \\left[ (d_i-\\sum_j G_{ij}m_j )(d_i-\\sum_k G_{ij}m_j ) \\right]\\] \\[\\Phi = \\sum_i \\left[ d_i d_i - d_i\\sum_k G_{ik}m_k - d_i\\sum_j G_{ij}m_j + \\sum_j G_{ij}m_j\\sum_k G_{ik}m_k \\right]\\] \\[\\Phi = \\sum_i d_i d_i - 2 \\sum_j m_j \\sum d_i G{ij} + \\sum_i \\sum_j\\sum_k m_j G_{ij}G_{ik}m_j m_k\\] \\[\\Phi = \\sum_i d_i d_i - 2 \\sum_j m_j \\sum_i d_i G{ij} +\\sum_j\\sum_k m_j m_k \\sum_i G_{ij}G_{ik}\\]\n\\[\\partial\\Phi=\\partial m_q = \\sum_i\\sum_k(\\delta_{iq}m_k+m_j\\delta_{ik})\\sum G_{ij}G_{ik} - 2\\sum_j \\delta_{iq}\\sum G_{ij} d_i = 0\\]\n\\[0 = 2\\sum_k\\sum_i G_{iq}G_{ik} - 2\\sum_i G_{iq}d_i = 2{\\vb G}^T{\\vb G}-2{\\vb G}^T {\\vb d}\\]\n\n\n3.7.3 Derivation by change \\(t\\delta{\\vb m}\\)\n\\[\\Phi(t) = ({\\vb d}-{\\vb G}({\\vb m}+t\\delta{\\vb m}))^T ({\\vb d}-{\\vb G}({\\vb m}+t\\delta{\\vb m}))\\] \\[\\Phi(t) = ({\\vb m}+t\\delta{\\vb m})^T{\\vb G}^T{\\vb G}({\\vb m}+t\\delta{\\vb m})-2({\\vb m}+t\\delta{\\vb m}){\\vb G}^T{\\vb d}+{\\vb d}^T{\\vb d}\\] \\[\\Phi(t) = t^2(\\delta{\\vb m}{\\vb G}^T{\\vb G}\\delta{\\vb m}) + 2t(\\delta{\\vb m}{\\vb G}^T{\\vb G}{\\vb m}-\\delta{\\vb m}^T{\\vb G}^T{\\vb d})\n    + ({\\vb m}^T{\\vb G}^T{\\vb G}{\\vb m}+{\\vb d}^T{\\vb d}-2{\\vb m}^T{\\vb G}^T{\\vb d})\\] \\(\\Phi(t)\\) has a minimum at \\(t=0\\), therefore \\(\\partial\\Phi/\\partial t\\) must be 0 \\[\\partial\\Phi(t=0)/\\partial t = 2(\\delta{\\vb m}^T{\\vb G}^T{\\vb G}{\\vb m}- \\delta{\\vb m}^T{\\vb G}{\\vb d}) = 2\\delta{\\vb m}^T ({\\vb G}^T{\\vb G}{\\vb m}-{\\vb G}^T{\\vb d}) = 0\\] As this holds for every \\(\\delta{\\vb m}\\), we obtain \\({\\vb G}^T{\\vb G}{\\vb m}={\\vb G}^T{\\vb d}\\)",
+    "section": "3.7 Resolution kernels (point spread functions)",
+    "text": "3.7 Resolution kernels (point spread functions)\n\\[ \\Rightarrow \\vb R^M=\\vb G^\\dagger \\vb G=(\\vb G^T \\vb G + \\lambda \\vb C^T \\vb C)^{-1} \\vb G^T \\vb G \\]\nA column represents how a cell anomaly is “spread” (Friedel 2003).\n\n\n\n\n\nIdeal imaging\n\n\n\n\n\n\nContrast deficiency\n\n\n\n\n\n\nGeometrical distortion\n\n\n\n\n\n\nSide lobes",
+    "crumbs": [
+      "Linear problems",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Resolution analysis</span>"
+    ]
+  },
+  {
+    "objectID": "03_resolution.html#model-resolution-radius",
+    "href": "03_resolution.html#model-resolution-radius",
+    "title": "3  Resolution analysis",
+    "section": "3.8 Model resolution radius",
+    "text": "3.8 Model resolution radius\n\n\n\n\n\n\nNoteThe diagonal of the resolution matrix\n\n\n\nstates how a single model cell can be retrieved\n\n\n\n\n\n\nHow big needs a sphere to be to integrate a value of 1 (perfect resolution)?\nResolution radius \\[ r = \\frac{r_i}{\\sqrt{\\vb R^M_{ii}}}=\\frac{\\sqrt{A_i/\\pi}}{\\sqrt{\\vb R^M_{ii}}} \\]\n\n\n\n\n\n\nFriedel S. 2003. Resolution, stability and effiency of resistivity tomography estimated from a generalized inverse approach. Geophys. J. Int. 153. 305–16",
     "crumbs": [
       "Linear problems",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Resolution analysis</span>"
@@ -689,35 +700,123 @@
     ]
   },
   {
-    "objectID": "05_regularization.html#resolution-kernels-point-spread-functions",
-    "href": "05_regularization.html#resolution-kernels-point-spread-functions",
-    "title": "5  Regularization",
-    "section": "6.11 Resolution kernels (point spread functions)",
-    "text": "6.11 Resolution kernels (point spread functions)\n\\[ \\Rightarrow \\vb R^M=\\vb G^\\dagger \\vb G=(\\vb G^T \\vb G + \\lambda \\vb C^T \\vb C)^{-1} \\vb G^T \\vb G \\]\nA column represents how a cell anomaly is “spread” (Friedel 2003).\n\n\n\n\n\nIdeal imaging\n\n\n\n\n\n\nContrast deficiency\n\n\n\n\n\n\nGeometrical distortion\n\n\n\n\n\n\nSide lobes",
+    "objectID": "06_traveltime_tomography.html",
+    "href": "06_traveltime_tomography.html",
+    "title": "6  Traveltime tomography",
+    "section": "",
+    "text": "6.1 Crosshole tomography",
     "crumbs": [
       "Regularization",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Regularization</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Traveltime tomography</span>"
     ]
   },
   {
-    "objectID": "05_regularization.html#model-resolution-radius",
-    "href": "05_regularization.html#model-resolution-radius",
-    "title": "5  Regularization",
-    "section": "6.12 Model resolution radius",
-    "text": "6.12 Model resolution radius\n\n\n\n\n\n\nNoteThe diagonal of the resolution matrix\n\n\n\nstates how a single model cell can be retrieved\n\n\n\n\n\n\nHow big needs a sphere to be to integrate a value of 1 (perfect resolution)?\nResolution radius \\[ r = \\frac{r_i}{\\sqrt{\\vb R^M_{ii}}}=\\frac{\\sqrt{A_i/\\pi}}{\\sqrt{\\vb R^M_{ii}}} \\]\n\n\n\n\n\n\nFriedel S. 2003. Resolution, stability and effiency of resistivity tomography estimated from a generalized inverse approach. Geophys. J. Int. 153. 305–16",
+    "objectID": "07_enhanced_regularization.html",
+    "href": "07_enhanced_regularization.html",
+    "title": "7  Enhanced regularization",
+    "section": "",
+    "text": "7.1 Smoothness constraints\n\\(\\Rightarrow\\) Add any information about the subsurface:",
     "crumbs": [
       "Regularization",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Regularization</span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Enhanced regularization</span>"
+    ]
+  },
+  {
+    "objectID": "07_enhanced_regularization.html#smoothness-constraints",
+    "href": "07_enhanced_regularization.html#smoothness-constraints",
+    "title": "7  Enhanced regularization",
+    "section": "",
+    "text": "4 model cells, 3 boundaries\n\n1st order derivative \\[ \\vb C = \\mqty(-1 & 1 & 0 & 0\\\\0 & -1 & 1 & 0\\\\0 & -1 & 0 & 1) \\] can be weighted by\n\ninverse midpoint distance\nboundary size (length, area)\ninformation about boundaries",
+    "crumbs": [
+      "Regularization",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Enhanced regularization</span>"
+    ]
+  },
+  {
+    "objectID": "07_enhanced_regularization.html#anisotropic-smoothness",
+    "href": "07_enhanced_regularization.html#anisotropic-smoothness",
+    "title": "7  Enhanced regularization",
+    "section": "7.2 Anisotropic smoothness",
+    "text": "7.2 Anisotropic smoothness\n\n\n\n\n\nisotropic smoothness\n\n\n\n\n\n\n\nanisotropic smoothness",
+    "crumbs": [
+      "Regularization",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Enhanced regularization</span>"
+    ]
+  },
+  {
+    "objectID": "07_enhanced_regularization.html#structural-decoupling",
+    "href": "07_enhanced_regularization.html#structural-decoupling",
+    "title": "7  Enhanced regularization",
+    "section": "7.3 Structural decoupling",
+    "text": "7.3 Structural decoupling\n\n\n\n\n\nisotropic smoothness\n\n\n\n\n\n\ndecoupling\n\n\n\n\n\n\n\n\n\n\nStructurally constrained inversion (Bergmann et al. 2013)\n\n\n\n\n\n\n\nDerivation of smoothness matrix (Wagner and Uhlemann 2021)\n\n\n\n\n\n\n\n\n\n\n\nSeismic cross-section (Tanner et al. 2020)\n\n\n\n\n\n\nERT inversion result without (a) and with (b) structural constraints from seismic (Tanner et al. 2020)",
+    "crumbs": [
+      "Regularization",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Enhanced regularization</span>"
+    ]
+  },
+  {
+    "objectID": "07_enhanced_regularization.html#selected-smoothness",
+    "href": "07_enhanced_regularization.html#selected-smoothness",
+    "title": "7  Enhanced regularization",
+    "section": "7.4 Selected smoothness",
+    "text": "7.4 Selected smoothness\n\n\n\n\n\ndecoupling\n\n\n\n\n\n\n\ndisjunct regions",
+    "crumbs": [
+      "Regularization",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Enhanced regularization</span>"
+    ]
+  },
+  {
+    "objectID": "07_enhanced_regularization.html#model-reduction",
+    "href": "07_enhanced_regularization.html#model-reduction",
+    "title": "7  Enhanced regularization",
+    "section": "7.5 Model reduction",
+    "text": "7.5 Model reduction\n\n\n\n\n\nclustering models\n\n\n\n\n\n\ndisjunct regions",
+    "crumbs": [
+      "Regularization",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Enhanced regularization</span>"
+    ]
+  },
+  {
+    "objectID": "07_enhanced_regularization.html#region-wise-settings",
+    "href": "07_enhanced_regularization.html#region-wise-settings",
+    "title": "7  Enhanced regularization",
+    "section": "7.6 Region-wise settings",
+    "text": "7.6 Region-wise settings\nPlacement of mesh divided into different regions in greater for\n\n\n\n\n\nMesh with different regions (Coscia et al. 2011)\n\n\n\n\n\n\nCross-section with decoupled (a) and coupled (b) regions (Coscia et al. 2011)",
+    "crumbs": [
+      "Regularization",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Enhanced regularization</span>"
+    ]
+  },
+  {
+    "objectID": "07_enhanced_regularization.html#geostatistical-regularization",
+    "href": "07_enhanced_regularization.html#geostatistical-regularization",
+    "title": "7  Enhanced regularization",
+    "section": "7.7 Geostatistical regularization",
+    "text": "7.7 Geostatistical regularization\n\\(\\vb M_{ij}=\\sigma^2\\exp(-3\\sqrt{\\frac{|x_i-x_j|}{I_x}^2+\\frac{|y_i-y_j|}{I_y}^2})\\quad\\Rightarrow\\quad \\vb C=\\vb M^{-0.5}\\)\n\n\n\nGeostatistical correlation function (left) and regularization operator (right) after Jordi et al. (2018)",
+    "crumbs": [
+      "Regularization",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Enhanced regularization</span>"
+    ]
+  },
+  {
+    "objectID": "07_enhanced_regularization.html#geostatistical-regularization---example",
+    "href": "07_enhanced_regularization.html#geostatistical-regularization---example",
+    "title": "7  Enhanced regularization",
+    "section": "7.8 Geostatistical regularization - example",
+    "text": "7.8 Geostatistical regularization - example\n\n\n\nSynthetic model (a) and inversion results with classic smoothness constraints (b), true correlation (c) and slightly wrong correlation (d) (Jordi et al. 2018)\n\n\n\n\n\n\nBergmann P, Ivandic M, Norden B, Rücker C, Kiessling D, Lüth S, Schmidt-Hattenberger C and Juhlin C. 2013. Combination of seismic reflection and constrained resistivity inversion with an application to 4D imaging of the CO2 storage site, ketzin, germany. Geophysics. 79. B37–50\n\n\nCoscia I, Greenhalgh S, Linde N, Doetsch J, Marescot L, Günther T and Green A. 2011. 3D crosshole apparent resistivity static inversion and monitoring of a coupled river-aquifer system. Geophysics. 76. G49–59\n\n\nJordi C, Doetsch J, Günther T, Schmelzbach C and Robertsson J O A. 2018. Geostatistical regularization operators for geophysical inverse problems on irregular meshes. Geophysical Journal International. 213. 1374–86\n\n\nTanner D C, Buness H, Igel J, Günther T, Gabriel G, Skiba P, Plenefisch T, Gestermann N and Walter T R. 2020. Chapter 3 - fault detection. Understanding faults ed D Tanner and C Brandes (Elsevier) pp 81–146 Online: http://www.sciencedirect.com/science/article/pii/B9780128159859000035\n\n\nWagner F M and Uhlemann S. 2021. Advances in geophysics. Inversion of geophysical data (Elsevier) pp 1–72",
+    "crumbs": [
+      "Regularization",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Enhanced regularization</span>"
     ]
   },
   {
     "objectID": "literature.html",
     "href": "literature.html",
-    "title": "References",
+    "title": "8  References",
     "section": "",
-    "text": "Aster R C, Borchers B and Thurber C H. 2005. Parameter Estimation and Inverse Problems (Elsevier Academic Press)\n\n\nCoscia I, Greenhalgh S, Linde N, Doetsch J, Marescot L, Günther T and Green A. 2011. 3D crosshole apparent resistivity static inversion and monitoring of a coupled river-aquifer system. Geophysics. 76. G49–59\n\n\nDentith M and Mudge S T. 2014. Geophysics for the mineral exploration geoscientist (Cambridge University Press)\n\n\nEverett M E. 2013. Near-surface applied geophysics (Cambridge University Press)\n\n\nFriedel S. 2003. Resolution, stability and effiency of resistivity tomography estimated from a generalized inverse approach. Geophys. J. Int. 153. 305–16\n\n\nGubbins D. 2004. Time series analysis and inverse theory for geophysicists (Cambridge Univ. Press)\n\n\nGünther T. 2004. Inversion Methods and Resolution Analysis for the 2D/3D Reconstruction of Resistivity Structures from DC Measurements PhD thesis (University of Mining; Technology Freiberg)\n\n\nGünther T and Martin T. 2016. Spectral two-dimensional inversion of frequency-domain induced polarisation data from a mining slag heap. Journal of Applied Geophysics. 135. 436–48\n\n\nGünther T, Rücker C and Spitzer K. 2006. Three-dimensional modeling and inversion of dc resistivity data incorporating topography - II: inversion. Geophys. J. Int. 166. 506–17\n\n\nHübner R, Günther T, Heller K, Noell U and Kleber A. 2017. Impacts of a capillary barrier on infiltration and subsurface stormflow in layered slope deposits monitored with 3-D ERT and hydrometric measurements. Hydrology and Earth System Sciences. 21. 5181–99\n\n\nHübner R, Heller K, Günther T and Kleber A. 2015. Monitoring hillslope moisture dynamics with surface ERT for enhancing spatial significance of hydrometric point measurements. Hydrology and Earth System Sciences. 19. 225–40 Online: http://www.hydrol-earth-syst-sci.net/19/225/2015/\n\n\nJiang C, Igel J, Dlugosch R, Müller-Petke M, Günther T, Helms J, Lang J and Winsemann J. 2020. Magnetic resonance tomography constrained by ground-penetrating radar for improved hydrogeophysical characterisation. GEOPHYSICS. 1–56\n\n\nMartin T and Günther T. 2013. Complex resistivity tomography (CRT) for fungus detection on standing oak trees. European Journal of Forest Research. 132. 765–76 Online: http://dx.doi.org/10.1007/s10342-013-0711-4\n\n\nMartin T, Günther T, Orozco A F and Dahlin T. 2020. Evaluation of spectral induced polarization field measurements in time and frequency domain. Journal of Applied Geophysics. 180. 104141\n\n\nMeju M A. 1994. Geophysical data analysis: Understanding inverse problem theory and practice (Society of Exploration Geophysicists)\n\n\nMenke W. 1989. Geophysical data analysis: Discrete inverse theory vol 45 (Academic Press Inc.)\n\n\nMenke W. 2012. Geophysical data analysis: Discrete inverse theory (Elsevier)\n\n\nNickschick T, Flechsig C, Mrlina J, Oppermann F, Löbig F and Günther T. 2019. Large-scale electrical resistivity tomography in the Cheb Basin (Eger Rift) at an International Continental Drilling Program (ICDP) monitoring site to image fluid-related structures. Solid Earth. 10. 1951–69 Online: https://www.solid-earth.net/10/1951/2019/\n\n\nNocedal J and Wright S. 2006. Numerical Optimization vol XXII, ed T Mikosch, S Robinson and S Resnick (Springer Verlag) Online: http://www.springer.com/mathematics/book/978-0-387-30303-1\n\n\nRichter M. 2016. Inverse problems: Basics, theory and applications in geophysics (Springer International Publishing)\n\n\nRücker C, Günther T and Wagner F. 2017. pyGIMLi: An open-source library for modelling and inversion in geophysics. Computers & Geosciences. 109. 106–23\n\n\nTarantola A. 1978. Inverse problem theory (Amsterdam: Elsevier)\n\n\nUdphuay S, Günther T, Everett M E, Warden R R and Briaud J-L. 2011. Three—dimensional resistivity tomography in extreme coastal terrain amidst dense cultural signals: Application to cliff stability assessment at the historic D—Day site. Geophys. J. Int. 185. 201–20\n\n\nZhdanov M S. 2002. Geophysical inverse theory and regularization problems (Amsterdam - New York - Tokyo: Elsevier)",
+    "text": "Aster R C, Borchers B and Thurber C H. 2005. Parameter Estimation and Inverse Problems (Elsevier Academic Press)\n\n\nBergmann P, Ivandic M, Norden B, Rücker C, Kiessling D, Lüth S, Schmidt-Hattenberger C and Juhlin C. 2013. Combination of seismic reflection and constrained resistivity inversion with an application to 4D imaging of the CO2 storage site, ketzin, germany. Geophysics. 79. B37–50\n\n\nCoscia I, Greenhalgh S, Linde N, Doetsch J, Marescot L, Günther T and Green A. 2011. 3D crosshole apparent resistivity static inversion and monitoring of a coupled river-aquifer system. Geophysics. 76. G49–59\n\n\nDentith M and Mudge S T. 2014. Geophysics for the mineral exploration geoscientist (Cambridge University Press)\n\n\nEverett M E. 2013. Near-surface applied geophysics (Cambridge University Press)\n\n\nFriedel S. 2003. Resolution, stability and effiency of resistivity tomography estimated from a generalized inverse approach. Geophys. J. Int. 153. 305–16\n\n\nGubbins D. 2004. Time series analysis and inverse theory for geophysicists (Cambridge Univ. Press)\n\n\nGünther T. 2004. Inversion Methods and Resolution Analysis for the 2D/3D Reconstruction of Resistivity Structures from DC Measurements PhD thesis (University of Mining; Technology Freiberg)\n\n\nGünther T and Martin T. 2016. Spectral two-dimensional inversion of frequency-domain induced polarisation data from a mining slag heap. Journal of Applied Geophysics. 135. 436–48\n\n\nGünther T, Rücker C and Spitzer K. 2006. Three-dimensional modeling and inversion of dc resistivity data incorporating topography - II: inversion. Geophys. J. Int. 166. 506–17\n\n\nHübner R, Günther T, Heller K, Noell U and Kleber A. 2017. Impacts of a capillary barrier on infiltration and subsurface stormflow in layered slope deposits monitored with 3-D ERT and hydrometric measurements. Hydrology and Earth System Sciences. 21. 5181–99\n\n\nHübner R, Heller K, Günther T and Kleber A. 2015. Monitoring hillslope moisture dynamics with surface ERT for enhancing spatial significance of hydrometric point measurements. Hydrology and Earth System Sciences. 19. 225–40 Online: http://www.hydrol-earth-syst-sci.net/19/225/2015/\n\n\nJiang C, Igel J, Dlugosch R, Müller-Petke M, Günther T, Helms J, Lang J and Winsemann J. 2020. Magnetic resonance tomography constrained by ground-penetrating radar for improved hydrogeophysical characterisation. GEOPHYSICS. 1–56\n\n\nJordi C, Doetsch J, Günther T, Schmelzbach C and Robertsson J O A. 2018. Geostatistical regularization operators for geophysical inverse problems on irregular meshes. Geophysical Journal International. 213. 1374–86\n\n\nMartin T and Günther T. 2013. Complex resistivity tomography (CRT) for fungus detection on standing oak trees. European Journal of Forest Research. 132. 765–76 Online: http://dx.doi.org/10.1007/s10342-013-0711-4\n\n\nMartin T, Günther T, Orozco A F and Dahlin T. 2020. Evaluation of spectral induced polarization field measurements in time and frequency domain. Journal of Applied Geophysics. 180. 104141\n\n\nMeju M A. 1994. Geophysical data analysis: Understanding inverse problem theory and practice (Society of Exploration Geophysicists)\n\n\nMenke W. 1989. Geophysical data analysis: Discrete inverse theory vol 45 (Academic Press Inc.)\n\n\nMenke W. 2012. Geophysical data analysis: Discrete inverse theory (Elsevier)\n\n\nNickschick T, Flechsig C, Mrlina J, Oppermann F, Löbig F and Günther T. 2019. Large-scale electrical resistivity tomography in the Cheb Basin (Eger Rift) at an International Continental Drilling Program (ICDP) monitoring site to image fluid-related structures. Solid Earth. 10. 1951–69 Online: https://www.solid-earth.net/10/1951/2019/\n\n\nNocedal J and Wright S. 2006. Numerical Optimization vol XXII, ed T Mikosch, S Robinson and S Resnick (Springer Verlag) Online: http://www.springer.com/mathematics/book/978-0-387-30303-1\n\n\nRichter M. 2016. Inverse problems: Basics, theory and applications in geophysics (Springer International Publishing)\n\n\nRücker C, Günther T and Wagner F. 2017. pyGIMLi: An open-source library for modelling and inversion in geophysics. Computers & Geosciences. 109. 106–23\n\n\nTanner D C, Buness H, Igel J, Günther T, Gabriel G, Skiba P, Plenefisch T, Gestermann N and Walter T R. 2020. Chapter 3 - fault detection. Understanding faults ed D Tanner and C Brandes (Elsevier) pp 81–146 Online: http://www.sciencedirect.com/science/article/pii/B9780128159859000035\n\n\nTarantola A. 1978. Inverse problem theory (Amsterdam: Elsevier)\n\n\nUdphuay S, Günther T, Everett M E, Warden R R and Briaud J-L. 2011. Three—dimensional resistivity tomography in extreme coastal terrain amidst dense cultural signals: Application to cliff stability assessment at the historic D—Day site. Geophys. J. Int. 185. 201–20\n\n\nWagner F M and Uhlemann S. 2021. Advances in geophysics. Inversion of geophysical data (Elsevier) pp 1–72\n\n\nZhdanov M S. 2002. Geophysical inverse theory and regularization problems (Amsterdam - New York - Tokyo: Elsevier)",
     "crumbs": [
-      "References"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>References</span>"
     ]
   }
 ]

@@ -3,5 +3,5 @@ nocite: |
   @*
 ---
 
-# References {#sec-refs .unnumbered}
+# References {#sec-refs}
 

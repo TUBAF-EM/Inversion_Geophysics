@@ -25,8 +25,8 @@ book:
     - part: "Regularization"
       chapters:
         - 05_regularization.qmd
-        # - 06_traveltime_tomography.qmd
-        # - 07_enhanced_regularization.qmd
+        - 06_traveltime_tomography.qmd
+        - 07_enhanced_regularization.qmd
     # - part: "Non-linear problems"
       # chapters:
         # - probability.qmd
