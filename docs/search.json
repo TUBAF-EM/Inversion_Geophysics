@@ -1294,50 +1294,6 @@
     ]
   },
   {
-    "objectID": "10_probability.html#monte-carlo-methods",
-    "href": "10_probability.html#monte-carlo-methods",
-    "title": "10  Probability & Likelihood",
-    "section": "10.17 Monte Carlo methods",
-    "text": "10.17 Monte Carlo methods\n\n\n\nMonte Carlos search: randomly draw solutions from grid\naccept solution only if better than old\nMarkow-Chain-Monte-Carlo\nMetropolis-Hastings (Metropolis et al., 1953; Hastings, 1970)\n\n\n\n\n\nMonte Carlo method",
-    "crumbs": [
-      "Non-linear problems",
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Probability & Likelihood</span>"
-    ]
-  },
-  {
-    "objectID": "10_probability.html#simulate-annealing",
-    "href": "10_probability.html#simulate-annealing",
-    "title": "10  Probability & Likelihood",
-    "section": "10.18 Simulate Annealing",
-    "text": "10.18 Simulate Annealing\n\n\nTest parameter\n\\[ t = e^{-(\\Phi(\\vb m)-\\Phi(\\vb m^p))/T} \\]\n\n\n\n\n\nSimulated Annealing",
-    "crumbs": [
-      "Non-linear problems",
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Probability & Likelihood</span>"
-    ]
-  },
-  {
-    "objectID": "10_probability.html#alternatives-to-grid-search",
-    "href": "10_probability.html#alternatives-to-grid-search",
-    "title": "10  Probability & Likelihood",
-    "section": "10.19 Alternatives to grid search",
-    "text": "10.19 Alternatives to grid search\n\n\n\n\n\n\nNoteMonte Carlo search\n\n\n\ndraw random samples and accept them if the error is improved\n\n\nundirected search (Newtons method is directed)\n\n\n\n\n\n\nNoteSimulated annealing\n\n\n\ndecrease temperature controlling particle movements:\nhigh \\(T\\): undirected, low \\(T\\): search in vicinity of current model",
-    "crumbs": [
-      "Non-linear problems",
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Probability & Likelihood</span>"
-    ]
-  },
-  {
-    "objectID": "10_probability.html#monte-carlo-vs.-simulated-annealing",
-    "href": "10_probability.html#monte-carlo-vs.-simulated-annealing",
-    "title": "10  Probability & Likelihood",
-    "section": "10.20 Monte Carlo vs. Simulated Annealing",
-    "text": "10.20 Monte Carlo vs. Simulated Annealing\n\n\n\n\n\nMonte Carlo method\n\n\n\n\n\n\n\nSimulated Annealing",
-    "crumbs": [
-      "Non-linear problems",
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Probability & Likelihood</span>"
-    ]
-  },
-  {
     "objectID": "11_global_minimization.html",
     "href": "11_global_minimization.html",
     "title": "11  Global minimization",
@@ -1346,104 +1302,6 @@
     "crumbs": [
       "Non-linear problems",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Global minimization</span>"
-    ]
-  },
-  {
-    "objectID": "11_global_minimization.html#monte-carlo-methods",
-    "href": "11_global_minimization.html#monte-carlo-methods",
-    "title": "11  Global minimization",
-    "section": "12.1 Monte Carlo methods",
-    "text": "12.1 Monte Carlo methods\n\n\n\nMonte Carlos search: randomly draw solutions from grid\naccept solution if better than old\nMarkow chain \\[\\{\\vb m^0, \\vb m^1, \\ldots\\}\\]\n\n\\(\\vb m^{k+1}\\) depends only on \\(\\vb m^k\\)\n\nMetropolis-Hastings (Metropolis et al., 1953; Hastings, 1970)\n\n\n\n\n\nMonte Carlo method",
-    "crumbs": [
-      "Non-linear problems",
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Global minimization</span>"
-    ]
-  },
-  {
-    "objectID": "11_global_minimization.html#simulate-annealing",
-    "href": "11_global_minimization.html#simulate-annealing",
-    "title": "11  Probability & Likelihood",
-    "section": "11.2 Simulate Annealing",
-    "text": "11.2 Simulate Annealing\n\n\nTest parameter\n\\[ t = e^{-(\\Phi(\\vb m)-\\Phi(\\vb m^p))/T} \\]\n\n\n\n\n\nSimulated Annealing",
-    "crumbs": [
-      "Non-linear problems",
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Probability & Likelihood</span>"
-    ]
-  },
-  {
-    "objectID": "11_global_minimization.html#alternatives-to-grid-search",
-    "href": "11_global_minimization.html#alternatives-to-grid-search",
-    "title": "11  Probability & Likelihood",
-    "section": "11.3 Alternatives to grid search",
-    "text": "11.3 Alternatives to grid search\n\n\n\n\n\n\nNoteMonte Carlo search\n\n\n\ndraw random samples and accept them if the error is improved\n\n\nundirected search (Newtons method is directed)\n\n\n\n\n\n\nNoteSimulated annealing\n\n\n\ndecrease temperature controlling particle movements:\nhigh \\(T\\): undirected, low \\(T\\): search in vicinity of current model",
-    "crumbs": [
-      "Non-linear problems",
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Probability & Likelihood</span>"
-    ]
-  },
-  {
-    "objectID": "11_global_minimization.html#monte-carlo-vs.-simulated-annealing",
-    "href": "11_global_minimization.html#monte-carlo-vs.-simulated-annealing",
-    "title": "11  Probability & Likelihood",
-    "section": "11.4 Monte Carlo vs. Simulated Annealing",
-    "text": "11.4 Monte Carlo vs. Simulated Annealing\n\n\n\n\n\nMonte Carlo method\n\n\n\n\n\n\n\nSimulated Annealing",
-    "crumbs": [
-      "Non-linear problems",
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Probability & Likelihood</span>"
-    ]
-  },
-  {
-    "objectID": "13_exampleVES.html",
-    "href": "13_exampleVES.html",
-    "title": "12  Example VES inversion",
-    "section": "",
-    "text": "12.1 The synthetic model\nIn this example, we will exemplify non-linear minimization by using vertical electrical soundings in 1D. To this end, we import two types of forward operators:\nThe first is used for creating the synthetic model and to demonstrate the Levenberg-Marquardt algorithm. The second stands for all types of (also 2D and 3D) discretizations using a smoothness-constrained (Occam) inversion.\nThe experiment comprises a VES sounding with AB/2 values between 6m and 1km. The synthetic model consist of a 20m thick bad conductor embedded in rather conductive halfspace with 10m overburden. Gaussian noise with a relative error model of 3% is added to the data.\nShow the code\nab2 = np.logspace(0.5, 3, 30)\nfBlock = VESModelling(ab2=ab2, mn2=ab2/3, nLayers=3)\nerror = 0.03\nmodelSynth = [10, 20, 20, 500, 30]\ndata = fBlock.response(modelSynth)\ndata *= np.random.normal(1, error, len(ab2))\nprint(data)\n\n\n30 [20.10031398650435, 19.285280180613743, 20.70921333444935, 21.225396603306915, 21.711556039105048, 21.791605171042136, 24.778786629622413, 25.807569846331464, 29.152273476215004, 32.80348808652795, 39.81522538958459, 44.434703674388224, 51.04798900244791, 63.0260374106197, 69.46844405199097, 78.05613018986324, 82.10567641316472, 93.28940766860225, 94.92128866075795, 93.72808236539834, 94.84657084495495, 86.46388261534905, 76.42414295359922, 63.3745445595783, 55.373609552393624, 44.098617865444346, 39.64773956163246, 33.51657122388123, 31.654869635586138, 30.897734642023284]\nShow the code\nfig, ax = plt.subplots()\nax.loglog(data, ab2, \"x\")\nax.invert_yaxis()\nax.grid()\nThe intrinsic model parameters and data are resistivity and apparent resistivity. For both data and model we use a logarithmic transform For computing the Jacobian by a Finite Difference (brute force) approach we write a function taking this into account:\nShow the code\ndef Jacobian(model, f):\n    J = np.zeros([len(ab2), len(model)])\n    responseLog = np.log(f(model))\n    for i in range(len(model)):\n        modelNew = model.copy()\n        modelNew[i] *= 1.1\n        J[:, i] = (np.log(f(modelNew))-responseLog) / (np.log(modelNew[i]) - np.log(model[i]))\n\n    return J\nIn deteministic non-linear minimization approaches we start from a starting model \\(m^0\\) and improve the model iteratively by adding a model update \\(\\Delta \\vb m\\) so that \\(\\vb m^{n+1}=\\vb m^n+\\Delta\\vb m^n\\), based on the data misfit \\(\\Delta \\vb d=\\vb d-\\vb f(\\vb m^n)\\) and the Jacobian matrix \\(\\vb J=\\pdv{f(\\vb m)}{m}\\). For stopping the inversion, several criteria are used:\nIn the following, we always use error-scaled properties, i.e. \\(\\vb J\\), \\(\\vb d\\) and \\(\\vb f\\) are scaled by the relative data error.",
-    "crumbs": [
-      "Non-linear problems",
-      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Example VES inversion</span>"
-    ]
-  },
-  {
-    "objectID": "13_exampleVES.html#the-synthetic-model",
-    "href": "13_exampleVES.html#the-synthetic-model",
-    "title": "12  Example VES inversion",
-    "section": "",
-    "text": "a maximum iteration number is reached (typically 10-20)\nthe objective function stagnates\nthe target data fit is reached (\\(\\chi^2=1\\))",
-    "crumbs": [
-      "Non-linear problems",
-      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Example VES inversion</span>"
-    ]
-  },
-  {
-    "objectID": "13_exampleVES.html#levenberg-marquardt-algorithm",
-    "href": "13_exampleVES.html#levenberg-marquardt-algorithm",
-    "title": "12  Example VES inversion",
-    "section": "12.2 Levenberg-Marquardt algorithm",
-    "text": "12.2 Levenberg-Marquardt algorithm\nThis method is typical for small parameter numbers like curve fits or block models, where the parameters are not related to each other. It uses only a local damping the least-squares solution of the linearized inverse problem \\(\\vb J \\Delta\\vb m=\\Delta \\vb d\\).\n\\[\\Delta\\vb m = (\\vb J^T \\vb J + \\lambda \\vb I)^{-1} (\\vb J^\\top (\\vb d-\\vb f(\\vb m)))\\]\nThe damping parameter \\(\\lambda\\) is for stabilization in the early stage and decreased subsequently.\nWe start the inversion with a homogeneous model and compute its Jacobian matrix:\n\n\nShow the code\nmodel = np.array([15, 15, 100, 100, 100])\nJ = Jacobian(model, fBlock)\nplt.imshow(J.T, cmap=\"bwr\", vmin=-1, vmax=1);\n\n\n\n\n\n\n\n\n\nThe thickness values show no sensitivity as the model is homogeneous. The three layers exhibit increased sensitivities for small, medium and large AB/2 values.\n\n12.2.1 Inversion\nThe inversion is then done by solving the damped normal equations in every iteration.\n\n\nShow the code\nmodel = np.array([15, 15, 100, 100, 100])\nI = np.eye(len(model))\nlam = 100\nfor i in range(5):\n    response = fBlock(model)\n    J = Jacobian(model, fBlock) / error\n    dData = (np.log(data) - np.log(response)) / error\n    print(\"chi2 = \", np.mean(dData**2))\n    dm = np.linalg.inv(J.T@J + I*lam) @ (J.T@dData)\n    model = np.exp(np.log(model) + dm)\n    lam *= 0.8\n\nprint(model)\n\n\nchi2 =  1105.7509702652674\nchi2 =  57.88737732082739\nchi2 =  1.336691926256882\nchi2 =  0.6248500946301451\nchi2 =  0.6241902060824356\n[ 10.32593963  17.65588032  20.10551963 585.20434986  29.03714183]\n\n\nWe plot the data fit and the model along with the synthetic model\n\n\nShow the code\nfig, ax = plt.subplots(ncols=2)\nax[0].loglog(data, ab2, \"x\", label=\"data\")\nax[0].loglog(response, ab2, \"-\", label=\"response\")\nax[0].invert_yaxis()\nax[0].legend()\nax[0].grid()\ndrawModel1D(ax[1], model=modelSynth, label=\"synthetic\")\ndrawModel1D(ax[1], model=model, label=\"result\")\nax[1].invert_yaxis()\nax[1].legend()\n\n\n\n\n\n\n\n\n\n\n\n12.2.2 Resolution and model covariance\nLet us start with the data resolution matrix\n\n\nShow the code\nJTJ = J.T@J\nDRM = J@np.linalg.inv(JTJ)@J.T\nplt.imshow(DRM, cmap=\"bwr\", vmin=-1, vmax=1);\n\n\n\n\n\n\n\n\n\nThe overall information content is 5, i.e. matching the number of resolved parameters. So the individual data are weaker and neighboring AB/2 are highly correlated.\nAs for the overdetemined problem the model resolution is perfect, we instead compute the model covariance \\[ MCM = (\\vb J^T \\vb J + \\lambda \\vb I) \\]\n\n\nShow the code\nMCM = np.linalg.inv(JTJ)\nprint(np.sqrt(np.diag(MCM)))\nplt.imshow(MCM, cmap=\"bwr\", vmin=-1, vmax=1);\n\n\n[0.10172856 2.51392882 0.01426061 2.48916654 0.02248158]\n\n\n\n\n\n\n\n\n\nWe observe a strong anti-correlation between the second layer resistivity and thickness. In total, these show higher variances than the other three parameters that are well determined (the variance is also a relative one).",
-    "crumbs": [
-      "Non-linear problems",
-      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Example VES inversion</span>"
-    ]
-  },
-  {
-    "objectID": "13_exampleVES.html#smoothness-constrained-inversion",
-    "href": "13_exampleVES.html#smoothness-constrained-inversion",
-    "title": "12  Example VES inversion",
-    "section": "12.3 Smoothness-constrained inversion",
-    "text": "12.3 Smoothness-constrained inversion\nHere we use a predefined geometry (layers) with increasing layer thickness. This is passed to the forward operator in the initialization so that only the resistivity vector is passed to the forward routine. We start with a homogeneous resistivity and compute the Jacobian matrix\n\n\nShow the code\nthk = np.linspace(1, 10, 25)\nfSmooth = VESRhoModelling(thk, ab2=ab2)\nres = np.ones(len(thk)+1) * 100\nJ = Jacobian(res, fSmooth)\nplt.imshow(J, cmap=\"bwr\", vmin=-1, vmax=1);\n\n\n\n08/07/26 - 11:02:02 - pyGIMLi - INFO - Found 1 regions.\n\n\n\n\n\n\n\n\n\n\n\nWe clearly see that increasing AB/2 values (rows) shift the sensitivity towards deeper layers (columns).\n\n12.3.1 Inversion\nIn the inversion, we use an explicit regularization using a roughness (gradient) operator \\(\\vb C\\). In every iteration, we solve the regularized normal equation.\n\\[\\Delta\\vb m = (\\vb J^T \\vb J + \\lambda \\vb C^\\top \\vb C)^{-1} (\\vb J^\\top (\\vb d-\\vb f(\\vb m)) - \\lambda \\vb C^\\top \\vb C \\vb m)\\]\nNote the last term that arises when operating on the model itself and not only the update, i.e. the roughness of the model is taken into account.\n\n\nShow the code\nres = np.ones(len(thk)+1) * 100\nC = np.eye(len(res)-1, len(res), 0) - np.eye(len(res)-1, len(res), k=1)\nCTC = C.T@C  # only C.T C is needed\nlam = 100\nfor i in range(6):\n    response = fSmooth(res)\n    J = Jacobian(res, fSmooth) / error\n    dData = (np.log(data) - np.log(response)) / error\n    print(\"chi2 = \", np.mean(dData**2))\n    dm = np.linalg.inv(J.T@J + CTC*lam) @ (J.T@dData - CTC@np.log(res))\n    res = np.exp(np.log(res) + dm)\n\n\nchi2 =  1105.7509702652674\nchi2 =  16.02988451704807\nchi2 =  2.5886092171756556\nchi2 =  1.0129761734308722\nchi2 =  0.7955631203862267\nchi2 =  0.7102777318336846\n\n\nWe use the function drawModel1D to plot the result along with the synthetic model. Note the two modes: a) specifying thickness and values, or b) a complete model vector with both included.\n\n\nShow the code\nfig, ax = plt.subplots()\ndrawModel1D(ax, thk, res)\ndrawModel1D(ax, model=modelSynth)\nax.invert_yaxis()\n\n\n\n\n\n\n\n\n\nWe see that the upper boundary is resolved well, but the lower boundary is smeared, a typical problem in smoothness-constrained inversion. As above, we compute the model covariance:\n\n\nShow the code\nJTJ = J.T@J\nMCM = np.linalg.inv(JTJ + CTC*lam)\nplt.imshow(MCM, cmap=\"bwr\", vmin=-.01, vmax=.01)\nvar = np.sqrt(np.diag(MCM))\nprint(var)\n\n\n[0.05628251 0.04159579 0.05225765 0.05588155 0.06400605 0.07738092\n 0.08953005 0.09670334 0.09837569 0.09601253 0.09231448 0.09028962\n 0.09194251 0.09738785 0.10529129 0.11398935 0.12216795 0.12897342\n 0.13388629 0.13655216 0.13661181 0.13350901 0.12621273 0.11265094\n 0.08782893 0.02238185]\n\n\n\n\n\n\n\n\n\nWe have variances (of the logarithm, i.e. relative accuracies) in the order of 10% and can use them to have some upper and lower boundaries.\n\n\nShow the code\nfig, ax = plt.subplots()\ndrawModel1D(ax, thk, res)\ndrawModel1D(ax, thk, res*(1+var))\ndrawModel1D(ax, thk, res*(1-var))\ndrawModel1D(ax, model=modelSynth)\nax.invert_yaxis()\n\n\n\n\n\n\n\n\n\nWe can also compute the model resolution matrix\n\n\nShow the code\nMRM = np.linalg.inv(JTJ + CTC*lam) @ (JTJ)\nplt.imshow(np.log(JTJ), cmap=\"bwr\", vmin=-1, vmax=1)\n\n\nC:\\Users\\Thomas Guenther\\AppData\\Local\\Temp\\ipykernel_3524\\4005960481.py:2: RuntimeWarning: invalid value encountered in log\n  plt.imshow(np.log(JTJ), cmap=\"bwr\", vmin=-1, vmax=1)",
-    "crumbs": [
-      "Non-linear problems",
-      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Example VES inversion</span>"
-    ]
-  },
-  {
-    "objectID": "literature.html",
-    "href": "literature.html",
-    "title": "13  References",
-    "section": "",
-    "text": "Aster R C, Borchers B and Thurber C H. 2005. Parameter Estimation and Inverse Problems (Elsevier Academic Press)\n\n\nBergmann P, Ivandic M, Norden B, Rücker C, Kiessling D, Lüth S, Schmidt-Hattenberger C and Juhlin C. 2013. Combination of seismic reflection and constrained resistivity inversion with an application to 4D imaging of the CO2 storage site, ketzin, germany. Geophysics. 79. B37–50\n\n\nCoscia I, Greenhalgh S, Linde N, Doetsch J, Marescot L, Günther T and Green A. 2011. 3D crosshole apparent resistivity static inversion and monitoring of a coupled river-aquifer system. Geophysics. 76. G49–59\n\n\nDentith M and Mudge S T. 2014. Geophysics for the mineral exploration geoscientist (Cambridge University Press)\n\n\nEverett M E. 2013. Near-surface applied geophysics (Cambridge University Press)\n\n\nFriedel S. 2003. Resolution, stability and effiency of resistivity tomography estimated from a generalized inverse approach. Geophys. J. Int. 153. 305–16\n\n\nGubbins D. 2004. Time series analysis and inverse theory for geophysicists (Cambridge Univ. Press)\n\n\nGünther T. 2004. Inversion Methods and Resolution Analysis for the 2D/3D Reconstruction of Resistivity Structures from DC Measurements PhD thesis (University of Mining; Technology Freiberg)\n\n\nGünther T and Martin T. 2016. Spectral two-dimensional inversion of frequency-domain induced polarisation data from a mining slag heap. Journal of Applied Geophysics. 135. 436–48\n\n\nGünther T, Rücker C and Spitzer K. 2006. Three-dimensional modeling and inversion of dc resistivity data incorporating topography - II: inversion. Geophys. J. Int. 166. 506–17\n\n\nHübner R, Günther T, Heller K, Noell U and Kleber A. 2017. Impacts of a capillary barrier on infiltration and subsurface stormflow in layered slope deposits monitored with 3-D ERT and hydrometric measurements. Hydrology and Earth System Sciences. 21. 5181–99\n\n\nHübner R, Heller K, Günther T and Kleber A. 2015. Monitoring hillslope moisture dynamics with surface ERT for enhancing spatial significance of hydrometric point measurements. Hydrology and Earth System Sciences. 19. 225–40 Online: http://www.hydrol-earth-syst-sci.net/19/225/2015/\n\n\nJiang C, Igel J, Dlugosch R, Müller-Petke M, Günther T, Helms J, Lang J and Winsemann J. 2020. Magnetic resonance tomography constrained by ground-penetrating radar for improved hydrogeophysical characterisation. GEOPHYSICS. 1–56\n\n\nJordi C, Doetsch J, Günther T, Schmelzbach C and Robertsson J O A. 2018. Geostatistical regularization operators for geophysical inverse problems on irregular meshes. Geophysical Journal International. 213. 1374–86\n\n\nMartin T and Günther T. 2013. Complex resistivity tomography (CRT) for fungus detection on standing oak trees. European Journal of Forest Research. 132. 765–76 Online: http://dx.doi.org/10.1007/s10342-013-0711-4\n\n\nMartin T, Günther T, Orozco A F and Dahlin T. 2020. Evaluation of spectral induced polarization field measurements in time and frequency domain. Journal of Applied Geophysics. 180. 104141\n\n\nMeju M A. 1994. Geophysical data analysis: Understanding inverse problem theory and practice (Society of Exploration Geophysicists)\n\n\nMenke W. 1989. Geophysical data analysis: Discrete inverse theory vol 45 (Academic Press Inc.)\n\n\nMenke W. 2012. Geophysical data analysis: Discrete inverse theory (Elsevier)\n\n\nNickschick T, Flechsig C, Mrlina J, Oppermann F, Löbig F and Günther T. 2019. Large-scale electrical resistivity tomography in the Cheb Basin (Eger Rift) at an International Continental Drilling Program (ICDP) monitoring site to image fluid-related structures. Solid Earth. 10. 1951–69 Online: https://www.solid-earth.net/10/1951/2019/\n\n\nNocedal J and Wright S. 2006. Numerical Optimization vol XXII, ed T Mikosch, S Robinson and S Resnick (Springer Verlag) Online: http://www.springer.com/mathematics/book/978-0-387-30303-1\n\n\nRichter M. 2016. Inverse problems: Basics, theory and applications in geophysics (Springer International Publishing)\n\n\nRücker C, Günther T and Wagner F. 2017. pyGIMLi: An open-source library for modelling and inversion in geophysics. Computers & Geosciences. 109. 106–23\n\n\nTanner D C, Buness H, Igel J, Günther T, Gabriel G, Skiba P, Plenefisch T, Gestermann N and Walter T R. 2020. Chapter 3 - fault detection. Understanding faults ed D Tanner and C Brandes (Elsevier) pp 81–146 Online: http://www.sciencedirect.com/science/article/pii/B9780128159859000035\n\n\nTarantola A. 1978. Inverse problem theory (Amsterdam: Elsevier)\n\n\nUdphuay S, Günther T, Everett M E, Warden R R and Briaud J-L. 2011. Three—dimensional resistivity tomography in extreme coastal terrain amidst dense cultural signals: Application to cliff stability assessment at the historic D—Day site. Geophys. J. Int. 185. 201–20\n\n\nWagner F M and Uhlemann S. 2021. Advances in geophysics. Inversion of geophysical data (Elsevier) pp 1–72\n\n\nZhdanov M S. 2002. Geophysical inverse theory and regularization problems (Amsterdam - New York - Tokyo: Elsevier)",
-    "crumbs": [
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>References</span>"
     ]
   },
   {
@@ -1485,6 +1343,17 @@
     "title": "11  Global minimization",
     "section": "11.5 Slightly wrong a-priori information",
     "text": "11.5 Slightly wrong a-priori information\n\n\n\nleft: \\(\\Phi_d\\), center: \\(\\lambda\\Phi_m\\), right: \\(\\Phi_d+\\lambda\\Phi_m\\) (\\(\\lambda\\)=30)",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Global minimization</span>"
+    ]
+  },
+  {
+    "objectID": "11_global_minimization.html#monte-carlo-methods",
+    "href": "11_global_minimization.html#monte-carlo-methods",
+    "title": "11  Global minimization",
+    "section": "12.1 Monte Carlo methods",
+    "text": "12.1 Monte Carlo methods\n\n\n\nMonte Carlos search: randomly draw solutions from grid\naccept solution if better than old\nMarkow chain \\[\\{\\vb m^0, \\vb m^1, \\ldots\\}\\]\n\n\\(\\vb m^{k+1}\\) depends only on \\(\\vb m^k\\)\n\nMetropolis-Hastings (Metropolis et al., 1953; Hastings, 1970)\n\n\n\n\n\nMonte Carlo method",
     "crumbs": [
       "Non-linear problems",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Global minimization</span>"
@@ -1642,6 +1511,60 @@
     "crumbs": [
       "Non-linear problems",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Global minimization</span>"
+    ]
+  },
+  {
+    "objectID": "13_exampleVES.html",
+    "href": "13_exampleVES.html",
+    "title": "12  Example VES inversion",
+    "section": "",
+    "text": "12.1 The synthetic model\nIn this example, we will exemplify non-linear minimization by using vertical electrical soundings in 1D. To this end, we import two types of forward operators:\nThe first is used for creating the synthetic model and to demonstrate the Levenberg-Marquardt algorithm. The second stands for all types of (also 2D and 3D) discretizations using a smoothness-constrained (Occam) inversion.\nThe experiment comprises a VES sounding with AB/2 values between 6m and 1km. The synthetic model consist of a 20m thick bad conductor embedded in rather conductive halfspace with 10m overburden. Gaussian noise with a relative error model of 3% is added to the data.\nShow the code\nab2 = np.logspace(0.5, 3, 30)\nfBlock = VESModelling(ab2=ab2, mn2=ab2/3, nLayers=3)\nerror = 0.03\nmodelSynth = [10, 20, 20, 500, 30]\ndata = fBlock.response(modelSynth)\ndata *= np.random.normal(1, error, len(ab2))\nprint(data)\n\n\n30 [20.079031911664593, 19.887934827460903, 21.014925252610364, 20.85520209476763, 20.898729215173997, 21.435671089464467, 23.37646203101076, 25.585224390738755, 30.724953532972535, 34.15051213815305, 39.55632664569125, 44.49255263072366, 53.020316621050476, 60.06137182826126, 69.96308299417505, 79.81414963031365, 83.66767769588436, 92.4021749333356, 93.28372798017463, 92.65756439031824, 91.99999247378997, 89.97234590623434, 74.9675144829669, 58.97294951816488, 51.04970461511585, 46.63066941282433, 37.9981738249699, 36.71825460105309, 33.28221114450177, 31.18474144383116]\nShow the code\nfig, ax = plt.subplots()\nax.loglog(data, ab2, \"x\")\nax.invert_yaxis()\nax.grid()\nThe intrinsic model parameters and data are resistivity and apparent resistivity. For both data and model we use a logarithmic transform For computing the Jacobian by a Finite Difference (brute force) approach we write a function taking this into account:\nShow the code\ndef Jacobian(model, f):\n    J = np.zeros([len(ab2), len(model)])\n    responseLog = np.log(f(model))\n    for i in range(len(model)):\n        modelNew = model.copy()\n        modelNew[i] *= 1.1\n        J[:, i] = (np.log(f(modelNew))-responseLog) / (np.log(modelNew[i]) - np.log(model[i]))\n\n    return J\nIn deteministic non-linear minimization approaches we start from a starting model \\(m^0\\) and improve the model iteratively by adding a model update \\(\\Delta \\vb m\\) so that \\(\\vb m^{n+1}=\\vb m^n+\\Delta\\vb m^n\\), based on the data misfit \\(\\Delta \\vb d=\\vb d-\\vb f(\\vb m^n)\\) and the Jacobian matrix \\(\\vb J=\\pdv{f(\\vb m)}{m}\\). For stopping the inversion, several criteria are used:\nIn the following, we always use error-scaled properties, i.e. \\(\\vb J\\), \\(\\vb d\\) and \\(\\vb f\\) are scaled by the relative data error.",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Example VES inversion</span>"
+    ]
+  },
+  {
+    "objectID": "13_exampleVES.html#the-synthetic-model",
+    "href": "13_exampleVES.html#the-synthetic-model",
+    "title": "12  Example VES inversion",
+    "section": "",
+    "text": "a maximum iteration number is reached (typically 10-20)\nthe objective function stagnates\nthe target data fit is reached (\\(\\chi^2=1\\))",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Example VES inversion</span>"
+    ]
+  },
+  {
+    "objectID": "13_exampleVES.html#levenberg-marquardt-algorithm",
+    "href": "13_exampleVES.html#levenberg-marquardt-algorithm",
+    "title": "12  Example VES inversion",
+    "section": "12.2 Levenberg-Marquardt algorithm",
+    "text": "12.2 Levenberg-Marquardt algorithm\nThis method is typical for small parameter numbers like curve fits or block models, where the parameters are not related to each other. It uses only a local damping the least-squares solution of the linearized inverse problem \\(\\vb J \\Delta\\vb m=\\Delta \\vb d\\).\n\\[\\Delta\\vb m = (\\vb J^T \\vb J + \\lambda \\vb I)^{-1} (\\vb J^\\top (\\vb d-\\vb f(\\vb m)))\\]\nThe damping parameter \\(\\lambda\\) is for stabilization in the early stage and decreased subsequently.\nWe start the inversion with a homogeneous model and compute its Jacobian matrix:\n\n\nShow the code\nmodel = np.array([15, 15, 100, 100, 100])\nJ = Jacobian(model, fBlock)\nplt.imshow(J.T, cmap=\"bwr\", vmin=-1, vmax=1);\n\n\n\n\n\n\n\n\n\nThe thickness values show no sensitivity as the model is homogeneous. The three layers exhibit increased sensitivities for small, medium and large AB/2 values.\n\n12.2.1 Inversion\nThe inversion is then done by solving the damped normal equations in every iteration.\n\n\nShow the code\nmodel = np.array([15, 15, 100, 100, 100])\nI = np.eye(len(model))\nlam = 100\nfor i in range(5):\n    response = fBlock(model)\n    J = Jacobian(model, fBlock) / error\n    dData = (np.log(data) - np.log(response)) / error\n    print(\"chi2 = \", np.mean(dData**2))\n    dm = np.linalg.inv(J.T@J + I*lam) @ (J.T@dData)\n    model = np.exp(np.log(model) + dm)\n    lam *= 0.8\n\nprint(model)\n\n\nchi2 =  1101.6649895594985\nchi2 =  56.12897588428405\nchi2 =  1.5981046305596793\nchi2 =  0.9786531701895945\nchi2 =  0.9781134997252262\n[  9.9938894   16.96312767  19.87696463 570.93145147  30.51115708]\n\n\nWe plot the data fit and the model along with the synthetic model\n\n\nShow the code\nfig, ax = plt.subplots(ncols=2)\nax[0].loglog(data, ab2, \"x\", label=\"data\")\nax[0].loglog(response, ab2, \"-\", label=\"response\")\nax[0].invert_yaxis()\nax[0].legend()\nax[0].grid()\ndrawModel1D(ax[1], model=modelSynth, label=\"synthetic\")\ndrawModel1D(ax[1], model=model, label=\"result\")\nax[1].invert_yaxis()\nax[1].legend()\n\n\n\n\n\n\n\n\n\n\n\n12.2.2 Resolution and model covariance\nLet us start with the data resolution matrix\n\n\nShow the code\nJTJ = J.T@J\nDRM = J@np.linalg.inv(JTJ)@J.T\nplt.imshow(DRM, cmap=\"bwr\", vmin=-1, vmax=1);\n\n\n\n\n\n\n\n\n\nThe overall information content is 5, i.e. matching the number of resolved parameters. So the individual data are weaker and neighboring AB/2 are highly correlated.\nAs for the overdetemined problem the model resolution is perfect, we instead compute the model covariance \\[ MCM = (\\vb J^T \\vb J + \\lambda \\vb I) \\]\n\n\nShow the code\nMCM = np.linalg.inv(JTJ)\nprint(np.sqrt(np.diag(MCM)))\nplt.imshow(MCM, cmap=\"bwr\", vmin=-1, vmax=1);\n\n\n[0.10211948 2.48496178 0.01450942 2.45835981 0.02151377]\n\n\n\n\n\n\n\n\n\nWe observe a strong anti-correlation between the second layer resistivity and thickness. In total, these show higher variances than the other three parameters that are well determined (the variance is also a relative one).",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Example VES inversion</span>"
+    ]
+  },
+  {
+    "objectID": "13_exampleVES.html#smoothness-constrained-inversion",
+    "href": "13_exampleVES.html#smoothness-constrained-inversion",
+    "title": "12  Example VES inversion",
+    "section": "12.3 Smoothness-constrained inversion",
+    "text": "12.3 Smoothness-constrained inversion\nHere we use a predefined geometry (layers) with increasing layer thickness. This is passed to the forward operator in the initialization so that only the resistivity vector is passed to the forward routine. We start with a homogeneous resistivity and compute the Jacobian matrix\n\n\nShow the code\nthk = np.linspace(1, 10, 25)\nfSmooth = VESRhoModelling(thk, ab2=ab2)\nres = np.ones(len(thk)+1) * 100\nJ = Jacobian(res, fSmooth)\nplt.imshow(J, cmap=\"bwr\", vmin=-1, vmax=1);\n\n\n\n08/07/26 - 18:44:30 - pyGIMLi - INFO - Found 1 regions.\n\n\n\n\n\n\n\n\n\n\n\nWe clearly see that increasing AB/2 values (rows) shift the sensitivity towards deeper layers (columns).\n\n12.3.1 Inversion\nIn the inversion, we use an explicit regularization using a roughness (gradient) operator \\(\\vb C\\). In every iteration, we solve the regularized normal equation.\n\\[\\Delta\\vb m = (\\vb J^T \\vb J + \\lambda \\vb C^\\top \\vb C)^{-1} (\\vb J^\\top (\\vb d-\\vb f(\\vb m)) - \\lambda \\vb C^\\top \\vb C \\vb m)\\]\nNote the last term that arises when operating on the model itself and not only the update, i.e. the roughness of the model is taken into account.\n\n\nShow the code\nres = np.ones(len(thk)+1) * 100\nC = np.eye(len(res)-1, len(res), 0) - np.eye(len(res)-1, len(res), k=1)\nCTC = C.T@C  # only C.T C is needed\nlam = 100\nfor i in range(6):\n    response = fSmooth(res)\n    J = Jacobian(res, fSmooth) / error\n    dData = (np.log(data) - np.log(response)) / error\n    print(\"chi2 = \", np.mean(dData**2))\n    dm = np.linalg.inv(J.T@J + CTC*lam) @ (J.T@dData - CTC@np.log(res))\n    res = np.exp(np.log(res) + dm)\n\n\nchi2 =  1101.664989559498\nchi2 =  16.49359746792341\nchi2 =  2.9867655691209722\nchi2 =  1.3384699651193706\nchi2 =  1.111070115454615\nchi2 =  1.032985507960912\n\n\nWe use the function drawModel1D to plot the result along with the synthetic model. Note the two modes: a) specifying thickness and values, or b) a complete model vector with both included.\n\n\nShow the code\nfig, ax = plt.subplots()\ndrawModel1D(ax, thk, res)\ndrawModel1D(ax, model=modelSynth)\nax.invert_yaxis()\n\n\n\n\n\n\n\n\n\nWe see that the upper boundary is resolved well, but the lower boundary is smeared, a typical problem in smoothness-constrained inversion. As above, we compute the model covariance:\n\n\nShow the code\nJTJ = J.T@J\nMCM = np.linalg.inv(JTJ + CTC*lam)\nplt.imshow(MCM, cmap=\"bwr\", vmin=-.01, vmax=.01)\nvar = np.sqrt(np.diag(MCM))\nprint(var)\n\n\n[0.05703484 0.04074339 0.05113864 0.05526703 0.06584833 0.07987187\n 0.09111868 0.09699168 0.097535   0.09450402 0.09079537 0.08945533\n 0.09221473 0.09871346 0.10727745 0.11615479 0.12409426 0.13036127\n 0.13457292 0.13651619 0.13596593 0.13247256 0.12506101 0.11165307\n 0.08720612 0.02265353]\n\n\n\n\n\n\n\n\n\nWe have variances (of the logarithm, i.e. relative accuracies) in the order of 10% and can use them to have some upper and lower boundaries.\n\n\nShow the code\nfig, ax = plt.subplots()\ndrawModel1D(ax, thk, res)\ndrawModel1D(ax, thk, res*(1+var), color=\"C0\", ls=\"--\")\ndrawModel1D(ax, thk, res*(1-var), color=\"C0\", ls=\"--\")\ndrawModel1D(ax, model=modelSynth)\nax.invert_yaxis()\n\n\n\n\n\n\n\n\n\nWe can also compute the model resolution matrix\n\n\nShow the code\nMRM = np.linalg.inv(JTJ + CTC*lam) @ (JTJ)\nplt.imshow(MRM, cmap=\"bwr\", vmin=-1, vmax=1)",
+    "crumbs": [
+      "Non-linear problems",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Example VES inversion</span>"
+    ]
+  },
+  {
+    "objectID": "literature.html",
+    "href": "literature.html",
+    "title": "13  References",
+    "section": "",
+    "text": "Aster R C, Borchers B and Thurber C H. 2005. Parameter Estimation and Inverse Problems (Elsevier Academic Press)\n\n\nBergmann P, Ivandic M, Norden B, Rücker C, Kiessling D, Lüth S, Schmidt-Hattenberger C and Juhlin C. 2013. Combination of seismic reflection and constrained resistivity inversion with an application to 4D imaging of the CO2 storage site, ketzin, germany. Geophysics. 79. B37–50\n\n\nCoscia I, Greenhalgh S, Linde N, Doetsch J, Marescot L, Günther T and Green A. 2011. 3D crosshole apparent resistivity static inversion and monitoring of a coupled river-aquifer system. Geophysics. 76. G49–59\n\n\nDentith M and Mudge S T. 2014. Geophysics for the mineral exploration geoscientist (Cambridge University Press)\n\n\nEverett M E. 2013. Near-surface applied geophysics (Cambridge University Press)\n\n\nFriedel S. 2003. Resolution, stability and effiency of resistivity tomography estimated from a generalized inverse approach. Geophys. J. Int. 153. 305–16\n\n\nGubbins D. 2004. Time series analysis and inverse theory for geophysicists (Cambridge Univ. Press)\n\n\nGünther T. 2004. Inversion Methods and Resolution Analysis for the 2D/3D Reconstruction of Resistivity Structures from DC Measurements PhD thesis (University of Mining; Technology Freiberg)\n\n\nGünther T and Martin T. 2016. Spectral two-dimensional inversion of frequency-domain induced polarisation data from a mining slag heap. Journal of Applied Geophysics. 135. 436–48\n\n\nGünther T, Rücker C and Spitzer K. 2006. Three-dimensional modeling and inversion of dc resistivity data incorporating topography - II: inversion. Geophys. J. Int. 166. 506–17\n\n\nHübner R, Günther T, Heller K, Noell U and Kleber A. 2017. Impacts of a capillary barrier on infiltration and subsurface stormflow in layered slope deposits monitored with 3-D ERT and hydrometric measurements. Hydrology and Earth System Sciences. 21. 5181–99\n\n\nHübner R, Heller K, Günther T and Kleber A. 2015. Monitoring hillslope moisture dynamics with surface ERT for enhancing spatial significance of hydrometric point measurements. Hydrology and Earth System Sciences. 19. 225–40 Online: http://www.hydrol-earth-syst-sci.net/19/225/2015/\n\n\nJiang C, Igel J, Dlugosch R, Müller-Petke M, Günther T, Helms J, Lang J and Winsemann J. 2020. Magnetic resonance tomography constrained by ground-penetrating radar for improved hydrogeophysical characterisation. GEOPHYSICS. 1–56\n\n\nJordi C, Doetsch J, Günther T, Schmelzbach C and Robertsson J O A. 2018. Geostatistical regularization operators for geophysical inverse problems on irregular meshes. Geophysical Journal International. 213. 1374–86\n\n\nMartin T and Günther T. 2013. Complex resistivity tomography (CRT) for fungus detection on standing oak trees. European Journal of Forest Research. 132. 765–76 Online: http://dx.doi.org/10.1007/s10342-013-0711-4\n\n\nMartin T, Günther T, Orozco A F and Dahlin T. 2020. Evaluation of spectral induced polarization field measurements in time and frequency domain. Journal of Applied Geophysics. 180. 104141\n\n\nMeju M A. 1994. Geophysical data analysis: Understanding inverse problem theory and practice (Society of Exploration Geophysicists)\n\n\nMenke W. 1989. Geophysical data analysis: Discrete inverse theory vol 45 (Academic Press Inc.)\n\n\nMenke W. 2012. Geophysical data analysis: Discrete inverse theory (Elsevier)\n\n\nNickschick T, Flechsig C, Mrlina J, Oppermann F, Löbig F and Günther T. 2019. Large-scale electrical resistivity tomography in the Cheb Basin (Eger Rift) at an International Continental Drilling Program (ICDP) monitoring site to image fluid-related structures. Solid Earth. 10. 1951–69 Online: https://www.solid-earth.net/10/1951/2019/\n\n\nNocedal J and Wright S. 2006. Numerical Optimization vol XXII, ed T Mikosch, S Robinson and S Resnick (Springer Verlag) Online: http://www.springer.com/mathematics/book/978-0-387-30303-1\n\n\nRichter M. 2016. Inverse problems: Basics, theory and applications in geophysics (Springer International Publishing)\n\n\nRücker C, Günther T and Wagner F. 2017. pyGIMLi: An open-source library for modelling and inversion in geophysics. Computers & Geosciences. 109. 106–23\n\n\nTanner D C, Buness H, Igel J, Günther T, Gabriel G, Skiba P, Plenefisch T, Gestermann N and Walter T R. 2020. Chapter 3 - fault detection. Understanding faults ed D Tanner and C Brandes (Elsevier) pp 81–146 Online: http://www.sciencedirect.com/science/article/pii/B9780128159859000035\n\n\nTarantola A. 1978. Inverse problem theory (Amsterdam: Elsevier)\n\n\nUdphuay S, Günther T, Everett M E, Warden R R and Briaud J-L. 2011. Three—dimensional resistivity tomography in extreme coastal terrain amidst dense cultural signals: Application to cliff stability assessment at the historic D—Day site. Geophys. J. Int. 185. 201–20\n\n\nWagner F M and Uhlemann S. 2021. Advances in geophysics. Inversion of geophysical data (Elsevier) pp 1–72\n\n\nZhdanov M S. 2002. Geophysical inverse theory and regularization problems (Amsterdam - New York - Tokyo: Elsevier)",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>References</span>"
     ]
   }
 ]

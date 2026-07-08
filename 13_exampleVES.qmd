@@ -217,8 +217,8 @@ We have variances (of the logarithm, i.e. relative accuracies) in the order of 1
 ```{python}
 fig, ax = plt.subplots()
 drawModel1D(ax, thk, res)
-drawModel1D(ax, thk, res*(1+var))
-drawModel1D(ax, thk, res*(1-var))
+drawModel1D(ax, thk, res*(1+var), color="C0", ls="--")
+drawModel1D(ax, thk, res*(1-var), color="C0", ls="--")
 drawModel1D(ax, model=modelSynth)
 ax.invert_yaxis()
 ```
@@ -227,5 +227,5 @@ We can also compute the model resolution matrix
 
 ```{python}
 MRM = np.linalg.inv(JTJ + CTC*lam) @ (JTJ)
-plt.imshow(np.log(JTJ), cmap="bwr", vmin=-1, vmax=1)
+plt.imshow(MRM, cmap="bwr", vmin=-1, vmax=1)
 ```
