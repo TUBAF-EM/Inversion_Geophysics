@@ -1,0 +1,62 @@
+---
+title: "Probability & Likelihood"
+---
+
+## Monte Carlo methods
+
+:::: {.columns}
+::: {.column}
+
+* Monte Carlos search: randomly draw solutions from grid
+* accept solution only if better than old
+* Markow-Chain-Monte-Carlo
+* Metropolis-Hastings (Metropolis et al., 1953; Hastings, 1970)
+:::
+::: {.column}
+![Monte Carlo method](pics/monteCarloMethod.png)
+:::
+::::
+
+
+## Simulate Annealing
+
+:::: {.columns}
+::: {.column}
+Test parameter
+
+$$ t = e^{-(\Phi(\vb m)-\Phi(\vb m^p))/T} $$
+
+:::
+::: {.column}
+![Simulated Annealing](pics/simulatedAnnealingMethod.png){.fragment}
+:::
+::::
+
+
+
+## Alternatives to grid search
+
+::: {.callout-note title="Monte Carlo search"}
+draw random samples and accept them if the error is improved
+:::
+
+undirected search (Newtons method is directed)
+
+::: {.callout-note title="Simulated annealing"}
+decrease temperature controlling particle movements:
+
+high $T$: undirected, low $T$: search in vicinity of current model
+:::
+
+## Monte Carlo vs. Simulated Annealing
+
+:::: {.columns}
+::: {.column}
+![Monte Carlo method](pics/monteCarloMethod.png)
+:::
+::: {.column}
+![Simulated Annealing](pics/simulatedAnnealingMethod.png){.fragment}
+:::
+::::
+
+

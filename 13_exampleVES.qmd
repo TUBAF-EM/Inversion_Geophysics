@@ -1,0 +1,201 @@
+---
+title: "Example VES inversion"
+---
+
+```{python}
+#| eval: true
+#| echo: false
+
+import numpy as np
+import matplotlib.pyplot as plt
+```
+
+In this example, we will exemplify non-linear minimization by using vertical electrical soundings in 1D.
+To this end, we import two types of forward operators:
+
+- `VESModelling` uses a block discretization of (few) $N$ layer resistivities preceded by N-1 thickness values
+- `VESRhoModelling` uses a fixed (many) layer discretization that is adressed by smoothness constraints
+
+```{python}
+from pygimli.physics.ves import VESModelling, VESRhoModelling
+from pygimli.viewer.mpl import drawModel1D
+```
+
+The first is used for creating the synthetic model and to demonstrate the Levenberg-Marquardt algorithm.
+The second stands for all types of (also 2D and 3D) discretizations using a smoothness-constrained (Occam) inversion.
+
+## The synthetic model
+
+The experiment comprises a VES sounding with AB/2 values between 6m and 1km.
+The synthetic model consist of a 20m thick bad conductor embedded in rather conductive halfspace with 10m overburden.
+Gaussian noise with a relative error model of 3% is added to the data.
+
+```{python}
+ab2 = np.logspace(0.5, 3, 30)
+fBlock = VESModelling(ab2=ab2, mn2=ab2/3, nLayers=3)
+error = 0.03
+modelSynth = [10, 20, 20, 500, 30]
+data = fBlock.response(modelSynth)
+data *= np.random.normal(1, error, len(ab2))
+print(data)
+```
+
+```{python}
+fig, ax = plt.subplots()
+ax.loglog(data, ab2, "x")
+ax.invert_yaxis()
+ax.grid()
+```
+
+The intrinsic model parameters and data are resistivity and apparent resistivity.
+For both data and model we use a logarithmic transform
+For computing the Jacobian by a Finite Difference (brute force) approach we write a function taking this into account:
+
+```{python}
+def Jacobian(model, f):
+    J = np.zeros([len(ab2), len(model)])
+    responseLog = np.log(f(model))
+    for i in range(len(model)):
+        modelNew = model.copy()
+        modelNew[i] *= 1.1
+        J[:, i] = (np.log(f(modelNew))-responseLog) / (np.log(modelNew[i]) - np.log(model[i]))
+
+    return J
+```
+
+In deteministic non-linear minimization approaches we start from a starting model $m^0$ and improve the model iteratively by adding a model update $\Delta \vb m$ so that $\vb m^{n+1}=\vb m^n+\Delta\vb m^n$, based on the data misfit $\Delta \vb d=\vb d-\vb f(\vb m^n)$ and the Jacobian matrix $\vb J=\pdv{f(\vb m)}{m}$.
+For stopping the inversion, several criteria are used:
+
+- a maximum iteration number is reached (typically 10-20)
+- the objective function stagnates
+- the target data fit is reached ($\chi^2=1$)
+
+In the following, we always use error-scaled properties, i.e. $\vb J$, $\vb d$ and $\vb f$ are scaled by the relative data error.
+
+## Levenberg-Marquardt algorithm
+
+This method is typical for small parameter numbers like curve fits or block models, where the parameters are not related to each other.
+It uses only a local damping the least-squares solution of the linearized inverse problem $\vb J \Delta\vb m=\Delta \vb d$.
+
+$$\Delta\vb m = (\vb J^T \vb J + \lambda \vb I)^{-1} (\vb J^\top (\vb d-\vb f(\vb m)))$$
+
+The damping parameter $\lambda$ is for stabilization in the early stage and decreased subsequently.
+
+We start the inversion with a homogeneous model and compute its Jacobian matrix:
+
+```{python}
+model = np.array([15, 15, 100, 100, 100])
+J = Jacobian(model, fBlock)
+plt.imshow(J.T, cmap="bwr", vmin=-1, vmax=1);
+```
+
+The thickness values show no sensitivity as the model is homogeneous.
+The three layers exhibit increased sensitivities for small, medium and large AB/2 values.
+
+### Inversion
+
+The inversion is then done by solving the damped normal equations in every iteration.
+
+```{python}
+model = np.array([15, 15, 100, 100, 100])
+I = np.eye(len(model))
+lam = 100
+for i in range(5):
+    response = fBlock(model)
+    J = Jacobian(model, fBlock) / error
+    dData = (np.log(data) - np.log(response)) / error
+    print("chi2 = ", np.mean(dData**2))
+    dm = np.linalg.inv(J.T@J + I*lam) @ (J.T@dData)
+    model = np.exp(np.log(model) + dm)
+    lam *= 0.8
+
+print(model)
+```
+
+We plot the data fit and the model along with the synthetic model
+
+```{python}
+fig, ax = plt.subplots(ncols=2)
+ax[0].loglog(data, ab2, "x", label="data")
+ax[0].loglog(response, ab2, "-", label="response")
+ax[0].invert_yaxis()
+ax[0].legend()
+ax[0].grid()
+drawModel1D(ax[1], model=modelSynth, label="synthetic")
+drawModel1D(ax[1], model=model, label="result")
+ax[1].invert_yaxis()
+ax[1].legend()
+```
+
+### Resolution and model covariance
+
+As for the overdetemined problem the model resolution is perfect, we instead compute the model covariance
+ $$ MCM = (\vb J^T \vb J + \lambda \vb I) $$
+
+```{python}
+MCM = np.linalg.inv(JTJ)
+print(np.sqrt(np.diag(MCM)))
+plt.imshow(MCM, cmap="bwr", vmin=-1, vmax=1);
+```
+
+We observe a strong anti-correlation between the second layer resistivity and thickness.
+In total, these show higher variances than the other three parameters that are well determined (the variance is also a relative one).
+
+## Smoothness-constrained inversion
+
+Here we use a predefined geometry (layers) with increasing layer thickness.
+This is passed to the forward operator in the initialization so that only the resistivity vector is passed to the forward routine.
+We start with a homogeneous resistivity and compute the Jacobian matrix
+
+```{python}
+thk = np.linspace(1, 10, 25)
+fSmooth = VESRhoModelling(thk, ab2=ab2)
+res = np.ones(len(thk)+1) * 100
+J = Jacobian(res, fSmooth)
+plt.imshow(J, cmap="bwr", vmin=-1, vmax=1);
+```
+
+We clearly see that increasing AB/2 values (rows) shift the sensitivity towards deeper layers (columns).
+
+### Inversion
+
+In the inversion, we use an explicit regularization using a roughness (gradient) operator $\vb C$.
+In every iteration, we solve the regularized normal equation.
+
+$$\Delta\vb m = (\vb J^T \vb J + \lambda \vb C^\top \vb C)^{-1} (\vb J^\top (\vb d-\vb f(\vb m)) - \lambda \vb C^\top \vb C \vb m)$$
+
+Note the last term that arises when operating on the model itself and not only the update, i.e. the roughness of the model is taken into account.
+
+```{python}
+res = np.ones(len(thk)+1) * 100
+C = np.eye(len(res)-1, len(res), 0) - np.eye(len(res)-1, len(res), k=1)
+CTC = C.T@C  # only C.T C is needed
+lam = 100
+for i in range(6):
+    response = fSmooth(res)
+    J = Jacobian(res, fSmooth) / error
+    dData = (np.log(data) - np.log(response)) / error
+    print("chi2 = ", np.mean(dData**2))
+    dm = np.linalg.inv(J.T@J + CTC*lam) @ (J.T@dData - CTC@np.log(res))
+    res = np.exp(np.log(res) + dm)
+```
+
+We use the function `drawModel1D` to plot the result along with the synthetic model.
+Note the two modes: a) specifying thickness and values, or b) a complete model vector with both included.
+
+```{python}
+fig, ax = plt.subplots()
+drawModel1D(ax, thk, res)
+drawModel1D(ax, model=modelSynth)
+ax.invert_yaxis()
+```
+
+We see that the upper boundary is resolved well, but the lower boundary is smeared, a typical problem in smoothness-constrained inversion.
+As above, we compute the model covariance:
+
+```{python}
+A = np.linalg.inv(JTJ + CTC*lam)
+plt.imshow(A, cmap="bwr", vmin=-.01, vmax=.01)
+print(np.sqrt(np.diag(MCM)))
+```
+

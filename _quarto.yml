@@ -32,6 +32,8 @@ book:
         - 08_nonlinear_minimization.qmd
         - 09_simple_model.qmd
         - 10_probability.qmd
+        - 11_global_minimization.qmd
+        - 13_exampleVES.qmd
     - literature.qmd
 bibliography: inv.bib
 csl: harvard.csl
