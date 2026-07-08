@@ -133,6 +133,7 @@ As for the overdetemined problem the model resolution is perfect, we instead com
  $$ MCM = (\vb J^T \vb J + \lambda \vb I) $$
 
 ```{python}
+JTJ = J.T@J
 MCM = np.linalg.inv(JTJ)
 print(np.sqrt(np.diag(MCM)))
 plt.imshow(MCM, cmap="bwr", vmin=-1, vmax=1);
@@ -194,6 +195,7 @@ We see that the upper boundary is resolved well, but the lower boundary is smear
 As above, we compute the model covariance:
 
 ```{python}
+JTJ = J.T@J
 A = np.linalg.inv(JTJ + CTC*lam)
 plt.imshow(A, cmap="bwr", vmin=-.01, vmax=.01)
 print(np.sqrt(np.diag(MCM)))

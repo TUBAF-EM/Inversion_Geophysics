@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>9&nbsp; A simple model – Inverse Problems in Geophysics</title>
+<title>12&nbsp; Example VES inversion – Inverse Problems in Geophysics</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -58,26 +58,7 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -87,8 +68,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./10_probability.html" rel="next">
-<link href="./08_nonlinear_minimization.html" rel="prev">
+<link href="./literature.html" rel="next">
+<link href="./11_global_minimization.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -178,7 +159,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./08_nonlinear_minimization.html">Non-linear problems</a></li><li class="breadcrumb-item"><a href="./09_simple_model.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">A simple model</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./08_nonlinear_minimization.html">Non-linear problems</a></li><li class="breadcrumb-item"><a href="./13_exampleVES.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Example VES inversion</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -290,7 +271,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./09_simple_model.html" class="sidebar-item-text sidebar-link active">
+  <a href="./09_simple_model.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">A simple model</span></span></a>
   </div>
 </li>
@@ -308,7 +289,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./13_exampleVES.html" class="sidebar-item-text sidebar-link">
+  <a href="./13_exampleVES.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Example VES inversion</span></span></a>
   </div>
 </li>
@@ -330,18 +311,25 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#regularization-effect" id="toc-regularization-effect" class="nav-link active" data-scroll-target="#regularization-effect"><span class="header-section-number">9.1</span> Regularization effect</a></li>
-  <li><a href="#smoothness" id="toc-smoothness" class="nav-link" data-scroll-target="#smoothness"><span class="header-section-number">9.2</span> Smoothness</a></li>
-  <li><a href="#a-priori-information" id="toc-a-priori-information" class="nav-link" data-scroll-target="#a-priori-information"><span class="header-section-number">9.3</span> A-priori information</a></li>
+  <li><a href="#the-synthetic-model" id="toc-the-synthetic-model" class="nav-link active" data-scroll-target="#the-synthetic-model"><span class="header-section-number">12.1</span> The synthetic model</a></li>
+  <li><a href="#levenberg-marquardt-algorithm" id="toc-levenberg-marquardt-algorithm" class="nav-link" data-scroll-target="#levenberg-marquardt-algorithm"><span class="header-section-number">12.2</span> Levenberg-Marquardt algorithm</a>
+  <ul class="collapse">
+  <li><a href="#inversion" id="toc-inversion" class="nav-link" data-scroll-target="#inversion"><span class="header-section-number">12.2.1</span> Inversion</a></li>
+  <li><a href="#resolution-and-model-covariance" id="toc-resolution-and-model-covariance" class="nav-link" data-scroll-target="#resolution-and-model-covariance"><span class="header-section-number">12.2.2</span> Resolution and model covariance</a></li>
+  </ul></li>
+  <li><a href="#smoothness-constrained-inversion" id="toc-smoothness-constrained-inversion" class="nav-link" data-scroll-target="#smoothness-constrained-inversion"><span class="header-section-number">12.3</span> Smoothness-constrained inversion</a>
+  <ul class="collapse">
+  <li><a href="#inversion-1" id="toc-inversion-1" class="nav-link" data-scroll-target="#inversion-1"><span class="header-section-number">12.3.1</span> Inversion</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./08_nonlinear_minimization.html">Non-linear problems</a></li><li class="breadcrumb-item"><a href="./09_simple_model.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">A simple model</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./08_nonlinear_minimization.html">Non-linear problems</a></li><li class="breadcrumb-item"><a href="./13_exampleVES.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Example VES inversion</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">A simple model</span></h1>
+<h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Example VES inversion</span></h1>
 </div>
 
 
@@ -358,182 +346,272 @@ window.Quarto = {
 </header>
 
 
-<p>Let us consider the forward response<span class="citation" data-cites="Menke2012">(after <a href="#ref-Menke2012" role="doc-biblioref">Menke 2012</a>)</span> <span class="math display">\[f(m)= \sin(\omega m_1 x_i) + m_1 m_2\]</span> a nonlinear function in both model parameters <span class="math inline">\(m_1\)</span> and <span class="math inline">\(m_2\)</span>.</p>
-<div id="04c28dff" class="cell" data-execution_count="3">
+<p>In this example, we will exemplify non-linear minimization by using vertical electrical soundings in 1D. To this end, we import two types of forward operators:</p>
+<ul>
+<li><code>VESModelling</code> uses a block discretization of (few) <span class="math inline">\(N\)</span> layer resistivities preceded by N-1 thickness values</li>
+<li><code>VESRhoModelling</code> uses a fixed (many) layer discretization that is adressed by smoothness constraints</li>
+</ul>
+<div id="a4bf8dfb" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="fl">1.001</span>, <span class="fl">0.05</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>omega <span class="op">=</span> <span class="dv">10</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>forward <span class="op">=</span> <span class="kw">lambda</span> m: np.sin(omega <span class="op">*</span> x <span class="op">*</span> m[<span class="dv">0</span>]) <span class="op">+</span> m[<span class="dv">0</span>] <span class="op">*</span> m[<span class="dv">1</span>]</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>mSynth <span class="op">=</span> [<span class="fl">1.25</span>, <span class="fl">1.25</span>]</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> forward(mSynth)<span class="op">;</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>data <span class="op">+=</span> np.random.randn(<span class="bu">len</span>(data))<span class="op">*</span><span class="fl">0.1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pygimli.physics.ves <span class="im">import</span> VESModelling, VESRhoModelling</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pygimli.viewer.mpl <span class="im">import</span> drawModel1D</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<p>We create a function for showing the objective function for a range of values</p>
-<div id="d705ed09" class="cell" data-execution_count="4">
+<p>The first is used for creating the synthetic model and to demonstrate the Levenberg-Marquardt algorithm. The second stands for all types of (also 2D and 3D) discretizations using a smoothness-constrained (Occam) inversion.</p>
+<section id="the-synthetic-model" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="the-synthetic-model"><span class="header-section-number">12.1</span> The synthetic model</h2>
+<p>The experiment comprises a VES sounding with AB/2 values between 6m and 1km. The synthetic model consist of a 20m thick bad conductor embedded in rather conductive halfspace with 10m overburden. Gaussian noise with a relative error model of 3% is added to the data.</p>
+<div id="e49f9056" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> showPhi(Phi, mrange, clim<span class="op">=</span><span class="va">None</span>, ax<span class="op">=</span><span class="va">None</span>):</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> ax <span class="kw">is</span> <span class="va">None</span>:</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>))</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> clim <span class="kw">is</span> <span class="va">None</span>:</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        clim <span class="op">=</span> [np.<span class="bu">min</span>(Phi), np.percentile(Phi, <span class="dv">95</span>)]</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    ext <span class="op">=</span> [mrange[<span class="dv">0</span>], mrange[<span class="op">-</span><span class="dv">1</span>], mrange[<span class="op">-</span><span class="dv">1</span>], mrange[<span class="dv">0</span>]]</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    im <span class="op">=</span> ax.matshow(Phi.T, extent<span class="op">=</span>ext, vmin<span class="op">=</span>clim[<span class="dv">0</span>], vmax<span class="op">=</span>clim[<span class="dv">1</span>], cmap<span class="op">=</span><span class="st">"Spectral_r"</span>)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="st">"m1"</span>)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    ax.set_ylabel(<span class="st">"m2"</span>)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    ax.invert_yaxis()</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># fig.colorbar(im);</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ax</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ab2 <span class="op">=</span> np.logspace(<span class="fl">0.5</span>, <span class="dv">3</span>, <span class="dv">30</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>fBlock <span class="op">=</span> VESModelling(ab2<span class="op">=</span>ab2, mn2<span class="op">=</span>ab2<span class="op">/</span><span class="dv">3</span>, nLayers<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>error <span class="op">=</span> <span class="fl">0.03</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>modelSynth <span class="op">=</span> [<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">20</span>, <span class="dv">500</span>, <span class="dv">30</span>]</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> fBlock.response(modelSynth)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>data <span class="op">*=</span> np.random.normal(<span class="dv">1</span>, error, <span class="bu">len</span>(ab2))</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
+<div class="cell-output cell-output-stdout">
+<pre><code>30 [20.331745205720686, 20.69969095204859, 20.19921422753347, 21.80584945398451, 21.237599533738788, 22.961863049878055, 24.110869692795298, 28.55033406953518, 28.62114078170822, 34.540668939304005, 39.75755592745723, 45.867486284233436, 54.26399443497985, 59.08112169754629, 72.00989856156019, 72.96560373648443, 88.59818767991135, 91.54984788236168, 92.33724258786613, 95.37396623852742, 91.30649513230523, 83.76239472072564, 76.01186044216905, 65.41025819910696, 52.73538256728231, 43.792134010827255, 40.613068935069464, 33.45180288946385, 32.02478024951701, 30.32426273351131]</code></pre>
 </div>
-<p>We choose a range for values of the two and compute the data objective function</p>
-<div id="ba85c1e3" class="cell" data-execution_count="5">
+</div>
+<div id="234b45f2" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>mrange <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="fl">2.001</span>, <span class="fl">0.01</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>PhiD <span class="op">=</span> np.zeros([<span class="bu">len</span>(mrange), <span class="bu">len</span>(mrange)])</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, m1 <span class="kw">in</span> <span class="bu">enumerate</span>(mrange):</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j, m2 <span class="kw">in</span> <span class="bu">enumerate</span>(mrange):</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        PhiD[i, j] <span class="op">=</span> <span class="bu">sum</span>((data<span class="op">-</span>forward([m1, m2]))<span class="op">**</span><span class="dv">2</span>) <span class="co"># + 1 * (m1-m2)**2</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>showPhi(PhiD, mrange)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>ax.loglog(data, ab2, <span class="st">"x"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>ax.invert_yaxis()</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>ax.grid()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="09_simple_model_files/figure-html/cell-5-output-1.png" width="430" height="435" class="figure-img"></p>
+<p><img src="13_exampleVES_files/figure-html/cell-5-output-1.png" width="575" height="414" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<section id="regularization-effect" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="regularization-effect"><span class="header-section-number">9.1</span> Regularization effect</h2>
-<p><span class="math display">\[\Phi = \Phi_d + \lambda\Phi_m\]</span></p>
-<p><span class="math inline">\(\Phi_m\)</span>: difference from reference model or smoothness</p>
-<p>How does this regularization affect convergence?</p>
-<p><span class="math inline">\(\Rightarrow\)</span> impact of regularization terms on objective function</p>
-<p>We create another function that can show several objective functions with the same scaling</p>
-<div id="edf4aa3e" class="cell" data-execution_count="6">
+<p>The intrinsic model parameters and data are resistivity and apparent resistivity. For both data and model we use a logarithmic transform For computing the Jacobian by a Finite Difference (brute force) approach we write a function taking this into account:</p>
+<div id="749dfafd" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> showNPhi(Phis, mrange, clim<span class="op">=</span><span class="va">None</span>):</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    fig, ax <span class="op">=</span> plt.subplots(ncols<span class="op">=</span><span class="bu">len</span>(Phis), sharex<span class="op">=</span><span class="va">True</span>, sharey<span class="op">=</span><span class="va">True</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">3</span>))</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> clim <span class="kw">is</span> <span class="va">None</span>:</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        clim <span class="op">=</span> [np.<span class="bu">min</span>(Phis[<span class="dv">0</span>]), np.percentile(Phis[<span class="dv">0</span>], <span class="dv">95</span>)]</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    ext <span class="op">=</span> [mrange[<span class="dv">0</span>], mrange[<span class="op">-</span><span class="dv">1</span>], mrange[<span class="op">-</span><span class="dv">1</span>], mrange[<span class="dv">0</span>]]</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, Phi <span class="kw">in</span> <span class="bu">enumerate</span>(Phis):</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        showPhi(Phi, mrange, clim<span class="op">=</span>clim, ax<span class="op">=</span>ax[i])</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ax</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Jacobian(model, f):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    J <span class="op">=</span> np.zeros([<span class="bu">len</span>(ab2), <span class="bu">len</span>(model)])</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    responseLog <span class="op">=</span> np.log(f(model))</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(model)):</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        modelNew <span class="op">=</span> model.copy()</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        modelNew[i] <span class="op">*=</span> <span class="fl">1.1</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        J[:, i] <span class="op">=</span> (np.log(f(modelNew))<span class="op">-</span>responseLog) <span class="op">/</span> (np.log(modelNew[i]) <span class="op">-</span> np.log(model[i]))</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> J</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
+</div>
+<p>In deteministic non-linear minimization approaches we start from a starting model <span class="math inline">\(m^0\)</span> and improve the model iteratively by adding a model update <span class="math inline">\(\Delta \vb m\)</span> so that <span class="math inline">\(\vb m^{n+1}=\vb m^n+\Delta\vb m^n\)</span>, based on the data misfit <span class="math inline">\(\Delta \vb d=\vb d-\vb f(\vb m^n)\)</span> and the Jacobian matrix <span class="math inline">\(\vb J=\pdv{f(\vb m)}{m}\)</span>. For stopping the inversion, several criteria are used:</p>
+<ul>
+<li>a maximum iteration number is reached (typically 10-20)</li>
+<li>the objective function stagnates</li>
+<li>the target data fit is reached (<span class="math inline">\(\chi^2=1\)</span>)</li>
+</ul>
+<p>In the following, we always use error-scaled properties, i.e.&nbsp;<span class="math inline">\(\vb J\)</span>, <span class="math inline">\(\vb d\)</span> and <span class="math inline">\(\vb f\)</span> are scaled by the relative data error.</p>
+</section>
+<section id="levenberg-marquardt-algorithm" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="levenberg-marquardt-algorithm"><span class="header-section-number">12.2</span> Levenberg-Marquardt algorithm</h2>
+<p>This method is typical for small parameter numbers like curve fits or block models, where the parameters are not related to each other. It uses only a local damping the least-squares solution of the linearized inverse problem <span class="math inline">\(\vb J \Delta\vb m=\Delta \vb d\)</span>.</p>
+<p><span class="math display">\[\Delta\vb m = (\vb J^T \vb J + \lambda \vb I)^{-1} (\vb J^\top (\vb d-\vb f(\vb m)))\]</span></p>
+<p>The damping parameter <span class="math inline">\(\lambda\)</span> is for stabilization in the early stage and decreased subsequently.</p>
+<p>We start the inversion with a homogeneous model and compute its Jacobian matrix:</p>
+<div id="49699ac4" class="cell" data-execution_count="6">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> np.array([<span class="dv">15</span>, <span class="dv">15</span>, <span class="dv">100</span>, <span class="dv">100</span>, <span class="dv">100</span>])</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>J <span class="op">=</span> Jacobian(model, fBlock)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>plt.imshow(J.T, cmap<span class="op">=</span><span class="st">"bwr"</span>, vmin<span class="op">=-</span><span class="dv">1</span>, vmax<span class="op">=</span><span class="dv">1</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="13_exampleVES_files/figure-html/cell-7-output-1.png" width="558" height="129" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The thickness values show no sensitivity as the model is homogeneous. The three layers exhibit increased sensitivities for small, medium and large AB/2 values.</p>
+<section id="inversion" class="level3" data-number="12.2.1">
+<h3 data-number="12.2.1" class="anchored" data-anchor-id="inversion"><span class="header-section-number">12.2.1</span> Inversion</h3>
+<p>The inversion is then done by solving the damped normal equations in every iteration.</p>
+<div id="427c2718" class="cell" data-execution_count="7">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> np.array([<span class="dv">15</span>, <span class="dv">15</span>, <span class="dv">100</span>, <span class="dv">100</span>, <span class="dv">100</span>])</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>I <span class="op">=</span> np.eye(<span class="bu">len</span>(model))</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>lam <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> fBlock(model)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    J <span class="op">=</span> Jacobian(model, fBlock) <span class="op">/</span> error</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    dData <span class="op">=</span> (np.log(data) <span class="op">-</span> np.log(response)) <span class="op">/</span> error</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"chi2 = "</span>, np.mean(dData<span class="op">**</span><span class="dv">2</span>))</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    dm <span class="op">=</span> np.linalg.inv(J.T<span class="op">@</span>J <span class="op">+</span> I<span class="op">*</span>lam) <span class="op">@</span> (J.T<span class="op">@</span>dData)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> np.exp(np.log(model) <span class="op">+</span> dm)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    lam <span class="op">*=</span> <span class="fl">0.8</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>chi2 =  1082.097578404885
+chi2 =  55.08195233095004
+chi2 =  1.7142299130129575
+chi2 =  1.0847291484360193
+chi2 =  1.0831404447597215
+[ 10.3764837   17.89013393  20.53503053 562.94709983  29.35073671]</code></pre>
+</div>
+</div>
+<p>We plot the data fit and the model along with the synthetic model</p>
+<div id="493973fb" class="cell" data-execution_count="8">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(ncols<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].loglog(data, ab2, <span class="st">"x"</span>, label<span class="op">=</span><span class="st">"data"</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].loglog(response, ab2, <span class="st">"-"</span>, label<span class="op">=</span><span class="st">"response"</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].invert_yaxis()</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].legend()</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].grid()</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>drawModel1D(ax[<span class="dv">1</span>], model<span class="op">=</span>modelSynth, label<span class="op">=</span><span class="st">"synthetic"</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>drawModel1D(ax[<span class="dv">1</span>], model<span class="op">=</span>model, label<span class="op">=</span><span class="st">"result"</span>)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].invert_yaxis()</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].legend()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="13_exampleVES_files/figure-html/cell-9-output-1.png" width="573" height="431" class="figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
-<section id="smoothness" class="level2" data-number="9.2">
-<h2 data-number="9.2" class="anchored" data-anchor-id="smoothness"><span class="header-section-number">9.2</span> Smoothness</h2>
-<div id="555286d7" class="cell" data-execution_count="7">
+<section id="resolution-and-model-covariance" class="level3" data-number="12.2.2">
+<h3 data-number="12.2.2" class="anchored" data-anchor-id="resolution-and-model-covariance"><span class="header-section-number">12.2.2</span> Resolution and model covariance</h3>
+<p>As for the overdetemined problem the model resolution is perfect, we instead compute the model covariance <span class="math display">\[ MCM = (\vb J^T \vb J + \lambda \vb I) \]</span></p>
+<div id="531cf7eb" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>M1, M2 <span class="op">=</span> np.meshgrid(mrange, mrange)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>PhiM <span class="op">=</span> (M1<span class="op">-</span>M2)<span class="op">**</span><span class="dv">2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>JTJ <span class="op">=</span> J.T<span class="op">@</span>J</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>MCM <span class="op">=</span> np.linalg.inv(JTJ)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.sqrt(np.diag(MCM)))</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>plt.imshow(MCM, cmap<span class="op">=</span><span class="st">"bwr"</span>, vmin<span class="op">=-</span><span class="dv">1</span>, vmax<span class="op">=</span><span class="dv">1</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-</div>
-<div id="d691cfc0" class="cell" data-execution_count="8">
-<details class="code-fold">
-<summary>Show the code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> lam <span class="kw">in</span> [<span class="dv">30</span>, <span class="dv">100</span>, <span class="dv">300</span>, <span class="dv">1000</span>]:</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> showNPhi([PhiD, lam<span class="op">*</span>PhiM, PhiD<span class="op">+</span>lam<span class="op">*</span>PhiM], mrange)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> a <span class="kw">in</span> ax: a.plot(<span class="fl">1.25</span>, <span class="fl">1.25</span>, <span class="st">"wo"</span>)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">0</span>].figure.suptitle(<span class="vs">rf"</span><span class="dv">$</span><span class="er">\</span><span class="vs">lambda</span><span class="dv">$</span><span class="vs">=</span><span class="sc">{</span>lam<span class="sc">}</span><span class="vs">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="09_simple_model_files/figure-html/cell-8-output-1.png" width="655" height="270" class="figure-img"></p>
-</figure>
-</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[0.10168044 2.38357845 0.01421372 2.35841706 0.02204428]</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="09_simple_model_files/figure-html/cell-8-output-2.png" width="655" height="270" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="09_simple_model_files/figure-html/cell-8-output-3.png" width="655" height="270" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="09_simple_model_files/figure-html/cell-8-output-4.png" width="655" height="270" class="figure-img"></p>
+<p><img src="13_exampleVES_files/figure-html/cell-10-output-2.png" width="407" height="411" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
+<p>We observe a strong anti-correlation between the second layer resistivity and thickness. In total, these show higher variances than the other three parameters that are well determined (the variance is also a relative one).</p>
 </section>
-<section id="a-priori-information" class="level2" data-number="9.3">
-<h2 data-number="9.3" class="anchored" data-anchor-id="a-priori-information"><span class="header-section-number">9.3</span> A-priori information</h2>
-<div id="31e02722" class="cell" data-execution_count="9">
+</section>
+<section id="smoothness-constrained-inversion" class="level2" data-number="12.3">
+<h2 data-number="12.3" class="anchored" data-anchor-id="smoothness-constrained-inversion"><span class="header-section-number">12.3</span> Smoothness-constrained inversion</h2>
+<p>Here we use a predefined geometry (layers) with increasing layer thickness. This is passed to the forward operator in the initialization so that only the resistivity vector is passed to the forward routine. We start with a homogeneous resistivity and compute the Jacobian matrix</p>
+<div id="f572d717" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>PhiM <span class="op">=</span> np.sqrt((M1<span class="op">-</span><span class="fl">1.25</span>)<span class="op">**</span><span class="dv">2</span><span class="op">+</span>(M2<span class="op">-</span><span class="fl">1.25</span>)<span class="op">**</span><span class="dv">2</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> lam <span class="kw">in</span> [<span class="dv">30</span>, <span class="dv">100</span>]:</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> showNPhi([PhiD, lam<span class="op">*</span>PhiM, PhiD<span class="op">+</span>lam<span class="op">*</span>PhiM], mrange)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> a <span class="kw">in</span> ax: a.plot(<span class="fl">1.25</span>, <span class="fl">1.25</span>, <span class="st">"wo"</span>)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">0</span>].figure.suptitle(<span class="vs">rf"</span><span class="dv">$</span><span class="er">\</span><span class="vs">lambda</span><span class="dv">$</span><span class="vs">=</span><span class="sc">{</span>lam<span class="sc">}</span><span class="vs">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>thk <span class="op">=</span> np.linspace(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">25</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>fSmooth <span class="op">=</span> VESRhoModelling(thk, ab2<span class="op">=</span>ab2)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> np.ones(<span class="bu">len</span>(thk)<span class="op">+</span><span class="dv">1</span>) <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>J <span class="op">=</span> Jacobian(res, fSmooth)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>plt.imshow(J, cmap<span class="op">=</span><span class="st">"bwr"</span>, vmin<span class="op">=-</span><span class="dv">1</span>, vmax<span class="op">=</span><span class="dv">1</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<div class="ansi-escaped-output">
+<pre>08/07/26 - 07:49:13 - pyGIMLi - <span class="ansi-green-fg">INFO</span> - Found 1 regions.
+</pre>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="13_exampleVES_files/figure-html/cell-11-output-2.png" width="368" height="411" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We clearly see that increasing AB/2 values (rows) shift the sensitivity towards deeper layers (columns).</p>
+<section id="inversion-1" class="level3" data-number="12.3.1">
+<h3 data-number="12.3.1" class="anchored" data-anchor-id="inversion-1"><span class="header-section-number">12.3.1</span> Inversion</h3>
+<p>In the inversion, we use an explicit regularization using a roughness (gradient) operator <span class="math inline">\(\vb C\)</span>. In every iteration, we solve the regularized normal equation.</p>
+<p><span class="math display">\[\Delta\vb m = (\vb J^T \vb J + \lambda \vb C^\top \vb C)^{-1} (\vb J^\top (\vb d-\vb f(\vb m)) - \lambda \vb C^\top \vb C \vb m)\]</span></p>
+<p>Note the last term that arises when operating on the model itself and not only the update, i.e.&nbsp;the roughness of the model is taken into account.</p>
+<div id="b46013bd" class="cell" data-execution_count="11">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> np.ones(<span class="bu">len</span>(thk)<span class="op">+</span><span class="dv">1</span>) <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>C <span class="op">=</span> np.eye(<span class="bu">len</span>(res)<span class="op">-</span><span class="dv">1</span>, <span class="bu">len</span>(res), <span class="dv">0</span>) <span class="op">-</span> np.eye(<span class="bu">len</span>(res)<span class="op">-</span><span class="dv">1</span>, <span class="bu">len</span>(res), k<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>CTC <span class="op">=</span> C.T<span class="op">@</span>C  <span class="co"># only C.T C is needed</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>lam <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">6</span>):</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> fSmooth(res)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    J <span class="op">=</span> Jacobian(res, fSmooth) <span class="op">/</span> error</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    dData <span class="op">=</span> (np.log(data) <span class="op">-</span> np.log(response)) <span class="op">/</span> error</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"chi2 = "</span>, np.mean(dData<span class="op">**</span><span class="dv">2</span>))</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    dm <span class="op">=</span> np.linalg.inv(J.T<span class="op">@</span>J <span class="op">+</span> CTC<span class="op">*</span>lam) <span class="op">@</span> (J.T<span class="op">@</span>dData <span class="op">-</span> CTC<span class="op">@</span>np.log(res))</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> np.exp(np.log(res) <span class="op">+</span> dm)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>chi2 =  1082.097578404885
+chi2 =  14.667346282400683
+chi2 =  2.33756310647457
+chi2 =  1.1326950636410567
+chi2 =  0.9845594100722188
+chi2 =  0.9350389756679888</code></pre>
+</div>
+</div>
+<p>We use the function <code>drawModel1D</code> to plot the result along with the synthetic model. Note the two modes: a) specifying thickness and values, or b) a complete model vector with both included.</p>
+<div id="0c5374c0" class="cell" data-execution_count="12">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>drawModel1D(ax, thk, res)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>drawModel1D(ax, model<span class="op">=</span>modelSynth)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>ax.invert_yaxis()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="09_simple_model_files/figure-html/cell-9-output-1.png" width="655" height="270" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="09_simple_model_files/figure-html/cell-9-output-2.png" width="655" height="270" class="figure-img"></p>
+<p><img src="13_exampleVES_files/figure-html/cell-13-output-1.png" width="594" height="431" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>We now choose a wrong reference model</p>
-<div id="2fe19e5c" class="cell" data-execution_count="10">
+<p>We see that the upper boundary is resolved well, but the lower boundary is smeared, a typical problem in smoothness-constrained inversion. As above, we compute the model covariance:</p>
+<div id="b2322b03" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>PhiM <span class="op">=</span> np.sqrt((M1<span class="op">-</span><span class="dv">1</span>)<span class="op">**</span><span class="dv">2</span><span class="op">+</span>(M2<span class="op">-</span><span class="dv">1</span>)<span class="op">**</span><span class="dv">2</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> lam <span class="kw">in</span> [<span class="dv">100</span>, <span class="dv">30</span>]:</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> showNPhi([PhiD, lam<span class="op">*</span>PhiM, PhiD<span class="op">+</span>lam<span class="op">*</span>PhiM], mrange)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> a <span class="kw">in</span> ax: a.plot(<span class="fl">1.25</span>, <span class="fl">1.25</span>, <span class="st">"wo"</span>)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">0</span>].figure.suptitle(<span class="vs">rf"</span><span class="dv">$</span><span class="er">\</span><span class="vs">lambda</span><span class="dv">$</span><span class="vs">=</span><span class="sc">{</span>lam<span class="sc">}</span><span class="vs">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>JTJ <span class="op">=</span> J.T<span class="op">@</span>J</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.linalg.inv(JTJ <span class="op">+</span> CTC<span class="op">*</span>lam)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>plt.imshow(A, cmap<span class="op">=</span><span class="st">"bwr"</span>, vmin<span class="op">=-</span><span class="fl">.01</span>, vmax<span class="op">=</span><span class="fl">.01</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.sqrt(np.diag(MCM)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="09_simple_model_files/figure-html/cell-10-output-1.png" width="655" height="270" class="figure-img"></p>
-</figure>
-</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[0.10168044 2.38357845 0.01421372 2.35841706 0.02204428]</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="09_simple_model_files/figure-html/cell-10-output-2.png" width="655" height="270" class="figure-img"></p>
+<p><img src="13_exampleVES_files/figure-html/cell-14-output-2.png" width="417" height="411" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
-<div id="ref-Menke2012" class="csl-entry" role="listitem">
-Menke W. 2012. <em><a href="https://doi.org/10.1016/B978-0-12-397160-9.00001-1">Geophysical data analysis: Discrete inverse theory</a></em> (Elsevier)
-</div>
-</div>
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -939,13 +1017,13 @@ Menke W. 2012. <em><a href="https://doi.org/10.1016/B978-0-12-397160-9.00001-1">
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./08_nonlinear_minimization.html" class="pagination-link" aria-label="Non-linear minimization">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Non-linear minimization</span></span>
+      <a href="./11_global_minimization.html" class="pagination-link" aria-label="Probability &amp; Likelihood">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Probability &amp; Likelihood</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./10_probability.html" class="pagination-link" aria-label="Probability &amp; Likelihood">
-        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Probability &amp; Likelihood</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./literature.html" class="pagination-link" aria-label="References">
+        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">References</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
