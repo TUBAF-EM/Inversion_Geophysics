@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>11&nbsp; Probability &amp; Likelihood – Inverse Problems in Geophysics</title>
+<title>11&nbsp; Global minimization – Inverse Problems in Geophysics</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -124,7 +124,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./08_nonlinear_minimization.html">Non-linear problems</a></li><li class="breadcrumb-item"><a href="./11_global_minimization.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Probability &amp; Likelihood</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./08_nonlinear_minimization.html">Non-linear problems</a></li><li class="breadcrumb-item"><a href="./11_global_minimization.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Global minimization</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -249,7 +249,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./11_global_minimization.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Probability &amp; Likelihood</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Global minimization</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -276,19 +276,38 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#monte-carlo-methods" id="toc-monte-carlo-methods" class="nav-link active" data-scroll-target="#monte-carlo-methods"><span class="header-section-number">11.1</span> Monte Carlo methods</a></li>
-  <li><a href="#simulate-annealing" id="toc-simulate-annealing" class="nav-link" data-scroll-target="#simulate-annealing"><span class="header-section-number">11.2</span> Simulate Annealing</a></li>
-  <li><a href="#alternatives-to-grid-search" id="toc-alternatives-to-grid-search" class="nav-link" data-scroll-target="#alternatives-to-grid-search"><span class="header-section-number">11.3</span> Alternatives to grid search</a></li>
-  <li><a href="#monte-carlo-vs.-simulated-annealing" id="toc-monte-carlo-vs.-simulated-annealing" class="nav-link" data-scroll-target="#monte-carlo-vs.-simulated-annealing"><span class="header-section-number">11.4</span> Monte Carlo vs.&nbsp;Simulated Annealing</a></li>
+  <li><a href="#data-model-dependence" id="toc-data-model-dependence" class="nav-link active" data-scroll-target="#data-model-dependence"><span class="header-section-number">11.1</span> Data-model dependence</a></li>
+  <li><a href="#model-space" id="toc-model-space" class="nav-link" data-scroll-target="#model-space"><span class="header-section-number">11.2</span> Model space</a></li>
+  <li><a href="#application-to-constrained-inversion" id="toc-application-to-constrained-inversion" class="nav-link" data-scroll-target="#application-to-constrained-inversion"><span class="header-section-number">11.3</span> Application to constrained inversion</a></li>
+  <li><a href="#smoothness" id="toc-smoothness" class="nav-link" data-scroll-target="#smoothness"><span class="header-section-number">11.4</span> Smoothness</a></li>
+  <li><a href="#slightly-wrong-a-priori-information" id="toc-slightly-wrong-a-priori-information" class="nav-link" data-scroll-target="#slightly-wrong-a-priori-information"><span class="header-section-number">11.5</span> Slightly wrong a-priori information</a></li>
+  <li><a href="#global-inversion-algorithms" id="toc-global-inversion-algorithms" class="nav-link" data-scroll-target="#global-inversion-algorithms"><span class="header-section-number">12</span> Global inversion algorithms</a>
+  <ul class="collapse">
+  <li><a href="#monte-carlo-methods" id="toc-monte-carlo-methods" class="nav-link" data-scroll-target="#monte-carlo-methods"><span class="header-section-number">12.1</span> Monte Carlo methods</a></li>
+  <li><a href="#metropolis-hastings-algorithm" id="toc-metropolis-hastings-algorithm" class="nav-link" data-scroll-target="#metropolis-hastings-algorithm"><span class="header-section-number">12.2</span> Metropolis-Hastings algorithm</a></li>
+  <li><a href="#metropolis-hastings-algorithm-1" id="toc-metropolis-hastings-algorithm-1" class="nav-link" data-scroll-target="#metropolis-hastings-algorithm-1"><span class="header-section-number">12.3</span> Metropolis-Hastings algorithm</a></li>
+  <li><a href="#key-components" id="toc-key-components" class="nav-link" data-scroll-target="#key-components"><span class="header-section-number">12.4</span> Key components</a></li>
+  <li><a href="#trace-plots" id="toc-trace-plots" class="nav-link" data-scroll-target="#trace-plots"><span class="header-section-number">12.5</span> Trace plots</a></li>
+  <li><a href="#corner-plots" id="toc-corner-plots" class="nav-link" data-scroll-target="#corner-plots"><span class="header-section-number">12.6</span> Corner plots</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><span class="header-section-number">12.7</span> </a></li>
+  <li><a href="#model-variance" id="toc-model-variance" class="nav-link" data-scroll-target="#model-variance"><span class="header-section-number">12.8</span> Model variance</a></li>
+  <li><a href="#application-to-2d-ertip-inversion" id="toc-application-to-2d-ertip-inversion" class="nav-link" data-scroll-target="#application-to-2d-ertip-inversion"><span class="header-section-number">12.9</span> Application to 2D ERT/IP inversion</a></li>
+  <li><a href="#simulated-annealing" id="toc-simulated-annealing" class="nav-link" data-scroll-target="#simulated-annealing"><span class="header-section-number">12.10</span> Simulated Annealing</a></li>
+  <li><a href="#bio-inspired-global-search-methods" id="toc-bio-inspired-global-search-methods" class="nav-link" data-scroll-target="#bio-inspired-global-search-methods"><span class="header-section-number">12.11</span> Bio-inspired global search methods</a></li>
+  <li><a href="#genetic-algorithms" id="toc-genetic-algorithms" class="nav-link" data-scroll-target="#genetic-algorithms"><span class="header-section-number">12.12</span> Genetic algorithms</a></li>
+  <li><a href="#nondominated-sorting-genetic-algorithm" id="toc-nondominated-sorting-genetic-algorithm" class="nav-link" data-scroll-target="#nondominated-sorting-genetic-algorithm"><span class="header-section-number">12.13</span> Nondominated Sorting Genetic Algorithm</a></li>
+  <li><a href="#particle-swarm-optimization" id="toc-particle-swarm-optimization" class="nav-link" data-scroll-target="#particle-swarm-optimization"><span class="header-section-number">12.14</span> Particle swarm optimization</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">12.15</span> Summary</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./08_nonlinear_minimization.html">Non-linear problems</a></li><li class="breadcrumb-item"><a href="./11_global_minimization.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Probability &amp; Likelihood</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./08_nonlinear_minimization.html">Non-linear problems</a></li><li class="breadcrumb-item"><a href="./11_global_minimization.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Global minimization</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Probability &amp; Likelihood</span></h1>
+<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Global minimization</span></h1>
 </div>
 
 
@@ -305,14 +324,88 @@ window.Quarto = {
 </header>
 
 
-<section id="monte-carlo-methods" class="level2" data-number="11.1">
-<h2 data-number="11.1" class="anchored" data-anchor-id="monte-carlo-methods"><span class="header-section-number">11.1</span> Monte Carlo methods</h2>
+<div class="callout callout-style-default callout-note callout-titled" title="Bayes theorem">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Bayes theorem
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[p(\vb m|\vb d) = \frac{p(\vb d|\vb m)p(\vb m)}{p(\vb d)}\]</span></p>
+</div>
+</div>
+<ul>
+<li><span class="math inline">\(p(\vb m|\vb d)\)</span> - posterior probability that model <span class="math inline">\(\vb m\)</span> is responsible for data</li>
+<li><span class="math inline">\(p(\vb d|\vb m)\)</span> - (theoretically) likelihood that <span class="math inline">\(\vb m\)</span> is capable to generate <span class="math inline">\(d\)</span></li>
+<li><span class="math inline">\(p(\vb m)\)</span> - probability that model <span class="math inline">\(\vb m\)</span> is the actual model</li>
+<li><span class="math inline">\(p(\vb d)\)</span> - probability of observing <span class="math inline">\(\vb d\)</span> amongst all possible</li>
+</ul>
+<section id="data-model-dependence" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="data-model-dependence"><span class="header-section-number">11.1</span> Data-model dependence</h2>
+<p><img src="pics/bayes/Menke_Fig5_14.png" class="img-fluid"></p>
+<p>A: <em>a priori pdf</em> <span class="math inline">\(p_a(\vb m, \vb d)\)</span>, B: <em>conditional pdf</em> <span class="math inline">\(p_g(\vb m, \vb d)\)</span>, C: product <span class="math inline">\(p_t(\vb m, \vb d)=p_a(\vb m, \vb d) p_g(\vb m, \vb d)\)</span>, white: theory</p>
+</section>
+<section id="model-space" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="model-space"><span class="header-section-number">11.2</span> Model space</h2>
+<div class="columns">
+<div class="column">
+<p>Bayes theorem provides another view on geophysical inversion</p>
+<ul>
+<li>trade-off between data fit (white curve) and model assumptions (color)</li>
+<li>represented by data errors and regularization terms/strength</li>
+</ul>
+</div><div class="column">
+<p><img src="pics/bayes/Menke_Fig9_11.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="application-to-constrained-inversion" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="application-to-constrained-inversion"><span class="header-section-number">11.3</span> Application to constrained inversion</h2>
+<p>Gaussian likelihood function (data misfit)</p>
+<p><span class="math display">\[ p(\vb d|\vb m)=\frac{1}{(2\pi)^P |D^{-1}|} \exp\left(-\frac12 \delta \vb d \vb D^T \vb D \delta \vb d\right)  \]</span></p>
+<p>Prior probability function (smoothness of the model)</p>
+<p><span class="math display">\[ p(\vb m)=\left(\frac{\lambda}{2\pi}\right)^{(N-1)/2} \exp(-\frac{\lambda}{2} \vb m^T \vb C^T \vb C \vb m) \]</span></p>
+</section>
+<section id="smoothness" class="level2" data-number="11.4">
+<h2 data-number="11.4" class="anchored" data-anchor-id="smoothness"><span class="header-section-number">11.4</span> Smoothness</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="notebooks/phi-lam300.svg" class="img-fluid figure-img"></p>
+<figcaption>left: <span class="math inline">\(\Phi_d\)</span>, center: <span class="math inline">\(\lambda\Phi_m\)</span>, right: <span class="math inline">\(\Phi_d+\lambda\Phi_m\)</span> (<span class="math inline">\(\lambda\)</span>=300)</figcaption>
+</figure>
+</div>
+</section>
+<section id="slightly-wrong-a-priori-information" class="level2" data-number="11.5">
+<h2 data-number="11.5" class="anchored" data-anchor-id="slightly-wrong-a-priori-information"><span class="header-section-number">11.5</span> Slightly wrong a-priori information</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="notebooks/phiApWrong-lam30.svg" class="img-fluid figure-img"></p>
+<figcaption>left: <span class="math inline">\(\Phi_d\)</span>, center: <span class="math inline">\(\lambda\Phi_m\)</span>, right: <span class="math inline">\(\Phi_d+\lambda\Phi_m\)</span> (<span class="math inline">\(\lambda\)</span>=30)</figcaption>
+</figure>
+</div>
+</section>
+<section id="global-inversion-algorithms" class="level1" data-number="12">
+<h1 data-number="12"><span class="header-section-number">12</span> Global inversion algorithms</h1>
+<ul>
+<li>probabilistic background and with randomness</li>
+<li>good for finding global minima of objective function</li>
+<li>many forward runs needed (only applicable for fast <span class="math inline">\(f(m)\)</span>)</li>
+<li>typical for small parameter sizes like curve fitting, 1D inversion</li>
+</ul>
+<section id="monte-carlo-methods" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="monte-carlo-methods"><span class="header-section-number">12.1</span> Monte Carlo methods</h2>
 <div class="columns">
 <div class="column">
 <ul>
 <li>Monte Carlos search: randomly draw solutions from grid</li>
-<li>accept solution only if better than old</li>
-<li>Markow-Chain-Monte-Carlo</li>
+<li>accept solution if better than old</li>
+<li>Markow chain <span class="math display">\[\{\vb m^0, \vb m^1, \ldots\}\]</span>
+<ul>
+<li><span class="math inline">\(\vb m^{k+1}\)</span> depends only on <span class="math inline">\(\vb m^k\)</span></li>
+</ul></li>
 <li>Metropolis-Hastings (Metropolis et al., 1953; Hastings, 1970)</li>
 </ul>
 </div><div class="column">
@@ -325,14 +418,125 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="simulate-annealing" class="level2" data-number="11.2">
-<h2 data-number="11.2" class="anchored" data-anchor-id="simulate-annealing"><span class="header-section-number">11.2</span> Simulate Annealing</h2>
+<section id="metropolis-hastings-algorithm" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="metropolis-hastings-algorithm"><span class="header-section-number">12.2</span> Metropolis-Hastings algorithm</h2>
+<div class="columns">
+<div class="column" style="width:65%;">
+<p>Markov chain <span class="math inline">\(P(X_{t+1}|X_1,\ldots,X_t)=P(X_{t+1}|P(X_t))\)</span></p>
+<p>draw candidate <span class="math inline">\(Y\)</span> from proposal distribution <span class="math inline">\(q(X_t, Y)\)</span> with probability</p>
+<p><span class="math display">\[\alpha(X_t,Y)=\min \qty[ \frac{p(Y)q(Y,X_t)}{p(X_t)q(X_t,Y)} , 1 ]\]</span></p>
+</div><div class="column" style="width:35%;">
+<p><img src="pics/bayes/mcmc.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="metropolis-hastings-algorithm-1" class="level2" data-number="12.3">
+<h2 data-number="12.3" class="anchored" data-anchor-id="metropolis-hastings-algorithm-1"><span class="header-section-number">12.3</span> Metropolis-Hastings algorithm</h2>
+<ol type="1">
+<li>Burn-in phase: random walker is methodically guided toward the region of most probable method</li>
+<li>Drawing of a candidate <span class="math inline">\(\vb m'\)</span> from a pdf <span class="math inline">\(q(\vb m|\vb m')\)</span> that approximates the posterior pdf (e.g., a Gaussian around the current state <span class="math inline">\(\vb m\)</span>)</li>
+<li>add candidate <span class="math inline">\(\vb m'\)</span> to Markov chain with acceptance probability <span class="math display">\[\alpha=\min(1,w) \qqtext{with} w = \frac{p(\vb m')*q(\vb m|\vb m')}{p(\vb m)*q(\vb m'|\vb m)}\]</span> using a random variable <span class="math inline">\(u\)</span> in the interval [0, 1] <span class="math inline">\(\Rightarrow\)</span> accept if <span class="math inline">\(u&gt;w\)</span></li>
+</ol>
+</section>
+<section id="key-components" class="level2" data-number="12.4">
+<h2 data-number="12.4" class="anchored" data-anchor-id="key-components"><span class="header-section-number">12.4</span> Key components</h2>
+<ul>
+<li><strong>Proposal Distribution</strong> (<span class="math inline">\(q\)</span>): Crucial for efficiency. A good proposal distribution explores the space well without being rejected too often.</li>
+<li><strong>Acceptance Rate</strong>: Good value (20-50%) indicates balance between exploration &amp; exploitation. Too low = slow. Too high = stuck locally.</li>
+<li><strong>Burn-in Period</strong>: The initial samples often discarded because the chain hasn’t converged to the stationary distribution yet.</li>
+<li><strong>Thinning</strong>: To reduce autocorrelation between samples, you can keep only every nth sample.</li>
+<li><strong>Convergence Diagnostics</strong>: Check if chain has actually converged to the target distribution. (e.g., Gelman-Rubin statistic, trace plots).</li>
+</ul>
+</section>
+<section id="trace-plots" class="level2" data-number="12.5">
+<h2 data-number="12.5" class="anchored" data-anchor-id="trace-plots"><span class="header-section-number">12.5</span> Trace plots</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pics/bayes/traceplots.png" class="img-fluid figure-img"></p>
+<figcaption>Berube et al.&nbsp;(2017)</figcaption>
+</figure>
+</div>
+</section>
+<section id="corner-plots" class="level2" data-number="12.6">
+<h2 data-number="12.6" class="anchored" data-anchor-id="corner-plots"><span class="header-section-number">12.6</span> Corner plots</h2>
 <div class="columns">
 <div class="column">
-<p>Test parameter</p>
-<p><span class="math display">\[ t = e^{-(\Phi(\vb m)-\Phi(\vb m^p))/T} \]</span></p>
+<p><img src="pics/bayes/cornerplot.png" class="img-fluid"></p>
 </div><div class="column">
-<div class="fragment">
+<p>(Roudsari et al., in rev.)</p>
+<ul>
+<li>statistics of models</li>
+<li>correlation of parameters</li>
+<li>uncertainty of the results</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="section" class="level2" data-number="12.7">
+<h2 data-number="12.7" class="anchored" data-anchor-id="section"><span class="header-section-number">12.7</span> </h2>
+<div class="columns">
+<div class="column">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pics/bayes/berube_fig3.png" class="img-fluid figure-img"></p>
+<figcaption>well-defined (Berube et al.&nbsp;2017)</figcaption>
+</figure>
+</div>
+</div><div class="column">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pics/bayes/berube_fig4.png" class="img-fluid figure-img"></p>
+<figcaption>poorly defined (Berube et al.&nbsp;2017)</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="model-variance" class="level2" data-number="12.8">
+<h2 data-number="12.8" class="anchored" data-anchor-id="model-variance"><span class="header-section-number">12.8</span> Model variance</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<p><img src="pics/bayes/model-variance.png" class="img-fluid"></p>
+</div><div class="column" style="width:40%;">
+<ul>
+<li>derivation of mean values and standard deviations</li>
+<li>statistic simulations</li>
+</ul>
+<p>(Tronicke et al., 2012)</p>
+</div>
+</div>
+</section>
+<section id="application-to-2d-ertip-inversion" class="level2" data-number="12.9">
+<h2 data-number="12.9" class="anchored" data-anchor-id="application-to-2d-ertip-inversion"><span class="header-section-number">12.9</span> Application to 2D ERT/IP inversion</h2>
+<div class="columns">
+<div class="column">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pics/bayes/hase2024_fig1.png" class="img-fluid figure-img"></p>
+<figcaption>Synthetic model &amp; data (Hase et al.&nbsp;2024)</figcaption>
+</figure>
+</div>
+</div><div class="column">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pics/bayes/hase2024_fig2.png" class="img-fluid figure-img"></p>
+<figcaption>Deterministic (a,b) &amp; probabilistic (c,d) result</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="simulated-annealing" class="level2" data-number="12.10">
+<h2 data-number="12.10" class="anchored" data-anchor-id="simulated-annealing"><span class="header-section-number">12.10</span> Simulated Annealing</h2>
+<div class="columns">
+<div class="column">
+<p>Gibbs (Boltzmann) sampling <span class="math display">\[ P(E) = e^{-\frac{E}{k_B T}} = e^{-(\Phi(\vb m)-\Phi(\vb m^p))/T} \]</span></p>
+<ul>
+<li>draw models neighboring best fit</li>
+<li>large movements if far from target fit</li>
+<li>small if approaching target</li>
+</ul>
+</div><div class="column">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="pics/simulatedAnnealingMethod.png" class="img-fluid figure-img"></p>
@@ -341,62 +545,85 @@ window.Quarto = {
 </div>
 </div>
 </div>
-</div>
 </section>
-<section id="alternatives-to-grid-search" class="level2" data-number="11.3">
-<h2 data-number="11.3" class="anchored" data-anchor-id="alternatives-to-grid-search"><span class="header-section-number">11.3</span> Alternatives to grid search</h2>
-<div class="callout callout-style-default callout-note callout-titled" title="Monte Carlo search">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Monte Carlo search
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>draw random samples and accept them if the error is improved</p>
-</div>
-</div>
-<p>undirected search (Newtons method is directed)</p>
-<div class="callout callout-style-default callout-note callout-titled" title="Simulated annealing">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Simulated annealing
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>decrease temperature controlling particle movements:</p>
-<p>high <span class="math inline">\(T\)</span>: undirected, low <span class="math inline">\(T\)</span>: search in vicinity of current model</p>
+<section id="bio-inspired-global-search-methods" class="level2" data-number="12.11">
+<h2 data-number="12.11" class="anchored" data-anchor-id="bio-inspired-global-search-methods"><span class="header-section-number">12.11</span> Bio-inspired global search methods</h2>
+<ul>
+<li>Genetic Algorithm</li>
+<li>Evolution Strategy</li>
+<li>Differential Evolution Algorithm</li>
+<li>Estimation of Distribution Algorithm</li>
+<li>Particle Swarm Optimization</li>
+<li>Ant Colony Optimization</li>
+<li>Pareto Archived Evolution Strategy (PAES)</li>
+<li>Nondominated Sorting Genetic Algorithm (NSGA-II)</li>
+</ul>
+</section>
+<section id="genetic-algorithms" class="level2" data-number="12.12">
+<h2 data-number="12.12" class="anchored" data-anchor-id="genetic-algorithms"><span class="header-section-number">12.12</span> Genetic algorithms</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<p><img src="pics/bayes/geneticAlgorithmDiagram.svg" class="img-fluid"></p>
+</div><div class="column" style="width:45%;">
+<ul>
+<li>inspired by evolution of species (<em>survival of the fittest</em>)</li>
+<li>code models in a binary (DNA) sequence</li>
+<li>randomly generate initial population</li>
+<li>let the fittest (data fit!) survive &amp; mate and the unfittest die</li>
+<li>mutation of the DNA to create variability</li>
+</ul>
 </div>
 </div>
 </section>
-<section id="monte-carlo-vs.-simulated-annealing" class="level2" data-number="11.4">
-<h2 data-number="11.4" class="anchored" data-anchor-id="monte-carlo-vs.-simulated-annealing"><span class="header-section-number">11.4</span> Monte Carlo vs.&nbsp;Simulated Annealing</h2>
+<section id="nondominated-sorting-genetic-algorithm" class="level2" data-number="12.13">
+<h2 data-number="12.13" class="anchored" data-anchor-id="nondominated-sorting-genetic-algorithm"><span class="header-section-number">12.13</span> Nondominated Sorting Genetic Algorithm</h2>
 <div class="columns">
 <div class="column">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="pics/monteCarloMethod.png" class="img-fluid figure-img"></p>
-<figcaption>Monte Carlo method</figcaption>
-</figure>
-</div>
+<p><img src="pics/bayes/Akca2013NSGA2.png" class="img-fluid"></p>
 </div><div class="column">
-<div class="fragment">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="pics/simulatedAnnealingMethod.png" class="img-fluid figure-img"></p>
-<figcaption>Simulated Annealing</figcaption>
-</figure>
+<ul>
+<li>minimization of two objective functions
+<ul>
+<li>two geophysical methods</li>
+<li>data misfit and model roughness</li>
+</ul></li>
+<li>Pareto front: all non-dominated individuals</li>
+<li>sort Pareto rank and play god</li>
+</ul>
 </div>
 </div>
+</section>
+<section id="particle-swarm-optimization" class="level2" data-number="12.14">
+<h2 data-number="12.14" class="anchored" data-anchor-id="particle-swarm-optimization"><span class="header-section-number">12.14</span> Particle swarm optimization</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>movements of individuals in swarm (impulse &amp; attraction)</li>
+<li>individual position (<span class="math inline">\(\vb m\)</span>) &amp; velocity <img src="pics/bayes/swarm.jpg" class="img-fluid"></li>
+</ul>
+</div><div class="column">
+<ul>
+<li>distribute population over range</li>
+<li>acceleration from attraction</li>
+<li>move with velocity <img src="pics/bayes/ParticleSwarmArrowsAnimation.gif" class="img-fluid"></li>
+</ul>
 </div>
 </div>
+</section>
+<section id="summary" class="level2" data-number="12.15">
+<h2 data-number="12.15" class="anchored" data-anchor-id="summary"><span class="header-section-number">12.15</span> Summary</h2>
+<p>global (probabilistic) inversion methods</p>
+<ul>
+<li>can overcome local minimum problems</li>
+<li>also find a trade-off between data fit and model assumptions</li>
+<li>find a variety of models fitting the data</li>
+<li>can therefore show correlation and model uncertainty</li>
+<li>only applicable to “small” problems (increasingly simple 2D)</li>
+<li>well suited as supplement to local methods</li>
+</ul>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

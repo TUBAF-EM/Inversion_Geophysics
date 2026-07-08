@@ -129,11 +129,21 @@ ax[1].legend()
 
 ### Resolution and model covariance
 
+Let us start with the data resolution matrix
+
+```{python}
+JTJ = J.T@J
+DRM = J@np.linalg.inv(JTJ)@J.T
+plt.imshow(DRM, cmap="bwr", vmin=-1, vmax=1);
+```
+
+The overall information content is 5, i.e. matching the number of resolved parameters.
+So the individual data are weaker and neighboring AB/2 are highly correlated.
+
 As for the overdetemined problem the model resolution is perfect, we instead compute the model covariance
  $$ MCM = (\vb J^T \vb J + \lambda \vb I) $$
 
 ```{python}
-JTJ = J.T@J
 MCM = np.linalg.inv(JTJ)
 print(np.sqrt(np.diag(MCM)))
 plt.imshow(MCM, cmap="bwr", vmin=-1, vmax=1);
@@ -196,8 +206,26 @@ As above, we compute the model covariance:
 
 ```{python}
 JTJ = J.T@J
-A = np.linalg.inv(JTJ + CTC*lam)
-plt.imshow(A, cmap="bwr", vmin=-.01, vmax=.01)
-print(np.sqrt(np.diag(MCM)))
+MCM = np.linalg.inv(JTJ + CTC*lam)
+plt.imshow(MCM, cmap="bwr", vmin=-.01, vmax=.01)
+var = np.sqrt(np.diag(MCM))
+print(var)
 ```
 
+We have variances (of the logarithm, i.e. relative accuracies) in the order of 10% and can use them to have some upper and lower boundaries.
+
+```{python}
+fig, ax = plt.subplots()
+drawModel1D(ax, thk, res)
+drawModel1D(ax, thk, res*(1+var))
+drawModel1D(ax, thk, res*(1-var))
+drawModel1D(ax, model=modelSynth)
+ax.invert_yaxis()
+```
+
+We can also compute the model resolution matrix
+
+```{python}
+MRM = np.linalg.inv(JTJ + CTC*lam) @ (JTJ)
+plt.imshow(np.log(JTJ), cmap="bwr", vmin=-1, vmax=1)
+```
