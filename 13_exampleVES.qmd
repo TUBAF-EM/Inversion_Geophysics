@@ -141,7 +141,7 @@ The overall information content is 5, i.e. matching the number of resolved param
 So the individual data are weaker and neighboring AB/2 are highly correlated.
 
 As for the overdetemined problem the model resolution is perfect, we instead compute the model covariance
- $$ MCM = (\vb J^T \vb J + \lambda \vb I) $$
+ $$ MCM = (\vb J^T \vb J + \lambda \vb I)^{-1} $$
 
 ```{python}
 MCM = np.linalg.inv(JTJ)
@@ -229,3 +229,5 @@ We can also compute the model resolution matrix
 MRM = np.linalg.inv(JTJ + CTC*lam) @ (JTJ)
 plt.imshow(MRM, cmap="bwr", vmin=-1, vmax=1)
 ```
+
+showing how much the model parameters correlate with each other.

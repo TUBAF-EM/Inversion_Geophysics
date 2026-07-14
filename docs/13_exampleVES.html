@@ -351,7 +351,7 @@ window.Quarto = {
 <li><code>VESModelling</code> uses a block discretization of (few) <span class="math inline">\(N\)</span> layer resistivities preceded by N-1 thickness values</li>
 <li><code>VESRhoModelling</code> uses a fixed (many) layer discretization that is adressed by smoothness constraints</li>
 </ul>
-<div id="bf2e42b5" class="cell" data-execution_count="2">
+<div id="bf2e42b5" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pygimli.physics.ves <span class="im">import</span> VESModelling, VESRhoModelling</span>
@@ -362,7 +362,7 @@ window.Quarto = {
 <section id="the-synthetic-model" class="level2" data-number="12.1">
 <h2 data-number="12.1" class="anchored" data-anchor-id="the-synthetic-model"><span class="header-section-number">12.1</span> The synthetic model</h2>
 <p>The experiment comprises a VES sounding with AB/2 values between 6m and 1km. The synthetic model consist of a 20m thick bad conductor embedded in rather conductive halfspace with 10m overburden. Gaussian noise with a relative error model of 3% is added to the data.</p>
-<div id="9757c880" class="cell" data-execution_count="3">
+<div id="9757c880" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ab2 <span class="op">=</span> np.logspace(<span class="fl">0.5</span>, <span class="dv">3</span>, <span class="dv">30</span>)</span>
@@ -377,7 +377,7 @@ window.Quarto = {
 <pre><code>30 [20.079031911664593, 19.887934827460903, 21.014925252610364, 20.85520209476763, 20.898729215173997, 21.435671089464467, 23.37646203101076, 25.585224390738755, 30.724953532972535, 34.15051213815305, 39.55632664569125, 44.49255263072366, 53.020316621050476, 60.06137182826126, 69.96308299417505, 79.81414963031365, 83.66767769588436, 92.4021749333356, 93.28372798017463, 92.65756439031824, 91.99999247378997, 89.97234590623434, 74.9675144829669, 58.97294951816488, 51.04970461511585, 46.63066941282433, 37.9981738249699, 36.71825460105309, 33.28221114450177, 31.18474144383116]</code></pre>
 </div>
 </div>
-<div id="c30a3a16" class="cell" data-execution_count="4">
+<div id="c30a3a16" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
@@ -394,7 +394,7 @@ window.Quarto = {
 </div>
 </div>
 <p>The intrinsic model parameters and data are resistivity and apparent resistivity. For both data and model we use a logarithmic transform For computing the Jacobian by a Finite Difference (brute force) approach we write a function taking this into account:</p>
-<div id="96d9db9d" class="cell" data-execution_count="5">
+<div id="96d9db9d" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Jacobian(model, f):</span>
@@ -422,7 +422,7 @@ window.Quarto = {
 <p><span class="math display">\[\Delta\vb m = (\vb J^T \vb J + \lambda \vb I)^{-1} (\vb J^\top (\vb d-\vb f(\vb m)))\]</span></p>
 <p>The damping parameter <span class="math inline">\(\lambda\)</span> is for stabilization in the early stage and decreased subsequently.</p>
 <p>We start the inversion with a homogeneous model and compute its Jacobian matrix:</p>
-<div id="cbadcec4" class="cell" data-execution_count="6">
+<div id="cbadcec4" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> np.array([<span class="dv">15</span>, <span class="dv">15</span>, <span class="dv">100</span>, <span class="dv">100</span>, <span class="dv">100</span>])</span>
@@ -441,7 +441,7 @@ window.Quarto = {
 <section id="inversion" class="level3" data-number="12.2.1">
 <h3 data-number="12.2.1" class="anchored" data-anchor-id="inversion"><span class="header-section-number">12.2.1</span> Inversion</h3>
 <p>The inversion is then done by solving the damped normal equations in every iteration.</p>
-<div id="ed699f38" class="cell" data-execution_count="7">
+<div id="ed699f38" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> np.array([<span class="dv">15</span>, <span class="dv">15</span>, <span class="dv">100</span>, <span class="dv">100</span>, <span class="dv">100</span>])</span>
@@ -468,7 +468,7 @@ chi2 =  0.9781134997252262
 </div>
 </div>
 <p>We plot the data fit and the model along with the synthetic model</p>
-<div id="714e8797" class="cell" data-execution_count="8">
+<div id="714e8797" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(ncols<span class="op">=</span><span class="dv">2</span>)</span>
@@ -494,7 +494,7 @@ chi2 =  0.9781134997252262
 <section id="resolution-and-model-covariance" class="level3" data-number="12.2.2">
 <h3 data-number="12.2.2" class="anchored" data-anchor-id="resolution-and-model-covariance"><span class="header-section-number">12.2.2</span> Resolution and model covariance</h3>
 <p>Let us start with the data resolution matrix</p>
-<div id="89686f7d" class="cell" data-execution_count="9">
+<div id="89686f7d" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>JTJ <span class="op">=</span> J.T<span class="op">@</span>J</span>
@@ -510,8 +510,8 @@ chi2 =  0.9781134997252262
 </div>
 </div>
 <p>The overall information content is 5, i.e.&nbsp;matching the number of resolved parameters. So the individual data are weaker and neighboring AB/2 are highly correlated.</p>
-<p>As for the overdetemined problem the model resolution is perfect, we instead compute the model covariance <span class="math display">\[ MCM = (\vb J^T \vb J + \lambda \vb I) \]</span></p>
-<div id="020f2767" class="cell" data-execution_count="10">
+<p>As for the overdetemined problem the model resolution is perfect, we instead compute the model covariance <span class="math display">\[ MCM = (\vb J^T \vb J + \lambda \vb I)^{-1} \]</span></p>
+<div id="020f2767" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>MCM <span class="op">=</span> np.linalg.inv(JTJ)</span>
@@ -535,7 +535,7 @@ chi2 =  0.9781134997252262
 <section id="smoothness-constrained-inversion" class="level2" data-number="12.3">
 <h2 data-number="12.3" class="anchored" data-anchor-id="smoothness-constrained-inversion"><span class="header-section-number">12.3</span> Smoothness-constrained inversion</h2>
 <p>Here we use a predefined geometry (layers) with increasing layer thickness. This is passed to the forward operator in the initialization so that only the resistivity vector is passed to the forward routine. We start with a homogeneous resistivity and compute the Jacobian matrix</p>
-<div id="3facbde5" class="cell" data-execution_count="11">
+<div id="3facbde5" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>thk <span class="op">=</span> np.linspace(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">25</span>)</span>
@@ -564,7 +564,7 @@ chi2 =  0.9781134997252262
 <p>In the inversion, we use an explicit regularization using a roughness (gradient) operator <span class="math inline">\(\vb C\)</span>. In every iteration, we solve the regularized normal equation.</p>
 <p><span class="math display">\[\Delta\vb m = (\vb J^T \vb J + \lambda \vb C^\top \vb C)^{-1} (\vb J^\top (\vb d-\vb f(\vb m)) - \lambda \vb C^\top \vb C \vb m)\]</span></p>
 <p>Note the last term that arises when operating on the model itself and not only the update, i.e.&nbsp;the roughness of the model is taken into account.</p>
-<div id="09a97ca2" class="cell" data-execution_count="12">
+<div id="09a97ca2" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> np.ones(<span class="bu">len</span>(thk)<span class="op">+</span><span class="dv">1</span>) <span class="op">*</span> <span class="dv">100</span></span>
@@ -589,7 +589,7 @@ chi2 =  1.032985507960912</code></pre>
 </div>
 </div>
 <p>We use the function <code>drawModel1D</code> to plot the result along with the synthetic model. Note the two modes: a) specifying thickness and values, or b) a complete model vector with both included.</p>
-<div id="0536927c" class="cell" data-execution_count="13">
+<div id="0536927c" class="cell" data-execution_count="14">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
@@ -606,7 +606,7 @@ chi2 =  1.032985507960912</code></pre>
 </div>
 </div>
 <p>We see that the upper boundary is resolved well, but the lower boundary is smeared, a typical problem in smoothness-constrained inversion. As above, we compute the model covariance:</p>
-<div id="0a5a6708" class="cell" data-execution_count="14">
+<div id="0a5a6708" class="cell" data-execution_count="15">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>JTJ <span class="op">=</span> J.T<span class="op">@</span>J</span>
@@ -631,7 +631,7 @@ chi2 =  1.032985507960912</code></pre>
 </div>
 </div>
 <p>We have variances (of the logarithm, i.e.&nbsp;relative accuracies) in the order of 10% and can use them to have some upper and lower boundaries.</p>
-<div id="3c5107dd" class="cell" data-execution_count="15">
+<div id="3c5107dd" class="cell" data-execution_count="16">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
@@ -650,7 +650,7 @@ chi2 =  1.032985507960912</code></pre>
 </div>
 </div>
 <p>We can also compute the model resolution matrix</p>
-<div id="6ced1aea" class="cell" data-execution_count="16">
+<div id="6ced1aea" class="cell" data-execution_count="17">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>MRM <span class="op">=</span> np.linalg.inv(JTJ <span class="op">+</span> CTC<span class="op">*</span>lam) <span class="op">@</span> (JTJ)</span>
@@ -664,6 +664,7 @@ chi2 =  1.032985507960912</code></pre>
 </div>
 </div>
 </div>
+<p>showing how much the model parameters correlate with each other.</p>
 
 
 </section>
