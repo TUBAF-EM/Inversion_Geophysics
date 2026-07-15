@@ -196,12 +196,15 @@ Note the two modes: a) specifying thickness and values, or b) a complete model v
 
 ```{python}
 fig, ax = plt.subplots()
-drawModel1D(ax, thk, res)
+drawModel1D(ax, thk, res, plot="semilogy")
 drawModel1D(ax, model=modelSynth)
 ax.invert_yaxis()
 ```
 
-We see that the upper boundary is resolved well, but the lower boundary is smeared, a typical problem in smoothness-constrained inversion.
+We see that the upper boundary is resolved well, but the lower boundary is smeared, a typical problem in smoothness-constrained inversion. The maximum is within the synthetic layer, but its center point moves to larger depths (where the resolution decreases).
+Below the smeared good conductor there is a decrease beyond the synthetic value of 30 Ohmm, before the correct value is reached for the last layer.
+These compensation artifacts are also known to appear.
+
 As above, we compute the model covariance:
 
 ```{python}
@@ -212,11 +215,11 @@ var = np.sqrt(np.diag(MCM))
 print(var)
 ```
 
-We have variances (of the logarithm, i.e. relative accuracies) in the order of 10% and can use them to have some upper and lower boundaries.
+We have variances (of the logarithm, i.e. relative accuracies) in the order of 10% and can use them to plot some upper and lower resistivity bounds.
 
 ```{python}
 fig, ax = plt.subplots()
-drawModel1D(ax, thk, res)
+drawModel1D(ax, thk, res, plot="semilogy")
 drawModel1D(ax, thk, res*(1+var), color="C0", ls="--")
 drawModel1D(ax, thk, res*(1-var), color="C0", ls="--")
 drawModel1D(ax, model=modelSynth)
@@ -231,3 +234,7 @@ plt.imshow(MRM, cmap="bwr", vmin=-1, vmax=1)
 ```
 
 showing how much the model parameters correlate with each other.
+Note that even though `JTJ` and `CTC` are symmetric, the model resolution matrix is not necessarily symmetric.
+Every column shows how a single anomaly in the real world is projected into our model estimate, whereas every row tells where the information in one cell can come from.
+This is most visible for the last layer which is itself well resolved, but projects into the weakly resolved layers above.
+For a better balance of the model parameters, the layer thicknesses should probably be more increased with depth.
